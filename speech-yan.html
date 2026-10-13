@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西游记·ICT项目管理 · 口播稿（阎鹤祥版）</title>
+<style>
+  :root{
+    --primary:#0066CC; --primary-dark:#004080; --accent-orange:#FF6600;
+    --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff;
+    --text:#333; --text-light:#888;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+  .header{background:linear-gradient(135deg,#0066CC,#004080);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10}
+  .header h1{font-size:16px;font-weight:700;letter-spacing:2px}
+  .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
+  .colorbar{display:flex;height:4px}
+  .colorbar div{flex:1}
+  #pages{position:fixed;inset:0;padding:76px 16px 110px;z-index:5;overflow:hidden}
+  .page{position:absolute;inset:76px 0 110px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
+  .page.active{display:block;opacity:1}
+  .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
+  .pagemeta .tag.g{background:var(--accent-green)}
+  .pagemeta .tag.o{background:var(--accent-orange)}
+  .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4}
+  .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)}
+  .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px}
+  .page .script p:last-child{margin-bottom:0}
+  .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .page .script .pause{display:inline-block;background:var(--accent-orange);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin:0 4px}
+  .page .script .key{color:var(--primary);font-weight:700}
+  .page .script .joke{color:#9a3b0e;font-weight:600}
+  #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
+  .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none}
+  .nav-btn:active{background:var(--primary);color:#fff}
+  .nav-btn.disabled{opacity:.3;pointer-events:none}
+  .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pager::-webkit-scrollbar{display:none}
+  .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer;font-family:var(--mono,"Menlo",monospace)}
+  .pnum.on{background:var(--primary);color:#fff;font-weight:700}
+  .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>口播稿 · 阎鹤祥版</h1>
+  <div class="sub">西游记·ICT项目管理 ｜ 单口喜剧 · 文本风格 ｜ 相声行话 · 冷幽默 ｜ 滑动或点页码切换</div>
+</div>
+<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
+
+<div id="pages">
+
+<!-- P1 封面 -->
+<div class="page" data-p="1">
+  <div class="pagemeta"><span class="tag">开场</span><span>第 01 页 / 25 · 约 2.5 分钟</span></div>
+  <div class="title">开场白</div>
+  <div class="script">
+    <p>我，先自报家门：阎鹤祥。说相声的，捧哏的。咱们这行有句话，叫"三分逗，七分捧"——逗哏的往前冲，捧哏的往后兜。今天让我来讲项目管理，我一开始是不愿意的——我说我又不是干这行的。<span class="stage">停顿</span>后来我想通了：<span class="key">项目经理，不就是项目里的捧哏吗？</span>活儿不是你干的，但活儿垮不垮，全看你兜不兜得住。</p>
+    <p>所以今天这四十五分钟，我就拿咱们行当的"活儿"，把《西游记》给您串一遍。您先别急着定义它是神魔小说还是项目管理教材——<b>先问个问题：如果我说，取经这事儿，其实是一支最标准的"开票"项目组，你信吗？</b><span class="stage">互动</span>（停顿，看反应）</p>
+    <p>干活的：悟空、八戒、沙僧、白龙马——四个角儿。托底的：唐僧——发起人：唐太宗。目标：真经。KPI：八十一难，一难不许漏。交付物：5048卷。<span class="jq">这不叫"像"项目，这本身就是"个"项目，还是那种最不好干的项目——跨地域、长周期、高风险、零预算。</span></p>
+    <p>今天，我捧着这副"项目经理"的眼镜，给您把这出"西游"的活儿捋一遍。您听——觉得有，您鼓个掌；觉得没，您就当听了个"崩盘"的段子——<span class="jq">听相声，崩了就崩了，高兴就行。</span></p>
+  </div>
+</div>
+
+<!-- P2 幕封 -->
+<div class="page" data-p="2">
+  <div class="pagemeta"><span class="tag g">转场</span><span>第 02 页 / 25</span></div>
+  <div class="title">第一幕 · 取经即项目</div>
+  <div class="script">
+    <p>第一幕，先立个前提：取经，凭什么算个项目？咱不"口说无凭"，得上"硬货"。<span class="stage">翻页</span></p>
+  </div>
+</div>
+
+<!-- P3 硬数据 -->
+<div class="page" data-p="3">
+  <div class="pagemeta"><span class="tag">讲解</span><span>第 03 页 / 25 · 约 3.5 分钟</span></div>
+  <div class="title">取经项目的硬指标</div>
+  <div class="script">
+    <p>这六个数，就是西游记给这个项目立的"行规"。头一个，工期：<span class="key">十四年</span>。贞观十三年开拔，二十七年才回。咱们项目延期仨月就"写说明、约谈"了，人家一延就是十三年。<span class="jq">这活儿，搁今天的KPI考核，早该"毕业"了。</span></p>
+    <p>第二个，里程：<span class="key">十万八千里</span>。注意，这不是直线，是"巡演"走出来的实际路程，得路过八十一个"场"。第三个，风险：<span class="key">八十一难</span>——这就是一份现成的风险登记册：妖、旱、内乱、仿冒，一难一场，场场是"活儿"。</p>
+    <p>第四个，团队：<span class="key">五个人</span>。十万八千里，五个人开台——这是"一个萝卜"得"五个坑"的活儿。第五，交付物：<span class="key">5048卷</span>真经，有数，能验收。第六，发起人：<span class="key">唐太宗</span>——定盘、签批、出钱，一人全包。</p>
+    <p>对照咱们的定义：临时性——取完就散；独特性——天下独一份；有交付物；有发起人。<span class="stage">停顿</span>四条，全中。所以以后谁问"西游算不算项目"，您把胸脯拍平了告诉他：<b>算，而且是教科书级别的"坑"。</b></p>
+  </div>
+</div>
+
+<!-- P4 章程 -->
+<div class="page" data-p="4">
+  <div class="pagemeta"><span class="tag">讲解</span><span>第 04 页 / 25 · 约 2.5 分钟</span></div>
+  <div class="title">长安送别：史上排面最大的开工</div>
+  <div class="script">
+    <p>这页，咱们拿"立班"讲。长安城外，唐太宗——班主——亲送唐僧。你看这排面：一把手亲自送到城门口，今天哪场开工动员会赶得上？<span class="stage">互动</span>重点，是他递过去的那道"通关文牒"——在PMBOK里，这叫"项目章程"。</p>
+    <p>章程三件事，班主给得齐齐：<strong>为什么办</strong>——大唐缺大乘真经；<strong>谁办</strong>——御弟玄奘，当场赐了"名"——"三藏"；<strong>资源怎么给</strong>——通关文牒、御赐金钵、俩随从。<span class="stage">。</span>章程落地了，活儿才算"立"了。</p>
+    <p>唐僧最会的是——接旨就立"军令状"，领了"活"就出发。<span class="jq">这行规，凡是"章程没签、人头先动"的项目，十有八九，干到一半就"窜"了，剩下那个靠"奇迹"。</span></p>
+  </div>
+</div>
+
+<!-- P5 命题 -->
+<div class="page" data-p="5">
+  <div class="pagemeta"><span class="tag o">收束</span><span>第 05 页 / 25 · 约 1.5 分钟</span></div>
+  <div class="title">它凭什么是最复杂的项目？</div>
+  <div class="script">
+    <p>那凭什么说它"最复杂"？五条给您数：<strong>跨地域</strong>——十万里、八十多国；<strong>多干系人</strong>——天庭、佛界、人间、地方妖怪，四方势力，哪个都"惹不起"；<strong>高风险</strong>——随时被吃，这是"人身安全级"的项目风险；<strong>长周期</strong>——十四年；<strong>资源</strong>——吃饭靠"化缘"。</p>
+    <p>您把这五条，往今天任何一个"活"里一放：异地团队、多方接口、安全压力、周期长、预算紧——<b>严丝合缝</b>。<span class="stage">停顿</span>所以这《西游记》不是"演义"，是"现形"——它比咱们那些评审PPT，还真。<span class="stage">停顿</span>好，有了这张"战场图"，下面进"十大领域"。</p>
+  </div>
+</div>
+
+<!-- P6 幕封 -->
+<div class="page" data-p="6">
+  <div class="pagemeta"><span class="tag o">转场</span><span>第 06 页 / 25</span></div>
+  <div class="title">第二幕 · 十大领域</div>
+  <div class="script">
+    <p>第二幕，十大领域。我不贪多，挑六组最有戏的讲，一组一句话，配一个"画面"，下课您就明白了。<span class="stage">翻页</span></p>
+  </div>
+</div>
+
+<!-- P7 整合 -->
+<div class="page" data-p="7">
+  <div class="pagemeta"><span class="tag">知识域01</span><span>第 07 页 / 25 · 约 3 分钟</span></div>
+  <div class="title">整合管理：唐僧＝捧哏</div>
+  <div class="script">
+    <p>第一个领域，整合。我拿行当说——<span class="key">逗哏，是台上"显"的角儿；捧哏，是那个"兜"的。</span>观众记不住捧哏，但捧哏一"掉线"，逗哏的"活"全塌。整合管理，就是干这个"捧哏"的活儿。</p>
+    <p>唐僧干的是啥？<strong>定方向</strong>——人家不偏，往西不拐；<strong>管冲突</strong>——俩徒弟"打"起来他"劝架"；<strong>对外协调</strong>——通关、借路、请客爷，都他出面；<strong>守底线</strong>——紧箍咒，该念就念，目标不变。<span class="stage">。</span></p>
+    <p>所以有句话我记了半辈子：<b>项目经理不是"打妖怪"的人，是"保证打妖怪的人朝对的方向打"的人。</b>搁行话叫——"<span class="jq">托盘的，不现。</span>"<span class="stage">停顿</span>您想想，您团队里那个天天"被抓"的领导，是不是干这个的？</p>
+  </div>
+</div>
+
+<!-- P8 范围 -->
+<div class="page" data-p="8">
+  <div class="pagemeta"><span class="tag">知识域02</span><span>第 08 页 / 25 · 约 3 分钟</span></div>
+  <div class="title">范围管理：真经＝交付物</div>
+  <div class="script">
+    <p>第二个领域，范围。说白，就是"这单活儿，你到底要"什么"、验工单上写"什么"。交付物明确：大乘真经一套。WBS一拆：上路、收徒、历劫、到灵山、取经、东归、译经传法——七个工作包，清清楚楚。<span class="stage">。</span></p>
+    <p>这页最好看的，是"无字真经"那一段。十四年，熬到灵山验收——管经库的阿那、伽利俩"库头"，递上来一套"白纸本"。<span class="jq">您想想这个画面：唱了半年的"活儿"，到"倒二"，角儿给来一出"无字的"——观众能干嘛？</span>悟空当场"翻"了，打回重谈，最后拿紫金钵盂换回有字真经，5048卷，点验合格。</p>
+    <p>这就是验收的标准姿势：<b>按单核对，不合格就打回。</b>咱们项目里，常有"无字真经"——功能缺、文档缺、数据假——但不敢打回，怕返工、怕得罪人，最后闭眼签了验收单。记住：<b>验收的手一软，前面十四年全白跑。</b>敢打回，才叫范围管理。</p>
+  </div>
+</div>
+
+<!-- P9 进度 -->
+<div class="page" data-p="9">
+  <div class="pagemeta"><span class="tag">知识域03</span><span>第 09 页 / 25 · 约 4 分钟</span></div>
+  <div class="title">进度管理：八十一难＝一场场的活儿</div>
+  <div class="script">
+    <p>第三个领域，进度。西游记的绝，是把项目切成"八十一难"——一难一个"段"，一段一个"点"。<span class="stage">。</span>唐项目经理的计划：出发、收徒、历劫、取经、东归，五大节点。关键路径上挂仨"雷"：通天河、靠"龟"接；火焰山、借"扇"；狮驼岭——三魔王老家，全项目"最难"。</p>
+    <p>但今天这页，我要讲一个全行业最著名的"进度翻车"——唐太宗送行时问："御弟，这一去，几时能回？"<span class="stage">互动</span>各位，换您，当着一把手的"班主"面，您敢报几年？（停顿几秒）<span class="stage">互动</span></p>
+    <p>原著——唐僧，拍胸脯："<b>只在三年，径回上国。</b>"<span class="stage">停顿</span>三年！结果呢？十四年！差五倍！<span class="jq">这味儿，熟不熟？不就是咱那"工时确认"吗？"三天""三周"，回头一算——三个月。</span></p>
+    <p>这在行里，叫"规划谬误"——人一到估，就爱犯迷糊。经验法则：<b>复杂项目，初估 ×2 才是现实；唐僧这种，还得再 ×2。</b>为啥管进度？因为"关键路径上躺一天，交付就晚一天——神仙也改不了"。</p>
+  </div>
+</div>
+
+<!-- P10 成本 -->
+<div class="page" data-p="10">
+  <div class="pagemeta"><span class="tag">知识域04</span><span>第 10 页 / 25 · 约 2.5 分钟</span></div>
+  <div class="title">成本管理：化缘＝零预算</div>
+  <div class="script">
+    <p>第四个领域，成本。先问一句实在的：取经的预算多少？<span class="stage">互动</span>——<b>约等于零</b>。<span class="stage">。</span></p>
+    <p>您看它那日子：吃饭"化缘"，睡觉"借宿"，出门"靠腿"，连白龙马的草料都得自己"打"。全班子没有"财务"——就出发时皇帝给的盘缠，一路"靠"。<span class="jq">这是把"降本增效"干到了极致。</span></p>
+    <p>那问题，这么穷，凭啥还交付成了？因为成本管理的真谛，从来不是"花多少"，是<b>"用最少的钱，交付最大的价值"</b>。人家所有资源，全砸在一个目标——到灵山。该省的省了，该花的没含糊。<span class="stage">。</span>反观有的项目，预算不少，钱撒在"边边角角"——仪式感拉满、汇报精装、核心裸奔——最后验收："无字真经"。所以别笑唐僧穷，<b>人家的钱，都在"关键路径"上。</b></p>
+  </div>
+</div>
+
+<!-- P11 质量 -->
+<div class="page" data-p="11">
+  <div class="pagemeta"><span class="tag">知识域05</span><span>第 11 页 / 25 · 约 3 分钟</span></div>
+  <div class="title">质量管理：真假美猴王</div>
+  <div class="script">
+    <p>第五个领域，质量。这页我专挑"真假美猴王"。<span class="key">质量管理的核心就俩字：谁说了算。</span></p>
+    <p>俩猴子，一个真，一个仿，长得一模一样，从山下打到南海——观音分不清，玉帝看走眼，最后打到"如来"跟前，佛祖慧眼：六耳，现形！<b>由最高权威，终审。</b>这告诉我们：质量争议，得有"说了算"的；标准，得提前立。不能俩开发吵到天黑，谁嗓门大听谁的。</p>
+    <p>再看无字：白纸——"翻"了；有字5048——收。一进一退，标准"立"起来。<span class="stage">。</span>总结：<b>质量不是验收那天"检"出来的，是一路"管"出来的</b>——标准提前定、边做边控、交付按单验。真经如此，系统上线也一样。</p>
+  </div>
+</div>
+
+<!-- P12 范围蔓延 -->
+<div class="page" data-p="12">
+  <div class="pagemeta"><span class="tag o">预警</span><span>第 12 页 / 25 · 约 2 分钟</span></div>
+  <div class="title">范围蔓延预警：八戒的"散伙"</div>
+  <div class="script">
+    <p>第二幕收，请一位"反面教材"：八戒。这主儿有个特点——凡事儿一到他那儿，头一句准是"<b>散伙吧，回高老庄</b>"。大师兄被赶，散；师父被抓，散；行李一重，散。而且人家理由还特别正：<span class="jq">"这不叫退，这叫及时止损。"</span></p>
+    <p>在项目管理里，这叫什么？<span class="key">范围蔓延的信号</span>，再严重点，团队丢目标的信号。您组里有没有这种人——项目一难，就有人"要不砍了吧""做个简化版""这需求不重"。<b>每句"算了、差不多、先这样"，都是在给目标"放血"。</b></p>
+    <p>您再看唐僧怎么接——不吵、不纵，就一句："<b>贫僧自东土大唐而来，去往西天拜佛求经。</b>"翻译成行话：<span class="jq">"初心没变，"散伙"这需求，不在本期。"</span><span class="stage">。</span>项目经理最值钱的本事之一：每次会开完，全组知道"咱们为啥还在干"。</p>
+  </div>
+</div>
+
+<!-- P13 幕封 -->
+<div class="page" data-p="13">
+  <div class="pagemeta"><span class="tag o">转场</span><span>第 13 页 / 25</span></div>
+  <div class="title">第三幕 · 团队与协作</div>
+  <div class="script">
+    <p>第二幕看"事"，第三幕看"人"。团队、沟通、风险、采购、相关方，五块连着讲——因为项目这东西，说到底，是人与人搭伙干的。<span class="stage">翻页</span></p>
+  </div>
+</div>
+
+<!-- P14 资源 -->
+<div class="page" data-p="14">
+  <div class="pagemeta"><span class="tag">知识域06</span><span>第 14 页 / 25 · 约 3 分钟</span></div>
+  <div class="title">资源管理：师徒＝班子</div>
+  <div class="script">
+    <p>第六个领域，资源。谁，干啥。取经队，一套教科书级的RACI。</p>
+    <p><b>唐僧</b>——负责人：拍板、对齐、对外；<b>悟空</b>——技术核心：攻坚、排雷、一线，就是那个"出事第一个上、没事第一个被念"的骨干；<b>八戒</b>——后勤：能干、懒，得"盯"，属于"要用但得管"；<b>沙僧</b>——稳定支撑：看家、收尾、传话，"大师兄，师父被妖怪抓走"就是他的SOP；<b>白龙马</b>——基础设施：驮着跑完全程，不吭声，可哪天真趴窝了，项目直接停——<span class="jq">像不像机房里那台从来不出声、一响全公司瘫痪的服务器？</span><span class="stage">。</span></p>
+    <p>那句"师父被抓了"别当梗听，这是教科书级的<b>问题上报机制</b>：第一时间、不加工、直达。多少项目，坏在"问题在群里飘三天，没人@唐僧"。资源管得好，就是——每个人知道自己干啥、出事找谁。</p>
+  </div>
+</div>
+
+<!-- P15 沟通 -->
+<div class="page" data-p="15">
+  <div class="pagemeta"><span class="tag">知识域07</span><span>第 15 页 / 25 · 约 3 分钟</span></div>
+  <div class="title">沟通管理：三打白骨精</div>
+  <div class="script">
+    <p>第七个领域，沟通。全剧最憋屈的，三打白骨精。<span class="stage">。</span></p>
+    <p>案情：白骨三变——姑娘、老婆子、老头子；悟空三认、三打，每次都是"火眼金睛"做完实证再动手，上报也一五一十："师父，这是妖。"——<b>信息源，准，铁证如山。</b></p>
+    <p>可接收方唐僧呢？放着"一手证据"不采，采信了八戒"二手小作文"，把"悟空在保护我"听成"悟空狡辩"——紧箍咒一收，贬书一写，把骨干开了。<span class="stage">停顿</span>结果：战力清零，唐僧差点全剧终，最后还得去花果山请回来。</p>
+    <p>您看——信息全对，错在"过滤"和"信任"；八戒这中间层，把真话传成"假警报"。<b>项目里最贵的沟通成本，是把真话说成假话。</b>八字给你：<b>汇报保真，倾听带判断。</b>下次有人喊"我查过了，是真问题"，先别急着紧箍咒。</p>
+  </div>
+</div>
+
+<!-- P16 风险 -->
+<div class="page" data-p="16">
+  <div class="pagemeta"><span class="tag">知识域08</span><span>第 16 页 / 25 · 约 4 分钟</span></div>
+  <div class="title">风险管理：八十一难＝风险台账</div>
+  <div class="script">
+    <p>第八个领域，风险。招牌。<span class="stage">。</span>八十一难，就是一份"老天爷盖了章"的风险登记册：啥妖、啥害、谁应对、结果如何——难难在册，一条不落。</p>
+    <p>四步法，全程在线：<b>识别</b>——悟空眼，一眼知妖；<b>评估</b>——量法力，"小妖送人头"还是"大佬下场"；<b>应对</b>——打得过就打，打不过搬兵；<b>监控</b>——师父一抓，预案即起。四步，八十一个来回，没缺席。</p>
+    <p>应对也教科书：<b>规避</b>——绕路，惹不起躲得起；<b>减轻</b>——悟空先探，降概率；<b>转移</b>——请观音收，专业交给神，风险转移第三方；<b>接受</b>——最后一难，老龟一猛子，经书泡水，捞、晒、认、翻篇。</p>
+    <p>对个账：您那"八十一难"清单，登记了吗？<b>风险不登记，它不会消失——只挑你最有空的日子，在"火焰山"等你。</b></p>
+  </div>
+</div>
+
+<!-- P17 采购 -->
+<div class="page" data-p="17">
+  <div class="pagemeta"><span class="tag">知识域09</span><span>第 17 页 / 25 · 约 2 分钟</span></div>
+  <div class="title">采购管理：请观音＝搭桥请角</div>
+  <div class="script">
+    <p>第九个领域，采购。一句话：<span class="key">啥自己干，啥外头请。</span><span class="stage">。</span></p>
+    <p>取经的"外购决策"相当成熟：妖怪太强、自己没辙，果断"搭桥请角"——<b>请观音收妖、借天兵、找龙王借雨</b>。而且"请"得标准：选对供应商——观音法力、信誉好，不摆烂；条件清——妖归你、师归我；用完即结——收妖道谢，不欠尾款。</p>
+    <p>反例有八戒：凡是自己的活，都想"外包"给师兄——"自做外购错位"，核心全外包，最后没"护城河"。<span class="stage">。</span>一句话：<b>核心能力留自家，边际能力放心请。</b>好班子不是啥都自己干，是该干干、该请请，各得其所。</p>
+  </div>
+</div>
+
+<!-- P18 相关方 -->
+<div class="page" data-p="18">
+  <div class="pagemeta"><span class="tag">知识域10</span><span>第 18 页 / 25 · 约 3 分钟</span></div>
+  <div class="title">相关方管理：满天神佛＝前后台</div>
+  <div class="script">
+    <p>第十个领域，相关方。就是——把一条路上能撞见的，拉成一张"利益地图"。</p>
+    <p><b>支持方</b>：唐太宗——出钱的；观音——协调兼监理，暗中护；如来——终验，一锤；沿途王——当地赞助。 <b>阻力方</b>：妖怪——干扰；六耳——仿冒；内鬼八戒——动摇。 <b>中立</b>：天庭势力——不帮不坏，围观。</p>
+    <p>打法三句：<b>支持方</b>，保持沟通、对齐；<b>阻力方</b>，先查背景——你发现没，西游的妖怪，<span class="jq">"有背景的都被领导接走了，没背景的才是真风险"</span>，所以"先看后台再动手"是真理；<b>中立</b>，慢慢争取。<span class="stage">。</span>取经从来不是一人走到灵山的——是全队干系人"各得其所"。唐僧成佛，满天神佛也各"了差"。这就是"最高境界"。</p>
+  </div>
+</div>
+
+<!-- P19 转折 -->
+<div class="page" data-p="19">
+  <div class="pagemeta"><span class="tag o">转折</span><span>第 19 页 / 25 · 约 2 分钟</span></div>
+  <div class="title">项目不是打妖怪，是交付真经</div>
+  <div class="script">
+    <p>十门讲完，做个"认知纠偏"——很多人把取经当"打怪升级"——妖怪是主角，打一关通一关。但项目管理的眼，不一样：<span class="stage">停顿</span></p>
+    <p><b>取经的目的，从来不是打妖怪。</b>妖怪只是路障，真正的目标是"真经"到手。所以你看：有的妖打、有的绕、有的请人收——手段换，目标不变。</p>
+    <p>咱们也一个理，别把日子过成"救火队"——催、修、抢，脚打后脑勺，全在"打妖怪"。可你得偶尔停一下，问：<b>咱们的"真经"到底是啥？交付目标是啥？客户价值又是啥？</b>——那才是项目存在的理由。<span class="jq">妖打了一百个，真经没取回，年终这述职你咋跟领导讲？</span></p>
+  </div>
+</div>
+
+<!-- P20 幕封 -->
+<div class="page" data-p="20">
+  <div class="pagemeta"><span class="tag o">转场</span><span>第 20 页 / 25</span></div>
+  <div class="title">第四幕 · 取经启示</div>
+  <div class="script">
+    <p>最后一幕，从戏台回工位。这一路的"管理课"，咱打包带走。走前，先留一句。<span class="stage">翻页</span></p>
+  </div>
+</div>
+
+<!-- P21 金句 -->
+<div class="page" data-p="21">
+  <div class="pagemeta"><span class="tag">金句</span><span>第 21 页 / 25 · 约 1.5 分钟</span></div>
+  <div class="title">敢问路在何方？路在脚下</div>
+  <div class="script">
+    <p>这词儿您熟——"<b>敢问路在何方？路在脚下。</b>"<span class="stage">停顿</span></p>
+    <p>听着是歌词，其实是项目管理的"第一条律"。复杂项目，没有"一步登天"：十四年是一天天走的，八十一难是一关关过的，团队从互相看不顺眼到"过命交情"，是一回回磨的。答案，不在"再等等"里，<b>在推进里</b>——在一次验收、一次风险应对、一次复盘里。<span class="jq">路，就在脚下——你得，迈出去，才算。</span></p>
+  </div>
+</div>
+
+<!-- P22 速查表 -->
+<div class="page" data-p="22">
+  <div class="pagemeta"><span class="tag">速查</span><span>第 22 页 / 25 · 约 2 分钟</span></div>
+  <div class="title">西游对照速查表</div>
+  <div class="script">
+    <p>十堂课，装一张表。我念，你"心里跟，跟不上回家抄：</p>
+    <p><b>整合</b>，唐僧统领；<b>范围</b>，真经打底；<b>进度</b>，八十一难；<b>成本</b>，化缘零预算；<b>质量</b>，真假美猴王；<b>资源</b>，师徒角色；<b>沟通</b>，三打白骨精；<b>风险</b>，火眼金睛；<b>采购</b>，请观音收妖；<b>相关方</b>，满天神佛。<span class="stage">停顿</span></p>
+    <p>以后"卡"，就回来翻这张表，问三个问题：我"唐僧"怎么拍板？"悟空"怎么授权？我的"观音"又在哪？</p>
+  </div>
+</div>
+
+<!-- P23 五过程组 -->
+<div class="page" data-p="23">
+  <div class="pagemeta"><span class="tag">框架</span><span>第 23 页 / 25 · 约 1.5 分钟</span></div>
+  <div class="title">取经项目的完整生命周期</div>
+  <div class="script">
+    <p>最后，装进PMBOK的过程组，过一遍——这跟"开箱、演出、封箱"一个逻辑：<b>启动</b>——唐王下旨、章程签发，像"开台"；<b>规划</b>——观音指路、定路线，像"排"；<b>执行</b>——师徒西行、历难，像"唱"；<b>监控</b>——观音暗查、纠偏，像"检"；<b>收尾</b>——东归译经、交差，像"封箱"。一"圈"下来，闭环。</p>
+    <p>这说明啥？项目管理不是"舶来词"，一直藏在老祖宗里。吴承恩几百年前就给你"排"了一遍——只不过那会儿叫"求经"，今儿叫"交付"。<span class="jq">换个马甲，还是那出"活儿"。</span></p>
+  </div>
+</div>
+
+<!-- P24 互动 -->
+<div class="page" data-p="24">
+  <div class="pagemeta"><span class="tag o">互动</span><span>第 24 页 / 25 · 约 2 分钟</span></div>
+  <div class="title">留给你的问题</div>
+  <div class="script">
+    <p>最后，留个作业——也是我每开一个新班，都会先问自己"三连问"：<span class="stage">停顿</span></p>
+    <p>第一问：你班子里的<b>"唐僧"是谁</b>——谁扛目标、定方向？第二问：<b>谁在关键时候喊"散伙"</b>——谁在动摇？第三问：你的<b>"八十一难"在哪儿</b>——哪些风险还没"登记"？</p>
+    <p><span class="tag">课后作业</span>建议各位，下班前花五分钟，画一张自己的"取经图"——项目目标、五个角色、十大领域。<span class="jq">这是一张"免费、还好用"的项目体检表。</span>真出事，它比啥都顶用。</p>
+  </div>
+</div>
+
+<!-- P25 收尾 -->
+<div class="page" data-p="25">
+  <div class="pagemeta"><span class="tag">结束</span><span>第 25 页 / 25 · 约 1.5 分钟</span></div>
+  <div class="title">结束语</div>
+  <div class="script">
+    <p>各位，一部《西游》，半部项目经。<span class="stage">停顿</span>唐僧不是最能打的，但他始终朝着灵山走；悟空再能打，也靠团队托底；真能到灵山的，不是哪个超能英雄，是一个<b>目标统一、分工互补、风险共担</b>的"班子"。</p>
+    <p>愿各位，在每一个"难"的ICT项目里——目标坚定、班子搭得、逢凶化吉、终成正果。</p>
+    <p>我今儿讲完了。<span class="jq">您要是听高了，咱后门见，这顿我请您。</span>谢谢大家。<span class="stage">互动</span>（留时间答疑）</p>
+  </div>
+</div>
+
+</div>
+
+<div id="nav">
+  <div class="nav-row">
+    <div class="nav-btn" id="btnPrev">‹</div>
+    <div class="pager" id="pager"></div>
+    <div class="nav-btn" id="btnNext">›</div>
+  </div>
+  <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 课件对齐第 1 页</div>
+</div>
+
+<script>
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var pager = document.getElementById('pager');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var cur = 0;
+  var total = pages.length;
+  pages.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.className = 'pnum'; b.textContent = i + 1;
+    b.addEventListener('click', function(){ go(i); });
+    pager.appendChild(b);
+  });
+  var nums = pager.querySelectorAll('.pnum');
+  function go(i){
+    if(i < 0 || i >= total) return;
+    pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i;
+    nums.forEach(function(n, j){ n.classList.toggle('on', j === i); });
+    btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1);
+    var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block:'nearest', inline:'center'}); }
+    pages[cur].scrollTop = 0;
+    var hint = document.getElementById('hint');
+    if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 课件对齐第 ' + (cur + 1) + ' 页'; }
+  }
+  btnPrev.addEventListener('click', function(){ go(cur - 1); });
+  btnNext.addEventListener('click', function(){ go(cur + 1); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if(e.key === 'Home') { go(0); }
+    else if(e.key === 'End') { go(total - 1); }
+  });
+  var sx = 0, sy = 0, sw = false;
+  document.addEventListener('touchstart', function(e){
+    var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!sw) return; sw = false;
+    var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
+  }, {passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
