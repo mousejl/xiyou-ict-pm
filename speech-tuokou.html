@@ -18,8 +18,8 @@
   .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
   .colorbar{display:flex;height:4px}
   .colorbar div{flex:1}
-  #pages{position:fixed;inset:0;padding:76px 16px 110px;z-index:5;overflow:hidden}
-  .page{position:absolute;inset:76px 0 110px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
+  #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden}
+  .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
   .page.active{display:block;opacity:1}
   .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
@@ -43,6 +43,14 @@
   .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer;font-family:var(--mono,"Menlo",monospace)}
   .pnum.on{background:var(--primary);color:#fff;font-weight:700}
   .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap}
+  .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600}
+  .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .rb-btn:disabled{opacity:.4;pointer-events:none}
+  .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)}
+  .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle}
+  .reader-info .dot.on{background:var(--accent-green)}
 </style>
 </head>
 <body>
@@ -215,6 +223,21 @@
     <div class="pager" id="pager"></div>
     <div class="nav-btn" id="btnNext">›</div>
   </div>
+  <div class="reader">
+    <button id="rbPlay" class="rb-btn primary">▶ 朗读</button>
+    <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button>
+    <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button>
+    <select id="rbRate" class="rb-rate" title="语速">
+      <option value="0.85">0.85×</option>
+      <option value="1">1.0×</option>
+      <option value="1.1" selected>1.1×</option>
+      <option value="1.3">1.3×</option>
+    </select>
+  </div>
+  <div class="reader-info">
+    <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span>
+    <span id="rbPos">12 段</span>
+  </div>
   <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 12 段</div>
 </div>
 
@@ -260,6 +283,85 @@
     var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
     if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
   }, {passive:true});
+  /* ===== 朗读（云希·男声，audio/tuokou/seg-001..012）===== */
+  var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
+  var segPause = pages.map(function(p){
+    var pause = 0.5;
+    (function walk(n){
+      if(n.nodeType !== 1) return;
+      var cls = (n.className || '').toString();
+      if(/stage/.test(cls)){
+        var t = (n.textContent || '').trim();
+        if(t.indexOf('停顿') >= 0) pause = Math.max(pause, 1.6);
+        else if(t.indexOf('互动') >= 0) pause = Math.max(pause, 2.4);
+        return;
+      }
+      n.childNodes.forEach(walk);
+    })(p);
+    return pause;
+  });
+  var audio = null, reading = false, paused = false, ridx = 0, rTimer = null;
+  function segUrl(i){ var n = String(i + 1); while(n.length < 3) n = '0' + n; return 'audio/tuokou/seg-' + n + '.mp3'; }
+  function rSet(){
+    rPlay.disabled = reading && !paused;
+    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
+    rPause.disabled = !reading || paused;
+    rStop.disabled = !reading;
+    rPos.textContent = reading ? (ridx + 1) + ' / ' + total + ' 段' : total + ' 段';
+    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
+  }
+  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
+  function rStopAudio(){ if(audio){ audio.pause(); audio.onended = null; audio.onerror = null; audio = null; } }
+  function rPlayAt(i){
+    if(i >= total){ rFinish(); return; }
+    rStopAudio(); ridx = i; rHl(i); go(i);
+    audio = new Audio(segUrl(i));
+    audio.preload = 'auto';
+    audio.playbackRate = parseFloat(rRate.value);
+    audio.onended = function(){
+      if(paused || !reading) return;
+      var wait = Math.max(segPause[i], 0.15) * 1000;
+      rTimer = setTimeout(function(){ rPlayAt(i + 1); }, wait);
+    };
+    audio.onerror = function(){
+      rVoice.textContent = '音频加载失败，请检查网络后刷新';
+      if(reading && !paused) setTimeout(function(){ rPlayAt(i + 1); }, 700);
+    };
+    audio.play().catch(function(){});
+    rSet();
+  }
+  function rStart(){
+    if(paused && audio){ paused = false; audio.play(); rSet(); return; }
+    if(reading) return;
+    reading = true; paused = false;
+    rPlayAt(0);
+    rSet();
+  }
+  function rPause(){
+    if(!reading || paused) return;
+    paused = true;
+    if(audio) audio.pause();
+    if(rTimer){ clearTimeout(rTimer); rTimer = null; }
+    rSet();
+  }
+  function rStop(){
+    rStopAudio();
+    if(rTimer){ clearTimeout(rTimer); rTimer = null; }
+    reading = false; paused = false; ridx = 0;
+    rHl(-1); rSet();
+  }
+  function rFinish(){
+    rStopAudio();
+    reading = false; paused = false;
+    rHl(-1); rSet();
+  }
+  rPlay.addEventListener('click', rStart);
+  rPause.addEventListener('click', rPause);
+  rStop.addEventListener('click', rStop);
+  rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); });
+  window.addEventListener('beforeunload', rStopAudio);
+  rSet();
+
   go(0);
 })();
 </script>
