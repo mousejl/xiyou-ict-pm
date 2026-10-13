@@ -348,6 +348,8 @@
   </div>
 </div>
 
+<script>window.SEG_GROUPS = {"g": [[0], [1], [2], [3], [4, 5, 6], [7, 8, 9], [10, 11, 12], [13, 14], [15, 16], [17, 18], [19], [20, 21], [22, 23], [24, 25], [26], [27], [28], [29], [30], [31, 32], [33, 34], [35, 36, 37], [38, 39], [40, 41, 42], [43, 44, 45], [46], [47, 48], [49, 50], [51, 52, 53], [54, 55], [56, 57], [58], [59, 60], [61], [62, 63, 64], [65, 66], [67, 68], [69, 70, 71], [72, 73]], "p":[1.6, 2.4, 0.3, 1.6, 0.3, 0.3, 1.6, 2.4, 1.6, 2.4, 0.3, 0.3, 0.3, 0.3, 2.4, 2.4, 2.4, 0.3, 2.4, 0.3, 0.3, 0.3, 0.3, 0.3, 0.3, 1.6, 0.3, 0.3, 0.3, 0.3, 0.3, 1.6, 0.3, 1.6, 1.6, 0.3, 1.6, 1.6, 2.4]};</script>
+
 <script>
 (function(){
   var btnPlay = document.getElementById('rbPlay');
@@ -357,9 +359,9 @@
   var rbPos = document.getElementById('rbPos');
   var rbRate = document.getElementById('rbRate');
 
-  /* 1. 提取段落（用于高亮与停顿，音频已按序合成 audio/seg-001.mp3 …） */
-  var segs = [];
-  document.querySelectorAll('.card .script p').forEach(function(p){
+  /* 1. 段落 pause 计算 */
+  var ps = Array.prototype.slice.call(document.querySelectorAll('.card .script p'));
+  var segPause = ps.map(function(p){
     var pause = 0.3;
     (function walk(n){
       if(n.nodeType !== 1) return;
@@ -372,20 +374,28 @@
       }
       n.childNodes.forEach(walk);
     })(p);
-    segs.push({p:p, pause:pause});
+    return pause;
   });
 
-  /* 2. 音频播放状态机 */
+  /* 2. 组映射（音频已按组合成 audio/group-001.mp3 …，组内连续朗读更自然） */
+  var G = (window.SEG_GROUPS && window.SEG_GROUPS.g) || [];
+  if(!G.length){ G = ps.map(function(_, i){ return [i]; }); }
+  var GP = (window.SEG_GROUPS && window.SEG_GROUPS.p) || G.map(function(){ return 0.3; });
+  var groups = G.map(function(gi, i){
+    return { idx: gi, pause: (GP[i] != null ? GP[i] : 0.3) };
+  });
+
+  /* 3. 音频播放状态机 */
   var audio = null;      // 当前 Audio 元素
   var reading = false;   // 朗读进行中
   var paused = false;    // 暂停中（保留进度）
-  var idx = 0;           // 当前段
+  var idx = 0;           // 当前组
   var timer = null;
 
   function segUrl(i){
     var n = String(i + 1);
     while(n.length < 3) n = '0' + n;
-    return 'audio/seg-' + n + '.mp3';
+    return 'audio/group-' + n + '.mp3';
   }
 
   function setBtns(){
@@ -393,15 +403,16 @@
     btnPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
     btnPause.disabled = !reading || paused;
     btnStop.disabled = !reading;
-    rbPos.textContent = reading ? (idx + 1) + ' / ' + segs.length : segs.length + ' 段';
+    rbPos.textContent = reading ? (idx + 1) + ' / ' + groups.length + ' 组' : groups.length + ' 组（连贯朗读）';
     document.querySelector('#reader-bar .dot').classList.toggle('on', reading);
   }
 
   function highlight(i){
     document.querySelectorAll('p.reading').forEach(function(p){ p.classList.remove('reading'); });
-    var p = segs[i].p;
-    p.classList.add('reading');
-    if(p.scrollIntoView) p.scrollIntoView({block:'center', behavior:'smooth'});
+    var g = groups[i].idx;
+    for(var k=0;k<g.length;k++){ ps[g[k]].classList.add('reading'); }
+    var first = ps[g[0]];
+    if(first && first.scrollIntoView) first.scrollIntoView({block:'center', behavior:'smooth'});
   }
   function clearHighlight(){
     document.querySelectorAll('p.reading').forEach(function(p){ p.classList.remove('reading'); });
@@ -417,7 +428,7 @@
   }
 
   function playAt(i){
-    if(i >= segs.length){ finish(); return; }
+    if(i >= groups.length){ finish(); return; }
     stopAudio();
     idx = i;
     audio = new Audio(segUrl(i));
@@ -425,11 +436,12 @@
     audio.playbackRate = parseFloat(rbRate.value);
     audio.onended = function(){
       if(paused || !reading) return;
-      timer = setTimeout(function(){ playAt(i + 1); }, segs[i].pause * 1000);
+      var wait = Math.max(groups[i].p, 0.15) * 1000;
+      timer = setTimeout(function(){ playAt(i + 1); }, wait);
     };
     audio.onerror = function(){
       rbVoice.textContent = '音频加载失败，请检查网络后刷新';
-      if(reading && !paused) setTimeout(function(){ playAt(i + 1); }, 900);
+      if(reading && !paused) setTimeout(function(){ playAt(i + 1); }, 700);
     };
     audio.play().catch(function(){});
     highlight(i);
