@@ -650,38 +650,83 @@
 <!-- P9 流水线 进度管理 -->
 <section class="slide light" data-animate="pipeline">
   <div class="chrome"><div>进度管理 · Schedule</div><div>Act II · 09 / 25</div></div>
-  <div class="frame" style="display:flex; flex-direction:column; justify-content:space-between">
-    <div style="display:flex; flex-direction:column; justify-content:space-between; flex:1; min-height:0">
-    <div class="kicker">知识域 03 · SCHEDULE</div>
-    <h2 class="h-xl">九九八十一难 = 里程碑</h2>
-    <div class="pipeline-section">
-      <div class="pipeline-label">取经项目进度计划 · 五大里程碑</div>
-      <div class="pipeline">
-        <div class="step" data-anim="step"><div class="step-nb">01</div><div class="step-title">出发</div><div class="step-desc">贞观十三年自长安启程</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">02</div><div class="step-title">收徒</div><div class="step-desc">五行山收悟空·团队组建</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">03</div><div class="step-title">历劫</div><div class="step-desc">八十一难逐关推进·执行</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">04</div><div class="step-title">取经</div><div class="step-desc">灵山面佛·交付物验收</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">05</div><div class="step-title">东归</div><div class="step-desc">回长安译经·项目收尾</div></div>
+  <div class="frame" style="display:grid; grid-template-columns:1fr 1fr; gap:3vw; padding-top:1vh">
+    <div style="display:flex; flex-direction:column; min-width:0">
+      <div class="kicker">知识域 03 · SCHEDULE</div>
+      <h2 class="h-xl" style="font-size:min(4.2vw,7vh)">九九八十一难 = 里程碑</h2>
+      <div class="pipeline-section" style="margin-top:2vh">
+        <div class="pipeline-label">五大里程碑 · Milestones</div>
+        <div class="pipeline" style="grid-template-columns:1fr; gap:1vh">
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">01</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">出发</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">贞观十三年自长安启程</div>
+            </div>
+          </div>
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">02</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">收徒</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">五行山收悟空·团队组建</div>
+            </div>
+          </div>
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">03</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">历劫</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">八十一难逐关推进·执行</div>
+            </div>
+          </div>
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">04</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">取经</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">灵山面佛·交付物验收</div>
+            </div>
+          </div>
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">05</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">东归</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">回长安译经·项目收尾</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pipeline-section" style="margin-top:2.4vh">
+        <div class="pipeline-label">关键路径风险 · Critical Path</div>
+        <div class="pipeline" style="grid-template-columns:1fr; gap:1vh">
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">06</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">通天河</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">老鼋驮渡·关键依赖</div>
+            </div>
+          </div>
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">07</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">火焰山</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">借芭蕉扇·资源瓶颈</div>
+            </div>
+          </div>
+          <div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:1vw; padding:.9vh 0">
+            <div class="step-nb" style="min-width:2em">08</div>
+            <div style="min-width:0">
+              <div class="step-title" style="display:inline">狮驼岭</div>
+              <div class="step-desc" style="display:inline; margin-left:.6vw">三魔王·最高风险项</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="pipeline-section">
-      <div class="pipeline-label">关键路径风险 · Critical Path Risk</div>
-      <div class="pipeline" data-cols="3">
-        <div class="step" data-anim="step"><div class="step-nb">06</div><div class="step-title">通天河</div><div class="step-desc">老鼋驮渡·关键依赖</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">07</div><div class="step-title">火焰山</div><div class="step-desc">借芭蕉扇·资源瓶颈</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">08</div><div class="step-title">狮驼岭</div><div class="step-desc">三魔王·最高风险项</div></div>
-      </div>
-    </div>
-    </div>
-    <div style="display:flex; align-items:center; gap:2vw; margin-top:0">
-      <div class="callout" style="flex:1; padding:1.6vh 1.6vw; font-size:max(13px,1.02vw)">
-        唐僧向太宗承诺"三年"取回真经，实际走了 <b>14 年</b> —— 估算偏差近 5 倍，教科书级 <em>规划谬误</em> Planning Fallacy。
+    <div style="display:flex; flex-direction:column; justify-content:center; gap:2.2vh; min-width:0">
+      <figure class="frame-img r-16x10" data-anim style="border:1px solid rgba(127,127,127,.45); box-shadow:0 2px 10px rgba(0,0,0,.10)"><img src="images/09-royal-farewell.jpg" alt="奉旨辞行"><figcaption class="img-cap">奉旨辞行 · "三年之约"</figcaption></figure>
+      <div class="callout" data-anim>
+        唐僧向太宗承诺<b>"三年"</b>取回真经，实际走了 <b>14 年</b>——估算偏差近 <b>5 倍</b>，教科书级 <em>规划谬误</em> Planning Fallacy。
         <div class="callout-src">— 进度估算教训 · 复杂项目初期估算 ×2 才是现实值</div>
       </div>
-      <figure class="tile" style="margin:0; flex:0 0 auto">
-        <div class="frame-img" style="width:min(19.2vw,22.5vh); height:min(12vw,14vh); border:1px solid rgba(127,127,127,.45); box-shadow:0 2px 10px rgba(0,0,0,.10)"><img src="images/09-royal-farewell.jpg" alt="奉旨出发"></div>
-        <figcaption class="img-cap" style="text-align:center">奉旨辞行 · "三年之约"</figcaption>
-      </figure>
     </div>
   </div>
   <div class="foot"><div>Page 09 · 进度管理</div><div>Schedule</div></div>
@@ -796,32 +841,35 @@
 <!-- P16 流水线 风险管理 -->
 <section class="slide light" data-animate="pipeline">
   <div class="chrome"><div>风险管理 · Risk</div><div>Act III · 16 / 25</div></div>
-  <div class="frame">
-    <div class="kicker">知识域 08 · RISK</div>
-    <h2 class="h-xl">八十一难 = 风险登记册</h2>
-    <div class="pipeline-section">
-      <div class="pipeline-label">风险管理四步法 · Risk Process</div>
-      <div class="pipeline">
-        <div class="step" data-anim="step"><div class="step-nb">01</div><div class="step-title">识别</div><div class="step-desc">悟空火眼金睛识妖怪</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">02</div><div class="step-title">评估</div><div class="step-desc">评估妖怪法力·定级</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">03</div><div class="step-title">应对</div><div class="step-desc">自力打·或上天求援</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">04</div><div class="step-title">监控</div><div class="step-desc">唐僧被抓·应急启动</div></div>
+  <div class="frame" style="display:grid; grid-template-columns:1.15fr .85fr; gap:3vw; padding-top:1vh">
+    <div style="display:flex; flex-direction:column; min-width:0">
+      <div class="kicker">知识域 08 · RISK</div>
+      <h2 class="h-xl" style="font-size:min(4.2vw,7vh)">八十一难 = 风险登记册</h2>
+      <div class="pipeline-section" style="margin-top:2vh">
+        <div class="pipeline-label">风险管理四步法 · Risk Process</div>
+        <div class="pipeline" style="grid-template-columns:repeat(2,1fr); gap:1.2vh 1.8vw">
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">01</div><div style="min-width:0"><div class="step-title" style="display:inline">识别</div><div class="step-desc" style="display:inline; margin-left:.6vw">悟空火眼金睛识妖怪</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">02</div><div style="min-width:0"><div class="step-title" style="display:inline">评估</div><div class="step-desc" style="display:inline; margin-left:.6vw">评估妖怪法力·定级</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">03</div><div style="min-width:0"><div class="step-title" style="display:inline">应对</div><div class="step-desc" style="display:inline; margin-left:.6vw">自力打·或上天求援</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">04</div><div style="min-width:0"><div class="step-title" style="display:inline">监控</div><div class="step-desc" style="display:inline; margin-left:.6vw">唐僧被抓·应急启动</div></div></div>
+        </div>
+      </div>
+      <div class="pipeline-section" style="margin-top:2.2vh">
+        <div class="pipeline-label">应对策略四选 · Response Strategies</div>
+        <div class="pipeline" style="grid-template-columns:repeat(2,1fr); gap:1.2vh 1.8vw">
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">05</div><div style="min-width:0"><div class="step-title" style="display:inline">规避</div><div class="step-desc" style="display:inline; margin-left:.6vw">绕路而行·绕开风险</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">06</div><div style="min-width:0"><div class="step-title" style="display:inline">减轻</div><div class="step-desc" style="display:inline; margin-left:.6vw">悟空先行·降低概率</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">07</div><div style="min-width:0"><div class="step-title" style="display:inline">转移</div><div class="step-desc" style="display:inline; margin-left:.6vw">请观音收妖·外包</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">08</div><div style="min-width:0"><div class="step-title" style="display:inline">接受</div><div class="step-desc" style="display:inline; margin-left:.6vw">接受损失·承担后果</div></div></div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:2.4vh" data-anim>
+        八十一难，难难登记在册——识别、评估、应对、监控，一部《西游记》把风险管理四步法演了个遍。
+        <div class="callout-src">— 风险登记册 · 一难一课</div>
       </div>
     </div>
-    <div class="pipeline-section">
-      <div class="pipeline-label">应对策略四选 · Response Strategies</div>
-      <div class="pipeline">
-        <div class="step" data-anim="step"><div class="step-nb">05</div><div class="step-title">规避</div><div class="step-desc">绕路而行·绕开风险</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">06</div><div class="step-title">减轻</div><div class="step-desc">悟空先行·降低概率</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">07</div><div class="step-title">转移</div><div class="step-desc">请观音收妖·外包</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">08</div><div class="step-title">接受</div><div class="step-desc">接受损失·承担后果</div></div>
-      </div>
-    </div>
-    <div style="display:flex; justify-content:center; margin-top:2.2vh">
-      <figure class="tile" style="margin:0">
-        <div class="frame-img" style="width:min(24vw,28vh); height:min(15vw,17.5vh); border:1px solid rgba(127,127,127,.45); box-shadow:0 2px 10px rgba(0,0,0,.10)"><img src="images/16-risk-cave.jpg" alt="风险挑战"></div>
-        <figcaption class="img-cap" style="text-align:center">云雾妖山 · 每一难都是登记在册的风险</figcaption>
-      </figure>
+    <div style="display:flex; flex-direction:column; justify-content:center; min-width:0">
+      <figure class="frame-img r-16x10" data-anim style="border:1px solid rgba(127,127,127,.45); box-shadow:0 2px 10px rgba(0,0,0,.10)"><img src="images/16-risk-cave.jpg" alt="云雾妖山"><figcaption class="img-cap">云雾妖山 · 风险重重的西行路</figcaption></figure>
     </div>
   </div>
   <div class="foot"><div>Page 16 · 风险管理</div><div>Risk</div></div>
@@ -940,24 +988,27 @@
 <!-- P23 流水线 五过程组 -->
 <section class="slide light" data-animate="pipeline">
   <div class="chrome"><div>五过程组 · Process Groups</div><div>Act IV · 23 / 25</div></div>
-  <div class="frame">
-    <div class="kicker">PMBOK · 五大过程组</div>
-    <h2 class="h-xl">取经项目全周期</h2>
-    <div class="pipeline-section">
-      <div class="pipeline-label">五大过程组 · Five Process Groups</div>
-      <div class="pipeline">
-        <div class="step" data-anim="step"><div class="step-nb">01</div><div class="step-title">启动</div><div class="step-desc">唐王下旨·定章程</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">02</div><div class="step-title">规划</div><div class="step-desc">观音指路·定路线</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">03</div><div class="step-title">执行</div><div class="step-desc">师徒西行·历八十一难</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">04</div><div class="step-title">监控</div><div class="step-desc">观音暗中护·纠偏差</div></div>
-        <div class="step" data-anim="step"><div class="step-nb">05</div><div class="step-title">收尾</div><div class="step-desc">取经东归·译经传法</div></div>
+  <div class="frame" style="display:grid; grid-template-columns:1fr 1fr; gap:3vw; padding-top:1vh">
+    <div style="display:flex; flex-direction:column; min-width:0">
+      <div class="kicker">PMBOK · 五大过程组</div>
+      <h2 class="h-xl" style="font-size:min(4.2vw,7vh)">取经项目全周期</h2>
+      <div class="pipeline-section" style="margin-top:2vh">
+        <div class="pipeline-label">五大过程组 · Five Process Groups</div>
+        <div class="pipeline" style="grid-template-columns:1fr; gap:1.2vh">
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">01</div><div style="min-width:0"><div class="step-title" style="display:inline">启动</div><div class="step-desc" style="display:inline; margin-left:.6vw">唐王下旨·定章程</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">02</div><div style="min-width:0"><div class="step-title" style="display:inline">规划</div><div class="step-desc" style="display:inline; margin-left:.6vw">观音指路·定路线</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">03</div><div style="min-width:0"><div class="step-title" style="display:inline">执行</div><div class="step-desc" style="display:inline; margin-left:.6vw">师徒西行·历八十一难</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">04</div><div style="min-width:0"><div class="step-title" style="display:inline">监控</div><div class="step-desc" style="display:inline; margin-left:.6vw">观音暗中护·纠偏差</div></div></div>
+<div class="step" data-anim="step" style="flex-direction:row; align-items:baseline; gap:.8vw; padding:.9vh 0"><div class="step-nb" style="min-width:1.8em">05</div><div style="min-width:0"><div class="step-title" style="display:inline">收尾</div><div class="step-desc" style="display:inline; margin-left:.6vw">取经东归·译经传法</div></div></div>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:2.4vh" data-anim>
+        一启一收，环环相扣——取经的每一步，都能落进 PMBOK 的过程组框架里。
+        <div class="callout-src">— 五大过程组 · 一取一归的完整闭环</div>
       </div>
     </div>
-    <div style="display:flex; justify-content:center; margin-top:2.4vh">
-      <figure class="tile" style="margin:0">
-        <div class="frame-img" style="width:min(28.8vw,33.6vh); height:min(18vw,21vh); border:1px solid rgba(127,127,127,.45); box-shadow:0 2px 10px rgba(0,0,0,.10)"><img src="images/23-ling-shan.jpg" alt="灵山取经"></div>
-        <figcaption class="img-cap" style="text-align:center">灵山在望 · 一取一归的完整闭环</figcaption>
-      </figure>
+    <div style="display:flex; flex-direction:column; justify-content:center; min-width:0">
+      <figure class="frame-img r-16x10" data-anim style="border:1px solid rgba(127,127,127,.45); box-shadow:0 2px 10px rgba(0,0,0,.10)"><img src="images/23-ling-shan.jpg" alt="灵山宝塔"><figcaption class="img-cap">灵山在望 · 一取一归的完整闭环</figcaption></figure>
     </div>
   </div>
   <div class="foot"><div>Page 23 · 五过程组</div><div>Process Groups</div></div>
