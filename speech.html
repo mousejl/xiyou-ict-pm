@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>西游记·ICT项目管理 · 口播稿</title>
+<title>西游记·ICT项目管理 · 口播稿（展开版）</title>
 <style>
   :root{
     --primary:#0066CC; --primary-dark:#004080; --accent-orange:#FF6600;
@@ -26,9 +26,11 @@
   .card.p3{border-left-color:var(--accent-orange)}
   .card .pageno{font-size:12px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center}
   .card .title{font-size:17px;font-weight:700;color:var(--primary-dark);margin:4px 0 10px}
-  .card .script{font-size:15px;line-height:1.9}
+  .card .script{font-size:15px;line-height:1.95}
+  .card .script p{margin-bottom:10px}
   .card .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:6px;vertical-align:middle}
   .card .script .pause{display:inline-block;background:var(--accent-orange);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin:0 4px}
+  .card .script .key{color:var(--primary);font-weight:700}
   .tip{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:12px 16px;font-size:13px;color:#795548;margin:10px 0}
   .foot{text-align:center;color:var(--text-light);font-size:12px;margin-top:30px;border-top:1px solid #e0e0e0;padding-top:16px}
   .tag{display:inline-block;font-size:12px;border:1px solid var(--primary);color:var(--primary);border-radius:4px;padding:2px 10px;margin-right:6px}
@@ -37,27 +39,30 @@
 <body>
 
 <div class="header">
-  <h1>《西游记 · ICT项目管理》教学课件口播稿</h1>
+  <h1>《西游记 · ICT项目管理》教学课件口播稿（展开版）</h1>
   <div class="sub">取经即项目 · 对照 PMBOK 十大知识域</div>
-  <div class="info">课时 45 分钟 ｜ 课件 25 页 ｜ 讲师口播版</div>
+  <div class="info">课时 45 分钟 ｜ 课件 25 页 ｜ 展开详解版 ｜ v2.0</div>
 </div>
 <div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
 
 <div class="container">
 
-  <div class="summary-title" style="border-left:4px solid var(--accent-orange);padding-left:14px;font-size:20px;font-weight:700;color:#004080;margin-bottom:8px">使用说明 <span style="font-size:12px;color:#777;font-weight:400">HOW TO USE</span></div>
+  <div class="section-title" style="margin-top:8px">使用说明 <span class="en">HOW TO USE</span></div>
   <div class="tip" style="margin-bottom:18px">
-    本口播稿按课件 25 页逐页编写，含开场、转场、收尾与互动设计。<b>【停顿】</b>表示留 2-3 秒让学员看画面；<b>【互动】</b>表示抛出问题请学员回应。<br>
-    语速建议每分钟 150-170 字，全稿约 6800 字，配合翻页正好 45 分钟。如时间紧张，可省略每页"类比升华"段。
+    本展开版在 v1 基础上逐页扩充：增加故事细节还原、现实 ICT 案例类比、苏格拉底式提问引导与讲师备忘。<b>【停顿】</b>表示留 2-3 秒看画面；<b>【互动】</b>表示抛出问题请学员回应（预留 5-10 秒）。<br>
+    全稿约 11000 字，按每分钟 160-170 字 + 互动时间，正好覆盖 45 分钟。如需压缩，可略讲标 <span class="tag">可略</span> 的段落。
   </div>
 
-  <div class="summary-title" style="border-left:4px solid var(--accent-orange);padding-left:14px;font-size:20px;font-weight:700;color:#004080;margin:28px 0 8px">第一幕 · 取经即项目 <span style="font-size:12px;color:#999;font-weight:400">ACT I · 约 8 分钟</span></div>
+  <div class="section-title">第一幕 · 取经即项目 <span class="en">ACT I · 约 9 分钟</span></div>
 
   <div class="card">
-    <div class="pageno">第 01 页 · 封面 <span>开场 2 分钟</span></div>
+    <div class="pageno">第 01 页 · 封面 <span>开场 2.5 分钟</span></div>
     <div class="title">开场白</div>
     <div class="script">
-      各位同事，大家好。今天的课，我们不讲代码，不讲架构，讲一部大家都看过的名著——《西游记》。<span class="stage">停顿</span>你可能要问：我们搞 ICT 项目管理的，跟唐僧取经有什么关系？<span class="stage">停顿</span>关系大了。在我看来，《西游记》就是一部中国最早的、规模最大的、也是最典型的复杂 ICT 项目管理案例。十四年，十万八千里，九九八十一难，一个五人的小团队，最终交付了一套完整的"真经系统"。今天这 45 分钟，我们就用现代项目管理这面镜子，来照一照这条西天取经路——你会发现，每一难都是一堂课，每个人物都是一个角色，每一次化缘都是一次成本控制。<span class="stage">停顿</span>咱们正式开始。
+      <p>各位同事，大家下午好。今天我们不写代码、不聊架构、不开需求评审会——我们聊一部谁都看过、但很少人从专业角度读过的名著：《西游记》。<span class="stage">停顿</span></p>
+      <p>先问大家一个问题：如果我说，《西游记》其实是一本项目管理教科书，你们信吗？<span class="stage">互动</span>（停顿，看反应）</p>
+      <p>我给大家三秒钟想一想：取经团队有几个人？五个人，对——师徒四人加白龙马；他们干了一件事——从东土大唐去西天取真经；有明确的交付物——真经；有明确的发起人——唐太宗；有严格的时限，甚至有 KPI——九九八十一难，少一难都不行。<span class="stage">。</span>各位，这不是"像"一个项目，这就是一个教科书级别的项目，而且是今天最头疼的那种——跨地域、长周期、高风险、资源极度受限的复杂 ICT 项目。</p>
+      <p>今天这 45 分钟，我们换一副"项目经理"的眼镜，重新把这条取经路看一遍：你会发现，每一难都是一堂课，每一个角色都对应一个岗位，每一次化缘都是一次成本控制。<span class="stage">停顿</span>课前先说目标：听完这堂课，我希望大家记住三件事——第一，项目的定义长什么样；第二，PMBOK 十大领域分别是什么；第三，也是最重要的——下次你手上接到一个"三年承诺"级别的项目估算时，你会想起唐僧。</p>
     </div>
   </div>
 
@@ -65,47 +70,58 @@
     <div class="pageno">第 02 页 · 第一幕幕封 <span>转场</span></div>
     <div class="title">取经即项目</div>
     <div class="script">
-      第一幕，我们先建立一个大前提：取经，为什么可以被看作一个"项目"？<span class="stage">翻页</span>
+      <p>好，第一幕，我们先建立一个大前提：取经为什么可以被称为"项目"。先看一组硬数据，让"项目"两个字有了重量。</p>
     </div>
   </div>
 
   <div class="card p3">
-    <div class="pageno">第 03 页 · 硬数据 <span>3 分钟</span></div>
+    <div class="pageno">第 03 页 · 硬数据 <span>3.5 分钟</span></div>
     <div class="title">取经项目的硬指标</div>
     <div class="script">
-      我们先用六组数字把项目"立项"了。<span class="stage">指向数字</span>十四年——项目周期；十万八千里——项目里程；九九八十一难——风险清单上的条目；五位成员——项目团队；五千零四十八卷真经——最终交付物；一位发起人——唐太宗，项目的出资方和授权人。<span class="stage">停顿</span>大家注意，什么叫"项目"？按 PMI 的定义：为创造独特的产品、服务或成果而进行的临时性工作。取经：临时性——取完就散；独特性——天下独一份；有明确交付物——真经；有明确发起人——唐王。四条全中，这就是一个标准、而且极其复杂的大项目。<span class="stage">停顿</span>所以它不是民间传说了，它是我们项目管理教科书上的案例，只不过名字叫《西游记》。
+      <p>我们先用六组数字把项目"立项"了。大家边看边想，这六个数放到你手头的项目里，分别对应什么。<span class="stage">指向数据</span></p>
+      <p>第一，<span class="key">十四年</span>——项目周期。从贞观十三年出发，到贞观二十七年回长安，整整十四年。大家先记下这个总周期，记住：它后面有惊喜（伏笔，不要展开）。<span class="stage">。</span></p>
+      <p>第二，<span class="key">十万八千里</span>——项目范围。不是直线距离，是实际要走的路程，沿途九九八十一个"站点"，横跨当时半个世界的地域。<span class="stage">。</span></p>
+      <p>第三，<span class="key">九九八十一难</span>——项目风险清单。每一难都是一次风险事件：有妖怪袭击、有环境灾害、有内部分裂、有假冒诈骗。这 81 难，就是一份现成的风险登记册。</p>
+      <p>第四，<span class="key">五位成员</span>——项目团队。注意，只有五个人，要支撑起覆盖十万八千里的复杂交付——我们做 ICT 项目的都知道，这人力配置是"极致精简"。</p>
+      <p>第五，<span class="key">五千零四十八卷</span>——最终交付物。真经，一套完整可验收的产品。</p>
+      <p>第六，<span class="key">一位发起人</span>——唐太宗。出钱、授权、定目标，项目章程从他这儿来。</p>
+      <p>为什么说它是标准项目？对照 PMI 的定义：为创造独特产品、服务或成果而进行的<b>临时性</b>工作——取完就散；<b>独特性</b>——天下独一份；<b>明确的交付物</b>——真经；<b>明确的发起人</b>——唐太宗。四条全中。<span class="stage">停顿</span>所以下次有人问"西游算不算项目"，你可以笃定地告诉他：不但算，而且是一个活生生的复杂项目教科书。</p>
     </div>
   </div>
 
   <div class="card p2">
-    <div class="pageno">第 04 页 · 项目章程 <span>2 分钟</span></div>
+    <div class="pageno">第 04 页 · 项目章程 <span>2.5 分钟</span></div>
     <div class="title">长安送别：项目启动会</div>
     <div class="script">
-      再看这张画。<span class="stage">指图</span>唐太宗在长安化生寺亲送御弟三藏西行，亲手颁发了通关文牒——各位，这在 PMBOK 里叫什么？<span class="stage">停顿</span>叫项目章程，Project Charter。<span class="stage">。</span>章程上写清楚了三件事：为什么要取经（目标）、谁负责（唐僧）、资源怎么给（通关文牒、御赐金钵、两位随从）。没有这份章程，唐僧连长安城都出不去。咱们做项目也是一样——立项文件没签，等于出师无名。
+      <p>看这张画——长安化生寺外，唐太宗带着满朝文武，亲送御弟三藏西行。重点看唐太宗递出去的那道"通关文牒"。</p>
+      <p>在 PMBOK 里，这叫什么？<span class="stage">互动</span>——对，<span class="key">项目章程</span>，Project Charter。一份项目章程必须写清楚三件事：<strong>为什么做</strong>（大唐缺大乘真经，要度亡灵脱苦）、<strong>谁负责</strong>（御弟玄奘，赐号"三藏"）、<strong>资源怎么给</strong>（通关文牒、御赐金钵、两个随从）。<span class="stage">。</span>再看唐僧的反应：他当着皇帝立下军令状，带着愿景和授权出发。<span class="tag">可略</span>我们做项目，最忌讳的就是"章程没签好就动工"——目标含糊、授权不清、资源不到位，这样的项目十有八九走到一半就变味。</p>
     </div>
   </div>
 
   <div class="card p3">
-    <div class="pageno">第 05 页 · 核心命题 <span>转场收束</span></div>
+    <div class="pageno">第 05 页 · 核心命题 <span>1.5 分钟</span></div>
     <div class="title">它为什么是最复杂的 ICT 项目？</div>
     <div class="script">
-      所以我们回到那个命题：取经，为什么是最复杂的 ICT 项目？我给它概括了五种复杂性：<span class="stage">停顿</span>一，跨地域——十万里、九九八十一个国家和地区；二，多干系人——天庭、佛界、人间、妖怪四方势力；三，高风险——随时会被妖怪吃掉；四，长周期——十四年；五，资源受限——吃饭靠化缘。五重复杂性叠加，放到今天，就是最难啃的那种 ICT 大项目。<span class="stage">停顿</span>接下来我们进入第二幕，用 PMBOK 的十大领域，逐一对标西游路上的每一个名场面。
+      <p>回到那个命题：为什么说它是"最复杂"？我给归纳五种复杂性——<strong>跨地域</strong>：十万里、八十一个国家；<strong>多干系人</strong>：天庭、佛界、人间、妖怪四方势力；<strong>高风险</strong>：随时被妖怪吃掉，人身安全都成问题；<strong>长周期</strong>：十四年；<strong>资源受限</strong>：吃饭靠化缘，连武器都是化缘化的。</p>
+      <p>这五种复杂性，叠加在今天任何一个 ICT 项目上都成立：异地团队、多方干系人、安全风险、长周期、预算紧。<span class="stage">停顿</span>所以取经项目不是段子，它是我们每一位项目经理每天面对的真实战场，只是换了一套古装。接下来，我们带着这套"战场地图"，进入 PMBOK 的十个领域。</p>
     </div>
   </div>
 
-  <div class="summary-title" style="border-left:4px solid var(--accent-orange);padding-left:14px;font-size:20px;font-weight:700;color:#004080;margin:28px 0 8px">第二幕 · 十大领域 <span style="font-size:12px;color:#999;font-weight:400">ACT II · 约 15 分钟</span></div>
+  <div class="section-title">第二幕 · 十大领域 <span class="en">ACT II · 约 16 分钟</span></div>
 
   <div class="card">
     <div class="pageno">第 06 页 · 第二幕幕封 <span>转场</span></div>
     <div class="title">十大领域</div>
-    <div class="script">第二幕，我们从十大领域中挑最有意思的六组来讲。每一组，我们只记住一句话、一个画面。</div>
+    <div class="script"><p>第二幕，我们拣十个领域里最有戏、最有趣味的六组讲。每讲一个，你只需要记住一句话和一个画面——下课忘不了。</p></div>
   </div>
 
   <div class="card p2">
     <div class="pageno">第 07 页 · 整合管理 <span>3 分钟</span></div>
     <div class="title">唐僧＝项目经理</div>
     <div class="script">
-      第一个领域，整合管理。<span class="stage">停顿</span>各位想一个有意思的现象：取经团队里，最能打的是悟空，最能干的是八戒，最稳的是沙僧——可谁是核心？<span class="stage">互动</span>对，唐僧。为什么？因为他干的是整合的活儿：统筹全局、对齐目标、管理冲突。<span class="stage">。</span>他不拔刀、不化斋、不打妖，但他要做的每一件事，就是把四个性格完全不同的人，拧成一股绳，始终朝灵山走。<span class="stage">停顿</span>我常说一句话：项目经理不是打妖怪的人，是保证打妖怪的人朝着正确目标打的人。这就是整合管理。
+      <p>第一个领域，<span class="key">整合管理</span>。我先问大家一个反常识的问题：取经团队里，最能打的是谁？悟空；最能干活的是谁？八戒；最稳的是谁？沙僧。那谁是核心？<span class="stage">互动</span>——都不是，是那个"手无缚鸡之力"的唐僧。</p>
+      <p>为什么？因为他干的是整合的活。什么叫整合管理？就是把项目里分散的、甚至冲突的部分，统筹成一个整体，确保大家始终朝同一个目标走。唐僧不拔刀、不化斋、不打妖，但他做了四件事：<strong>定方向</strong>——"我们往西天，取真经"；<strong>管冲突</strong>——师徒吵架他调停；<strong>对外协调</strong>——各国通关、请外援都要他出面；<strong>守底线</strong>——悟空打死人是错的，该惩罚惩罚，但目标不能变。<span class="stage">。</span></p>
+      <p>我常说一句话：<b>项目经理不是打妖怪的人，是保证打妖怪的人，朝着正确目标打的人。</b>这就是整合管理的本质。各位做项目的都懂：客户需求、技术方案、团队情绪、供应商进度——四处着火的时候，谁出来把火理清楚？就是"唐僧"这个角色。</p>
     </div>
   </div>
 
@@ -113,23 +129,32 @@
     <div class="pageno">第 08 页 · 范围管理 <span>3 分钟</span></div>
     <div class="title">真经＝交付物</div>
     <div class="script">
-      第二个领域，范围管理，就是回答"做什么、不做什么"。取经项目的交付物，是"大乘真经"。我们把项目拆成 WBS：上路——收徒——历劫——到灵山——取经——东归——译经传法，七个阶段清清楚楚。<span class="stage">停顿</span>但最有意思的是范围里最大的坑：到了灵山，阿傩、伽叶两个"供应商"先给了一份无字真经——白纸本。悟空当场识破：这不对，这不是我们要的交付物。打回去，重新验收，最后用紫金钵盂换回了有字真经。<span class="stage">。</span>所以各位，验收环节永远要有人盯着"交付物到底达不达标"，不然我们的项目，也会收到"无字真经"。
+      <p>第二个领域，<span class="key">范围管理</span>，回答"做什么、不做什么、交付什么"。取经项目的交付物很清楚：一套"大乘真经"。把它拆成 WBS——工作分解结构：上路、收徒、历劫、到灵山、取经、东归、译经传法，七个工作包，清清楚楚。<span class="stage">。</span></p>
+      <p>但是，范围管理最精彩的场面，是那个"<b>无字真经</b>"事件：到了灵山，阿傩、伽叶两个"供应商"给唐僧递过来一套白纸本——没有字。悟空一翻，当场识别："这不是我们要的交付物，验收不合格！"打回去，重新协商，最后用御赐的紫金钵盂"补交费用"，换回了有字真经，5048 卷，验收合格。</p>
+      <p>各位，这就是项目验收的标准动作：<b>按验收标准逐条核对，不合格就打回重做</b>。我们很多项目交付的时候，收到了"无字真经"——功能缺、文档缺、数据缺——但不敢打回，怕麻烦，最后项目验收注水。记住：验收的勇气，就是范围管理的勇气。</p>
     </div>
   </div>
 
   <div class="card p2">
-    <div class="pageno">第 09 页 · 进度管理 <span>3 分钟</span></div>
+    <div class="pageno">第 09 页 · 进度管理 <span>4 分钟</span></div>
     <div class="title">九九八十一难＝里程碑</div>
     <div class="script">
-      第三个领域，进度管理。<span class="stage">。</span>西游记最有意思的进度设计，就是八十一难——每一难，都是一个里程碑。<span class="stage">。</span>你看，项目经理唐僧拿到的是这样的计划：出发、收徒、历劫、取经、东归，五大里程碑；中间还有关键路径上的风险点——通天河要依赖老龟渡河、火焰山要借芭蕉扇、狮驼岭是三魔王的老巢，风险最高。<span class="stage">停顿</span>接下来，给大家讲一个全中国项目经理都爱引用的进度翻车现场——但先别急着听结果，我们来做个小互动。<span class="stage">互动</span>故事是这样的：唐太宗在长安送行时，问了我们项目经理唐僧一个问题："御弟啊，这一去西天，几时可回？"<span class="stage">停顿</span>各位同事，如果你是唐僧，当着皇帝的面，你会承诺几年？<span class="stage">互动</span>别急着说出来——先在心里默念一个数字，然后跟旁边同事小声对一下，看有没有人敢说"十年以上"。<span class="stage">停顿</span>（留出 5-8 秒让学员交流）<span class="stage">。</span>好，我告诉大家原著的答案：唐僧不假思索，拍着胸脯说——"只在三年，径回上国。"<span class="stage">停顿</span>三年！各位，十万八千里、九九八十一难，他承诺三年。结果实际走了多久？<span class="stage">互动</span>十四年！<span class="stage">停顿</span>注意，这不是编故事——承诺三年、实际十四年，偏差将近五倍。这在 PMBOK 里有个正式的名字，叫"规划谬误"——人总会系统性地低估完成复杂任务所需的时间，越是复杂项目，越是如此。<span class="stage">。</span>所以各位记住一条经验法则：复杂项目，初期估算乘以二，才勉强接近现实值；至于唐僧的三年，那得再乘一次二。<span class="stage">。</span>为什么要管进度？因为西天路上任何一段拖延，都可能让整条取经之路夭折。做项目也一样：关键路径上的任何一个延迟，都会直接拖住整个项目的交付时间。
+      <p>第三个领域，<span class="key">进度管理</span>。西游记的进度设计之妙，在于把项目做成了八十一难——每一难，都是计划中的一个里程碑。<span class="stage">。</span></p>
+      <p>项目经理唐僧的计划长这样：出发、收徒、历劫、取经、东归，五大里程碑；而关键路径上还有三个"节点级风险"——通天河，得依赖老龟驮渡，关键依赖不能断；火焰山，要借芭蕉扇，这是资源瓶颈；狮驼岭，三个魔王的老巢，全项目风险最高的一站。</p>
+      <p>接下来，讲一个全中国的项目经理都爱引用的进度翻车现场——但先别急着听结果，我们先做个互动。<span class="stage">互动</span></p>
+      <p>故事是这样的：唐太宗送行时问："御弟啊，这一去，几时可回？"各位，如果你是唐僧，当着皇帝的面，你会承诺几年？<span class="stage">互动</span>先别说出来——在心里默念一个数字，然后跟邻座小声对一下，看有没有人敢说"十年以上"。（留 5-8 秒）</p>
+      <p>好，原著答案是：唐僧不假思索，拍着胸脯说——"<b>只在三年，径回上国。</b>"<span class="stage">停顿</span>三年！十万八千里、九九八十一难，承诺三年。那实际走了多少年？<span class="stage">互动</span>——<b>十四年</b>！承诺三年、实际十四年，偏差接近五倍。</p>
+      <p>这个现象，在 PMBOK 里有个正式的名字，叫<span class="key">"规划谬误"（Planning Fallacy）</span>——人类系统性地低估完成复杂任务所需的时间，项目越复杂，低估越严重。应对经验法则：<b>复杂项目，初期估算 ×2 才是现实值；唐僧这种，还得再 ×2。</b>为什么进度要管？因为西天路上任何一段拖延，都可能让整条取经之路夭折——关键路径上耽误一天，项目就晚交付一天。</p>
     </div>
   </div>
 
   <div class="card p3">
-    <div class="pageno">第 10 页 · 成本管理 <span>2 分钟</span></div>
+    <div class="pageno">第 10 页 · 成本管理 <span>2.5 分钟</span></div>
     <div class="title">化缘＝零预算运营</div>
     <div class="script">
-      第四个领域，成本管理。取经项目的预算是多少？<span class="stage">互动</span>说出来你们可能不信——几乎是零。<span class="stage">。</span>食、靠化缘，宿、靠借宿，行、靠步行，连马的草料都要自己想办法。但在这种极端约束下，他们还是完成了交付。<span class="stage">停顿</span>这提醒我们：成本管理的真谛，不是"多少钱"，而是"怎么用最少的资源，交付最大的价值"。克制、做减法、把每一分钱花在关键路径上——这才是高手。
+      <p>第四个领域，<span class="key">成本管理</span>。问大家一个问题：取经项目的预算是多少？<span class="stage">互动</span>——说出来你们可能不信，几乎为零。<span class="stage">。</span></p>
+      <p>食、靠化缘；宿、靠借宿；行、靠步行，连白龙马的草料都要自己张罗。全程没有一个"财务人员"，没有一笔专项经费，除了出发时皇帝给的零碎盘缠，基本靠沿路"化缘"——也就是资源获取模式，就是一路走、一路化缘的"开源节流"。</p>
+      <p>那问题来了：这么穷，他们怎么完成的交付？因为成本管理的真谛，从来不是"花多少钱"，而是<b>"用最少的资源，交付最大的价值"</b>——克制、做减法、把钱花在关键路径上。<span class="tag">可略</span>举个今天的例子：很多项目，预算并不少，但钱砸在非关键功能上，真正的核心反而裸奔——唐僧团队反其道而行，所有的资源全部围绕"到灵山"这一个目标配置。</p>
     </div>
   </div>
 
@@ -137,31 +162,38 @@
     <div class="pageno">第 11 页 · 质量管理 <span>3 分钟</span></div>
     <div class="title">真假美猴王：质量的两面</div>
     <div class="script">
-      第五个领域，质量管理。我特意挑了真假美猴王这一难。<span class="stage">。</span>为什么？因为质量管理的核心，是"谁说了算、怎么验收"。<span class="stage">停顿</span>无字真经，就是交付物不合格的样板——内容空白、验收没通过、当场退回；有字真经，才是达标的交付物——五千零四十八卷，数量达标、内容完整。<span class="stage">。</span>再加上真假美猴王——正品和仿冒品同时出现，质量检验就是要去伪存真。质量不是最后检出来的，而是一路管控出来的。这话，我们在取经路上看得清清楚楚。
+      <p>第五个领域，<span class="key">质量管理</span>。我特意挑了"真假美猴王"这一难来讲——因为质量管理的核心问题，是"<b>谁说了算、怎么验收</b>"。</p>
+      <p>先看真假美猴王：一个真悟空，一个六耳猕猴变的假悟空，一棒子打下去人魔难分，一路打上灵山，最后呢？——如来慧眼，一眼鉴别真伪。这就是质量检验的最后一环：<b>由权威的验收方做终极判定。</b></p>
+      <p>再看无字真经：白纸本，内容空白，验收打回；有字真经，5048 卷，达标通过。这一"退回一"之间，就是质量标准的定义和执行。<span class="stage">。</span></p>
+      <p>我给大家总结一句话：<b>质量不是验收那一刻"检"出来的，而是一路"管"出来的</b>——标准提前定、过程边控、交付按标准验。真经如此，我们的系统上线也是如此。</p>
     </div>
   </div>
 
   <div class="card p3">
-    <div class="pageno">第 12 页 · 范围蔓延预警 <span>收束</span></div>
+    <div class="pageno">第 12 页 · 范围蔓延预警 <span>2 分钟</span></div>
     <div class="title">八戒的一句"散伙"</div>
     <div class="script">
-      第二幕收尾前，我们看一个最典型的反面教材：八戒动不动就说"散伙、回高老庄"。<span class="stage">停顿</span>在项目管理里，这叫范围蔓延的信号——项目做到一半，有人要改目标、要缩水、要撤退。<span class="stage">。</span>这时候，项目经理唐僧要做的不是发火，而是对齐：目标还在吗？那咱们继续。记住，范围蔓延从来不是一步到位的，是每一次"算了、差不多、先这样吧"，悄悄发生的。
+      <p>第二幕收尾前，看一个最典型的反面教材：猪八戒。<span class="stage">。</span>团队里出了状况，猪八戒的第一反应永远是三个字："<b>散伙、回高老庄。</b>"一会悟空被逐、一会唐僧被抓——他每次都能找到"正当理由"提出退出的。</p>
+      <p>项目管理里，这是什么？<span class="key">范围蔓延的信号</span>，或者更严重——项目团队失去目标的信号。<span class="stage">。</span>项目做到一半，有人提"要不别做了吧""先做个简化版""这需求不重要"……每一次"算了、差不多、先这样吧"，都是在向范围蔓延妥协。</p>
+      <p>唐僧的处理方式值得学习：不发火，不纵容，就一句话——<b>"贫僧自东土大唐而来，去往西天拜佛求经，此心不改。"</b>把目标拉回来，把人心稳住。<span class="stage">。</span>做项目经理的，最值钱的技能之一就是：每次会议结束，团队都知道"我们为什么要继续"。</p>
     </div>
   </div>
 
-  <div class="summary-title" style="border-left:4px solid var(--accent-orange);padding-left:14px;font-size:20px;font-weight:700;color:#004080;margin:28px 0 8px">第三幕 · 团队与协作 <span style="font-size:12px;color:#999;font-weight:400">ACT III · 约 14 分钟</span></div>
+  <div class="section-title">第三幕 · 团队与协作 <span class="en">ACT III · 约 15 分钟</span></div>
 
   <div class="card">
     <div class="pageno">第 13 页 · 第三幕幕封 <span>转场</span></div>
     <div class="title">团队与协作</div>
-    <div class="script">幕二看的是"项目本身"；幕三我们看"人"——团队、沟通、风险、采购、相关方。</div>
+    <div class="script"><p>幕二看的是"项目本身"，幕三我们看"人"——团队、沟通、风险、采购、相关方，这五块都围绕一个核心：项目是人与人协作的产物。</p></div>
   </div>
 
   <div class="card p2">
     <div class="pageno">第 14 页 · 资源管理 <span>3 分钟</span></div>
     <div class="title">师徒四人＝角色矩阵</div>
     <div class="script">
-      资源管理，回答"谁、做什么"。取经团队是一个教科书级的 RACI 矩阵：<span class="stage">。</span>唐僧，总负责人，拍板定方向；悟空，技术攻坚，冲锋在前；八戒，后勤保障，托运行李；沙僧，稳定支撑，负责收尾托底；连白龙马——都算基础设施层，驮着项目负责人，全程无死角执行。<span class="stage">停顿</span>这个团队还有一句口头禅："大师兄，师傅被妖怪抓走了！"——这其实是一个很好的问题上报机制：问题发生了，立刻向上汇报，不藏着掖着。资源管理的好，是每个人都知道自己的职责和接口。
+      <p><span class="key">资源管理</span>，回答"谁、做什么"。取经团队是一份教科书级的 RACI 矩阵（谁负责、谁执行、谁知情）：</p>
+      <p><b>唐僧</b>——负责人 R：拍板、对齐目标、对外代表。<b>悟空</b>——执行核心 A：技术攻坚、风险识别（火眼金睛）、一线作战。<b>八戒</b>——后勤执行：托运行李、化缘，但常临阵摇摆，需要监控。<b>沙僧</b>——稳定支撑 C：看家、收尾、传话，是团队的"定海神针"。<b>白龙马</b>——基础设施：驮着项目负责人走完全程，沉默但不可或缺——就像 ICT 项目里的服务器、网络、数据库，不声不响，崩了全盘皆输。</p>
+      <p>这套团队还有一句经典口头禅："大师兄，师傅被妖怪抓走了！"——记住，这是个很好的<b>问题上报机制</b>：问题第一时间、不隐瞒地向上汇报。资源管理的好，是每个人都知道自己的职责，也知道谁该找谁。</p>
     </div>
   </div>
 
@@ -169,7 +201,10 @@
     <div class="pageno">第 15 页 · 沟通管理 <span>3 分钟</span></div>
     <div class="title">三打白骨精：沟通失败案例</div>
     <div class="script">
-      沟通管理，我选了取经路上最痛的一难：三打白骨精。<span class="stage">。</span>悟空三次识别妖怪、三次开打，每次都用"火眼金睛"做实证、如实上报——信息源是准确的；但唐僧呢？他做了一件事：宁信八戒的谗言，不信悟空的报告，最后把核心骨干孙悟空逐出团队。<span class="stage">停顿</span>这是典型的沟通失败：信息没错，错在过滤和信任。猪八戒是中间层，把"真报告"传成了"假警报"。<span class="stage">。</span>所以各位，项目里最贵的沟通，是把真话说成了假话。汇报要保真，倾听要带判断，这是咱们要练的基本功。
+      <p><span class="key">沟通管理</span>，我选了取经路上最痛的一难——三打白骨精。<span class="stage">。</span></p>
+      <p>完整的桥段是这样的：白骨精三变（少女、老太太、老翁）骗唐僧，悟空三次识别、三次开打，每次都"火眼金睛"做实证，如实上报："这是妖怪！"——信息源是完全准确的。</p>
+      <p>但是唐僧，一个"信息接收者"，做了什么？他听信了八戒的谗言——把"悟空杀了人"当成事实，把"悟空在保护我"当成狡辩，最后念起紧箍咒，写下贬书，把最核心的技术骨干逐出团队。<span class="stage">停顿</span>结果呢？团队一下没了战斗力，差点全灭，最后不得不去花果山把悟空请回来。</p>
+      <p>这是典型的<b>沟通失败</b>：信息没错，错在过滤和信任；中间层八戒做了"信息放大器"，把真话传成了假警报。项目里，最贵的沟通成本，就是把真话说成了假话。<b>汇报要保真，倾听要带判断</b>——这是每一级管理层都要练的基本功。</p>
     </div>
   </div>
 
@@ -177,7 +212,10 @@
     <div class="pageno">第 16 页 · 风险管理 <span>4 分钟</span></div>
     <div class="title">八十一难＝风险登记册</div>
     <div class="script">
-      风险管理，是取经路上最有名的领域。<span class="stage">。</span>八十一难，就是一份完整的风险登记册。风险管理四步：识别——悟空火眼金睛，一眼看穿妖怪；评估——评估法力高低，分清大小风险；应对——能打就打，打不过就请外援；监控——师傅一旦被抓，立即启动应急预案。<span class="stage">停顿</span>应对策略还有四种：绕路是规避，让悟空先行是减轻，请观音收妖是转移，最后一难老龟一滚、经书落水，认了——那是接受。<span class="stage">。</span>你看，现代风险管理的四套打法，唐僧团队全都用上了。做项目的人，学会把"妖怪"提前登记、分级、预案，就赢了一半。
+      <p><span class="key">风险管理</span>，是取经路上最有名的领域。<span class="stage">。</span>八十一难，就是一份完整的风险登记册——每个难都登记了：什么妖怪、什么危害、谁负责应对、结果如何。</p>
+      <p>风险管理四步法：<b>识别</b>——悟空火眼金睛，一眼看穿妖怪；<b>评估</b>——衡量妖怪法力高低，分清大/小风险；<b>应对</b>——能打就打，打不过请外援；<b>监控</b>——师傅一旦被抓，立即启动应急预案。四步循环，81 次迭代，一条不落。</p>
+      <p>应对策略还有四种，正好对应 PMBOK 的标准打法：<b>规避</b>——绕路而行，绕开风险；<b>减轻</b>——悟空先探路，降低触发概率；<b>转移</b>——请观音收妖，把风险转移给第三方；<b>接受</b>——最后一难，老龟一沉、经书落水，湿了、晒干、接受损失。四种策略，全齐了。</p>
+      <p><span class="tag">可略</span>各位可以想想：你手头项目的"八十一难"列表，登记了吗？风险不登记、不应对，它不会消失，只会在某个"火焰山"等你。</p>
     </div>
   </div>
 
@@ -185,33 +223,40 @@
     <div class="pageno">第 17 页 · 采购管理 <span>2 分钟</span></div>
     <div class="title">请观音：外包采购</div>
     <div class="script">
-      采购管理，其实就一句话：自己干、还是外包？<span class="stage">。</span>取经路上，每当妖怪级别超出团队能力，唐僧会果断下令："悟空，去南海请观世音菩萨来。"<span class="stage">停顿</span>请观音，借天兵，向龙王借雨——这就是采购：识别什么该自己做（化缘、赶路），什么该外购（请外援）。<span class="stage">。</span>切记：不是所有事都要自己扛，该外包的果断外包，关键是要选对"供应商"。
+      <p><span class="key">采购管理</span>，一句话：识别什么该自做、什么该外购。<span class="stage">。</span></p>
+      <p>取经路上的"外包决策"处处可见：妖怪太强、自己搞不定，就果断"采购外援"——<b>请观音收妖、借天兵助阵、向龙王借雨</b>。每次请外援，唐僧都清楚：这不是求助，是采购——选对供应商（观音法力、龙王的资源），给足条件，用完结算（人情与法宝）。</p>
+      <p>反向案例也有：八戒擅长偷懒，凡是自己干的活都推给悟空——这是"外购"与"自做"错位；沙僧自己都能干，稳定自己干。<span class="stage">。</span>核心原则：<b>核心技术能力留在团队，边际能力果断外包。</b>好项目，不是什么都自己做，是"该做的做，该外包的外包"，各得其所。</p>
     </div>
   </div>
 
   <div class="card p2">
-    <div class="pageno">第 18 页 · 相关方管理 <span>2 分钟</span></div>
+    <div class="pageno">第 18 页 · 相关方管理 <span>3 分钟</span></div>
     <div class="title">满天神佛＝相关方矩阵</div>
     <div class="script">
-      最后是相关方管理。<span class="stage">。</span>把整个取经路上的"人"拉一张表：支持方——唐太宗、观音、如来、沿途国王，都是推动项目的；阻力方——各路妖怪、六耳猕猴，还有团队内部的八戒这种"动摇者"。<span class="stage">停顿</span>好的相关方管理，就是看清谁帮你、谁挡你、谁中立，然后分别采取策略：借力、化解、拉拢、监控。取经不是一个人走到灵山的，是"一条路上所有人各得其所"的结果。
+      <p><span class="key">相关方管理</span>，是把"一条路上的所有人"拉成一张利益地图，各取所值。</p>
+      <p><b>支持方</b>——唐太宗（发起人）、观音（协调人、监理）、如来（最终验收方）、沿途国王（赞助商、通行许可）；<b>阻力方</b>——各路妖怪（干扰者）、六耳猕猴（仿冒干扰）、还有团队内部的八戒（动摇者）；<b>中立观察</b>——天庭部分势力，给不帮忙但也不捣乱。</p>
+      <p>好的相关方管理，就是：<b>识别谁帮你、谁挡你、谁无感，然后分别用策略</b>——对支持方保持沟通、对齐期望；对阻力方先分析诉求（很多妖怪背后都是有背景的，背后是更高层关系）；对中立者争取转化。<span class="tag">可略</span>取经不是一个人走到的灵山，是"一路上所有干系人各得其所"的结果——唐僧最后成了，满天神佛也名正言顺，各方都从项目里得到了自己的"收成"。</p>
     </div>
   </div>
 
-  <div class="summary-title" style="border-left:4px solid var(--accent-orange);padding-left:14px;font-size:20px;font-weight:700;color:#004080;margin:28px 0 8px">第四幕 · 取经启示 <span style="font-size:12px;color:#999;font-weight:400">ACT IV · 约 8 分钟</span></div>
+  <div class="section-title">第四幕 · 取经启示 <span class="en">ACT IV · 约 8 分钟</span></div>
 
   <div class="card p3">
     <div class="pageno">第 19 页 · 转折 <span>2 分钟</span></div>
     <div class="title">项目不是消灭妖怪，而是交付真经</div>
     <div class="script">
-      最后，我们做一个转场：<span class="stage">停顿</span>很多人把取经理解成"打怪升级"，但项目经理的视角完全不同——取经的目的从来不是打妖怪，妖怪只是路径上的障碍，真正要交付的，是"真经"。<span class="stage">。</span>我们做项目也是一样，别把精力全花在"救火""打妖怪"上，时刻记得：我们的真经是什么？——那才是项目的意义所在。
+      <p>最后，我们做一个重要的转场。<span class="stage">停顿</span>很多人都把取经理解成"打怪升级"——一关一关打妖怪，越打越强。但项目经理的视角完全不同：</p>
+      <p><b>取经的目的，从来不是打妖怪。</b>妖怪只是路上的障碍，真正的交付物，是真经。整个项目组的目标是"把真经带回大唐"，打妖怪只是为这个目标服务的手段——有的妖怪要打、有的妖怪要绕过、有的妖怪要请人收——手段灵活，目标唯一。</p>
+      <p>我们做项目也一样：<b>别把精力全耗在"救火"上。</b>业务方每次催你、每个故障要你修、每个资源要你去抢——那些都是"妖怪"。别忘了问自己：我们的"真经"是什么？交付目标、客户价值是什么？——那才是项目存在的意义。</p>
     </div>
   </div>
 
   <div class="card p2">
-    <div class="pageno">第 20-21 页 · 金句 <span>1 分钟</span></div>
+    <div class="pageno">第 20-21 页 · 金句 <span>1.5 分钟</span></div>
     <div class="title">敢问路在何方？路在脚下</div>
     <div class="script">
-      这里给大家留一句金句："敢问路在何方？路在脚下。"<span class="stage">停顿</span>复杂项目从来不存在一步登天的捷径，答案永远在一步一步的推进里、在一次一次的风险应对里、在一次一次的沟通磨合里。
+      <p>这里给大家留一句金句：<b>"敢问路在何方？路在脚下。"</b><span class="stage">停顿</span></p>
+      <p>复杂项目从来不存在一步登天的捷径。十四年是一步一步走出来的，八十一难是一关一关过完的，团队从猜疑到信任是一次一次磨合来的。答案永远在推进里——在一次里程碑的验收里、在一次风险应对里、在一次团队复盘里。</p>
     </div>
   </div>
 
@@ -219,15 +264,18 @@
     <div class="pageno">第 22 页 · 速查表 <span>2 分钟</span></div>
     <div class="title">西游对照速查表</div>
     <div class="script">
-      我们把这十课收进一张速查表，请大家最后再过一遍：<span class="stage">。</span>整合，唐僧统筹；范围，真经打底；进度，八十一难；成本，化缘零预算；质量，真假美猴王；资源，师徒角色；沟通，三打白骨精；风险，火眼金睛；采购，请观音收妖；相关方，满天神佛。<span class="stage">停顿</span>十句话，十堂课。以后你做项目，遇到难题，可以回头想一遍，你今天的"师徒们"在怎么处理。
+      <p>我们把十堂收进一张速查表，请大家最后过一遍，我念一遍，你们心里跟一遍：</p>
+      <p><b>整合</b>，唐僧统筹；<b>范围</b>，真经打底；<b>进度</b>，八十一难；<b>成本</b>，化缘零预算；<b>质量</b>，真假美猴王；<b>资源</b>，师徒角色；<b>沟通</b>，三打白骨精；<b>风险</b>，火眼金睛；<b>采购</b>，请观音收妖；<b>相关方</b>，满天神佛。<span class="stage">停顿</span></p>
+      <p>十句话，十堂课。以后你在项目里遇到难题，可以回来想一想：你今天的"唐僧"在怎么决策，你今天的"悟空"该怎么授权，你今天的"观音"在哪里。</p>
     </div>
   </div>
 
   <div class="card p2">
-    <div class="pageno">第 23 页 · 五过程组 <span>1 分钟</span></div>
+    <div class="pageno">第 23 页 · 五过程组 <span>1.5 分钟</span></div>
     <div class="title">取经项目的完整生命周期</div>
     <div class="script">
-      最后我们把它放到 PMBOK 的框架里过一遍：启动——唐王下旨、立章程；规划——观音指路、定路线；执行——师徒西行、历八十一难；监控——观音暗中护法、纠偏差；收尾——取经东归、译经传法。<span class="stage">。</span>一套标准生命周期，完美闭环。这说明什么？说明项目管理不是西方的发明，它从来就在人的智慧里，《西游记》早给我们演示了一遍。
+      <p>最后放进 PMOK 的框架里走一遍：<b>启动</b>——唐王下旨、立章程；<b>规划</b>——观音指路、定路线；<b>执行</b>——师徒西行、历八十一难；<b>监控</b>——观音暗中护法、纠偏差；<b>收尾</b>——取经东归、译经传法。一套标准生命周期，完美闭环。</p>
+      <p>这告诉我们什么？项目管理不是外来的新概念，它一直藏在人的智慧里。《西游记》早给我们演示了一遍——只不过当时叫"求经问道"，今天我们叫"项目交付"。</p>
     </div>
   </div>
 
@@ -235,24 +283,29 @@
     <div class="pageno">第 24 页 · 收束互动 <span>2 分钟</span></div>
     <div class="title">留给你的问题</div>
     <div class="script">
-      最后，我给大家留一个问题，也是我自己的问题：<span class="stage">停顿</span>你现在的项目里——谁是你团队的"唐僧"？谁在关键时刻说"散伙"？你的"八十一难"，又在哪一段路上？<span class="stage">互动</span>我建议每位同事，下班前用五分钟，画一张自己的"西游取经图"，把项目、风险、干系人写上去，那其实是一份绝佳的"项目体检表"。
+      <p>最后，我留给大家一个问题，也是我自己每次开项目都会问自己的问题：<span class="stage">停顿</span></p>
+      <p>你现在手头的项目里——<b>谁是"唐僧"</b>（谁在定方向、扛目标）？<b>谁在关键时刻说"散伙"</b>（谁在动摇、在蔓延）？你的<b>"八十一难"</b>又在哪一段路上（哪些风险还没登记）？</p>
+      <p><span class="tag">课后作业</span>我强烈建议每位同事，今天下班前用五分钟，画一张自己的"西游取经图"：写上项目目标、五个角色、十大领域的风险——那其实就是一份最好的"项目体检表"，免费，好用。</p>
     </div>
   </div>
 
   <div class="card p2">
-    <div class="pageno">第 25 页 · 收尾 <span>1 分钟</span></div>
+    <div class="pageno">第 25 页 · 收尾 <span>1.5 分钟</span></div>
     <div class="title">结束语</div>
     <div class="script">
-      各位，一部《西游记》，一部项目管理学。<span class="stage">停顿</span>唐僧未必是最能打的，但他始终朝着灵山走；悟空再厉害，也离不开团队的托底。愿你在每一个复杂的 ICT 项目里，目标坚定、团队互补、逢凶化吉、终成正果。<span class="stage">。</span>今天的分享就到这里，谢谢大家。有问题欢迎随时交流。
+      <p>各位，一部《西游记》，一部项目管理学。<span class="stage">停顿</span>唐僧未必是团队里最能打的，但他始终朝着灵山走；悟空再厉害，也离不开团队的托底；而真正走到最后的，不是靠某一个超能力者，是靠一个目标统一、分工互补、风险共担的团队。</p>
+      <p>愿你在每一个复杂 ICT 项目里——目标坚定、团队互补、逢凶化吉、终成正果。</p>
+      <p>今天的分享就到这里，谢谢大家！<span class="stage">互动</span>（留时间答疑）</p>
     </div>
   </div>
 
   <div class="tip" style="margin-top:20px">
-    <b>时长分配速查：</b>开场 2' + 第一幕 5-8' + 第二幕 15' + 第三幕 14' + 第四幕 8' + 互动问答 ≈ 45'。<br>
-    <b>临场提示：</b>若课程压缩到 30 分钟，可略去第 9/10/12/18 页的讲解，只保留十大领域的标题页速讲。
+    <b>时长分配速查：</b>开场 2.5' + 第一幕 6-8' + 第二幕 15-16' + 第三幕 15' + 第四幕 8' + 答疑 ≈ 45-50'。<br>
+    <b>压缩到 30 分钟：</b>每页标记 <span class="tag">可略</span> 的段落直接略过；第 10/12/17/18 页只讲速查表一句话。<br>
+    <b>互动提示：</b>本稿保留 4 个互动点（开场信不信、成本预算、三年承诺、角色代入），每个控制在 5-10 秒，别把课上成聊天会。
   </div>
 
-  <div class="foot">西游记·ICT项目管理教学课件配套口播稿 ｜ 2026 ｜ 共 25 页</div>
+  <div class="foot">西游记·ICT项目管理教学课件配套口播稿（展开版 v2.0） ｜ 2026 ｜ 共 25 页</div>
 </div>
 </body>
 </html>
