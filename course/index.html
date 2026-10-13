@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西游记·ICT项目管理 · 取经即项目</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ============ 主题色(默认:🖋 墨水经典) ============
+       切换主题:从 references/html/themes.md 复制对应的 :root 块
+       整体替换这几行(--ink / --ink-rgb / --paper / --paper-rgb)
+       其他地方散落的 rgba() 都走 var(--ink-rgb) / var(--paper-rgb),无需逐处改 */
+    --ink:#0a0a0b;
+    --ink-rgb:10,10,11;
+    --paper:#f1efea;
+    --paper-rgb:241,239,234;
+    --paper-tint:#e8e5de;
+    --ink-tint:#18181a;
+
+    /* ============ 字体(跨主题固定) ============ */
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
+    --serif-body-en:"Source Serif 4",Georgia,serif;
+    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  /* ============ WebGL 双背景 ============ */
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
+  canvas#bg-light{opacity:0}
+  canvas#bg-dark{opacity:1}
+  body.light-bg canvas#bg-light{opacity:1}
+  body.light-bg canvas#bg-dark{opacity:0}
+  body.low-power canvas.bg{display:none!important}
+
+  /* ============ Deck 容器 + 翻页 ============ */
+  /* width: NSLIDES * 100vw，会在 JS 里动态矫正 */
+  #deck{position:fixed;inset:0;width:10000vw;height:100vh;display:flex;flex-wrap:nowrap;transition:transform .9s cubic-bezier(.77,0,.175,1);z-index:10;will-change:transform}
+  .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 7vh 6vw;display:flex;flex-direction:column;overflow:hidden}
+  .slide.light{color:var(--ink);background:var(--paper)}
+  .slide.dark{color:var(--paper);background:var(--ink)}
+
+  /* 默认页：遮罩较厚，保证文字可读 */
+  .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
+  .slide.light::before{background:rgba(var(--paper-rgb),.78);backdrop-filter:blur(3px)}
+  .slide.dark::before{background:rgba(var(--ink-rgb),.78);backdrop-filter:blur(3px)}
+  /* Hero 页：遮罩大幅降低，让 WebGL 背景明显透出 */
+  .slide.hero.light::before{background:rgba(var(--paper-rgb),.16);backdrop-filter:none}
+  .slide.hero.dark::before{background:rgba(var(--ink-rgb),.12);backdrop-filter:none}
+  /* Hero 页顶底微弱渐隐，保证 chrome/foot 区域可读 */
+  .slide.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+  .slide.hero.light::after{background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 14%,rgba(var(--paper-rgb),0) 86%,rgba(var(--paper-rgb),.28) 100%)}
+  .slide.hero.dark::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 14%,rgba(var(--ink-rgb),0) 86%,rgba(var(--ink-rgb),.32) 100%)}
+
+  /* ============ Magazine chrome：顶部 meta + 底部 foot ============ */
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+  .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
+  .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
+
+  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+  .rule.v{width:1px;height:100%;margin:0}
+
+  /* ============ 字体规则 ============
+     · 衬线（Noto Serif SC / Playfair）：大标题、重点金句、数字
+     · 非衬线（Noto Sans SC）：正文描述、body、补充说明
+     · 等宽（IBM Plex Mono）：kicker、meta 小标签、foot 右侧
+  */
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display{font-family:var(--serif-en);font-weight:700;font-size:min(11vw,20vh);line-height:.92;letter-spacing:-.025em}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:min(7.8vw,14vh);line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:min(4.6vw,8vh);line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:min(3.2vw,6vh);line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:min(1.9vw,3vh);line-height:1.35}
+  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:min(1.9vw,3vh);line-height:1.4;opacity:.85}
+  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--serif-en);font-weight:800;font-size:min(10vw,18vh);line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:min(5.5vw,10vh);line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  .ghost{font-family:var(--serif-en);font-weight:900;font-size:min(34vw,60vh);line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
+  em{font-style:italic;font-family:var(--serif-en)}
+  .en{font-family:var(--serif-en);font-style:italic;font-weight:500}
+
+  /* ============ 布局工具 ============ */
+  .col{display:flex;flex-direction:column;gap:2.4vh}
+  .row{display:flex;align-items:center;gap:3vw}
+  .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:min(3vh,4vw) 6vw;flex:1;min-height:0;align-content:safe center;padding:1vh 0}
+  .grid-9{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3vh 4vw;flex:1;min-height:0;align-content:safe center}
+  .grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:4vh 6vw;flex:1;min-height:0;align-content:safe center}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;flex:1;min-height:0;align-content:safe center}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:4vw;flex:1;min-height:0;align-items:center}
+  .split-55{display:grid;grid-template-columns:55fr 45fr;gap:5vw;flex:1;min-height:0;align-items:stretch}
+  .fill{flex:1}
+  .center{align-items:center;justify-content:center;text-align:center}
+  .bottom-left{position:absolute;left:6vw;bottom:9vh;max-width:50vw}
+  .bottom-right{position:absolute;right:6vw;bottom:9vh;max-width:50vw;text-align:right}
+  .top-right{position:absolute;right:6vw;top:6vh;text-align:right}
+
+  /* ============ Stat（数字矩阵） ============ */
+  .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
+  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:min(8vw,14vh);line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .stat .l{font-family:var(--sans-zh);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+  .stat .m{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+
+  /* ============ Callout（引用框） ============ */
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
+  .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+
+  /* ============ Platform（平台卡） ============ */
+  .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
+  .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:min(1.8vw,3vh);margin-bottom:.6vh}
+  .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:min(3.2vw,6vh);letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
+  .plat .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
+  .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:min(2.4vw,4vh);opacity:.28;letter-spacing:-.01em;line-height:1}
+
+  /* ============ Rowline（表格行） ============ */
+  .rowline{display:grid;grid-template-columns:1fr 2fr 1fr;gap:2vw;padding:2.2vh 0;border-top:1px solid currentColor;align-items:center;border-color:rgba(127,127,127,.25)}
+  .rowline:last-child{border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25)}
+  .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:min(1.7vw,3vh)}
+  .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
+  .rowline .m{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
+
+  /* ============ Pillar（支柱卡片） ============ */
+  .pillar{display:flex;flex-direction:column;gap:1.8vh}
+  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:min(2.6vw,5vh);opacity:.45;font-weight:400}
+  .pillar .ic svg{width:2.8vw;height:2.8vw;stroke-width:1.2;opacity:.7}
+  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:min(2.4vw,4vh);line-height:1.1}
+  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
+
+  /* ============ Signature / Highlight ============ */
+  .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:min(2vw,4vh);opacity:.7}
+  .hi{position:relative;display:inline}
+  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
+  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
+
+  /* ============ Icons（Lucide via CDN） ============ */
+  .ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .ico-lg,.ico-md,.ico-sm{fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+  .ico-lg{width:2.6vw;height:2.6vw;stroke-width:1.2;display:inline-block}
+  .ico-md{width:1.8vw;height:1.8vw;stroke-width:1.3;display:inline-block;vertical-align:-.4em}
+  .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
+
+  /* ============ 图片占位（虚线框，提示设计师位置） ============ */
+  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
+  .img-slot::before{content:"";position:absolute;inset:8px;border:1px solid currentColor;opacity:.2}
+  .img-slot .plus{font-size:min(2vw,4vh);font-weight:300;opacity:.5;letter-spacing:0}
+  .img-slot .label{position:relative;z-index:2;text-align:center}
+  .img-slot.r-4x3{aspect-ratio:4/3}
+  .img-slot.r-3x2{aspect-ratio:3/2}
+  .img-slot.r-1x1{aspect-ratio:1/1}
+
+  /* ============ 图片实填框（关键：固定高度 + 只裁底部） ============
+     重要约束：高度用内联 height:Nvh 精确控制，不要用 aspect-ratio（会撑破布局）
+     object-position:top center 保证严禁裁剪顶部和左右，只裁剪底部
+  */
+  .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:4px}
+  .slide.dark .frame-img{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
+  .frame-img > img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+  .frame-img.fit-contain > img{object-fit:contain;object-position:center center}
+  .frame-img.r-16x9{aspect-ratio:16/9;max-height:64vh}
+  .frame-img.r-16x10{aspect-ratio:16/10;max-height:56vh}
+  .frame-img.r-4x3{aspect-ratio:4/3;max-height:56vh}
+  .frame-img.r-3x2{aspect-ratio:3/2;max-height:46vh}
+  .frame-img.r-3x4{aspect-ratio:3/4;max-height:60vh}
+  .frame-img.r-1x1{aspect-ratio:1/1;max-height:50vh}
+  .frame-img.h-16{height:16vh}
+  .frame-img.h-18{height:18vh}
+  .frame-img.h-22{height:22vh}
+  .frame-img.h-26{height:26vh}
+  .frame-img.h-28{height:28vh}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
+  .frame-cap .idx{font-family:var(--mono);opacity:.5}
+  figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
+  figure.tile > .frame-img{flex:0 0 auto}
+
+  /* ============ 导航 ============ */
+  #nav{position:fixed;left:50%;bottom:2.6vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(0,0,0,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+  #nav .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s ease;border:0;padding:0}
+  #nav .dot:hover{background:rgba(255,255,255,.5);transform:scale(1.15)}
+  #nav .dot.active{background:rgba(255,255,255,.95);width:22px;border-radius:999px}
+  body.light-bg #nav{background:rgba(255,255,255,.25)}
+  body.light-bg #nav .dot{background:rgba(var(--ink-rgb),.25)}
+  body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
+  #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
+  body.low-power #hint{opacity:.72;color:var(--paper);mix-blend-mode:normal}
+  body.light-bg.low-power #hint{color:var(--ink)}
+
+  /* ============================================================
+     ============ LAYOUTS API · 面向 agent 的类（v2）============
+     所有 layouts.md 中的骨架都基于下面这套命名。
+     如果你在 layouts.md 里看到某个类，它必须在下面有定义。
+     ============================================================ */
+
+  /* ---------- .frame：每页主内容容器 ---------- */
+  .frame{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+  /* 当 .frame 同时加了 grid 类时，grid 的 display:grid 覆盖 flex */
+  .frame.grid-2-7-5,
+  .frame.grid-2-6-6,
+  .frame.grid-2-8-4,
+  .frame.grid-3-3,
+  .frame.grid-6{display:grid}
+
+  /* ---------- 标题层级（API 名称，衬线为主） ---------- */
+  .h-hero{
+    font-family:var(--serif-zh);
+    font-weight:900;
+    font-size:min(10vw,17.8vh);
+    line-height:.96;
+    letter-spacing:-.02em;
+  }
+  .h-xl{
+    font-family:var(--serif-zh);
+    font-weight:700;
+    font-size:min(6.2vw,11vh);
+    line-height:1.08;
+    letter-spacing:-.01em;
+  }
+  .h-sub{
+    font-family:var(--serif-zh);
+    font-weight:500;
+    font-size:min(3.1vw,5.5vh);
+    line-height:1.25;
+    letter-spacing:0;
+    opacity:.7;
+  }
+  .h-md{
+    font-family:var(--serif-zh);
+    font-weight:600;
+    font-size:min(2.3vw,4vh);
+    line-height:1.3;
+  }
+  /* 英文标题专用（Playfair 衬线） */
+  .h-hero-en,.h-xl-en{font-family:var(--serif-en);letter-spacing:-.025em}
+
+  /* ---------- lead 引语 ---------- */
+  .lead{
+    font-family:var(--serif-zh);
+    font-weight:400;
+    font-size:min(1.75vw,3.1vh);
+    line-height:1.5;
+    opacity:.86;
+  }
+
+  /* ---------- meta-row 底部元数据 ---------- */
+  .meta-row{
+    display:flex;
+    gap:1.2em;
+    align-items:baseline;
+    flex-wrap:wrap;
+    font-family:var(--mono);
+    font-size:max(12px,.92vw);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    opacity:.6;
+  }
+
+  /* ---------- stat-card（数据大字报用） ---------- */
+  .stat-card{
+    display:flex;
+    flex-direction:column;
+    gap:.8vh;
+    align-items:flex-start;
+    padding-top:1.6vh;
+    border-top:1px solid currentColor;
+    border-color:rgba(127,127,127,.3);
+  }
+  .stat-card .stat-label{
+    font-family:var(--mono);
+    font-size:max(10px,.78vw);
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    opacity:.55;
+  }
+  .stat-card .stat-nb{
+    font-family:var(--serif-en);
+    font-weight:800;
+    font-size:min(5.8vw,10.3vh);
+    line-height:.9;
+    letter-spacing:-.03em;
+    font-feature-settings:"tnum";
+    margin-top:.4vh;
+  }
+  .stat-card .stat-nb .stat-unit{
+    font-family:var(--serif-zh);
+    font-weight:500;
+    font-size:.38em;
+    letter-spacing:0;
+    opacity:.72;
+    margin-left:.14em;
+  }
+  .stat-card .stat-note{
+    font-family:var(--sans-zh);
+    font-weight:400;
+    font-size:max(13px,1.05vw);
+    line-height:1.5;
+    opacity:.72;
+    margin-top:.6vh;
+  }
+  /* 当 stat-card 用于 grid-4（2x2），数字适度放大；若页面有标题+引文在上方，可内联 style 覆盖为更小值 */
+  .grid-4 .stat-card .stat-nb{font-size:min(5vw,9vh)}
+  /* 当只有 3 个，字也可以稍大 */
+  .grid-3 .stat-card .stat-nb{font-size:min(6.8vw,12vh)}
+
+  /* ---------- pipeline（流水线） ---------- */
+  .pipeline-section{
+    margin-top:4.4vh;
+    padding-top:2.8vh;
+    border-top:1px dashed rgba(127,127,127,.32);
+  }
+  .pipeline-section:first-of-type{
+    border-top:0;
+    padding-top:0;
+    margin-top:3vh;
+  }
+  .pipeline-label{
+    font-family:var(--mono);
+    font-size:max(11px,.85vw);
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    opacity:.62;
+    margin-bottom:2.2vh;
+  }
+  .pipeline{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:1.2vw;
+  }
+  .pipeline[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
+  .pipeline[data-cols="4"]{grid-template-columns:repeat(4,1fr)}
+  .pipeline[data-cols="6"]{grid-template-columns:repeat(6,1fr)}
+  .step{
+    display:flex;
+    flex-direction:column;
+    gap:.8vh;
+    padding-top:1.4vh;
+    border-top:1px solid currentColor;
+    border-color:rgba(127,127,127,.35);
+  }
+  .step-nb{
+    font-family:var(--serif-en);
+    font-style:italic;
+    font-weight:500;
+    font-size:min(1.15vw,2vh);
+    opacity:.45;
+  }
+  .step-title{
+    font-family:var(--sans-zh);
+    font-weight:700;
+    font-size:min(1.55vw,2.8vh);
+    letter-spacing:.01em;
+    line-height:1.2;
+  }
+  .step-desc{
+    font-family:var(--sans-zh);
+    font-weight:400;
+    font-size:max(12px,.95vw);
+    line-height:1.45;
+    opacity:.72;
+  }
+
+  /* ---------- 网格（layouts.md 所用） ---------- */
+  /* 这些类独立挂到任何容器上都能生效，不依赖 .frame 复合选择器 */
+  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:3vw 4vh;align-items:start}
+  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:3vw 4vh;align-items:start}
+  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:3vw 4vh;align-items:start}
+  .grid-3-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-auto-rows:minmax(0,1fr);
+    gap:2.4vh 2vw;
+  }
+  /* grid-6 已在旧样式里定义为 3x2，这里仅补 align */
+
+  /* ---------- 图片 frame-img（layouts.md 主命名） ---------- */
+  /* 在旧样式里已定义，这里补 img-cap 命名别名与增强 */
+  figure.frame-img{margin:0;display:flex;flex-direction:column;min-width:0}
+  .img-cap{
+    display:block;
+    margin-top:.8vh;
+    font-family:var(--mono);
+    font-size:max(10px,.8vw);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    opacity:.6;
+  }
+  /* callout src 命名别名 */
+  .callout-src{
+    display:block;
+    margin-top:1.6vh;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    opacity:.6;
+  }
+
+  /* ---------- chrome & foot 补位（layouts.md 简单写法） ---------- */
+  .chrome{font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+  .foot{font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+
+  /* ============ 动效系统(Motion One 驱动) ============
+     所有 [data-anim] 元素默认隐藏,进入页面时由 JS 逐个揭示。
+     - cascade(默认):按 DOM 顺序 stagger 120ms 淡入 + y:16→0
+     - hero(hero 页自动):慢一点的 stagger 180ms
+     - quote(含 [data-anim="line"]):逐行 600ms 淡入
+     - directional(含 [data-anim="left|right"]):左→分隔线→右
+     - pipeline(data-animate="pipeline"):Space/→ 手动推进
+     Motion One 没加载成功时(CDN 断 + 本地丢),所有 [data-anim] 会兜底显示。
+  */
+  [data-anim]{opacity:1}
+  body.motion-ready [data-anim]{opacity:0}
+  body.motion-ready [data-anim="left"]{transform:translateX(-24px)}
+  body.motion-ready [data-anim="right"]{transform:translateX(24px)}
+  body.motion-ready [data-anim="line"]{opacity:0;transform:translateY(10px)}
+  body.motion-ready [data-animate="pipeline"] [data-anim]{opacity:.15}
+  body.low-power #deck{transition:none!important}
+  body.low-power *,
+  body.low-power *::before,
+  body.low-power *::after{animation:none!important;transition:none!important}
+  body.low-power.motion-ready [data-anim],
+  body.low-power [data-anim]{opacity:1!important;transform:none!important}
+
+  /* ---------- 响应式降级 ---------- */
+  @media (max-width:900px){
+    .display{font-size:min(16vw,26vh)}
+    .display-zh{font-size:min(12vw,20vh)}
+    .h1-zh{font-size:min(7vw,12vh)}
+    .h-hero{font-size:min(14vw,25vh)}
+    .h-xl{font-size:min(9vw,16vh)}
+    .pipeline{grid-template-columns:repeat(2,1fr)}
+    .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
+  }
+
+  /* ---------- 小屏视口纵向空间回收 ---------- */
+  @media (max-height:800px){
+    .chrome{font-size:10px}
+    .foot{font-size:10px}
+    .stat-card .stat-note{font-size:max(11px,1.05vw)}
+  }
+</style>
+</head>
+<body>
+<script>
+  (function(){
+    const KEY = 'guizang-ppt-low-power';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stored = localStorage.getItem(KEY);
+    window.__lowPowerMode = stored === '1' || (stored === null && reduced);
+    function updateHint(){
+      const hint = document.getElementById('hint');
+      if(hint) hint.textContent = `← → 翻页 · B ${window.__lowPowerMode ? '动态' : '静态'} · ESC 索引`;
+    }
+    window.__setLowPowerMode = function(on, opts={}){
+      window.__lowPowerMode = !!on;
+      document.body.classList.toggle('low-power', window.__lowPowerMode);
+      if(opts.persist !== false) localStorage.setItem(KEY, window.__lowPowerMode ? '1' : '0');
+      if(window.__lowPowerMode && document.getAnimations){
+        document.getAnimations().forEach(a=>a.cancel());
+      }
+      updateHint();
+      dispatchEvent(new CustomEvent('ppt-low-power-change', {detail:{on:window.__lowPowerMode}}));
+      if(window.__playSlide) window.__playSlide(window.__currentSlideIndex || 0);
+    };
+    document.body.classList.toggle('low-power', window.__lowPowerMode);
+    addEventListener('DOMContentLoaded', updateHint, {once:true});
+  })();
+</script>
+
+<canvas id="bg-dark" class="bg"></canvas>
+<canvas id="bg-light" class="bg"></canvas>
+<div id="hint">← → 翻页 · B 静态 · ESC 索引</div>
+
+<div id="deck">
+
+<!-- ============================================================
+     SLIDES 插入区 · 在此处填充所有 <section class="slide ..."> 页面
+     每页模板参考 references/page-patterns.md
+     页面组件参考 references/components.md
+     ============================================================ -->
+
+<!-- SLIDES_HERE -->
+
+<!-- P1 封面 -->
+<section class="slide hero dark">
+  <div class="chrome"><div>教学课件 · 2026</div><div>Vol.01</div></div>
+  <div class="frame" style="display:grid; gap:min(4vh,7vw); align-content:center">
+    <div class="kicker" data-anim>ICT项目管理 · 新人入门</div>
+    <h1 class="h-hero" data-anim>西游记</h1>
+    <h2 class="h-sub" data-anim>一部取经史，半部项目经</h2>
+    <p class="lead" style="max-width:60vw" data-anim>十四年、十万八千里、九九八十一难——中国最早的大型复杂项目管理案例，藏在唐僧师徒的取经路上。</p>
+    <div class="meta-row" data-anim><span>对照 PMBOK 十大知识域</span><span>·</span><span>45 分钟课程</span></div>
+  </div>
+  <div class="foot"><div>一场用古典名著讲现代项目管理的分享</div><div>— 2026 —</div></div>
+</section>
+
+<!-- P2 第一幕幕封 -->
+<section class="slide hero light">
+  <div class="chrome"><div>第一幕 · 项目章程</div><div>Act I · 01 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(6vh,11vw); align-content:center">
+    <div class="kicker" data-anim>Act I</div>
+    <h1 class="h-hero" style="font-size:min(8.5vw,15vh)" data-anim>取经即项目</h1>
+    <p class="lead" style="max-width:55vw" data-anim>先看一组数字，再看它为何是最复杂的 ICT 项目。</p>
+  </div>
+  <div class="foot"><div>第一幕引子</div><div>— · —</div></div>
+</section>
+
+<!-- P3 大字报 取经项目硬数据 -->
+<section class="slide light">
+  <div class="chrome"><div>取经项目 · 硬数据</div><div>Act I · 03 / 25</div></div>
+  <div class="frame" style="padding-top:2vh">
+    <div class="kicker" data-anim>一个人，做了什么。</div>
+    <h2 class="h-xl" style="margin-bottom:1vh" data-anim>取经项目硬指标</h2>
+    <p class="lead" style="margin-bottom:2vh; margin-top:.5vh" data-anim>用项目管理的眼光重读西游，数字会说话。</p>
+    <div class="grid-6" style="margin-top:2vh">
+      <div class="stat-card" data-anim><div class="stat-label">Duration</div><div class="stat-nb">14 <span class="stat-unit">年</span></div><div class="stat-note">贞观十三年出发，至灵山取经</div></div>
+      <div class="stat-card" data-anim><div class="stat-label">Distance</div><div class="stat-nb">10.8 <span class="stat-unit">万里</span></div><div class="stat-note">长安到灵山的总里程</div></div>
+      <div class="stat-card" data-anim><div class="stat-label">Risks</div><div class="stat-nb">81 <span class="stat-unit">难</span></div><div class="stat-note">九九八十一难，皆为风险事件</div></div>
+      <div class="stat-card" data-anim><div class="stat-label">Team</div><div class="stat-nb">5 <span class="stat-unit">人</span></div><div class="stat-note">师徒四人 + 白龙马</div></div>
+      <div class="stat-card" data-anim><div class="stat-label">Deliverable</div><div class="stat-nb">5048 <span class="stat-unit">卷</span></div><div class="stat-note">最终交付的真经数量</div></div>
+      <div class="stat-card" data-anim><div class="stat-label">Sponsor</div><div class="stat-nb">1 <span class="stat-unit">位</span></div><div class="stat-note">唐太宗——项目发起人</div></div>
+    </div>
+  </div>
+  <div class="foot"><div>取经项目 · 项目章程数据</div><div>Act I · Numbers</div></div>
+</section>
+
+<!-- P4 左文右图 项目章程 -->
+<section class="slide dark">
+  <div class="chrome"><div>项目章程 · The Charter</div><div>04 / 25</div></div>
+  <div class="frame grid-2-7-5" style="padding-top:6vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
+      <div>
+        <div class="kicker" data-anim>PROJECT CHARTER</div>
+        <h2 class="h-xl" style="font-size:min(5vw,8vh)" data-anim>项目章程</h2>
+        <p class="lead" style="margin-top:3vh" data-anim>唐太宗在长安化生寺亲送御弟三藏西行，颁发通关文牒——这就是项目章程的签署仪式。</p>
+      </div>
+      <div class="callout" data-anim>"宁恋本乡一捻土，莫爱他乡万两金。"<div class="callout-src">— 唐太宗 · 项目发起人寄语</div></div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim><img src="images/04-tang-king-farewell.jpg" alt="唐王送行"><figcaption class="img-cap">长安送别 · 项目启动</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 04 · 项目章程</div><div>— · —</div></div>
+</section>
+
+<!-- P5 问题页 什么是复杂ICT项目 -->
+<section class="slide hero dark">
+  <div class="chrome"><div>核心命题 · The Premise</div><div>05 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(8vh,14vw); align-content:center">
+    <div class="kicker" data-anim>The Question</div>
+    <h1 class="h-hero" style="font-size:min(6vw,11vh); line-height:1.15">
+      <span data-anim style="display:block">取经，</span>
+      <span data-anim style="display:block">为什么是</span>
+      <span data-anim style="display:block">最复杂的 ICT 项目？</span>
+    </h1>
+    <p class="lead" style="max-width:50vw" data-anim>跨地域、多干系人、高风险、长周期、资源受限——五重复杂性，尽在西行路上。</p>
+  </div>
+  <div class="foot"><div>Page 05 · The Premise</div><div>— · —</div></div>
+</section>
+
+<!-- P6 第二幕幕封 -->
+<section class="slide hero light">
+  <div class="chrome"><div>第二幕 · PMBOK 十大知识域</div><div>Act II · 06 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(6vh,11vw); align-content:center">
+    <div class="kicker" data-anim>Act II</div>
+    <h1 class="h-hero" style="font-size:min(8.5vw,15vh)" data-anim>十大知识域</h1>
+    <p class="lead" style="max-width:55vw" data-anim>每一难，都是一堂项目管理课。</p>
+  </div>
+  <div class="foot"><div>第二幕引子 · 知识域全景</div><div>— · —</div></div>
+</section>
+
+<!-- P7 左文右图 整合管理 -->
+<section class="slide light">
+  <div class="chrome"><div>整合管理 · Integration</div><div>07 / 25</div></div>
+  <div class="frame grid-2-7-5" style="padding-top:6vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
+      <div>
+        <div class="kicker" data-anim>知识域 01 · INTEGRATION</div>
+        <h2 class="h-xl" style="font-size:min(5vw,8vh)" data-anim>唐僧 = 项目经理</h2>
+        <p class="lead" style="margin-top:3vh" data-anim>整合管理的核心是"统筹"。唐僧不拔刀、不化斋、不打妖，但他把四个性格迥异的徒弟拧成一股绳，始终对齐"取经"这个唯一目标。</p>
+      </div>
+      <div class="callout" data-anim>"贫僧自东土大唐而来，去往西天拜佛求经。"<div class="callout-src">— 唐僧 · 项目目标陈述</div></div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim><img src="images/07-pilgrims-journey.jpg" alt="师徒行进"><figcaption class="img-cap">师徒西行 · 整合协同</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 07 · 整合管理</div><div>— · —</div></div>
+</section>
+
+<!-- P8 图文混排 范围管理 -->
+<section class="slide dark">
+  <div class="chrome"><div>范围管理 · Scope</div><div>08 / 25</div></div>
+  <div class="frame grid-2-8-4" style="padding-top:6vh">
+    <div>
+      <div class="kicker" data-anim>知识域 02 · SCOPE</div>
+      <h2 class="h-xl" style="margin-top:1vh; margin-bottom:3vh" data-anim>真经 = 交付物</h2>
+      <p class="lead" style="margin-bottom:3vh" data-anim>范围管理回答"做什么、不做什么"。取经项目的交付物是"大乘真经"，WBS 可拆为：上路 → 历劫 → 到灵山 → 取经 → 东归 → 译经传法。</p>
+      <p data-anim style="font-family:var(--sans-zh); font-size:max(14px,1.15vw); line-height:1.75; opacity:.78; margin-bottom:2.4vh">最经典的范围陷阱：到了灵山，阿傩伽叶先给的是"无字真经"——这就是交付物验收不合格，被项目发起方打回重做的典型案例。</p>
+      <div class="callout" style="margin-top:3vh" data-anim>"经不可轻传，亦不可空取。"<div class="callout-src">— 燃灯古佛 · 质量验收</div></div>
+    </div>
+    <figure class="frame-img r-3x4" data-anim><img src="images/08-pilgrimage-route.jpg" alt="取经路线图"><figcaption class="img-cap">西行路线 · WBS 分解</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 08 · 范围管理</div><div>知识域 02</div></div>
+</section>
+
+<!-- P9 流水线 进度管理 -->
+<section class="slide light" data-animate="pipeline">
+  <div class="chrome"><div>进度管理 · Schedule</div><div>Act II · 09 / 25</div></div>
+  <div class="frame" style="display:flex; flex-direction:column; justify-content:space-between">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; flex:1; min-height:0">
+    <div class="kicker">知识域 03 · SCHEDULE</div>
+    <h2 class="h-xl">九九八十一难 = 里程碑</h2>
+    <div class="pipeline-section">
+      <div class="pipeline-label">取经项目进度计划 · 五大里程碑</div>
+      <div class="pipeline">
+        <div class="step" data-anim="step"><div class="step-nb">01</div><div class="step-title">出发</div><div class="step-desc">贞观十三年自长安启程</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">02</div><div class="step-title">收徒</div><div class="step-desc">五行山收悟空·团队组建</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">03</div><div class="step-title">历劫</div><div class="step-desc">八十一难逐关推进·执行</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">04</div><div class="step-title">取经</div><div class="step-desc">灵山面佛·交付物验收</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">05</div><div class="step-title">东归</div><div class="step-desc">回长安译经·项目收尾</div></div>
+      </div>
+    </div>
+    <div class="pipeline-section">
+      <div class="pipeline-label">关键路径风险 · Critical Path Risk</div>
+      <div class="pipeline" data-cols="3">
+        <div class="step" data-anim="step"><div class="step-nb">06</div><div class="step-title">通天河</div><div class="step-desc">老鼋驮渡·关键依赖</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">07</div><div class="step-title">火焰山</div><div class="step-desc">借芭蕉扇·资源瓶颈</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">08</div><div class="step-title">狮驼岭</div><div class="step-desc">三魔王·最高风险项</div></div>
+      </div>
+    </div>
+    </div>
+    <div class="callout" style="padding:1.6vh 1.6vw; font-size:max(13px,1.02vw); margin-top:0" data-anim>
+      唐僧向太宗承诺"三年"取回真经，实际走了 <b>14 年</b> —— 估算偏差近 5 倍，教科书级 <em>规划谬误</em> Planning Fallacy。
+      <div class="callout-src">— 进度估算教训 · 复杂项目初期估算 ×2 才是现实值</div>
+    </div>
+  </div>
+  <div class="foot"><div>Page 09 · 进度管理</div><div>Schedule</div></div>
+</section>
+
+<!-- P10 左文右图 成本管理 -->
+<section class="slide dark">
+  <div class="chrome"><div>成本管理 · Cost</div><div>10 / 25</div></div>
+  <div class="frame grid-2-7-5" style="padding-top:6vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
+      <div>
+        <div class="kicker" data-anim>知识域 04 · COST</div>
+        <h2 class="h-xl" style="font-size:min(5vw,8vh)" data-anim>化缘 = 零预算</h2>
+        <p class="lead" style="margin-top:3vh" data-anim>取经项目几乎是"零预算"运行：食靠化缘、宿靠借宿、行靠步行。成本管理的精髓在于——用最小资源消耗完成最大价值交付。</p>
+      </div>
+      <div class="callout" data-anim>"钵盂千家饭，孤身万里游。"<div class="callout-src">— 唐僧 · 成本控制哲学</div></div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim><img src="images/10-alms-begging.jpg" alt="化缘"><figcaption class="img-cap">化缘乞食 · 零成本运营</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 10 · 成本管理</div><div>— · —</div></div>
+</section>
+
+<!-- P11 对比 质量管理 -->
+<section class="slide light" data-animate="directional">
+  <div class="chrome"><div>质量管理 · Quality</div><div>11 / 25</div></div>
+  <div class="frame" style="padding-top:2vh">
+    <div class="kicker" data-anim>知识域 05 · QUALITY</div>
+    <h2 class="h-xl" style="margin-bottom:2vh" data-anim>真假美猴王 · 质量管控</h2>
+    <div class="grid-2-6-6" style="gap:5vw 4vh">
+      <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
+        <div class="kicker" style="opacity:.9">缺陷 · 无字真经</div>
+        <h3 class="h-md" style="margin-top:2vh">交付物不合格</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>阿傩伽叶给白纸本——无内容</li>
+          <li>悟空识别后当场打回</li>
+          <li>典型验收未通过案例</li>
+        </ul>
+      </div>
+      <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
+        <div class="kicker" style="opacity:.9">合格 · 有字真经</div>
+        <h3 class="h-md" style="margin-top:2vh">交付物达标</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>紫金钵盂换有字真经</li>
+          <li>5048 卷 · 交付物数量达标</li>
+          <li>燃灯古佛点明 · 质量验收</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>Page 11 · 质量管理</div><div>Before / After</div></div>
+</section>
+
+<!-- P12 问题页 范围蔓延 -->
+<section class="slide hero dark">
+  <div class="chrome"><div>风险预警 · Scope Creep</div><div>12 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(8vh,14vw); align-content:center">
+    <div class="kicker" data-anim>The Risk</div>
+    <h1 class="h-hero" style="font-size:min(6vw,11vh); line-height:1.15">
+      <span data-anim style="display:block">八戒一句"散伙"，</span>
+      <span data-anim style="display:block">就是最典型的</span>
+      <span data-anim style="display:block">范围蔓延信号。</span>
+    </h1>
+    <p class="lead" style="max-width:50vw" data-anim>项目中途，团队成员想退出、想改目标——项目经理的整合能力，此刻最受考验。</p>
+  </div>
+  <div class="foot"><div>Page 12 · 范围蔓延</div><div>— · —</div></div>
+</section>
+
+<!-- P13 第三幕幕封 -->
+<section class="slide hero light">
+  <div class="chrome"><div>第三幕 · 团队与协作</div><div>Act III · 13 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(6vh,11vw); align-content:center">
+    <div class="kicker" data-anim>Act III</div>
+    <h1 class="h-hero" style="font-size:min(8.5vw,15vh)" data-anim>团队与协作</h1>
+    <p class="lead" style="max-width:55vw" data-anim>资源、沟通、风险、采购、相关方——五域并讲。</p>
+  </div>
+  <div class="foot"><div>第三幕引子</div><div>— · —</div></div>
+</section>
+
+<!-- P14 图文混排 资源管理 -->
+<section class="slide light">
+  <div class="chrome"><div>资源管理 · Resource</div><div>14 / 25</div></div>
+  <div class="frame grid-2-8-4" style="padding-top:6vh">
+    <div>
+      <div class="kicker" data-anim>知识域 06 · RESOURCE</div>
+      <h2 class="h-xl" style="margin-top:1vh; margin-bottom:3vh" data-anim>师徒四人 = 角色矩阵</h2>
+      <p class="lead" style="margin-bottom:3vh" data-anim>资源管理回答"谁做什么"。取经团队是经典的角色分工矩阵（RACI）：唐僧是目标对齐者，悟空是技术攻坚，八戒管后勤，沙僧做稳定支撑。</p>
+      <p data-anim style="font-family:var(--sans-zh); font-size:max(14px,1.15vw); line-height:1.75; opacity:.78; margin-bottom:2.4vh">白龙马是"基础设施层"——驮载项目经理，全程沉默但不可或缺，就像 ICT 项目里默默运转的服务器和网络。</p>
+      <div class="callout" style="margin-top:3vh" data-anim>"大师兄，师傅被妖怪抓走了！"<div class="callout-src">— 沙僧 · 问题上报机制</div></div>
+    </div>
+    <figure class="frame-img r-3x4" data-anim><img src="images/14-team-roles.jpg" alt="师徒角色分工"><figcaption class="img-cap">角色矩阵 · RACI 分工</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 14 · 资源管理</div><div>知识域 06</div></div>
+</section>
+
+<!-- P15 左文右图 沟通管理 -->
+<section class="slide dark">
+  <div class="chrome"><div>沟通管理 · Communications</div><div>15 / 25</div></div>
+  <div class="frame grid-2-7-5" style="padding-top:6vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
+      <div>
+        <div class="kicker" data-anim>知识域 07 · COMMUNICATIONS</div>
+        <h2 class="h-xl" style="font-size:min(5vw,8vh)" data-anim>沟通即性命</h2>
+        <p class="lead" style="margin-top:3vh" data-anim>取经路上最大的悲剧几乎都源于沟通失败：三打白骨精，悟空如实汇报"是妖"，唐僧信息过滤失误信谗言，导致核心成员被逐——典型的沟通失灵。</p>
+      </div>
+      <div class="callout" data-anim>"遇山开路，遇水搭桥，妖怪我来打。"<div class="callout-src">— 悟空 · 沟通承诺</div></div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim><img src="images/15-campfire-discussion.jpg" alt="师徒议事"><figcaption class="img-cap">篝火议事 · 沟通管理</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 15 · 沟通管理</div><div>— · —</div></div>
+</section>
+
+<!-- P16 流水线 风险管理 -->
+<section class="slide light" data-animate="pipeline">
+  <div class="chrome"><div>风险管理 · Risk</div><div>Act III · 16 / 25</div></div>
+  <div class="frame">
+    <div class="kicker">知识域 08 · RISK</div>
+    <h2 class="h-xl">八十一难 = 风险登记册</h2>
+    <div class="pipeline-section">
+      <div class="pipeline-label">风险管理四步法 · Risk Process</div>
+      <div class="pipeline">
+        <div class="step" data-anim="step"><div class="step-nb">01</div><div class="step-title">识别</div><div class="step-desc">悟空火眼金睛识妖怪</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">02</div><div class="step-title">评估</div><div class="step-desc">评估妖怪法力·定级</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">03</div><div class="step-title">应对</div><div class="step-desc">自力打·或上天求援</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">04</div><div class="step-title">监控</div><div class="step-desc">唐僧被抓·应急启动</div></div>
+      </div>
+    </div>
+    <div class="pipeline-section">
+      <div class="pipeline-label">应对策略四选 · Response Strategies</div>
+      <div class="pipeline">
+        <div class="step" data-anim="step"><div class="step-nb">05</div><div class="step-title">规避</div><div class="step-desc">绕路而行·绕开风险</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">06</div><div class="step-title">减轻</div><div class="step-desc">悟空先行·降低概率</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">07</div><div class="step-title">转移</div><div class="step-desc">请观音收妖·外包</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">08</div><div class="step-title">接受</div><div class="step-desc">历劫了难·承担后果</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>Page 16 · 风险管理</div><div>Risk</div></div>
+</section>
+
+<!-- P17 左文右图 采购管理 -->
+<section class="slide dark">
+  <div class="chrome"><div>采购管理 · Procurement</div><div>17 / 25</div></div>
+  <div class="frame grid-2-7-5" style="padding-top:6vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
+      <div>
+        <div class="kicker" data-anim>知识域 09 · PROCUREMENT</div>
+        <h2 class="h-xl" style="font-size:min(5vw,8vh)" data-anim>求外援 = 外包采购</h2>
+        <p class="lead" style="margin-top:3vh" data-anim>当自力无法解决时，向上界"采购"外援：请观音收妖、借天兵助阵、向龙王借雨——这就是采购管理的精髓：识别什么该自做、什么该外购。</p>
+      </div>
+      <div class="callout" data-anim>"悟空，去南海请观世音菩萨来。"<div class="callout-src">— 唐僧 · 采购指令</div></div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim><img src="images/17-divine-help.jpg" alt="求援神仙"><figcaption class="img-cap">天降援兵 · 外包采购</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 17 · 采购管理</div><div>— · —</div></div>
+</section>
+
+<!-- P18 对比 相关方管理 -->
+<section class="slide light" data-animate="directional">
+  <div class="chrome"><div>相关方管理 · Stakeholder</div><div>18 / 25</div></div>
+  <div class="frame" style="padding-top:2vh">
+    <div class="kicker" data-anim>知识域 10 · STAKEHOLDER</div>
+    <h2 class="h-xl" style="margin-bottom:2vh" data-anim>满天神佛 = 相关方矩阵</h2>
+    <div class="grid-2-6-6" style="gap:5vw 4vh">
+      <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
+        <div class="kicker" style="opacity:.9">支持方 · Promoters</div>
+        <h3 class="h-md" style="margin-top:2vh">推动项目的人</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>唐太宗 · 项目发起人</li>
+          <li>观音菩萨 · 项目协调人</li>
+          <li>如来佛祖 · 最终验收方</li>
+          <li>各路国王 · 沿途支持者</li>
+        </ul>
+      </div>
+      <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
+        <div class="kicker" style="opacity:.9">阻力方 · Resisters</div>
+        <h3 class="h-md" style="margin-top:2vh">制造障碍的人</h3>
+        <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
+          <li>各路妖怪 · 风险制造者</li>
+          <li>六耳猕猴 · 仿冒干扰</li>
+          <li>天庭部分势力 · 中立观望</li>
+          <li>八戒 · 内部动摇者</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>Page 18 · 相关方管理</div><div>Before / After</div></div>
+</section>
+
+<!-- P19 问题页 转折 -->
+<section class="slide hero dark">
+  <div class="chrome"><div>转折 · The Shift</div><div>19 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(8vh,14vw); align-content:center">
+    <div class="kicker" data-anim>The Shift</div>
+    <h1 class="h-hero" style="font-size:min(6vw,11vh); line-height:1.15">
+      <span data-anim style="display:block">项目不是消灭妖怪，</span>
+      <span data-anim style="display:block">而是</span>
+      <span data-anim style="display:block">交付真经。</span>
+    </h1>
+    <p class="lead" style="max-width:50vw" data-anim>从"打怪升级"到"系统化交付"——这是项目经理视角的根本转变。</p>
+  </div>
+  <div class="foot"><div>Page 19 · The Shift</div><div>— · —</div></div>
+</section>
+
+<!-- P20 第四幕幕封 -->
+<section class="slide hero light">
+  <div class="chrome"><div>第四幕 · 取经启示</div><div>Act IV · 20 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(6vh,11vw); align-content:center">
+    <div class="kicker" data-anim>Act IV</div>
+    <h1 class="h-hero" style="font-size:min(8.5vw,15vh)" data-anim>取经启示</h1>
+    <p class="lead" style="max-width:55vw" data-anim>从神话回到工位，我们能带走什么？</p>
+  </div>
+  <div class="foot"><div>第四幕引子</div><div>— · —</div></div>
+</section>
+
+<!-- P21 大引用 金句 -->
+<section class="slide light" data-animate="quote">
+  <div class="chrome"><div>核心金句 · The Takeaway</div><div>21 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(5vh,9vw); align-content:center">
+    <div class="kicker" data-anim>Quote · 金句</div>
+    <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:min(5.8vw,10vh); line-height:1.2; letter-spacing:-.01em; max-width:72vw">
+      <span data-anim="line" style="display:block">"敢问路在何方？</span>
+      <span data-anim="line" style="display:block">路在脚下。"</span>
+    </blockquote>
+    <p class="lead" style="max-width:55vw; opacity:.65" data-anim>The road is under your feet.<br>复杂项目的答案，从来不在远方，而在每一步的推进里。</p>
+    <div class="meta-row" data-anim><span>— 取经项目总结</span><span>·</span><span>项目经理 · 唐僧</span></div>
+  </div>
+  <div class="foot"><div>Page 21 · 金句</div><div>— · —</div></div>
+</section>
+
+<!-- P22 左文右图 十大知识域速查 -->
+<section class="slide dark">
+  <div class="chrome"><div>知识域速查 · PMBOK Map</div><div>22 / 25</div></div>
+  <div class="frame grid-2-7-5" style="padding-top:6vh">
+    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:2vh">
+      <div>
+        <div class="kicker" data-anim>PMBOK · 十大知识域速查</div>
+        <h2 class="h-xl" style="font-size:min(4.2vw,7vh)" data-anim>西游对照表</h2>
+        <p class="lead" style="margin-top:2vh; font-size:max(13px,1.05vw); line-height:1.7" data-anim>整合→唐僧统筹｜范围→真经WBS｜进度→八十一难｜成本→化缘零预算｜质量→真假美猴王｜资源→师徒角色｜沟通→三打白骨精｜风险→火眼金睛｜采购→请观音收妖｜相关方→满天神佛</p>
+      </div>
+      <div class="callout" data-anim>"一难一课，十域俱全。"<div class="callout-src">— PMBOK × 西游记</div></div>
+    </div>
+    <figure class="frame-img r-16x10" data-anim><img src="images/22-pmbok-domains.jpg" alt="十大知识域关系图"><figcaption class="img-cap">PMBOK · 十域关系</figcaption></figure>
+  </div>
+  <div class="foot"><div>Page 22 · 知识域速查</div><div>— · —</div></div>
+</section>
+
+<!-- P23 流水线 五过程组 -->
+<section class="slide light" data-animate="pipeline">
+  <div class="chrome"><div>五过程组 · Process Groups</div><div>Act IV · 23 / 25</div></div>
+  <div class="frame">
+    <div class="kicker">PMBOK · 五大过程组</div>
+    <h2 class="h-xl">取经项目全周期</h2>
+    <div class="pipeline-section">
+      <div class="pipeline-label">五大过程组 · Five Process Groups</div>
+      <div class="pipeline">
+        <div class="step" data-anim="step"><div class="step-nb">01</div><div class="step-title">启动</div><div class="step-desc">唐王下旨·定章程</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">02</div><div class="step-title">规划</div><div class="step-desc">观音指路·定路线</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">03</div><div class="step-title">执行</div><div class="step-desc">师徒西行·历八十一难</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">04</div><div class="step-title">监控</div><div class="step-desc">观音暗中护·纠偏差</div></div>
+        <div class="step" data-anim="step"><div class="step-nb">05</div><div class="step-title">收尾</div><div class="step-desc">取经东归·译经传法</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>Page 23 · 五过程组</div><div>Process Groups</div></div>
+</section>
+
+<!-- P24 问题页 留给你的问题 -->
+<section class="slide hero dark">
+  <div class="chrome"><div>留给你的问题</div><div>24 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(8vh,14vw); align-content:center">
+    <div class="kicker" data-anim>The Question</div>
+    <h1 class="h-hero" style="font-size:min(7vw,12vh); line-height:1.15">
+      <span data-anim style="display:block">你的"取经项目"</span>
+      <span data-anim style="display:block">是什么？</span>
+    </h1>
+    <p class="lead" style="max-width:50vw" data-anim>谁是你项目的"唐僧""悟空""八戒"？你的"八十一难"又在哪一段路上？</p>
+  </div>
+  <div class="foot"><div>Page 24 · The Question</div><div>— · —</div></div>
+</section>
+
+<!-- P25 致谢收束 -->
+<section class="slide hero light">
+  <div class="chrome"><div>谢幕 · The End</div><div>25 / 25</div></div>
+  <div class="frame" style="display:grid; gap:min(4vh,7vw); align-content:center; text-align:center">
+    <div class="kicker" data-anim style="margin-inline:auto">Thank You · 谢谢观看</div>
+    <h1 class="h-hero" style="font-size:min(9vw,16vh)" data-anim>取经即项目</h1>
+    <p class="lead" style="max-width:55vw; margin-inline:auto" data-anim>愿你在每一个复杂 ICT 项目里，都能像唐僧师徒一样——目标坚定，团队互补，逢凶化吉，终成正果。</p>
+    <div class="meta-row" data-anim style="margin-inline:auto"><span>西游记 · ICT项目管理</span><span>·</span><span>对照 PMBOK 十大知识域</span></div>
+  </div>
+  <div class="foot"><div>一场用古典名著讲现代项目管理的分享</div><div>— Fin —</div></div>
+</section>
+
+</div>
+
+<div id="nav"></div>
+
+<script>
+/* =============== WebGL 双背景 ===============
+   深色页：Holographic Dispersion（全息色散 · 钛金暗流）—— 彩虹微扰、鼠标径向涟漪
+   浅色页：Spiral Vortex（旋转涡流 · 银色珍珠）—— domain-warp 流动、无中心
+   修改风格请参考 references/webgl-backgrounds.md
+*/
+const VS = `attribute vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}`;
+
+const FS_DARK = `precision highp float;
+uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
+vec3 palette(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+  vec2 p=uv*2.0-1.0;p.x*=u_resolution.x/u_resolution.y;
+  vec2 m=u_mouse*2.0-1.0;m.x*=u_resolution.x/u_resolution.y;
+  float md=length(p-m);
+  float mr=sin(md*15.0-u_time*4.0)*exp(-md*3.0);p+=mr*0.08;
+  vec2 p0=p;
+  for(float i=1.0;i<4.0;i++){
+    p.x+=0.1/i*sin(i*3.0*p.y+u_time*0.4)+0.05;
+    p.y+=0.1/i*cos(i*2.0*p.x+u_time*0.3)-0.05;
+  }
+  float r=length(p);float ang=atan(p.y,p.x);
+  vec3 a=vec3(0.12,0.12,0.13);
+  vec3 b=vec3(0.03,0.04,0.05);
+  vec3 c=vec3(1.0,1.0,1.0);
+  vec3 d=vec3(0.1,0.2,0.4);
+  vec3 col=palette(r*1.5+p0.x*0.5+u_time*0.1,a,b,c,d);
+  float disp=sin(r*25.0-u_time*1.5+ang*2.0)*0.5+0.5;
+  col+=vec3(disp*0.015,disp*0.01,disp*0.02);
+  float hi=pow(sin(p.x*4.0+p.y*3.0+u_time)*0.5+0.5,8.0);
+  col+=hi*0.08;
+  vec3 base=vec3(0.05,0.05,0.06);
+  col=mix(base,col,0.85);
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const FS_LIGHT = `precision highp float;
+uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){
+  vec2 i=floor(p),f=fract(p);
+  float a=hash(i),b=hash(i+vec2(1,0));
+  float c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));
+  vec2 u=f*f*(3.0-2.0*f);
+  return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
+}
+float fbm(vec2 p){
+  float v=0.0,a=0.5;
+  mat2 m=mat2(0.80,0.60,-0.60,0.80);
+  for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=0.5;}
+  return v;
+}
+void main(){
+  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
+  vec2 p=uv;p.x*=u_resolution.x/u_resolution.y;
+  vec2 m=u_mouse;m.x*=u_resolution.x/u_resolution.y;
+  vec2 md=p-m;float dl=length(md);
+  p+=normalize(md+vec2(0.0001))*exp(-dl*5.0)*0.03;
+  vec2 q=vec2(fbm(p*1.8+u_time*0.07),fbm(p*1.8+vec2(5.2,1.3)+u_time*0.06));
+  vec2 r=vec2(fbm(p*2.0+q*1.3+vec2(1.7,9.2)+u_time*0.05),
+              fbm(p*2.0+q*1.3+vec2(8.3,2.8)+u_time*0.04));
+  float f=fbm(p*2.2+r*1.5);
+  vec3 silverDark=vec3(0.86,0.85,0.84);
+  vec3 paper=vec3(0.955,0.945,0.925);
+  vec3 col=mix(silverDark,paper,f);
+  float ph=r.x*2.2+u_time*0.35;
+  col+=vec3(0.78,0.62,0.92)*sin(ph)*0.055;
+  col+=vec3(0.55,0.72,0.95)*sin(ph*0.8+2.0)*0.05;
+  float hl=smoothstep(0.48,0.92,f);
+  col+=hl*0.06;
+  gl_FragColor=vec4(col,1.0);
+}`;
+
+const mouse={x:0.5,y:0.5};
+addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
+
+function bootGL(canvasId, fsSrc){
+  const canvas=document.getElementById(canvasId);
+  const gl=canvas.getContext('webgl',{alpha:false,antialias:true});
+  if(!gl) return ()=>false;
+  const mk=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh};
+  const prog=gl.createProgram();
+  gl.attachShader(prog,mk(gl.VERTEX_SHADER,VS));
+  gl.attachShader(prog,mk(gl.FRAGMENT_SHADER,fsSrc));
+  gl.linkProgram(prog);gl.useProgram(prog);
+  const buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  const pos=gl.getAttribLocation(prog,'position');
+  gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+  const lRes=gl.getUniformLocation(prog,'u_resolution');
+  const lT=gl.getUniformLocation(prog,'u_time');
+  const lM=gl.getUniformLocation(prog,'u_mouse');
+  const resize=()=>{
+    const d=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=innerWidth*d;canvas.height=innerHeight*d;
+    gl.viewport(0,0,canvas.width,canvas.height);
+  };
+  addEventListener('resize',resize);resize();
+  return (tSec)=>{
+    gl.uniform2f(lRes,canvas.width,canvas.height);
+    gl.uniform1f(lT,tSec);
+    gl.uniform2f(lM,mouse.x,1-mouse.y);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+    return true;
+  };
+}
+let drawDark=null, drawLight=null, glRAF=0, glT0=Date.now();
+function startGL(){
+  if(window.__lowPowerMode || glRAF) return;
+  if(!drawDark) drawDark=bootGL('bg-dark',FS_DARK);
+  if(!drawLight) drawLight=bootGL('bg-light',FS_LIGHT);
+  glT0=Date.now();
+  function loop(){
+    if(window.__lowPowerMode){glRAF=0;return;}
+    const t=(Date.now()-glT0)/1000;
+    drawDark(t);drawLight(t);
+    glRAF=requestAnimationFrame(loop);
+  }
+  glRAF=requestAnimationFrame(loop);
+}
+function stopGL(){
+  if(glRAF) cancelAnimationFrame(glRAF);
+  glRAF=0;
+}
+startGL();
+addEventListener('ppt-low-power-change', e=>{e.detail.on ? stopGL() : startGL();});
+
+// =============== 导航（翻页 / 圆点 / 键盘 / 滚轮 / 触屏） ===============
+const deck=document.getElementById('deck');
+const slides=deck.querySelectorAll('.slide');
+const nav=document.getElementById('nav');
+let idx=0,total=slides.length,lock=false;
+
+// 关键：矫正 deck 宽度为 total * 100vw，否则翻页会错位
+deck.style.width=(total*100)+'vw';
+
+slides.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='dot';b.dataset.i=i;b.setAttribute('aria-label','Page '+(i+1));
+  b.onclick=()=>go(i);
+  nav.appendChild(b);
+});
+
+function go(n){
+  if(lock)return;
+  idx=Math.max(0,Math.min(total-1,n));
+  window.__currentSlideIndex = idx;
+  deck.style.transform=`translateX(${-idx*100}vw)`;
+  nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  /* 主题切换：优先读 data-theme，其次从 class（light/dark）推断 */
+  const el=slides[idx];
+  const th=el.dataset.theme || (el.classList.contains('light')?'light':(el.classList.contains('dark')?'dark':'dark'));
+  document.body.classList.toggle('light-bg',th==='light');
+  /* 动效：翻页过渡中段触发当前页的入场动画（由 motion-boot 注册） */
+  if(window.__playSlide) setTimeout(()=>window.__playSlide(idx), 450);
+  lock=true;setTimeout(()=>lock=false,700);
+}
+
+/* =============== ESC 索引视图 =============== */
+let overviewOn=false;
+const ov=document.createElement('div');
+ov.id='overview';
+ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(var(--ink-rgb),.92);backdrop-filter:blur(12px);display:none;overflow-y:auto;padding:4vh 4vw';
+document.body.appendChild(ov);
+
+function buildOverview(){
+  ov.innerHTML='';
+  const grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
+  slides.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.style.cssText='cursor:pointer;border-radius:6px;overflow:hidden;border:2px solid '+(i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)')+';transition:border-color .2s';
+    card.onmouseenter=()=>card.style.borderColor='rgba(var(--paper-rgb),.6)';
+    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(var(--paper-rgb),.8)':'rgba(var(--paper-rgb),.15)';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:'+(s.classList.contains('light')?'var(--paper)':'var(--ink)');
+    const clone=s.cloneNode(true);
+    clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
+    wrap.appendChild(clone);
+    const label=document.createElement('div');
+    label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);opacity:.7';
+    label.textContent=(i+1)+' / '+total;
+    card.appendChild(wrap);
+    card.appendChild(label);
+    card.onclick=()=>{toggleOverview();go(i)};
+    grid.appendChild(card);
+  });
+  ov.appendChild(grid);
+}
+
+function toggleOverview(){
+  overviewOn=!overviewOn;
+  if(overviewOn){buildOverview();ov.style.display='block';}
+  else{ov.style.display='none';}
+}
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();toggleOverview();return;}
+  if(e.key && e.key.toLowerCase()==='b' && !e.metaKey && !e.ctrlKey && !e.altKey){
+    e.preventDefault();
+    window.__setLowPowerMode(!window.__lowPowerMode);
+    return;
+  }
+  if(overviewOn)return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown'){
+    if(window.__pipeAdvance && window.__pipeAdvance()) return;
+    go(idx+1);
+    return;
+  }
+  if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp')go(idx-1);
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(total-1);
+});
+
+let wheelTO=null,wheelAcc=0;
+addEventListener('wheel',e=>{
+  wheelAcc+=e.deltaY+e.deltaX;
+  if(Math.abs(wheelAcc)>50){
+    if(wheelAcc>0 && window.__pipeAdvance && window.__pipeAdvance()){
+      wheelAcc=0;
+    }else{
+      go(idx+(wheelAcc>0?1:-1));wheelAcc=0;
+    }
+  }
+  clearTimeout(wheelTO);wheelTO=setTimeout(()=>wheelAcc=0,150);
+},{passive:true});
+
+let tx=0,ty=0;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+addEventListener('touchend',e=>{
+  const dx=(e.changedTouches[0].clientX-tx);
+  const dy=(e.changedTouches[0].clientY-ty);
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){
+    if(dx<0 && window.__pipeAdvance && window.__pipeAdvance()) return;
+    go(idx+(dx<0?1:-1));
+  }
+},{passive:true});
+
+go(0);
+</script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+
+<!-- ============ Motion One 动效引擎（本地优先,CDN 兜底） ============
+     加载策略:先 ./assets/motion.min.js(本地,离线可用),失败 fallback 到 jsDelivr CDN
+     加载完成后挂 window.__playSlide / window.__pipeAdvance,
+     导航脚本会在翻页中段调用 __playSlide(idx),键盘/滚轮/触屏会在翻页前调用 __pipeAdvance()
+     双双失败时会兜底把所有 [data-anim] 设为可见,不让动效破坏阅读
+-->
+<script type="module">
+let motion;
+try {
+  motion = await import('./assets/motion.min.js');
+} catch(e1) {
+  try {
+    motion = await import('https://cdn.jsdelivr.net/npm/motion@11.11.17/+esm');
+  } catch(e2) {
+    console.warn('[motion] local + CDN both failed, disabling animations', e1, e2);
+    document.querySelectorAll('[data-anim]').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+    document.querySelectorAll('[data-animate="pipeline"] [data-anim]').forEach(el=>el.style.opacity='1');
+  }
+}
+
+if(motion){
+  const { animate, stagger } = motion;
+  document.body.classList.add('motion-ready');
+  const EASE = [.22, 1, .36, 1];
+  const slides = [...document.querySelectorAll('.slide')];
+  let pipeStep = -1;
+  let lastIdx = -1;
+
+  function resetAnims(slide){
+    slide.querySelectorAll('[data-anim]').forEach(el=>{
+      el.style.opacity='';
+      el.style.transform='';
+    });
+  }
+
+  function revealStatic(slide){
+    resetAnims(slide);
+    document.getAnimations?.().forEach(a=>a.cancel());
+    slide.querySelectorAll('[data-anim]').forEach(el=>{
+      el.style.opacity='1';
+      el.style.transform='none';
+    });
+  }
+
+  function playSlide(i){
+    const slide = slides[i];
+    if(!slide) return;
+    lastIdx = i;
+    const recipe = slide.dataset.animate || (slide.classList.contains('hero') ? 'hero' : 'cascade');
+
+    if(window.__lowPowerMode){
+      revealStatic(slide);
+      return;
+    }
+
+    if(recipe === 'pipeline'){
+      pipeStep = -1;
+      slide.querySelectorAll('[data-anim]').forEach(el=>{
+        el.style.opacity='0.15';
+        el.style.transform='none';
+      });
+      return;
+    }
+
+    resetAnims(slide);
+    const all = [...slide.querySelectorAll('[data-anim]')];
+    if(!all.length) return;
+
+    if(recipe === 'directional'){
+      const lefts  = all.filter(el=>el.dataset.anim==='left');
+      const divs   = all.filter(el=>el.dataset.anim==='divider');
+      const rights = all.filter(el=>el.dataset.anim==='right');
+      const others = all.filter(el=>!['left','right','divider'].includes(el.dataset.anim));
+      if(others.length) animate(others, {opacity:[0,1], y:[12,0]}, {duration:.6, delay:stagger(.1, {start:.15}), easing:EASE});
+      if(lefts.length)  animate(lefts,  {opacity:[0,1], x:[-24,0]}, {duration:.8, delay:.35, easing:EASE});
+      if(divs.length)   animate(divs,   {opacity:[0,.25]},          {duration:.5, delay:.9});
+      if(rights.length) animate(rights, {opacity:[0,1], x:[24,0]},  {duration:.8, delay:1.0, easing:EASE});
+      return;
+    }
+
+    if(recipe === 'quote'){
+      const lines = all.filter(el=>el.dataset.anim==='line');
+      const others = all.filter(el=>el.dataset.anim!=='line');
+      if(others.length) animate(others, {opacity:[0,1], y:[8,0]},    {duration:.6, delay:stagger(.12, {start:.2}), easing:EASE});
+      if(lines.length)  animate(lines,  {opacity:[.35,1], y:[10,0]}, {duration:.8, delay:stagger(.55, {start:.5}), easing:EASE});
+      return;
+    }
+
+    if(recipe === 'hero'){
+      animate(all, {opacity:[0,1], y:[14,0]}, {duration:.9, delay:stagger(.16, {start:.2}), easing:EASE});
+      return;
+    }
+
+    // default: cascade
+    animate(all, {opacity:[0,1], y:[16,0]}, {duration:.75, delay:stagger(.1, {start:.15}), easing:EASE});
+  }
+
+  function pipeAdvance(){
+    if(window.__lowPowerMode) return false;
+    const slide = slides[lastIdx];
+    if(!slide || slide.dataset.animate !== 'pipeline') return false;
+    const steps  = [...slide.querySelectorAll('[data-anim="step"]')];
+    const arrows = [...slide.querySelectorAll('[data-anim="arrow"]')];
+    if(pipeStep >= steps.length - 1) return false;
+    pipeStep++;
+    animate(steps[pipeStep], {opacity:[0.15,1], y:[8,0]}, {duration:.5, easing:EASE});
+    if(pipeStep > 0 && arrows[pipeStep-1]){
+      animate(arrows[pipeStep-1], {opacity:[0.15,.7]}, {duration:.3, delay:.15});
+    }
+    return true;
+  }
+
+  window.__playSlide = playSlide;
+  window.__pipeAdvance = pipeAdvance;
+
+  // 首屏:go(0) 已跑过(同步),没来得及触发动效 → 这里补一下
+  playSlide(0);
+}
+</script>
+</body>
+</html>
