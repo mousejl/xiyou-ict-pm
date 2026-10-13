@@ -11,7 +11,7 @@
     --text:#333; --text-light:#777;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.8;padding-bottom:60px}
+  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;line-height:1.8;padding-bottom:86px}
   .header{background:linear-gradient(135deg,#0066CC,#004080);color:#fff;padding:36px 24px 28px;text-align:center;position:relative}
   .header h1{font-size:26px;font-weight:700;letter-spacing:2px}
   .header .sub{font-size:15px;opacity:.85;margin-top:8px}
@@ -34,6 +34,26 @@
   .tip{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:12px 16px;font-size:13px;color:#795548;margin:10px 0}
   .foot{text-align:center;color:var(--text-light);font-size:12px;margin-top:30px;border-top:1px solid #e0e0e0;padding-top:16px}
   .tag{display:inline-block;font-size:12px;border:1px solid var(--primary);color:var(--primary);border-radius:4px;padding:2px 10px;margin-right:6px}
+
+  /* 朗读控制条 */
+  #reader-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;border-top:1px solid #dfe2e8;box-shadow:0 -2px 10px rgba(0,0,0,.08);padding:8px 14px calc(8px + env(safe-area-inset-bottom))}
+  .rb-row{display:flex;align-items:center;gap:8px;max-width:900px;margin:0 auto}
+  .rb-btn{flex:0 0 auto;height:38px;padding:0 16px;border-radius:19px;border:1px solid #d4d8e0;background:#fff;font-size:14px;color:var(--primary-dark);cursor:pointer;font-weight:600;display:flex;align-items:center;justify-content:center;gap:4px}
+  .rb-btn:disabled{opacity:.4;cursor:not-allowed}
+  .rb-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+  .rb-btn.primary:disabled{background:#9ec3e8;border-color:#9ec3e8}
+  .rb-btn:active{transform:scale(.96)}
+  .rb-rate{flex:0 0 auto;height:38px;border-radius:19px;border:1px solid #d4d8e0;background:#fff;padding:0 10px;font-size:13px;color:var(--primary-dark)}
+  .rb-info{display:flex;justify-content:space-between;align-items:center;max-width:900px;margin:6px auto 0;font-size:11px;color:var(--text-light);letter-spacing:.5px}
+  .rb-info .voice-name{color:var(--accent-orange);font-weight:600}
+  .rb-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;margin-right:5px;vertical-align:middle}
+  .rb-info .dot.on{background:var(--accent-green);animation:pulse 1.2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  /* 朗读中段落高亮 */
+  p.reading{background:#fff3d6;border-radius:8px;padding:4px 10px;margin-left:-10px;margin-right:-10px;box-shadow:0 0 0 3px #ffe9a8;transition:background .2s}
+  @media (max-width:480px){
+    .rb-btn{font-size:13px;padding:0 8px}
+  }
 </style>
 </head>
 <body>
@@ -307,5 +327,176 @@
 
   <div class="foot">西游记·ICT项目管理教学课件配套口播稿（展开版 v2.0） ｜ 2026 ｜ 共 25 页</div>
 </div>
+</div>
+
+<!-- 朗读控制条 -->
+<div id="reader-bar">
+  <div class="rb-row">
+    <button id="rbPlay" class="rb-btn primary">▶ 朗读</button>
+    <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button>
+    <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button>
+    <select id="rbRate" class="rb-rate" title="语速">
+      <option value="0.85">0.85×</option>
+      <option value="1">1.0×</option>
+      <option value="1.1" selected>1.1×</option>
+      <option value="1.3">1.3×</option>
+    </select>
+  </div>
+  <div class="rb-info">
+    <span><span class="dot"></span><span id="rbVoice">正在加载语音…</span></span>
+    <span id="rbPos">0 / 0</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  if(!('speechSynthesis' in window)){
+    document.getElementById('rbVoice').textContent = '当前浏览器不支持语音朗读';
+    document.getElementById('rbPlay').disabled = true;
+    return;
+  }
+  var speech = window.speechSynthesis;
+  var btnPlay = document.getElementById('rbPlay');
+  var btnPause = document.getElementById('rbPause');
+  var btnStop = document.getElementById('rbStop');
+  var rbVoice = document.getElementById('rbVoice');
+  var rbPos = document.getElementById('rbPos');
+  var rbRate = document.getElementById('rbRate');
+
+  /* 1. 提取朗读段落（剔除舞台提示/导演注释/标签文字） */
+  var segs = [];
+  document.querySelectorAll('.card .script p').forEach(function(p){
+    var txt = '';
+    var pause = 0.3;
+    (function walk(n){
+      if(n.nodeType === 3){ txt += n.nodeValue; return; }
+      if(n.nodeType !== 1) return;
+      var cls = (n.className || '').toString();
+      // 跳过【停顿】【互动】等舞台标签，但记录留白时长
+      if(/stage|pause/.test(cls)){
+        var t = (n.textContent || '').trim();
+        if(t.indexOf('停顿') >= 0) pause = Math.max(pause, 1.6);
+        else if(t.indexOf('互动') >= 0) pause = Math.max(pause, 2.4);
+        return;
+      }
+      if(/tag/.test(cls)) return; // 跳过「可略」等小标签
+      n.childNodes.forEach(walk);
+    })(p);
+    /* 剔除导演注释（括号里的动作提示），让朗读更干净 */
+    txt = txt.replace(/（[^）]*）|(?:\[[^\]]*\])/g, '').replace(/\s+/g, ' ').trim();
+    if(txt) segs.push({p:p, txt:txt, pause:pause});
+  });
+
+  /* 2. 挑选中文男性声音（优先），无则回退任意中文声 */
+  var maleVoice = null, zhVoice = null;
+  var maleKeys = ['kangkang','kang kang','yunjian','yun jian','yunyang','yun yang','yunxi','yun xi','sinji','sin-ji','sin ji','li-mu','limu','li mu','male'];
+  function pickVoice(){
+    var voices = speech.getVoices();
+    var zh = voices.filter(function(v){
+      return /^zh/i.test(v.lang) || /普通话|中文|chinese/i.test(v.name);
+    });
+    zhVoice = zh[0] || null;
+    maleVoice = null;
+    for(var i=0;i<zh.length;i++){
+      var n = zh[i].name.toLowerCase();
+      for(var k=0;k<maleKeys.length;k++){
+        if(n.indexOf(maleKeys[k]) >= 0){ maleVoice = zh[i]; break; }
+      }
+      if(maleVoice) break;
+    }
+    var label;
+    if(maleVoice) label = '男声 · ' + maleVoice.name.replace(/^(Microsoft|Google|Apple)\s*/i,'');
+    else if(zhVoice) label = '中文 · ' + zhVoice.name.replace(/^(Microsoft|Google|Apple)\s*/i,'') + '（未找到男声）';
+    else label = '系统默认语音';
+    rbVoice.textContent = label;
+  }
+  if(typeof speech.onvoiceschanged !== 'undefined'){
+    speech.onvoiceschanged = pickVoice;
+    speech.addEventListener('voiceschanged', pickVoice);
+  }
+  pickVoice();
+
+  /* 3. 朗读状态机 */
+  var reading = false;   // 朗读进行中
+  var paused = false;    // 暂停中
+  var idx = 0;           // 当前段
+  var timer = null;
+
+  function setBtns(){
+    btnPlay.disabled = reading && !paused;
+    btnPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
+    btnPause.disabled = !reading || paused;
+    btnStop.disabled = !reading;
+    rbPos.textContent = reading ? (idx + 1) + ' / ' + segs.length : segs.length + ' 段';
+    document.querySelector('#reader-bar .dot').classList.toggle('on', reading);
+  }
+
+  function highlight(i){
+    document.querySelectorAll('p.reading').forEach(function(p){ p.classList.remove('reading'); });
+    var p = segs[i].p;
+    p.classList.add('reading');
+    if(p.scrollIntoView) p.scrollIntoView({block:'center', behavior:'smooth'});
+  }
+
+  function clearHighlight(){
+    document.querySelectorAll('p.reading').forEach(function(p){ p.classList.remove('reading'); });
+  }
+
+  function speakAt(i){
+    if(i >= segs.length){ stop(); return; }
+    idx = i;
+    var u = new SpeechSynthesisUtterance(segs[i].txt);
+    u.voice = maleVoice || zhVoice || null;
+    u.lang = maleVoice ? maleVoice.lang : 'zh-CN';
+    u.rate = parseFloat(rbRate.value);
+    u.pitch = 1.12; /* 略高音调，更活泼 */
+    u.volume = 1;
+    u.onend = function(){
+      if(paused || !reading) return;
+      timer = setTimeout(function(){ speakAt(i + 1); }, segs[i].pause * 1000);
+    };
+    u.onerror = function(e){
+      if(e.error === 'canceled' || e.error === 'interrupted') return;
+      if(reading && !paused) setTimeout(function(){ speakAt(i + 1); }, 600);
+    };
+    speech.speak(u);
+    highlight(i);
+    setBtns();
+  }
+
+  function start(){
+    if(paused){ paused = false; speakAt(idx); }
+    else { reading = true; paused = false; speakAt(0); }
+    setBtns();
+  }
+  function pause(){
+    if(!reading || paused) return;
+    paused = true;
+    speech.cancel();
+    if(timer){ clearTimeout(timer); timer = null; }
+    setBtns();
+  }
+  function stop(){
+    speech.cancel();
+    if(timer){ clearTimeout(timer); timer = null; }
+    reading = false; paused = false; idx = 0;
+    clearHighlight();
+    setBtns();
+  }
+  function finish(){
+    reading = false; paused = false;
+    clearHighlight();
+    setBtns();
+  }
+
+  btnPlay.addEventListener('click', function(){ if(!reading || paused) start(); });
+  btnPause.addEventListener('click', pause);
+  btnStop.addEventListener('click', stop);
+  rbRate.addEventListener('change', function(){ if(reading && !paused){ /* 语速即时生效需重启当前段 */ var c = idx; stop(); idx = c; reading = true; paused = false; speakAt(idx); } });
+  window.addEventListener('beforeunload', function(){ speech.cancel(); });
+
+  setBtns();
+})();
+</script>
 </body>
 </html>
