@@ -300,66 +300,59 @@
     })(p);
     return pause;
   });
-  var audio = null, reading = false, paused = false, ridx = 0, rTimer = null;
-  function segUrl(i){ var n = String(i + 1); while(n.length < 3) n = '0' + n; return 'audio/tuokou/seg-' + n + '.mp3'; }
+  window.SEGS = {"segs":[{"start":0,"end":54.12},{"start":56.52,"end":104.76},{"start":106.36,"end":149.94},{"start":152.34,"end":207.49},{"start":209.09,"end":265.85},{"start":268.25,"end":316.25},{"start":318.65,"end":374.5},{"start":376.1,"end":431.95},{"start":433.55,"end":482.15},{"start":483.75,"end":533.74},{"start":535.34,"end":587.18},{"start":588.78,"end":640.96}],"total":640.96};
+  var audio = null, reading = false, paused = false, ridx = 0;
+  function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; }
+  function rSet(){
+    var s = window.SEGS;
+    rPlay.disabled = reading && !paused;
+    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
+    rPause.disabled = !reading || paused;
+    rStop.disabled = !reading;
+    var pct = reading ? Math.min(100, Math.round((audio ? audio.currentTime : 0) / s.total * 100)) : 0;
+    rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）';
+    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
+  }
+  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
   function ensureAudio(){
     if(!audio){
-      audio = new Audio();
+      audio = new Audio('audio/tuokou/full.mp3');
       audio.preload = 'auto';
-      audio.onended = function(){
-        if(paused || !reading) return;
-        var i = ridx;
-        var wait = Math.max(segPause[i], 0.15) * 1000;
-        rTimer = setTimeout(function(){ rPlayAt(i + 1); }, wait);
-      };
-      audio.onerror = function(){
-        rVoice.textContent = '音频加载失败，请检查网络后刷新';
-        if(reading && !paused) setTimeout(function(){ rPlayAt(ridx + 1); }, 700);
+      audio.onended = function(){ rFinish(); };
+      audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; };
+      audio.ontimeupdate = function(){
+        if(!reading || paused) return;
+        var k = segIndex(audio.currentTime);
+        if(k !== ridx){ ridx = k; rHl(k); go(k); }
+        rSet();
       };
     }
     audio.playbackRate = parseFloat(rRate.value);
     return audio;
   }
-  function rSet(){
-    rPlay.disabled = reading && !paused;
-    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
-    rPause.disabled = !reading || paused;
-    rStop.disabled = !reading;
-    rPos.textContent = reading ? (ridx + 1) + ' / ' + total + ' 段' : total + ' 段';
-    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
-  }
-  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
-  function rPlayAt(i){
-    if(i >= total){ rFinish(); return; }
-    ridx = i; rHl(i); go(i);
-    var a = ensureAudio();
-    a.src = segUrl(i);
-    a.play().catch(function(){});
-    rSet();
-  }
   function rStart(){
     if(paused && audio){ paused = false; audio.play(); rSet(); return; }
     if(reading) return;
+    var a = ensureAudio();
     reading = true; paused = false;
-    rPlayAt(0);
+    ridx = segIndex(a.currentTime);
+    a.play().catch(function(){});
     rSet();
   }
   function rPause(){
     if(!reading || paused) return;
     paused = true;
     if(audio) audio.pause();
-    if(rTimer){ clearTimeout(rTimer); rTimer = null; }
     rSet();
   }
   function rStop(){
     if(audio){ audio.pause(); audio.currentTime = 0; }
-    if(rTimer){ clearTimeout(rTimer); rTimer = null; }
     reading = false; paused = false; ridx = 0;
     rHl(-1); rSet();
   }
   function rFinish(){
     if(audio) audio.pause();
-    reading = false; paused = false;
+    reading = false; paused = false; ridx = 0;
     rHl(-1); rSet();
   }
   rPlay.addEventListener('click', rStart);
