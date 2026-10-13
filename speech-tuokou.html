@@ -283,7 +283,7 @@
     var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
     if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
   }, {passive:true});
-  /* ===== 朗读（云希·男声，audio/tuokou/seg-001..012）===== */
+  /* ===== 朗读（云希·男声，audio/tuokou/full.mp3 全程播放 + 分段定位）===== */
   var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
   var segPause = pages.map(function(p){
     var pause = 0.5;
