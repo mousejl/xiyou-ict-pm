@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>西游记·ICT项目管理 · 口播稿（脱口秀版）</title>
+<style>
+  :root{
+    --primary:#0066CC; --primary-dark:#004080; --accent-orange:#FF6600;
+    --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff;
+    --text:#333; --text-light:#888;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+  .header{background:linear-gradient(135deg,#0066CC,#004080);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10}
+  .header h1{font-size:16px;font-weight:700;letter-spacing:2px}
+  .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
+  .colorbar{display:flex;height:4px}
+  .colorbar div{flex:1}
+  #pages{position:fixed;inset:0;padding:76px 16px 110px;z-index:5;overflow:hidden}
+  .page{position:absolute;inset:76px 0 110px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
+  .page.active{display:block;opacity:1}
+  .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
+  .pagemeta .tag.g{background:var(--accent-green)}
+  .pagemeta .tag.o{background:var(--accent-orange)}
+  .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4}
+  .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)}
+  .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px}
+  .page .script p:last-child{margin-bottom:0}
+  .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .page .script .stage.o{background:var(--accent-orange)}
+  .page .script .key{color:var(--primary);font-weight:700}
+  .page .script .joke{color:#9a3b0e;font-weight:600}
+  #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
+  .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none}
+  .nav-btn:active{background:var(--primary);color:#fff}
+  .nav-btn.disabled{opacity:.3;pointer-events:none}
+  .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pager::-webkit-scrollbar{display:none}
+  .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer;font-family:var(--mono,"Menlo",monospace)}
+  .pnum.on{background:var(--primary);color:#fff;font-weight:700}
+  .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>口播稿 · 脱口秀版</h1>
+  <div class="sub">西游记·ICT项目管理 ｜ 单口专场 · 段子结构 ｜ 铺垫→包袱→回扣 ｜ 滑动或点页码切换</div>
+</div>
+<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
+
+<div id="pages">
+
+<!-- 段1 开场·冷开场 -->
+<div class="page" data-p="1">
+  <div class="pagemeta"><span class="tag">冷开场 Hook</span><span>第 01 段 / 12 · 约 2.5 分钟</span></div>
+  <div class="title">开场｜把自己当段子讲</div>
+  <div class="script">
+    <p>大家好，我是干项目管理的。今天不讲PPT，我讲段子——哦不，讲项目。<span class="stage">互动</span>（先看一圈台下）</p>
+    <p>我听说大家对项目经理这个职业，多少有点误会：觉得项目经理就是"催进度的、开大会的、甩锅的"三件套。我今天就想把这个误会……<span class="joke">纠正到八十分。</span></p>
+    <p>先说清楚：什么叫项目？教科书上写——临时性、独特性、有交付物。翻译成人话：<span class="key">一段暂时没人想干、但必须有结果的苦难。</span><span class="stage">停顿</span>干成了叫"结项"，没干成叫"延期"——反正都不叫"假期"。</p>
+    <p>所以，我要给大家讲一个项目——跨地域、长周期、高风险、零预算，老板还是位高僧。就是……<span class="joke">取——经。</span></p>
+    <p>有人说了，西游记那是神话小说。别急，我今天拿项目管理的手术刀，把它给你<span class="key">解剖一遍</span>。放心，不会疼——<span class="joke">它本来就没肝没肺。</span></p>
+  </div>
+</div>
+
+<!-- 段2 唐僧=项目经理 -->
+<div class="page" data-p="2">
+  <div class="pagemeta"><span class="tag g">铺垫 Setup</span><span>第 02 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">唐僧＝项目经理</div>
+  <div class="script">
+    <p>很多人觉得，唐僧是团队里最废的那个——不能打、不能跑、一被抓就喊"悟空救我"。</p>
+    <p>我想说：<span class="joke">你们对项目经理的要求，是不是有点高？</span><span class="stage">停顿</span></p>
+    <p>唐僧到底干了啥？<b>定方向</b>——往西，绝不往东，不偏；<b>管冲突</b>——俩徒弟打起来，他负责劝架；<b>对外协调</b>——通关、借路、求人，都是他出面；<b>守底线</b>——紧箍咒，该念就念。</p>
+    <p>你看紧箍咒是什么？就是项目系统里那个<span class="key">"警告/校准"</span>。念一次，悟空疼一次，目标就强调一次。不是他狠——<span class="joke">是项目经理手里，就剩这一招了。</span></p>
+    <p>所以记住：<b>项目经理不是那个打妖怪的人，是保证打妖怪的人朝对的方向打的人。</b>你负责方向，妖怪——<span class="joke">谁有本事谁来打。</span></p>
+  </div>
+</div>
+
+<!-- 段3 启动会/章程 -->
+<div class="page" data-p="3">
+  <div class="pagemeta"><span class="tag o">互动·启动</span><span>第 03 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">最豪华的一次启动会</div>
+  <div class="script">
+    <p>取经这个项目，启动会开到哪？长安城门外，唐太宗亲自送。<span class="stage">停顿</span>各位，一把手送到城门口——<span class="joke">今天哪家公司的启动会，领导能从会议室走到大门，我就敬他是条汉子。</span></p>
+    <p>唐太宗递过去的，是通关文牒。放在PMBOK里，这就叫<span class="key">项目章程</span>。章程三件事：<strong>为什么办</strong>——大唐缺大乘真经；<strong>谁来办</strong>——御弟三藏；<strong>资源怎么给</strong>——通关文牒、金钵、俩随从。</p>
+    <p>唐僧当场立军令状：领命，直达灵山。<span class="stage">互动</span>（学唐僧拱手）</p>
+    <p>然后唐太宗问了一句要命的话："御弟，这一去，<b>几时能回？</b>"<span class="stage">停顿</span>各位别急，听他怎么说——<span class="joke">这句话，是整个西游最危险的一个"工时承诺"。</span></p>
+  </div>
+</div>
+
+<!-- 段4 进度/规划谬误 -->
+<div class="page" data-p="4">
+  <div class="pagemeta"><span class="tag">三连翻·Punch</span><span>第 04 段 / 12 · 约 3.5 分钟</span></div>
+  <div class="title">三年？十四年！</div>
+  <div class="script">
+    <p>唐太宗问几时能回。唐僧拍着胸脯，一脸自信：<span class="key">"只在三年，三年必回。"</span></p>
+    <p>三年。各位，这个承诺的有效期，我算过，大概十天。<span class="joke">因为第十天他就开始抓妖怪了，进度条就再也拉不回来了。</span></p>
+    <p>实际干多久？<b>十四年</b>。三年变十四年，超了……<span class="stage">停顿</span>五倍。唐僧不是唯一一个这样干的——你也是。<span class="joke">你问开发"三周行不行"，他说行。三周后你问，他说"再对齐一下"。三天又三天，在程序员嘴里，"天"是一个计量单位，=一个季度。</span></p>
+    <p>这学名叫<span class="key">规划谬误</span>——人一旦自己估工期，就往好处想。经验法则给你：<b>复杂项目，初估×2 才是现实；唐僧这种，还得再×2。</b><span class="stage">停顿</span>为啥？因为关键路径上躺一天，交付就晚一天——<span class="joke">神仙来了，也改不了进度。</span></p>
+  </div>
+</div>
+
+<!-- 段5 无字真经/交付 -->
+<div class="page" data-p="5">
+  <div class="pagemeta"><span class="tag">反转·Punch</span><span>第 05 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">十四年，交付了一摞白纸</div>
+  <div class="script">
+    <p>熬了十四年，八十一难，唐僧终于到灵山了。验收。激动不激动？<span class="stage">互动</span>（看台下）</p>
+    <p>管经库的两位库管，阿难伽叶，很客气，递过来一套经书。唐僧打开——<span class="stage">停顿</span>空的。全是白纸。<span class="joke">不是"无字天书"，是无字真经——他还以为是文化，其实是交付报告。</span></p>
+    <p>各位，这不是交付，这是<span class="key">"你把验收单给我，我把我的白纸给你"</span>的当代版本。而且人家写得挺规范：封面V1.0，正文是……空白的。</p>
+    <p>你项目里有没有这种"无字真经"？功能缺、文档没、数据是空的，验收单上却写"验收合格"。<span class="stage">停顿</span>悟空当场翻脸，打回重谈，最后拿紫金钵盂换回有字真经，5048卷，点验合格。</p>
+    <p><b>验收的手一软，前面十四年全白跑。</b><span class="joke">敢打回，才叫范围管理；不敢打回，那叫睁一只眼闭一只眼。</span></p>
+  </div>
+</div>
+
+<!-- 段6 风险登记册 -->
+<div class="page" data-p="6">
+  <div class="pagemeta"><span class="tag o">互动·风险</span><span>第 06 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">八十一难，就是一份风险台账</div>
+  <div class="script">
+    <p>有人问，为什么取经刚好是八十一难？<span class="joke">因为正好凑个整，好登记。</span></p>
+    <p>你看这份"风险登记册"多全：什么妖、什么害、谁应对、结果如何——一难一录，条条在册。应对也有标准：打得过就打，打不过搬救兵，绕道走，请观音。</p>
+    <p>你项目呢？你的风险清单呢？<span class="stage">互动</span>是不是还躺在你脑子里，叫"<span class="key">到时候再说</span>"？</p>
+    <p>我告诉你，风险这东西，你不登记它，它也不会消失——<span class="joke">它就挑你加班到最晚那晚，在"火焰山"门口，恭候你大驾。</span>比你家楼下水果店老板娘守得还准。</p>
+    <p>所以，<b>风险不登记，它不消失；登记了，你至少知道它在哪个角落等着你。</b><span class="stage">停顿</span>知道你要面对谁，总比被谁面——强。</p>
+  </div>
+</div>
+
+<!-- 段7 团队 -->
+<div class="page" data-p="7">
+  <div class="pagemeta"><span class="tag">排比·节奏</span><span>第 07 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">师徒五人，一个 RACI</div>
+  <div class="script">
+    <p>取经团队，五个人，刚好是一张 RACI 表。我一个个来，你听个排比：</p>
+    <p><b>唐僧</b>——负责人，负责拍板。其实他啥也不会，但<span class="key">他负责"负责"</span>。<b>悟空</b>——技术骨干，又拆雷又跑一线，<span class="joke">"出事第一个上，没事第一个挨骂"</span>，这是骨干的宿命。<b>八戒</b>——后勤，能干，但懒，得盯着，属于"要用但要管"。<b>沙僧</b>——稳定支撑，看门、收尾、传话——<span class="joke">"大师兄，师父被妖怪抓走了"这句，他干了十四年，也没升个职。</span></p>
+    <p>最后一个，<b>白龙马</b>——基础设施，驮着你跑完全程，不出声。<span class="joke">你像不像机房里那台服务器？天天没存在感，一断，全公司瘫痪。</span></p>
+    <p>资源管得好，就是每个人知道自己该干啥、出事找谁。<span class="stage">停顿</span>别让八戒去接安全，别让沙僧去写PPT——<span class="joke">他写，你，段子都讲不出来了。</span></p>
+  </div>
+</div>
+
+<!-- 段8 沟通/三打白骨精 -->
+<div class="page" data-p="8">
+  <div class="pagemeta"><span class="tag">经典翻车·Punch</span><span>第 08 段 / 12 · 约 3.5 分钟</span></div>
+  <div class="title">三打白骨精：一手证据输给二手小作文</div>
+  <div class="script">
+    <p>今天讲一个史上最贵的沟通翻车现场：三打白骨精。</p>
+    <p>白骨精三变——姑娘、老太、老头。悟空火眼金睛，三认、三打，打得相当规范：<b>一手证据、当场汇报</b>，"师父，这是妖。"信息源准，铁证如山。</p>
+    <p>结果呢？唐僧一手证据不采，信了八戒的<span class="key">"二手小作文"</span>——"他那是诬蔑"、"他在捣乱"。紧箍咒一收，贬书一写，骨干开除。</p>
+    <p>接下来呢？战力清零，唐僧差点全剧终，最后还得去花果山把悟空请回来。<span class="stage">停顿</span>所以说——<span class="joke">开除骨干的勇气，请骨干回来的勇气，是同一个勇气。</span></p>
+    <p><b>项目里最贵的沟通成本，不是不沟通，是把真话说成假话。</b>所以记住八个字：<b>汇报保真，倾听判断。</b>下次有人喊"我查过了，是真问题"——你先别急着念咒，先看看他是孙悟空，还是八戒转发的。</p>
+  </div>
+</div>
+
+<!-- 段9 采购 -->
+<div class="page" data-p="9">
+  <div class="pagemeta"><span class="tag o">对比·Punch</span><span>第 09 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">自己干 vs 请观音</div>
+  <div class="script">
+    <p>唐僧不会打妖怪，但他会一个核心能力——<span class="key">花钱请外援。</span></p>
+    <p>妖怪太强，自己没辙，怎么办？请观音。而且他请得特别规范：<strong>供应商选对</strong>——观音法力强、信誉好、不摆烂；<strong>条件谈清</strong>——妖归你收，师徒我带走；<strong>干完结账</strong>——收妖，道谢，不拖欠。这叫<span class="key">标准采购流程</span>。</p>
+    <p>反观八戒——啥都想外包给师兄："哥你帮我干，哥你帮我。"<span class="stage">停顿</span>该自己练的本事全甩出去，最后一点护城河都不剩。<span class="joke">这叫"我外包了，所以我输了"。</span></p>
+    <p>所以原则一句话：<b>核心能力自己留着，外围的事放心请人。</b>好的团队，不是啥都自己干；是<span class="key">该干的自己上，该请的果断请</span>。<span class="stage">停顿</span>就像我，能把相声讲好，就不当外包。</p>
+  </div>
+</div>
+
+<!-- 段10 相关方 -->
+<div class="page" data-p="10">
+  <div class="pagemeta"><span class="tag">排比·互揭</span><span>第 10 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">满天神佛＝相关方地图</div>
+  <div class="script">
+    <p>项目里有妖怪？先别急，妖怪也能当客户。你把它当"相关方"一拉，就顺了。</p>
+    <p><b>支持方</b>：唐太宗出钱，观音协调兼监理，如来终审一锤，沿途国王当地赞助。<b>阻力方</b>：妖怪、六耳（冒牌的）、八戒（动摇的）。<b>中立方</b>：天庭神仙——不帮不坏，纯看热闹。</p>
+    <p>怎么打？支持方，常对齐；中立方，慢慢争取；阻力方——<span class="key">先查后台。</span></p>
+    <p>你发现没有，西游的妖怪有个规律：<span class="joke">"有后台的妖怪，最后都被领导接走了；没后台的，才是真风险，被当场打死。"</span></p>
+    <p>所以别急着打怪。<b>先看后台，再动手。</b>你团队里那个最难搞的"妖怪"，多半上边有位。<span class="stage">停顿</span>你得跟领导"请外援"，而不是亲自下场干架。</p>
+  </div>
+</div>
+
+<!-- 段11 范围蔓延 -->
+<div class="page" data-p="11">
+  <div class="pagemeta"><span class="tag">铺垫·Punch</span><span>第 11 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">八戒的"散伙"，是需求变更</div>
+  <div class="script">
+    <p>最后，聊一个你可能不喜欢的角色：八戒。</p>
+    <p>你发现没有，八戒的特点是，事儿一到他那就变样：大师兄被赶，散伙；师父被抓，散伙；行李一沉，散伙。而且他理由还特别正当：<span class="joke">"这不叫退，叫及时止损。"</span></p>
+    <p>这就是项目管理里最阴险的一个词：<span class="key">范围蔓延</span>。你项目里是不是也有这种人："太难了，要不砍了吧""做个简化版""这需求不重要"？<span class="stage">停顿</span>每一句"算了、差不多、先这样"，都是在给目标<span class="joke">放血</span>。</p>
+    <p>唐僧怎么接的？他不吵、不纵容，就一句话：<span class="key">"贫僧自东土大唐而来，去往西天拜佛求经。"</span><span class="stage">停顿</span>翻译成人话——<span class="joke">"初心没变。'散伙'这个需求，不在本期范围。"</span></p>
+    <p>项目经理最值钱的本事之一：<b>每次会开完，全组都知道——咱们为啥还在干。</b></p>
+  </div>
+</div>
+
+<!-- 段12 收尾 Call -->
+<div class="page" data-p="12">
+  <div class="pagemeta"><span class="tag">收尾·回扣</span><span>第 12 段 / 12 · 约 3 分钟</span></div>
+  <div class="title">敢问路在何方，路在脚下</div>
+  <div class="script">
+    <p>好，今天这一程，我们从"三年承诺"走到"十四年交付"，从"白纸经"走到"有字真经"，从"八戒散伙"走到"悟空请回"。</p>
+    <p>你发现没有，唐僧不是最能打的，但他始终朝着灵山走；悟空能打，也要靠团队托底。<b>真到灵山的，不是哪个超能英雄，是一个目标统一、分工互补、风险共担的团队。</b></p>
+    <p>最后留你三个问题，你下班前自己答一下：<span class="stage">互动</span>你的"唐僧"是谁？你团队里有没有"八戒"？你的八十一难，登记了吗？</p>
+    <p>然后，送你一句话，当收场段子也当道理——<span class="key">敢问路在何方？路在脚下。</span><span class="stage">停顿</span>你要迈出去，它才算数。</p>
+    <p>谢谢各位，我是金亮。<span class="joke">这堂课我不收钱——你项目顺利结项，就当这顿我请了。</span>别指望我再出PPT就行。谢谢大家。<span class="stage">互动</span>（留时间答疑）</p>
+  </div>
+</div>
+
+</div>
+
+<div id="nav">
+  <div class="nav-row">
+    <div class="nav-btn" id="btnPrev">‹</div>
+    <div class="pager" id="pager"></div>
+    <div class="nav-btn" id="btnNext">›</div>
+  </div>
+  <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 12 段</div>
+</div>
+
+<script>
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var pager = document.getElementById('pager');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var cur = 0;
+  var total = pages.length;
+  pages.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.className = 'pnum'; b.textContent = i + 1;
+    b.addEventListener('click', function(){ go(i); });
+    pager.appendChild(b);
+  });
+  var nums = pager.querySelectorAll('.pnum');
+  function go(i){
+    if(i < 0 || i >= total) return;
+    pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i;
+    nums.forEach(function(n, j){ n.classList.toggle('on', j === i); });
+    btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1);
+    var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block:'nearest', inline:'center'}); }
+    pages[cur].scrollTop = 0;
+    var hint = document.getElementById('hint');
+    if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; }
+  }
+  btnPrev.addEventListener('click', function(){ go(cur - 1); });
+  btnNext.addEventListener('click', function(){ go(cur + 1); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if(e.key === 'Home') { go(0); }
+    else if(e.key === 'End') { go(total - 1); }
+  });
+  var sx = 0, sy = 0, sw = false;
+  document.addEventListener('touchstart', function(e){
+    var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!sw) return; sw = false;
+    var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
+  }, {passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
