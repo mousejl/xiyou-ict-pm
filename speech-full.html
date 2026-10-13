@@ -343,19 +343,13 @@
     </select>
   </div>
   <div class="rb-info">
-    <span><span class="dot"></span><span id="rbVoice">正在加载语音…</span></span>
+    <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span>
     <span id="rbPos">0 / 0</span>
   </div>
 </div>
 
 <script>
 (function(){
-  if(!('speechSynthesis' in window)){
-    document.getElementById('rbVoice').textContent = '当前浏览器不支持语音朗读';
-    document.getElementById('rbPlay').disabled = true;
-    return;
-  }
-  var speech = window.speechSynthesis;
   var btnPlay = document.getElementById('rbPlay');
   var btnPause = document.getElementById('rbPause');
   var btnStop = document.getElementById('rbStop');
@@ -363,64 +357,36 @@
   var rbPos = document.getElementById('rbPos');
   var rbRate = document.getElementById('rbRate');
 
-  /* 1. 提取朗读段落（剔除舞台提示/导演注释/标签文字） */
+  /* 1. 提取段落（用于高亮与停顿，音频已按序合成 audio/seg-001.mp3 …） */
   var segs = [];
   document.querySelectorAll('.card .script p').forEach(function(p){
-    var txt = '';
     var pause = 0.3;
     (function walk(n){
-      if(n.nodeType === 3){ txt += n.nodeValue; return; }
       if(n.nodeType !== 1) return;
       var cls = (n.className || '').toString();
-      // 跳过【停顿】【互动】等舞台标签，但记录留白时长
       if(/stage|pause/.test(cls)){
         var t = (n.textContent || '').trim();
         if(t.indexOf('停顿') >= 0) pause = Math.max(pause, 1.6);
         else if(t.indexOf('互动') >= 0) pause = Math.max(pause, 2.4);
         return;
       }
-      if(/tag/.test(cls)) return; // 跳过「可略」等小标签
       n.childNodes.forEach(walk);
     })(p);
-    /* 剔除导演注释（括号里的动作提示），让朗读更干净 */
-    txt = txt.replace(/（[^）]*）|(?:\[[^\]]*\])/g, '').replace(/\s+/g, ' ').trim();
-    if(txt) segs.push({p:p, txt:txt, pause:pause});
+    segs.push({p:p, pause:pause});
   });
 
-  /* 2. 挑选中文男性声音（优先），无则回退任意中文声 */
-  var maleVoice = null, zhVoice = null;
-  var maleKeys = ['kangkang','kang kang','yunjian','yun jian','yunyang','yun yang','yunxi','yun xi','sinji','sin-ji','sin ji','li-mu','limu','li mu','male'];
-  function pickVoice(){
-    var voices = speech.getVoices();
-    var zh = voices.filter(function(v){
-      return /^zh/i.test(v.lang) || /普通话|中文|chinese/i.test(v.name);
-    });
-    zhVoice = zh[0] || null;
-    maleVoice = null;
-    for(var i=0;i<zh.length;i++){
-      var n = zh[i].name.toLowerCase();
-      for(var k=0;k<maleKeys.length;k++){
-        if(n.indexOf(maleKeys[k]) >= 0){ maleVoice = zh[i]; break; }
-      }
-      if(maleVoice) break;
-    }
-    var label;
-    if(maleVoice) label = '男声 · ' + maleVoice.name.replace(/^(Microsoft|Google|Apple)\s*/i,'');
-    else if(zhVoice) label = '中文 · ' + zhVoice.name.replace(/^(Microsoft|Google|Apple)\s*/i,'') + '（未找到男声）';
-    else label = '系统默认语音';
-    rbVoice.textContent = label;
-  }
-  if(typeof speech.onvoiceschanged !== 'undefined'){
-    speech.onvoiceschanged = pickVoice;
-    speech.addEventListener('voiceschanged', pickVoice);
-  }
-  pickVoice();
-
-  /* 3. 朗读状态机 */
+  /* 2. 音频播放状态机 */
+  var audio = null;      // 当前 Audio 元素
   var reading = false;   // 朗读进行中
-  var paused = false;    // 暂停中
+  var paused = false;    // 暂停中（保留进度）
   var idx = 0;           // 当前段
   var timer = null;
+
+  function segUrl(i){
+    var n = String(i + 1);
+    while(n.length < 3) n = '0' + n;
+    return 'audio/seg-' + n + '.mp3';
+  }
 
   function setBtns(){
     btnPlay.disabled = reading && !paused;
@@ -437,63 +403,72 @@
     p.classList.add('reading');
     if(p.scrollIntoView) p.scrollIntoView({block:'center', behavior:'smooth'});
   }
-
   function clearHighlight(){
     document.querySelectorAll('p.reading').forEach(function(p){ p.classList.remove('reading'); });
   }
 
-  function speakAt(i){
-    if(i >= segs.length){ stop(); return; }
+  function stopAudio(){
+    if(audio){
+      audio.pause();
+      audio.onended = null;
+      audio.onerror = null;
+      audio = null;
+    }
+  }
+
+  function playAt(i){
+    if(i >= segs.length){ finish(); return; }
+    stopAudio();
     idx = i;
-    var u = new SpeechSynthesisUtterance(segs[i].txt);
-    u.voice = maleVoice || zhVoice || null;
-    u.lang = maleVoice ? maleVoice.lang : 'zh-CN';
-    u.rate = parseFloat(rbRate.value);
-    u.pitch = 1.12; /* 略高音调，更活泼 */
-    u.volume = 1;
-    u.onend = function(){
+    audio = new Audio(segUrl(i));
+    audio.preload = 'auto';
+    audio.playbackRate = parseFloat(rbRate.value);
+    audio.onended = function(){
       if(paused || !reading) return;
-      timer = setTimeout(function(){ speakAt(i + 1); }, segs[i].pause * 1000);
+      timer = setTimeout(function(){ playAt(i + 1); }, segs[i].pause * 1000);
     };
-    u.onerror = function(e){
-      if(e.error === 'canceled' || e.error === 'interrupted') return;
-      if(reading && !paused) setTimeout(function(){ speakAt(i + 1); }, 600);
+    audio.onerror = function(){
+      rbVoice.textContent = '音频加载失败，请检查网络后刷新';
+      if(reading && !paused) setTimeout(function(){ playAt(i + 1); }, 900);
     };
-    speech.speak(u);
+    audio.play().catch(function(){});
     highlight(i);
     setBtns();
   }
 
   function start(){
-    if(paused){ paused = false; speakAt(idx); }
-    else { reading = true; paused = false; speakAt(0); }
+    if(paused && audio){ paused = false; audio.play(); setBtns(); return; }
+    if(reading) return;
+    reading = true; paused = false;
+    playAt(0);
     setBtns();
   }
   function pause(){
     if(!reading || paused) return;
     paused = true;
-    speech.cancel();
+    if(audio) audio.pause();
     if(timer){ clearTimeout(timer); timer = null; }
     setBtns();
   }
   function stop(){
-    speech.cancel();
+    stopAudio();
     if(timer){ clearTimeout(timer); timer = null; }
     reading = false; paused = false; idx = 0;
     clearHighlight();
     setBtns();
   }
   function finish(){
+    stopAudio();
     reading = false; paused = false;
     clearHighlight();
     setBtns();
   }
 
-  btnPlay.addEventListener('click', function(){ if(!reading || paused) start(); });
+  btnPlay.addEventListener('click', start);
   btnPause.addEventListener('click', pause);
   btnStop.addEventListener('click', stop);
-  rbRate.addEventListener('change', function(){ if(reading && !paused){ /* 语速即时生效需重启当前段 */ var c = idx; stop(); idx = c; reading = true; paused = false; speakAt(idx); } });
-  window.addEventListener('beforeunload', function(){ speech.cancel(); });
+  rbRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rbRate.value); });
+  window.addEventListener('beforeunload', stopAudio);
 
   setBtns();
 })();
