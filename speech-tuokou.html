@@ -302,6 +302,24 @@
   });
   var audio = null, reading = false, paused = false, ridx = 0, rTimer = null;
   function segUrl(i){ var n = String(i + 1); while(n.length < 3) n = '0' + n; return 'audio/tuokou/seg-' + n + '.mp3'; }
+  function ensureAudio(){
+    if(!audio){
+      audio = new Audio();
+      audio.preload = 'auto';
+      audio.onended = function(){
+        if(paused || !reading) return;
+        var i = ridx;
+        var wait = Math.max(segPause[i], 0.15) * 1000;
+        rTimer = setTimeout(function(){ rPlayAt(i + 1); }, wait);
+      };
+      audio.onerror = function(){
+        rVoice.textContent = '音频加载失败，请检查网络后刷新';
+        if(reading && !paused) setTimeout(function(){ rPlayAt(ridx + 1); }, 700);
+      };
+    }
+    audio.playbackRate = parseFloat(rRate.value);
+    return audio;
+  }
   function rSet(){
     rPlay.disabled = reading && !paused;
     rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
@@ -311,23 +329,12 @@
     var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
   }
   function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
-  function rStopAudio(){ if(audio){ audio.pause(); audio.onended = null; audio.onerror = null; audio = null; } }
   function rPlayAt(i){
     if(i >= total){ rFinish(); return; }
-    rStopAudio(); ridx = i; rHl(i); go(i);
-    audio = new Audio(segUrl(i));
-    audio.preload = 'auto';
-    audio.playbackRate = parseFloat(rRate.value);
-    audio.onended = function(){
-      if(paused || !reading) return;
-      var wait = Math.max(segPause[i], 0.15) * 1000;
-      rTimer = setTimeout(function(){ rPlayAt(i + 1); }, wait);
-    };
-    audio.onerror = function(){
-      rVoice.textContent = '音频加载失败，请检查网络后刷新';
-      if(reading && !paused) setTimeout(function(){ rPlayAt(i + 1); }, 700);
-    };
-    audio.play().catch(function(){});
+    ridx = i; rHl(i); go(i);
+    var a = ensureAudio();
+    a.src = segUrl(i);
+    a.play().catch(function(){});
     rSet();
   }
   function rStart(){
@@ -345,13 +352,13 @@
     rSet();
   }
   function rStop(){
-    rStopAudio();
+    if(audio){ audio.pause(); audio.currentTime = 0; }
     if(rTimer){ clearTimeout(rTimer); rTimer = null; }
     reading = false; paused = false; ridx = 0;
     rHl(-1); rSet();
   }
   function rFinish(){
-    rStopAudio();
+    if(audio) audio.pause();
     reading = false; paused = false;
     rHl(-1); rSet();
   }
@@ -359,7 +366,7 @@
   rPause.addEventListener('click', rPause);
   rStop.addEventListener('click', rStop);
   rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); });
-  window.addEventListener('beforeunload', rStopAudio);
+  window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); });
   rSet();
 
   go(0);
