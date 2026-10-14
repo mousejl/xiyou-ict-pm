@@ -3,121 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>西游记·ICT项目管理 · 上课入口</title>
+<title>西游记·ICT项目管理 · 取经计划</title>
+<meta http-equiv="refresh" content="0;url=curriculum/index.html">
 <style>
-  :root{--primary:#0066CC;--primary-dark:#004080;--orange:#FF6600;--green:#00CC99;--red:#E53935;--bg:#f5f6f8;--card:#fff;--text:#333}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;min-height:100vh;display:flex;flex-direction:column}
-  .header{background:linear-gradient(135deg,#0066CC,#004080);color:#fff;text-align:center;padding:52px 24px 44px;position:relative}
-  .header .logo-tag{font-size:12px;letter-spacing:4px;opacity:.7;margin-bottom:14px;text-transform:uppercase}
-  .header h1{font-size:30px;font-weight:700;letter-spacing:3px}
-  .header .sub{font-size:15px;opacity:.85;margin-top:10px;letter-spacing:1px}
-  .header .info{font-size:12px;opacity:.7;margin-top:14px}
-  .colorbar{display:flex;height:6px}
-  .colorbar div{flex:1}
-  .container{flex:1;max-width:640px;margin:0 auto;padding:32px 20px;width:100%}
-  .tip{background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:14px 18px;font-size:14px;color:#795548;margin-bottom:24px;line-height:1.7}
-  .card{background:var(--card);border-radius:12px;padding:26px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.07);display:flex;align-items:center;gap:18px;text-decoration:none;color:var(--text);transition:transform .15s ease,box-shadow .15s ease;border-left:5px solid var(--primary)}
-  .card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.12)}
-  .card.c2{border-left-color:var(--green)}
-  .card .icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;background:rgba(0,102,204,.08);color:var(--primary)}
-  .card.c2 .icon{background:rgba(0,204,153,.08);color:var(--green)}
-  .card .txt{flex:1}
-  .card .name{font-size:19px;font-weight:700;color:var(--primary-dark)}
-  .card.c2 .name{color:#00895f}
-  .card .desc{font-size:13px;color:#777;margin-top:5px;line-height:1.6}
-  .card .arrow{font-size:22px;color:#bbb}
-  .mode{background:var(--card);border-radius:12px;padding:20px 24px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,.07);border-left:5px solid var(--orange)}
-  .mode h3{font-size:15px;color:var(--primary-dark);margin-bottom:10px}
-  .mode p{font-size:13px;color:#666;line-height:1.8}
-  .mode b{color:var(--primary)}
-  .foot{text-align:center;color:#aaa;font-size:12px;padding:20px 0 28px;border-top:1px solid #e5e5e5;margin-top:12px}
-  .badge{display:inline-block;background:var(--primary);color:#fff;font-size:11px;border-radius:4px;padding:2px 8px;margin-right:6px}
-  .badge.g{background:var(--green)}
+  body{margin:0;background:#0c0e11;color:#efece3;font-family:"Microsoft YaHei","PingFang SC",sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+  .box{text-align:center;padding:40px;}
+  .box h1{font-family:"Noto Serif SC","Songti SC",serif;color:#c9a64a;font-size:24px;letter-spacing:3px;margin:0 0 14px;}
+  .box p{font-size:14px;opacity:.75;margin:0;}
+  .box a{color:#c9a64a;text-decoration:underline;}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <div class="header-tag">ICT PM · CLASS PORTAL</div>
-  <h1>西游记 · ICT项目管理</h1>
-  <div class="sub">取经即项目 · 对照 PMBOK 十大知识域</div>
-  <div class="info">上课入口 ｜ 45 分钟课程 ｜ 25 页课件</div>
+<script>
+  if(window.location.hostname.indexOf('github') !== -1){
+    var target = 'curriculum/index.html';
+    if(window.location.pathname !== '/' && window.location.pathname !== '/index.html'){
+      var depth = (window.location.pathname.match(/\//g)||[]).length - 1;
+      target = (depth>0 ? '../'.repeat(depth) : '') + target;
+    }
+    window.location.replace(target);
+  } else {
+    window.location.replace('curriculum/index.html');
+  }
+</script>
+<div class="box">
+  <h1>取经计划 · 项目管理四级训练营</h1>
+  <p>正在跳转统一课程入口…</p>
+  <p>若未自动跳转，请点击 <a href="curriculum/index.html">取经计划 · 统一入口</a>。</p>
 </div>
-<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
-
-<div class="container">
-
-  <div class="tip">📌 上课方式：<b>电脑投屏放课件，手机开入口页进口播稿</b>。点下方卡片即进入对应页面，微信扫码或收藏本页均可。</div>
-
-  <a class="card" href="curriculum/" style="border-left-color:#b8912f">
-    <div class="icon" style="background:rgba(184,145,47,.1);color:#b8912f">🧭</div>
-    <div class="txt">
-      <div class="name" style="color:#8a6400">取经计划 · 项目管理四级训练营 <span class="badge" style="background:#b8912f">全新</span></div>
-      <div class="desc">四级分层课程体系：L1 新员工认知篇 · L2 助理基础篇 · L3 项目经理实战篇 · L4 总监治理篇<br>每课时 45 分钟 · 4 套课件 + 4 份口播稿（带语音朗读）+ 角色自测 H5 · 通关文牒结业体系
-      <div style="display:flex;align-items:center;gap:9px;margin-top:9px"><span style="flex:0 0 auto;background:#fff;border-radius:6px;padding:4px;width:54px;display:inline-block"><img src="curriculum/images-qr-curriculum.svg" style="width:100%;display:block" alt="训练营入口二维码"></span><span style="font-size:10px;opacity:.75;line-height:1.5">手机扫码 · 直达训练营入口<br>投屏时可让学员现场扫码</span></div>
-      </div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="card" href="course/">
-    <div class="icon">📽️</div>
-    <div class="txt">
-      <div class="name">教学课件 <span class="badge">投屏用</span></div>
-      <div class="desc">25 页网页 PPT · 四幕结构 · 配图完整<br>支持左右滑动翻页、ESC 看索引</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="card c2" href="speech.html">
-    <div class="icon">🎙️</div>
-    <div class="txt">
-      <div class="name">口播稿 · 逐页版 <span class="badge g">讲师用</span></div>
-      <div class="desc">25 页与课件一一对应 · 底部导航翻页 · 含【停顿】【互动】提示<br>上课手机对照翻页，推荐使用</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="card c2" href="speech-full.html" style="border-left-color:var(--orange)">
-    <div class="icon">📄</div>
-    <div class="txt">
-      <div class="name" style="color:#c2531a">口播稿 · 展开版</div>
-      <div class="desc">全文通读版（约 1.2 万字）· 四幕结构完整讲解词<br>适合备课通读、打印纸质稿</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="card c2" href="speech-fun.html" style="border-left-color:var(--green)">
-    <div class="icon">🎤</div>
-    <div class="txt">
-      <div class="name" style="color:#0a8a6e">口播稿 · 接地气版</div>
-      <div class="desc">口语化幽默版（约 7000 字）· 职场梗 + 生活比喻加量<br>适合轻松场合授课、活跃气氛</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <a class="card c2" href="speech-tuokou.html" style="border-left-color:var(--red)">
-    <div class="icon">🎭</div>
-    <div class="txt">
-      <div class="name" style="color:#c0392b">口播稿 · 脱口秀版</div>
-      <div class="desc">单口专场 · 段子结构（12 段）· 铺垫→包袱→回扣<br>语气节奏贴近脱口秀，不逐页对应课件，适合专场/轻松场合</div>
-    </div>
-    <div class="arrow">›</div>
-  </a>
-
-  <div class="mode">
-    <h3>🗂️ 课程结构速览</h3>
-    <p><b>第一幕 · 取经即项目</b>（项目章程 · 硬数据）→ <b>第二幕 · 十大领域</b>（整合/范围/进度/成本/质量/范围蔓延）→ <b>第三幕 · 团队与协作</b>（资源/沟通/风险/采购/相关方）→ <b>第四幕 · 取经启示</b>（五过程组 · 收束互动）</p>
-  </div>
-
-  <div class="mode">
-    <h3>🎓 讲师备忘</h3>
-    <p>开场金句："一部取经史，半部项目经。" 收尾互动：「你项目里的唐僧是谁？」课后作业：画一张自己的「西游取经图」做项目体检。</p>
-  </div>
-
-</div>
-
-<div class="foot">西游记 · ICT项目管理教学课件 ｜ 对照 PMBOK 十大知识域 ｜ 2026</div>
 </body>
 </html>
