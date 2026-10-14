@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模板教具包｜取经计划</title>
+<style>
+:root{
+  --ink:#1a1d24; --paper:#fbf9f4; --card:#ffffff;
+  --gold:#b8912f; --gold-l:#e4c96f;
+  --l1:#0066CC; --l2:#00a97f; --l3:#e65c00; --l4:#c62828;
+  --sub:#6a6a76; --line:#ddd5c4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;}
+.hero{background:linear-gradient(135deg,#1a2436,#2c3e5c);color:#fff;padding:40px 24px 34px;position:relative;}
+.hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--l1) 0%,var(--l1) 25%,var(--l2) 25%,var(--l2) 50%,var(--l3) 50%,var(--l3) 75%,var(--l4) 75%,var(--l4) 100%);}
+.hero .inner{max-width:960px;margin:0 auto;}
+.hero .kicker{font-size:12px;letter-spacing:.35em;opacity:.6;margin-bottom:10px;}
+.hero h1{font-size:28px;font-weight:800;letter-spacing:2px;}
+.hero h1 .accent{color:var(--gold-l);}
+.hero p{margin-top:10px;font-size:14px;opacity:.85;max-width:680px;}
+.wrap{max-width:960px;margin:0 auto;padding:30px 18px 60px;}
+.usage{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:28px;font-size:13.5px;color:#4a4a55;box-shadow:0 2px 8px rgba(0,0,0,.05);}
+.usage b{color:var(--ink);}
+.tpl{background:var(--card);border-radius:14px;box-shadow:0 3px 14px rgba(26,36,54,.10);margin-bottom:26px;overflow:hidden;}
+.tpl-head{background:linear-gradient(135deg,#1a2436,#2c3e5c);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.tpl-head .ico{font-size:24px;}
+.tpl-head h2{font-size:18px;font-weight:800;letter-spacing:1px;}
+.tpl-head .lv{margin-left:auto;display:flex;gap:6px;}
+.tpl-head .lv span{font-size:11px;font-weight:700;padding:3px 12px;border-radius:14px;}
+.lv .l1{background:var(--l1);} .lv .l2{background:var(--l2);} .lv .l3{background:var(--l3);} .lv .l4{background:var(--l4);}
+.tpl-note{padding:12px 20px 0;font-size:12.5px;color:var(--sub);}
+.tpl-body{padding:16px 20px 20px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{background:#f3efe4;color:var(--ink);border:1px solid var(--line);padding:8px 10px;font-weight:700;text-align:left;}
+td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;}
+td.blank{height:34px;}
+td.blank2{height:52px;}
+.ex{color:#9a905c;font-style:italic;font-size:12px;}
+tr.ex-row td{color:#9a905c;font-style:italic;background:#faf7ee;}
+.pinfo{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.pinfo .f label{display:block;font-size:11px;color:var(--sub);letter-spacing:1px;margin-bottom:3px;}
+.pinfo .f .v{border-bottom:1.5px solid #b7ae97;height:26px;}
+textarea{display:none;}
+.hl{background:#fff6dd;padding:8px 12px;border-left:3px solid var(--gold);font-size:12.5px;color:#6d5312;border-radius:0 8px 8px 0;margin-top:12px;}
+.sign-row{display:flex;gap:26px;margin-top:16px;flex-wrap:wrap;font-size:13px;}
+.sign-row .s{flex:1;min-width:180px;display:flex;align-items:flex-end;gap:8px;}
+.sign-row .s i{flex:1;font-style:normal;border-bottom:1.5px solid #b7ae97;height:24px;}
+.chk{font-size:15px;letter-spacing:2px;}
+.stampboxs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.stamp{border:2px dashed #c9be9d;border-radius:12px;padding:14px 12px;text-align:center;background:#fdfbf5;}
+.stamp .seal{width:74px;height:74px;border:3px solid rgba(184,145,47,.65);border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-weight:800;font-size:15px;letter-spacing:2px;transform:rotate(-8deg);}
+.stamp h4{font-size:13.5px;margin-bottom:4px;}
+.stamp p{font-size:11px;color:var(--sub);line-height:1.5;}
+.crownbox{margin-top:14px;border:2px solid var(--gold);border-radius:12px;padding:16px;text-align:center;background:linear-gradient(135deg,#fdf8ec,#fffdf7);}
+.crownbox b{color:#8a6400;font-size:16px;display:block;margin-bottom:4px;}
+.crownbox p{font-size:12px;color:var(--sub);}
+.steps{counter-reset:st;margin:0 0 10px;list-style:none;}
+.steps li{position:relative;padding:6px 0 6px 34px;counter-increment:st;font-size:13.5px;}
+.steps li::before{content:counter(st);position:absolute;left:0;top:6px;width:23px;height:23px;border-radius:50%;background:var(--gold);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.gd{margin-top:10px;font-size:12.5px;color:var(--sub);}
+.foot{text-align:center;font-size:12px;color:var(--sub);padding:26px 16px 40px;border-top:1px solid var(--line);}
+@media print{
+  body{background:#fff;}
+  .hero{display:none;}
+  .usage{display:none;}
+  .wrap{padding:0;max-width:100%;}
+  .tpl{box-shadow:none;border:1px solid #bbb;border-radius:0;margin-bottom:0;page-break-after:always;}
+  .tpl:last-child{page-break-after:auto;}
+  .foot{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <div class="kicker">XIYOU · TRAINING TOOLKIT</div>
+    <h1>模板<span class="accent">教具包</span></h1>
+    <p>取经计划四级训练营随堂教具，共八份——通关文牒、风险登记册、会议纪要、验收三栏清单、变更批复单、打回清单、复盘主持框架、封赏与改进方案。对应各级课程作业与演练，可在线查看、直接打印。</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="usage">
+  🖨️ <b>打印说明：</b>浏览器"打印"即可，每份模板自动分页（Ctrl/Cmd + P）。灰色斜体行為<b>示范行</b>，照着格式填；空白行供现场手写。<b>线上版按此链接分发，纸质版随堂发放</b>——建议每期培训按人数打印 7、8 两份（人人一份），其余按组打印。
+</div>
+
+<!-- 1 通关文牒 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">📜</span><h2>① 通关文牒 · 结业凭证</h2><div class="lv"><span class="l1">L1</span><span class="l2">L2</span><span class="l3">L3</span><span class="l4">L4</span></div></div>
+  <div class="tpl-note">用途：四级课程结业凭证。每过一级，由验收人签字、加盖对应"通关印"；四级集齐，授予"取经人"认证。（每人一份）</div>
+  <div class="tpl-body">
+    <div class="pinfo">
+      <div class="f"><label>姓名</label><div class="v"></div></div>
+      <div class="f"><label>部门 / 岗位</label><div class="v"></div></div>
+      <div class="f"><label>入职年份</label><div class="v"></div></div>
+      <div class="f"><label>文牒编号</label><div class="v"></div></div>
+    </div>
+    <div class="stampboxs">
+      <div class="stamp"><div class="seal">认知印</div><h4>L1 · 认知篇</h4><p>作业：西游对照图<br>验收人：＿＿＿＿<br>日期：＿＿＿＿</p></div>
+      <div class="stamp"><div class="seal">工具印</div><h4>L2 · 基础篇</h4><p>作业：登记册＋纪要<br>验收人：＿＿＿＿<br>日期：＿＿＿＿</p></div>
+      <div class="stamp"><div class="seal">实战印</div><h4>L3 · 实战篇</h4><p>作业：变更批复＋打回清单<br>验收人：＿＿＿＿<br>日期：＿＿＿＿</p></div>
+      <div class="stamp"><div class="seal">治理印</div><h4>L4 · 治理篇</h4><p>作业：复盘主持＋封赏方案<br>导师组：＿＿＿＿<br>日期：＿＿＿＿</p></div>
+    </div>
+    <div class="crownbox"><b>👑 取经人认证</b><p>四级集齐 · 纳入人才画像标签 · 优先进入下一角色培养池<br>认证编号：＿＿＿＿＿＿＿＿ ｜ 认证日期：＿＿＿＿＿＿＿＿</p></div>
+  </div>
+</div>
+
+<!-- 2 风险登记册 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">🗂️</span><h2>② 风险登记册</h2><div class="lv"><span class="l2">L2</span><span class="l3">L3</span></div></div>
+  <div class="tpl-note">用途：把"八十一难"记成台账。五栏齐全才算登记：风险描述、影响、责任人、状态、复看时间。灰色行为示范。（L2 课堂练习填写 3 条 / 课后作业 ≥3 条）</div>
+  <div class="tpl-body">
+    <table>
+      <tr><th style="width:24%">什么妖 · 风险描述</th><th style="width:20%">什么害 · 影响</th><th style="width:16%">谁应对 · 责任人</th><th style="width:18%">结果如何 · 状态</th><th style="width:22%">何时复看 · 复看时间/触发条件</th></tr>
+      <tr class="ex-row"><td>对手散布误导信息（白骨精三变）</td><td>团队信任危机，核心成员流失</td><td>悟空（识别）/ 唐僧（决策）</td><td>已解决 · 已复盘</td><td>遇同类舆情即触发调取</td></tr>
+      <tr class="ex-row"><td>关键路径节点外部依赖延期（火焰山）</td><td>路线阻断，工期顺延</td><td>悟空（借扇）</td><td>已解决</td><td>相关方关系复杂，处理后复看</td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    </table>
+    <div class="hl">⛔ 填写纪律：脑子里的风险叫"到时候再说"，写下来的才叫"下一步安排"。"负责人：大家"＝没负责人；"复看：有空"＝不复看。每周五固定复看一次：新增、关闭、标黄到期项。</div>
+  </div>
+</div>
+
+<!-- 3 会议纪要 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">📝</span><h2>③ 会议纪要（三要素）</h2><div class="lv"><span class="l2">L2</span></div></div>
+  <div class="tpl-note">用途：项目"一手信息"载体。三要素：结论、行动项、争议与待定。<b>24小时内发出，抄送相关方</b>。（L2 课后作业）</div>
+  <div class="tpl-body">
+    <div class="pinfo">
+      <div class="f"><label>会议主题</label><div class="v"></div></div>
+      <div class="f"><label>时间 / 地点</label><div class="v"></div></div>
+      <div class="f"><label>主持人 / 记录人</label><div class="v"></div></div>
+      <div class="f"><label>参会人</label><div class="v"></div></div>
+    </div>
+    <table>
+      <tr><th style="width:100%">① 结论 · 今天定了什么（不是"进行了充分交流"）</th></tr>
+      <tr class="ex-row"><td>本期暂停报表模块，优先保障结算功能上线（决策人：王总）。</td></tr>
+      <tr><td class="blank2"></td></tr>
+      <tr><td class="blank2"></td></tr>
+      <tr><th>② 行动项 · 谁 / 做什么 / 几号前交</th></tr>
+      <tr><th style="width:24%;background:#f8f4e9">责任人</th><th style="width:56%;background:#f8f4e9">事项</th><th style="width:20%;background:#f8f4e9">截止</th></tr>
+      <tr class="ex-row"><td>李工</td><td>给出结算接口联调结果</td><td>本周五</td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><th>③ 争议与待定 · 没定的事，写明"待定"＋谁拍板＋何时拍</th></tr>
+      <tr class="ex-row"><td>待定：报表模块是否并入下期——下周三由王总拍板。</td></tr>
+      <tr><td class="blank2"></td></tr>
+    </table>
+    <div class="hl">✍️ 好纪要不需要文采，需要密度。你写得清楚，PM就能拍板；写得含糊，神仙难断案。</div>
+  </div>
+</div>
+
+<!-- 4 验收三栏清单 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">✅</span><h2>④ 验收三栏清单</h2><div class="lv"><span class="l2">L2</span><span class="l3">L3</span></div></div>
+  <div class="tpl-note">用途：验收现场逐条核对。没有清单的验收叫默许——功能 / 文档 / 数据，三栏逐项打勾。（L2 入门 / L3 打回前使用）</div>
+  <div class="tpl-body">
+    <div class="pinfo">
+      <div class="f"><label>项目名称</label><div class="v"></div></div>
+      <div class="f"><label>交付物 / 版本</label><div class="v"></div></div>
+      <div class="f"><label>验收人</label><div class="v"></div></div>
+      <div class="f"><label>验收日期</label><div class="v"></div></div>
+    </div>
+    <table>
+      <tr><th style="width:40%">功能栏 · 每个功能跑一遍主流程</th><th style="width:36%">结果</th><th style="width:24%">备注</th></tr>
+      <tr><td class="ex">示范：结算模块·整单结算主流程</td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><th>文档栏 · 操作手册 / 接口说明 / 变更记录</th><th>结果</th><th>备注</th></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><th>数据栏 · 真实数据回归 / 报表抽样核对</th><th>结果</th><th>备注</th></tr>
+      <tr><td class="ex">示范：抽 3 张报表核对加总</td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+      <tr><td class="blank"></td><td><span class="chk">☐ 合格　☐ 待整改</span></td><td></td></tr>
+    </table>
+    <div class="sign-row">
+      <div class="s">验收结论：<b><span class="chk">☐ 通过　☐ 打回（转打回清单）</span></b></div>
+      <div class="s">复验时间：<i></i></div>
+      <div class="s">签字：<i></i></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5 变更批复单 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">🏯</span><h2>⑤ 变更批复单（女儿国式）</h2><div class="lv"><span class="l3">L3</span></div></div>
+  <div class="tpl-note">用途：面对"带条件的加钱 / 续期 / 顺手帮个忙"，先过铁锚之问，再给书面批复。（L3 演练一 / 课后作业①）</div>
+  <div class="tpl-body">
+    <div class="pinfo">
+      <div class="f"><label>项目 / 合同编号</label><div class="v"></div></div>
+      <div class="f"><label>变更提出方</label><div class="v"></div></div>
+      <div class="f"><label>提出日期</label><div class="v"></div></div>
+      <div class="f"><label>批复人</label><div class="v"></div></div>
+    </div>
+    <table>
+      <tr><th style="width:26%">变更描述</th><td class="blank2"></td></tr>
+      <tr><th>铁锚之问<br><span style="font-weight:400;font-size:11px">与"真经"（合同目标）有关吗？</span></th><td class="blank"></td></tr>
+      <tr><th>影响评估<br><span style="font-weight:400;font-size:11px">关键路径 / 工期 / 资源 / 风险</span></th><td class="blank2"></td></tr>
+      <tr><th>新增验收标准<br><span style="font-weight:400;font-size:11px">若"接"，必须写明</span></th><td class="blank2"></td></tr>
+      <tr><th>批复结论</th><td><b style="font-size:14px"><span class="chk">☐ 接　☐ 不接　☐ 部分接</span></b></td></tr>
+      <tr><th>批复理由<br><span style="font-weight:400;font-size:11px">必须引用铁锚之问的答案</span></th><td class="blank2"></td></tr>
+      <tr><th>"假婚脱身"话术<br><span style="font-weight:400;font-size:11px">若"不接"：如何拒得体面、给足台阶</span></th><td class="blank2"></td></tr>
+    </table>
+    <div class="sign-row">
+      <div class="s">批复人签字：<i></i></div>
+      <div class="s">（若接）新增预算/工期：<i></i></div>
+      <div class="s">抄送：<i></i></div>
+    </div>
+    <div class="hl">🏯 一国之富也是变更请求：可以礼遇，不能改道。拒绝威胁靠本能，拒绝诱惑靠纪律。</div>
+  </div>
+</div>
+
+<!-- 6 打回清单 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">⚔️</span><h2>⑥ 打回清单（无字真经式）</h2><div class="lv"><span class="l3">L3</span></div></div>
+  <div class="tpl-note">用途：打回不是掀桌子。先给台阶，再写清三条：哪里不行、怎么改、哪天再验。三栏各 ≥2 条不合格项。（L3 演练 / 课后作业②）</div>
+  <div class="tpl-body">
+    <div class="pinfo">
+      <div class="f"><label>交付物 / 版本</label><div class="v"></div></div>
+      <div class="f"><label>交付方</label><div class="v"></div></div>
+      <div class="f"><label>打回人</label><div class="v"></div></div>
+      <div class="f"><label>打回日期</label><div class="v"></div></div>
+    </div>
+    <table>
+      <tr><th colspan="4">先给台阶 · 本次交付的合格点（先说好的，再提不行的）</th></tr>
+      <tr><td class="blank" colspan="4"></td></tr>
+      <tr><th style="width:14%">栏</th><th style="width:36%">哪里不行</th><th style="width:32%">怎么改</th><th style="width:18%">哪天再验</th></tr>
+      <tr class="ex-row"><td>功能</td><td>报表导出空白（无字真经）</td><td>修复导出组件并补充测试用例</td><td>＿＿/＿＿</td></tr>
+      <tr><td>功能</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>文档</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>文档</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>数据</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td>数据</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    </table>
+    <table style="margin-top:10px">
+      <tr><th style="width:26%">掂量银子 · 返工代价评估</th><td class="blank"></td></tr>
+    </table>
+    <div class="sign-row">
+      <div class="s">复验时间：<i></i></div>
+      <div class="s">打回人签字：<i></i></div>
+      <div class="s">交付方确认：<i></i></div>
+    </div>
+    <div class="hl">⚔️ 兜里没底、只有一句"不行"，不叫打回，叫空手耍流氓。没有复验日期的打回＝无限期搁置。</div>
+  </div>
+</div>
+
+<!-- 7 复盘主持框架 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">🎖️</span><h2>⑦ 收尾复盘会主持框架（论功行赏）</h2><div class="lv"><span class="l4">L4</span></div></div>
+  <div class="tpl-note">用途：总监主持项目收尾复盘的操作脚本。铁律：先讲贡献、再讲分配、当面回答"为什么"——顺序错了，前面做得再好，最后一刻塌房。（L4 结业作业①）</div>
+  <div class="tpl-body">
+    <ol class="steps">
+      <li><b>开场定调（3分钟）：</b>说明本次会是"讲贡献、讲分配、答疑问"，不是追责会——追责单独开。</li>
+      <li><b>先讲贡献（每人至少1项具体贡献，10分钟）：</b>点名讲、讲具体事、讲数据。让每个人先被看见，再谈数字。<span class="ex">示范："这次数据割接零故障，是张工连续三个凌晨守出来的。"</span></li>
+      <li><b>再讲分配（规则公开，7分钟）：</b>金额可以保密，规则必须公开——按什么系数、看什么权重（结果/难度/协作），对照贡献逐项说明。</li>
+      <li><b>当面回答"为什么"（8分钟）：</b>主动解释档位差异，特别是"八戒式疑问"——人岗匹配的说明要给到位。"净坛使者"也是重要岗位：把人放到匹配的位置，必须讲清楚他的贡献是怎么被计算的。</li>
+      <li><b>收尾展望（5分钟）：</b>组织的胜利属于结构，不属于个人英雄——宣布下一战役，把激励承诺先立住（成佛，要入职就给）。</li>
+    </ol>
+    <table>
+      <tr><th style="width:24%">环节</th><th style="width:14%">时长</th><th>要点记录（现场用）</th></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    </table>
+    <div class="sign-row">
+      <div class="s">主持人：<i></i></div>
+      <div class="s">召开日期：<i></i></div>
+      <div class="s">参会人数：<i></i></div>
+    </div>
+    <div class="hl">🎖️ 分配不可能人人满意，但理由必须说得出口。说不出口的分配，轻则抱怨，重则第二个项目没人跟你干。</div>
+  </div>
+</div>
+
+<!-- 8 封赏与改进方案 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">📋</span><h2>⑧ 团队封赏与改进方案</h2><div class="lv"><span class="l4">L4</span></div></div>
+  <div class="tpl-note">用途：L4 结业作业②。两部分：封赏表（含人岗匹配说明）＋ 至少一名"想翻身的人"使用计划（PIP三要素）。交导师组答辩。（每人一份）</div>
+  <div class="tpl-body">
+    <p style="font-size:13px;font-weight:700;margin-bottom:8px">A · 封赏表</p>
+    <table>
+      <tr><th style="width:14%">成员</th><th style="width:32%">关键贡献（具体事·数据）</th><th style="width:22%">封赏/档位</th><th style="width:32%">人岗匹配说明（像如来答八戒那样说得出口）</th></tr>
+      <tr class="ex-row"><td>（示范）八戒</td><td>危机公关：请回核心开发，保住交付</td><td>净坛使者（协作序列）</td><td>口壮身慵、食肠宽大，凡诸佛事，教汝净坛——人岗匹配，各有其用</td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+      <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+    </table>
+    <p style="font-size:13px;font-weight:700;margin:14px 0 8px">B · "想翻身的人"使用计划（PIP · 三要素缺一不可）</p>
+    <table>
+      <tr><th style="width:24%">对象 / 背景（犯了什么错，想怎么翻）</th><td class="blank"></td></tr>
+      <tr><th>目标明确（他的"真经"是什么）</th><td class="blank"></td></tr>
+      <tr><th>退出条件明确（底线在哪，"紧箍咒"是什么）</th><td class="blank2"></td></tr>
+      <tr><th>终局激励明确（干成了，"成佛"给什么）</th><td class="blank"></td></tr>
+    </table>
+    <div class="sign-row">
+      <div class="s">拟制人（学员）签字：<i></i></div>
+      <div class="s">导师组答辩评语：<i></i></div>
+      <div class="s">加盖 L4 治理印：<i></i></div>
+    </div>
+    <div class="hl">📋 组织里最容易被浪费的资产，是"犯过错但想翻身的人"。梯子得配扶手：激励给足、底线给死、退出写明。</div>
+  </div>
+</div>
+
+</div>
+
+<div class="foot">取经计划 · 模板教具包 ｜ 八份随堂教具 ｜ 对应 L1—L4 作业与通关文牒体系 ｜ 2026</div>
+</body>
+</html>
