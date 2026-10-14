@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>角色自测 · 你是取经团队里的谁？</title>
+<style>
+:root{
+  --primary:#0066CC; --l1:#0066CC; --l2:#00a97f; --l3:#e65c00; --l4:#c62828;
+  --gold:#b8912f; --bg:#f7f4ec; --card:#fff; --ink:#2b2b33; --sub:#6a6a76; --line:#e5ded0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+.wrap{max-width:560px;margin:0 auto;padding:26px 18px 50px;}
+.hero{text-align:center;padding:34px 10px 26px;}
+.hero .ring{width:96px;height:96px;margin:0 auto 14px;border:3px solid rgba(184,145,47,.55);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:38px;background:#fdf8ec;}
+.hero h1{font-size:24px;font-weight:800;letter-spacing:2px;}
+.hero p{font-size:13.5px;color:var(--sub);margin-top:8px;line-height:1.7;}
+.bar{height:8px;border-radius:4px;background:#e8e2d2;overflow:hidden;margin:18px 0 4px;}
+.bar .fill{height:100%;width:0;background:linear-gradient(90deg,var(--l1),var(--l2));transition:width .3s ease;border-radius:4px;}
+.qmeta{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:14px;}
+.qcard{background:var(--card);border-radius:14px;padding:22px 20px;box-shadow:0 3px 14px rgba(26,36,54,.08);}
+.qcard h2{font-size:17.5px;line-height:1.6;margin-bottom:18px;}
+.opt{display:block;width:100%;text-align:left;background:#f7f5ee;border:2px solid var(--line);border-radius:12px;padding:13px 16px;font-size:14px;margin-bottom:10px;cursor:pointer;transition:all .15s;line-height:1.55;font-family:inherit;color:var(--ink);}
+.opt:hover{border-color:var(--primary);transform:translateX(3px);}
+.opt.sel{border-color:var(--primary);background:rgba(0,102,204,.07);font-weight:700;}
+.qnav{display:flex;justify-content:space-between;margin-top:16px;}
+.qbtn{padding:10px 22px;border-radius:22px;border:none;background:var(--primary);color:#fff;font-size:14px;cursor:pointer;font-weight:700;}
+.qbtn.ghost{background:#fff;color:var(--sub);border:2px solid var(--line);}
+.qbtn:disabled{opacity:.4;cursor:not-allowed;}
+.result{display:none;}
+.result .role-badge{width:150px;height:150px;margin:0 auto 16px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;box-shadow:0 6px 20px rgba(26,36,54,.18);}
+.role-badge .ico{font-size:52px;line-height:1;}
+.role-badge .name{font-size:17px;font-weight:800;margin-top:6px;letter-spacing:2px;}
+.result h2{text-align:center;font-size:22px;margin-bottom:6px;}
+.result .sub{text-align:center;color:var(--sub);font-size:13px;margin-bottom:18px;}
+.rpanel{background:var(--card);border-radius:14px;padding:18px 20px;box-shadow:0 3px 14px rgba(26,36,54,.08);margin-bottom:12px;}
+.rpanel h3{font-size:15px;margin-bottom:8px;}
+.rpanel p{font-size:13.8px;line-height:1.8;color:#4a4a55;}
+.rpanel p b{color:var(--ink);}
+.score-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;}
+.score-row b{font-weight:700;}
+.again{display:block;margin:22px auto 0;padding:11px 30px;border-radius:24px;border:2px solid var(--primary);background:#fff;color:var(--primary);font-size:14px;font-weight:700;cursor:pointer;}
+.backhome{display:block;text-align:center;margin-top:14px;font-size:12.5px;color:var(--sub);text-decoration:none;}
+.foot{text-align:center;font-size:11px;color:var(--sub);margin-top:26px;}
+@media(max-width:400px){.wrap{padding:18px 12px 40px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero" id="hero">
+    <div class="ring">🧭</div>
+    <h1>测测你是取经团队里的谁？</h1>
+    <p>10 道情境题 · 约 5 分钟 · 出结果得角色说明书<br>测出的是倾向，不是命运——角色会成长。</p>
+  </div>
+
+  <div id="quiz" style="display:none">
+    <div class="bar"><div class="fill" id="fill"></div></div>
+    <div class="qmeta"><span id="qnow"></span><span id="qtotal"></span></div>
+    <div class="qcard">
+      <h2 id="qtext"></h2>
+      <div id="opts"></div>
+    </div>
+    <div class="qnav">
+      <button class="qbtn ghost" id="qprev">上一题</button>
+      <button class="qbtn" id="qnext" disabled>下一题</button>
+    </div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="role-badge" id="rbadge"><span class="ico" id="rico"></span><span class="name" id="rname"></span></div>
+    <h2 id="rtitle"></h2>
+    <div class="sub" id="rsub"></div>
+    <div class="rpanel"><h3>📖 角色说明书</h3><p id="rdesc"></p></div>
+    <div class="rpanel"><h3>💪 你的天赋</h3><p id="rgood"></p></div>
+    <div class="rpanel"><h3>🌱 起步建议（打工人小贴士）</h3><p id="radvice"></p></div>
+    <div class="rpanel"><h3>📊 你的五维倾向</h3><div id="rscore"></div></div>
+    <button class="again" onclick="location.reload()">🔁 再测一次</button>
+    <a class="backhome" href="index.html">← 返回课程入口</a>
+  </div>
+
+  <div class="foot">取经计划 · 项目管理四级训练营 ｜ 角色自测 H5 ｜ 2026</div>
+</div>
+
+<script>
+var QS = [
+  {q:"项目刚启动，你最想先弄清楚的是？", o:[
+    {t:"目标和验收标准是什么——不能白干", r:"ts"},
+    {t:"最难啃的技术活是哪块——好提前准备", r:"wk"},
+    {t:"团队都有谁、脾气对不对路", r:"bj"},
+    {t:"我具体负责哪些事、清单在哪", r:"ss"},
+    {t:"环境和工具链是不是就绪", r:"blm"}]},
+  {q:"会议上两个同事为了方案吵起来了，你会？", o:[
+    {t:"先叫停，把话题拉回目标：我们到底要解决什么", r:"ts"},
+    {t:"直接指出谁对谁错，用事实说话", r:"wk"},
+    {t:"打个圆场：先喝口水，别伤和气", r:"bj"},
+    {t:"不掺和，会后私下分别沟通", r:"ss"},
+    {t:"默默把分歧点记进纪要，留待决议", r:"blm"}]},
+  {q:"老板临时塞来一个'紧急任务'，你的第一反应？", o:[
+    {t:"先评估：这跟我们原定目标冲突吗？", r:"ts"},
+    {t:"交给我，我来搞定", r:"wk"},
+    {t:"先别接，我去跟相关方对齐一下优先级", r:"bj"},
+    {t:"列进任务清单，按顺序处理", r:"ss"},
+    {t:"先查资源够不够、会不会影响现有安排", r:"blm"}]},
+  {q:"你更喜欢的工作状态是？", o:[
+    {t:"方向清晰、边界明确，我知道为什么而战", r:"ts"},
+    {t:"有硬骨头可啃，攻克别人搞不定的问题", r:"wk"},
+    {t:"跟人打交道多，协调、沟通、活跃气氛", r:"bj"},
+    {t:"稳定执行，少变动，把分内事做到零失误", r:"ss"},
+    {t:"在幕后把支撑做好，让前线没有后顾之忧", r:"blm"}]},
+  {q:"项目验收前夜，你最关注的是？", o:[
+    {t:"交付物到底合不合格——验收标准逐条过", r:"ts"},
+    {t:"核心功能压测过了没有，别掉链子", r:"wk"},
+    {t:"各方脸色——客户、老板、团队情绪都稳吗", r:"bj"},
+    {t:"清单每项都打勾了吗，文档都齐了吗", r:"ss"},
+    {t:"环境、数据、备份都检查过了吗", r:"blm"}]},
+  {q:"团队有人连续失误，你会？", o:[
+    {t:"私下谈话，讲清底线和改进要求", r:"ts"},
+    {t:"亲自下场，示范一遍怎么干", r:"wk"},
+    {t:"先安抚情绪，人稳了再谈事", r:"bj"},
+    {t:"默默补位，把漏的活先干完", r:"ss"},
+    {t:"复盘流程：是人的问题，还是流程有漏洞", r:"blm"}]},
+  {q:"你被甩锅了，你会？", o:[
+    {t:"拿出章程和目标依据，正面澄清、划清边界", r:"ts"},
+    {t:"当场硬刚，用事实和数据说话", r:"wk"},
+    {t:"找关键人物私下沟通，把误会解开", r:"bj"},
+    {t:"先忍下来，下次注意凡事留痕", r:"ss"},
+    {t:"默默整理完整的记录链，以备查证", r:"blm"}]},
+  {q:"对'加班冲刺死线'，你的态度是？", o:[
+    {t:"先问值不值得：范围对不对？能不能砍需求？", r:"ts"},
+    {t:"关键时刻我顶上，熬夜也拿下", r:"wk"},
+    {t:"别硬扛，我去协调资源、争取延期或加人", r:"bj"},
+    {t:"该加就加，活总要干完，但下次要留余量", r:"ss"},
+    {t:"这说明缓冲没留够——复盘时我要提流程改进", r:"blm"}]},
+  {q:"你心目中的'成功项目'是？", o:[
+    {t:"按目标交付、边界清晰、经得起验收", r:"ts"},
+    {t:"攻克了别人做不了的技术难关", r:"wk"},
+    {t:"项目结束，团队没散、关系还在", r:"bj"},
+    {t:"事事有着落、件件有回音、零失误交付", r:"ss"},
+    {t:"全程稳定无故障，没人加班救火", r:"blm"}]},
+  {q:"轮到你在复盘会上发言，你会重点讲？", o:[
+    {t:"目标与范围的得失——哪些该做没做、哪些不该做做了", r:"ts"},
+    {t:"技术方案的关键决策与教训", r:"wk"},
+    {t:"团队协作与沟通里的问题", r:"bj"},
+    {t:"执行层面的清单化改进建议", r:"ss"},
+    {t:"流程与基础设施的隐患排查", r:"blm"}]}
+];
+
+var ROLES = {
+  ts:{name:"唐僧 · 掌舵人", ico:"🧘", color:"#8f5bbf", sub:"目标坚定型 · 天生定方向的人",
+    desc:"你像唐僧：不打妖怪，但决定往哪打。你的价值在于<b>目标坚定、守住底线、扛起最终责任</b>——团队迷茫时，你是那个说'我们到底为什么而战'的人。你未必是团队里最能干的，但你是最不可替代的。",
+    good:"愿景与定力：面对诱惑（女儿国式变更）和压力，你比谁都稳。",
+    advice:"掌舵人最大的坑是<b>'只对上负责'</b>。提醒自己：多听一手信息，别让权威代替倾听——唐僧在三打白骨精上的误判，就是你的前车之鉴。"},
+  wk:{name:"孙悟空 · 技术担当", ico:"🐒", color:"#e65c00", sub:"攻坚力量型 · 硬仗全靠你",
+    desc:"你像悟空：能力越强，责任越大。团队里最难的活、最险的局，都习惯性想到你。<b>出事第一个上，没事第一个挨骂</b>——这是骨干的宿命，也是骨干的荣耀。",
+    good:"破局能力：技术天花板+救场王，你的存在让团队敢接硬仗。",
+    advice:"能人最大的坑是<b>'独' </b>。学会汇报保真和协作：让能力被看见的同时让人信得过——别让一手证据输给二手小作文，先学会把证据讲成故事。"},
+  bj:{name:"猪八戒 · 协调担当", ico:"🐷", color:"#3d9bd1", sub:"沟通活泼型 · 团队的润滑剂",
+    desc:"你像八戒：看着懒散，其实是团队的<b>气氛组+外交官</b>。大师兄被赶走、团队濒临散伙时，去花果山把人请回来的，是你。懂人性、会说话，是你的超能力。",
+    good:"危机公关与凝聚力：能把'散伙'谈成'再扛一程'的人，全团队只有一个。",
+    advice:"协调者最大的坑是<b>'只圆不产'</b>。把润滑变成产出：关键时刻站出来牵头一件事——八戒后来封了净坛使者，是因为如来看见了他'请回悟空'那一功。"},
+  ss:{name:"沙僧 · 执行担当", ico:"🧑‍🌾", color:"#00a97f", sub:"靠谱和平型 · 团队的压舱石",
+    desc:"你像沙僧：话不多，但<b>答应的事件件有着落</b>。资料整理、数据核对、文档收尾——这些活不起眼，却直接决定项目最终的样子。任劳任怨、零失误交付，是你的名片。",
+    good:"稳定性与责任心：把最重的担子挑得最稳，是所有团队的压舱石。",
+    advice:"执行者最大的坑是<b>'靠谱但隐形'</b>。学会被看见：关键节点留痕、阶段性主动汇报——让'默默干完'变成'有人知道你干完了'。"},
+  blm:{name:"白龙马 · 后勤担当", ico:"🐴", color:"#b8912f", sub:"沉默支撑型 · 项目的驮行者",
+    desc:"你像白龙马：不出声、不抢戏，<b>驮着整个项目跑完全程</b>。环境和工具链是否就绪、流程有没有漏洞、备份做没做——这些没人注意的事，你全都放在心上。你一停摆，全团瘫痪——只是他们平时没意识到。",
+    good:"系统性思维与托底能力：你是最早发现流程隐患的人，也是最后离开现场的人。",
+    advice:"支撑者最大的坑是<b>'被习惯'</b>。稳定最怕习以为常——定期让关键干系人知道系统的健康度（周报一页即可），别等出事那天，别人才想起你是唯一懂它的人。"}
+};
+
+var ans = {}, cur = 0;
+var elQ = document.getElementById('quiz'), elR = document.getElementById('result'), elH = document.getElementById('hero');
+document.getElementById('qtotal').textContent = '共 ' + QS.length + ' 题';
+document.getElementById('qnow').textContent = '第 1 / ' + QS.length + ' 题';
+
+function render(){
+  var q = QS[cur];
+  document.getElementById('qnow').textContent = '第 ' + (cur+1) + ' / ' + QS.length + ' 题';
+  document.getElementById('fill').style.width = ((cur)/QS.length*100) + '%';
+  document.getElementById('qtext').textContent = 'Q' + (cur+1) + ' · ' + q.q;
+  var box = document.getElementById('opts'); box.innerHTML = '';
+  q.o.forEach(function(o, i){
+    var b = document.createElement('button');
+    b.className = 'opt' + (ans[cur]===o.r ? ' sel' : '');
+    b.textContent = String.fromCharCode(65+i) + '. ' + o.t;
+    b.onclick = function(){
+      ans[cur] = o.r;
+      document.querySelectorAll('.opt').forEach(function(x){x.classList.remove('sel')});
+      b.classList.add('sel');
+      document.getElementById('qnext').disabled = false;
+      setTimeout(function(){ if(cur < QS.length-1){ cur++; document.getElementById('qnext').disabled = !ans[cur]; render(); } else { finish(); } }, 260);
+    };
+    box.appendChild(b);
+  });
+  document.getElementById('qprev').disabled = cur===0;
+  document.getElementById('qnext').disabled = !ans[cur];
+  document.getElementById('qnext').textContent = cur===QS.length-1 ? '查看结果 →' : '下一题';
+}
+document.getElementById('qprev').onclick = function(){ if(cur>0){cur--; render();} };
+document.getElementById('qnext').onclick = function(){
+  if(!ans[cur]) return;
+  if(cur < QS.length-1){ cur++; render(); } else { finish(); }
+};
+function finish(){
+  var score = {ts:0, wk:0, bj:0, ss:0, blm:0};
+  for(var k in ans){ if(ans[k]) score[ans[k]]++; }
+  var best = 'ts', mx = -1;
+  ['ts','wk','bj','ss','blm'].forEach(function(r){ if(score[r] > mx){ mx = score[r]; best = r; } });
+  var R = ROLES[best];
+  elQ.style.display='none'; elH.style.display='none'; elR.style.display='block';
+  window.scrollTo(0,0);
+  document.getElementById('rbadge').style.background = 'linear-gradient(135deg,'+R.color+','+R.color+'cc)';
+  document.getElementById('rico').textContent = R.ico;
+  document.getElementById('rname').textContent = R.name;
+  document.getElementById('rtitle').textContent = R.name;
+  document.getElementById('rsub').textContent = R.sub;
+  document.getElementById('rdesc').innerHTML = R.desc;
+  document.getElementById('rgood').innerHTML = R.good;
+  document.getElementById('radvice').innerHTML = R.advice;
+  var names = {ts:'唐僧·掌舵', wk:'悟空·技术', bj:'八戒·协调', ss:'沙僧·执行', blm:'白龙马·支撑'};
+  var sc = document.getElementById('rscore');
+  ['ts','wk','bj','ss','blm'].forEach(function(r){
+    var row = document.createElement('div'); row.className='score-row';
+    row.innerHTML = '<span>'+names[r]+(r===best?' ← 你':'')+'</span><b>'+score[r]+' 题</b>';
+    if(r===best){ row.style.color=R.color; row.style.fontWeight='700'; }
+    sc.appendChild(row);
+  });
+}
+elQ.style.display='block';
+render();
+</script>
+</body>
+</html>

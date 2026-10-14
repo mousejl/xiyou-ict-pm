@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课时二 · 基础篇 口播稿｜取经计划</title>
+<style>
+  :root{
+    --primary:#00a97f; --primary-dark:#00795c; --accent-orange:#FF6600;
+    --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff;
+    --text:#333; --text-light:#888;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+  .header{background:linear-gradient(135deg,#00a97f,#00795c);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10}
+  .header h1{font-size:16px;font-weight:700;letter-spacing:2px}
+  .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
+  .colorbar{display:flex;height:4px}
+  .colorbar div{flex:1}
+  #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden}
+  .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
+  .page.active{display:block;opacity:1}
+  .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
+  .pagemeta .tag.g{background:var(--accent-green)}
+  .pagemeta .tag.o{background:var(--accent-orange)}
+  .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4}
+  .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)}
+  .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px}
+  .page .script p:last-child{margin-bottom:0}
+  .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .page .script .stage.o{background:var(--accent-orange)}
+  .page .script .key{color:var(--primary);font-weight:700}
+  .page .script .joke{color:#9a3b0e;font-weight:600}
+  #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
+  .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none}
+  .nav-btn:active{background:var(--primary);color:#fff}
+  .nav-btn.disabled{opacity:.3;pointer-events:none}
+  .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pager::-webkit-scrollbar{display:none}
+  .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer}
+  .pnum.on{background:var(--primary);color:#fff;font-weight:700}
+  .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap}
+  .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600}
+  .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .rb-btn:disabled{opacity:.4;pointer-events:none}
+  .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)}
+  .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle}
+  .reader-info .dot.on{background:var(--accent-green)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>口播稿 · 课时二 基础篇</h1>
+  <div class="sub">取经计划 · 项目管理四级训练营 ｜ L2 项目经理助理 ｜ 对应课件 c2.html · 10 段 ｜ 约 45 分钟（含练习）</div>
+</div>
+<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
+
+<div id="pages">
+
+<div class="page" data-p="1">
+  <div class="pagemeta"><span class="tag">开场</span><span>第 01 段 / 10 · 课件第1页</span></div>
+  <div class="title">开场｜欢迎升级：从"知道"到"会用"</div>
+  <div class="script">
+    <p>各位同学，下午好。欢迎来到"取经计划"第二级——基础篇，<span class="key">上工具：跟着文牒走。</span>这一课是给项目经理助理、项目专员准备的，但说实话，<span class="joke">每一位想让"我干了很多活却没人知道"的日子终结的同学，这课都适合你。</span></p>
+    <p>上一课我们讲了什么？考一考：<span class="stage">互动</span>（停两秒）八十一难，在项目管理里叫什么？——对，<span class="key">里程碑</span>。恭喜L1的同学们，你们已经会说项目话了。</p>
+    <p>但"知道"和"会用"之间，隔着一套工具。今天四十五分钟，你要拿下项目行政的<b>四大件</b>：章程摘要、SMART目标、风险台账、还有信息保真的汇报。学完这课的标准只有一个——<span class="key">你成为PM最可靠的外挂。</span></p>
+  </div>
+</div>
+
+<div class="page" data-p="2">
+  <div class="pagemeta"><span class="tag g">衔接</span><span>第 02 段 / 10 · 课件第2页</span></div>
+  <div class="title">助理的全部秘密：记下来，才叫资产</div>
+  <div class="script">
+    <p>开始之前，先送大家一句话，这句话是这一课的总纲：<span class="key">项目里最重要的信息，永远不该只存在于某个人的脑子里。</span></p>
+    <p>为什么？因为脑子会忘、人会休假、岗位会变动。但台账不会——<span class="key">写下来的信息是资产，记在心里的信息是隐患。</span><span class="stage">停顿</span>多少项目复盘的时候，发现"当时说好了"的事谁也说不清了，全靠回忆打架。</p>
+    <p>助理的价值，就是当好这个"组织的记忆"。L1你知道了"八十一难"是什么，今天，我们学会把八十一难<b>一条条记下来、盯起来</b>——从"知道"，到"会用工具"。</p>
+  </div>
+</div>
+
+<div class="page" data-p="3">
+  <div class="pagemeta"><span class="tag">工具一</span><span>第 03 段 / 10 · 课件第3页</span></div>
+  <div class="title">通关文牒 = 项目章程：一张纸说清三件事</div>
+  <div class="script">
+    <p>第一件工具，也是唐僧的护身符——通关文牒。它就是项目章程的化身。<span class="key">一份合格的章程，只用回答三件事。</span></p>
+    <p>第一问，<span class="key">为什么办</span>——大唐缺大乘真经，这是背景和必要性。不写清这一条的项目，随时可以被砍掉，因为没人知道它为什么存在。第二问，<span class="key">谁来办</span>——御弟三藏。注意，唐僧是被正式授权的：文牒在手，见国王都好使。<span class="joke">悟空再能打，文牒上写的也不是他的名字。</span>第三问，<span class="key">资源怎么给</span>——通关文牒、金钵、俩随从。你看，连"随从配几个"都写清楚了。</p>
+    <p>反面对照一下：多少项目的章程，连"谁是负责人"都是开会的时候现问的？<span class="stage">停顿</span>所以，<span class="key">文档的价值，是把"默认共识"变成"明确承诺"。</span>这是你作为助理，翻看任何项目第一眼该看的文件。</p>
+  </div>
+</div>
+
+<div class="page" data-p="4">
+  <div class="pagemeta"><span class="tag">工具一续</span><span>第 04 段 / 10 · 课件第4页</span></div>
+  <div class="title">SMART：五个字母检验一个目标</div>
+  <div class="script">
+    <p>章程三问里最容易被糊弄的，是"目标"。所以引入一个检验工具，五个字母：SMART。</p>
+    <p><span class="key">S，Specific，具体</span>——取经的目标不是"去西边做点大事"，是取回三藏真经三十五部五千零四十八卷。<span class="key">M，Measurable，可衡量</span>——完成与否能点验，经书点验合格才算数。<span class="key">A，Achievable，可实现</span>——有观音护航、文牒授权，可达，但难。<span class="key">R，Relevant，相关</span>——大唐缺大乘教法，这是国家战略级需求，不是拍脑袋。<span class="key">T，Time-bound，有时限</span>——"三年必回"，承诺了期限。<span class="joke">虽然超了将近五倍——这个我们L3再算账。</span></p>
+    <p>你会发现，连"取经"这么玄的事，都天然符合SMART。<span class="stage">停顿</span>那现在拿你手头的目标过一遍："尽快优化系统"——具体吗？可衡量吗？有期限吗？<span class="joke">五个字母，一个不沾。所以它不是目标，是个愿望。</span></p>
+    <p><span class="stage">练习</span>（留3分钟）现在请每位同学，把"开发个报表"这个模糊任务，改写成一句SMART目标。待会儿请两位念一下。</p>
+  </div>
+</div>
+
+<div class="page" data-p="5">
+  <div class="pagemeta"><span class="tag o">工具二</span><span>第 05 段 / 10 · 课件第5页</span></div>
+  <div class="title">估时黑话翻译：助理的耳朵要灵</div>
+  <div class="script">
+    <p>第二件能力，不在手上，在耳朵上——听懂开发的"黑话"并当场翻译。</p>
+    <p>黑话一，<span class="key">"快了"</span>——这是项目管理里最古老的成语，真实含义是"还没开始"。<span class="joke">听到"快了"，别信，记录，然后跟催。</span>黑话二，<span class="key">"基本通过"</span>——翻译过来是"全挂了但我不敢说"。追问一句：哪几项没过？什么时候能过？黑话三，<span class="key">"做完"</span>——这个词有四个意思：甲方眼里是"能用"，开发眼里是"能跑"，测试眼里是"没炸"，项目经理眼里是"该发周报了"。<span class="stage">停顿</span>同一个词，四方四义，这就是项目里扯皮的根源。</p>
+    <p>破解方法一句话：<span class="key">别问"多久"，问"验收标准"。</span>把开发的"快了"翻译成："几号几点前，交付什么，验什么"——写进纪要，落实到人头。<span class="joke">助理做久了你会发现，项目一半的进度，是"翻译"出来的。</span></p>
+  </div>
+</div>
+
+<div class="page" data-p="6">
+  <div class="pagemeta"><span class="tag">工具三</span><span>第 06 段 / 10 · 课件第6页</span></div>
+  <div class="title">风险登记册：把八十一难记成台账</div>
+  <div class="script">
+    <p>第三件工具，重量级的：风险登记册。还记得L1说八十一难是里程碑吗？现在升级——它同时也是一份<span class="key">教科书级的风险台账</span>。</p>
+    <p>我们看它长什么样：第一栏，<span class="key">什么妖</span>——风险是什么；第二栏，<span class="key">什么害</span>——影响是什么；第三栏，<span class="key">谁应对</span>——责任人是哪位；第四栏，<span class="key">结果如何</span>——状态怎么样；第五栏，<span class="key">何时复看</span>——什么时候再检查一次。白骨精三变：信任危机，悟空识别、唐僧决策，已解决、做过复盘。火焰山：路线阻断，悟空借扇，已解决。条条在册，一难一录。</p>
+    <p>为什么要写下来？<span class="key">脑子里的风险叫"到时候再说"——那是风险登记的坟头；写下来的风险，才叫"下一步安排"。</span><span class="stage">停顿</span>请记住风险管理的四步：<span class="key">识别、评估、应对、监控</span>——识别靠登记册，监控靠定期复看。</p>
+    <p><span class="stage">练习</span>（留5分钟）发放《风险登记册》模板，请每人对照自己手头的项目，现场填三条风险——要写清责任人和复看时间。</p>
+  </div>
+</div>
+
+<div class="page" data-p="7">
+  <div class="pagemeta"><span class="tag g">工具四</span><span>第 07 段 / 10 · 课件第7页</span></div>
+  <div class="title">汇报保真：别让一手信息变"二手小作文"</div>
+  <div class="script">
+    <p>第四件能力，写纪要。先讲一个血的教训——三打白骨精。</p>
+    <p>悟空火眼金睛，一手证据，当场汇报："师父，这是妖。"信息源准，铁证如山。结果呢？唐僧不采信，反而信了八戒的<span class="key">"二手小作文"</span>——"他那是诬蔑""他在捣乱"。最后紧箍咒一收、贬书一写、骨干开除，战力清零。<span class="stage">停顿</span>整个项目差点全剧终，就败在<b>信息源的等级</b>上：一手、转述、脑补，可信度天差地别。</p>
+    <p>所以，助理写的会议纪要，是全项目最接近"一手信息"的东西。标准格式三要素：第一，<span class="key">结论</span>——定了什么，而不是"进行了充分交流"；第二，<span class="key">行动项</span>——谁，做什么，几号前交；第三，<span class="key">争议与待定</span>——没定的事，写明"待定"，以及谁拍板。二十四小时内发出，抄送相关方。</p>
+    <p>一句话总结：<span class="key">你写得清楚，PM就能拍板；你写得含糊，神仙难断案。</span><span class="joke">助理的笔，就是项目的黑匣子。</span></p>
+  </div>
+</div>
+
+<div class="page" data-p="8">
+  <div class="pagemeta"><span class="tag o">工具四续</span><span>第 08 段 / 10 · 课件第8页</span></div>
+  <div class="title">验收三栏清单：没有清单 = 默许</div>
+  <div class="script">
+    <p>最后一件，验收三栏清单。它只有三栏：<span class="key">功能栏</span>，看"能用啥"——每个功能跑一遍主流程；<span class="key">文档栏</span>，看"留没留说明"——操作手册、接口说明、变更记录；<span class="key">数据栏</span>，看"数字准不准"——真实数据回归、报表抽样核对。</p>
+    <p>为什么要三栏？因为"验收合格"四个字太容易说出口了。<span class="stage">停顿</span>想象无字真经的场面：经书递过来，封面标着V1.0，翻开——正文全是空白。主流程能走，数据是空的，错误提示是空的，文档是空的。<span class="joke">但你猜验收单上写的什么？"验收合格"。</span>缺了清单，"验收"就只剩默许。</p>
+    <p>助理在验收现场的角色特别简单，也特别关键：<span class="key">逐条读清单、逐项打勾，替PM守住"按单核对"的底线。</span>你不念，就没人念；没人念，项目就成了睁一只眼闭一只眼的收货现场。</p>
+  </div>
+</div>
+
+<div class="page" data-p="9">
+  <div class="pagemeta"><span class="tag">串联</span><span>第 09 段 / 10 · 课件第9页</span></div>
+  <div class="title">助理的一天：四大件怎么转起来</div>
+  <div class="script">
+    <p>工具都给齐了，现在把它们串成一天的日程。</p>
+    <p>早上九点，晨会。各组报进度，众说纷纭——你当场记<span class="key">纪要三要素</span>：结论、行动项、待定。会后一小时发出。十点半，跟催。开发说"快了"——三天前他也说"快了"。<span class="joke">你微笑点头，回工位把"快了"翻译成具体日期加验收标准，</span>更新任务台账，抄送相关方。下午两点，更新风险台账，新冒出的隐患，登记册加一行：什么妖、什么害、谁应对、何时复看。下午四点，预验收。供应商说"能上线就行"——你掏出<span class="key">三栏清单</span>逐条过，缺项写"待整改"，一条都不含糊。</p>
+    <p>发现了没有？四大件不是四个孤立任务，<span class="key">是一个循环：记录、跟催、更新、核对。</span>助理的靠谱，就是让这个循环一天不停转。<span class="stage">停顿</span>当这个循环转顺了，你在PM眼里的形象就定型了：这个人，<b>托底</b>。</p>
+  </div>
+</div>
+
+<div class="page" data-p="10">
+  <div class="pagemeta"><span class="tag o">小结</span><span>第 10 段 / 10 · 课件第10页</span></div>
+  <div class="title">小结与通关文牒</div>
+  <div class="script">
+    <p>收个尾。今天带走的四大件：<span class="key">章程摘要</span>——为什么办、谁、资源；<span class="key">SMART</span>——五个字母验目标；<span class="key">风险台账</span>——写下来才是安排；<span class="key">纪要三要素</span>——结论、行动、待定。</p>
+    <p>课后作业，也就是通关文牒：<span class="stage">停顿</span>请你为手头真实的项目，产出两样东西——第一，一份<span class="key">《风险登记册》</span>，至少三条，每条写清责任人与复看时间；第二，一份<span class="key">《会议纪要》</span>，三要素齐全。交给你项目的PM验收签字，就算加盖L2通关印。</p>
+    <p>友情提示：很多同学交作业的时候才发现，自己项目连一份像样的纪要都没有过——<span class="joke">恭喜你，这份作业交上去，你就已经是项目里最不可或缺的人了。</span>下一课，L3实战篇——"扛大旗：从承诺到交付"，等你真正管项目的那一天，再见。</p>
+  </div>
+</div>
+
+</div>
+
+<div id="nav">
+  <div class="nav-row">
+    <div class="nav-btn" id="btnPrev">‹</div>
+    <div class="pager" id="pager"></div>
+    <div class="nav-btn" id="btnNext">›</div>
+  </div>
+  <div class="reader">
+    <button id="rbPlay" class="rb-btn primary">▶ 朗读</button>
+    <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button>
+    <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button>
+    <select id="rbRate" class="rb-rate" title="语速">
+      <option value="0.85">0.85×</option>
+      <option value="1">1.0×</option>
+      <option value="1.1" selected>1.1×</option>
+      <option value="1.3">1.3×</option>
+    </select>
+  </div>
+  <div class="reader-info">
+    <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span>
+    <span id="rbPos">10 段</span>
+  </div>
+  <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 10 段</div>
+</div>
+
+<script>
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var pager = document.getElementById('pager');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var cur = 0;
+  var total = pages.length;
+  pages.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.className = 'pnum'; b.textContent = i + 1;
+    b.addEventListener('click', function(){ go(i); });
+    pager.appendChild(b);
+  });
+  var nums = pager.querySelectorAll('.pnum');
+  function go(i){
+    if(i < 0 || i >= total) return;
+    pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i;
+    nums.forEach(function(n, j){ n.classList.toggle('on', j === i); });
+    btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1);
+    var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block: 'nearest', inline: 'center'}); }
+    pages[cur].scrollTop = 0;
+    var hint = document.getElementById('hint');
+    if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; }
+  }
+  btnPrev.addEventListener('click', function(){ go(cur - 1); });
+  btnNext.addEventListener('click', function(){ go(cur + 1); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if(e.key === 'Home') { go(0); }
+    else if(e.key === 'End') { go(total - 1); }
+  });
+  var sx = 0, sy = 0, sw = false;
+  document.addEventListener('touchstart', function(e){
+    var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!sw) return; sw = false;
+    var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
+  }, {passive:true});
+  var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
+  window.SEGS = {"segs": [{"start": 0.0,"end": 42.98},{"start": 45.38,"end": 81.52},{"start": 83.12,"end": 137.48},{"start": 139.08,"end": 205.54},{"start": 209.54,"end": 261.28},{"start": 262.88,"end": 328.45},{"start": 332.45,"end": 394.71},{"start": 396.31,"end": 452.21},{"start": 453.81,"end": 514.48},{"start": 516.08,"end": 566.55}],"total": 566.55};
+  var audio = null, reading = false, paused = false, ridx = 0;
+  function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; }
+  function rSet(){
+    var s = window.SEGS;
+    rPlay.disabled = reading && !paused;
+    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
+    rPause.disabled = !reading || paused;
+    rStop.disabled = !reading;
+    var pct = reading ? Math.min(100, Math.round((audio ? audio.currentTime : 0) / s.total * 100)) : 0;
+    rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）';
+    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
+  }
+  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
+  function ensureAudio(){
+    if(!audio){
+      audio = new Audio('audio/c2/full.mp3');
+      audio.preload = 'auto';
+      audio.onended = function(){ rFinish(); };
+      audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; };
+      audio.ontimeupdate = function(){
+        if(!reading || paused) return;
+        var k = segIndex(audio.currentTime);
+        if(k !== ridx){ ridx = k; rHl(k); go(k); }
+        rSet();
+      };
+    }
+    audio.playbackRate = parseFloat(rRate.value);
+    return audio;
+  }
+  function rStart(){
+    if(paused && audio){ paused = false; audio.play(); rSet(); return; }
+    if(reading) return;
+    var a = ensureAudio();
+    reading = true; paused = false;
+    ridx = segIndex(a.currentTime);
+    a.play().catch(function(){});
+    rSet();
+  }
+  function rPause(){
+    if(!reading || paused) return;
+    paused = true;
+    if(audio) audio.pause();
+    rSet();
+  }
+  function rStop(){
+    if(audio){ audio.pause(); audio.currentTime = 0; }
+    reading = false; paused = false; ridx = 0;
+    rHl(-1); rSet();
+  }
+  function rFinish(){
+    if(audio) audio.pause();
+    reading = false; paused = false; ridx = 0;
+    rHl(-1); rSet();
+  }
+  rPlay.addEventListener('click', rStart);
+  rPause.addEventListener('click', rPause);
+  rStop.addEventListener('click', rStop);
+  rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); });
+  window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); });
+  rSet();
+
+  go(0);
+})();
+</script>
+</body>
+</html>

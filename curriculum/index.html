@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>取经计划 · 项目管理四级训练营</title>
+<style>
+:root{
+  --l1:#0066CC; --l1d:#004080;
+  --l2:#00a97f; --l2d:#00795c;
+  --l3:#e65c00; --l3d:#b34700;
+  --l4:#c62828; --l4d:#8f1d1d;
+  --bg:#f7f4ec; --card:#ffffff; --ink:#2b2b33; --sub:#6a6a76; --line:#e5ded0;
+  --gold:#b8912f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;}
+.hero{background:linear-gradient(135deg,#1a2436 0%,#2c3e5c 55%,#3d5a80 100%);color:#fff;padding:52px 24px 58px;position:relative;overflow:hidden;}
+.hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--l1) 0%,var(--l1) 25%,var(--l2) 25%,var(--l2) 50%,var(--l3) 50%,var(--l3) 75%,var(--l4) 75%,var(--l4) 100%);}
+.hero .inner{max-width:1060px;margin:0 auto;position:relative;}
+.hero .kicker{font-size:13px;letter-spacing:.35em;opacity:.65;text-transform:uppercase;margin-bottom:14px;}
+.hero h1{font-size:34px;font-weight:800;letter-spacing:2px;margin-bottom:10px;}
+.hero h1 .accent{color:#f5c658;}
+.hero .sub{font-size:15px;opacity:.85;max-width:720px;}
+.hero .meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:20px;font-size:12.5px;opacity:.75;}
+.hero .meta span{display:inline-flex;align-items:center;gap:6px;}
+.hero .stamp{position:absolute;right:0;top:-10px;width:118px;height:118px;border:3px solid rgba(245,198,88,.55);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;transform:rotate(12deg);font-family:"STKaiti","KaiTi",serif;}
+.hero .stamp b{font-size:30px;color:#f5c658;letter-spacing:4px;}
+.hero .stamp i{font-style:normal;font-size:11px;letter-spacing:2px;opacity:.8;}
+.container{max-width:1060px;margin:0 auto;padding:34px 20px 50px;}
+.section-t{border-left:5px solid var(--gold);padding-left:14px;margin:30px 0 16px;}
+.section-t h2{font-size:21px;color:#1a2436;}
+.section-t .en{font-size:11px;color:var(--sub);letter-spacing:2px;text-transform:uppercase;}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.course-card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:0 3px 14px rgba(26,36,54,.08);border-top:5px solid;display:flex;flex-direction:column;}
+.course-card.l1{border-top-color:var(--l1);} .course-card.l2{border-top-color:var(--l2);}
+.course-card.l3{border-top-color:var(--l3);} .course-card.l4{border-top-color:var(--4,var(--l4));border-top-color:var(--l4);}
+.cc-head{padding:16px 18px 12px;}
+.cc-head .lv{font-size:11px;letter-spacing:.2em;font-weight:700;color:#fff;display:inline-block;padding:3px 12px;border-radius:20px;}
+.l1 .lv{background:var(--l1);} .l2 .lv{background:var(--l2);} .l3 .lv{background:var(--l3);} .l4 .lv{background:var(--l4);}
+.cc-head h3{font-size:19px;margin:10px 0 4px;color:var(--ink);}
+.cc-head .who{font-size:12.5px;color:var(--sub);}
+.cc-head .stars{font-size:12px;color:var(--gold);margin-top:2px;}
+.cc-body{padding:0 18px 14px;flex:1;}
+.cc-body p{font-size:13.5px;color:#4a4a55;}
+.cc-body ul{list-style:none;margin-top:8px;}
+.cc-body li{font-size:12.8px;color:var(--sub);padding-left:16px;position:relative;margin-bottom:3px;}
+.cc-body li::before{content:"✦";position:absolute;left:0;font-size:10px;color:var(--gold);}
+.cc-links{padding:0 18px 16px;display:flex;gap:8px;flex-wrap:wrap;}
+.cc-links a{flex:1;text-align:center;text-decoration:none;font-size:12.5px;padding:8px 0;border-radius:8px;font-weight:700;transition:transform .15s;}
+.cc-links a:hover{transform:translateY(-2px);}
+.cc-links .deck{color:#fff;} .cc-links .sp{border:1.5px solid;background:#fff;}
+.l1 .deck{background:var(--l1);} .l1 .sp{border-color:var(--l1);color:var(--l1);}
+.l2 .deck{background:var(--l2);} .l2 .sp{border-color:var(--l2);color:var(--l2);}
+.l3 .deck{background:var(--l3);} .l3 .sp{border-color:var(--l3);color:var(--l3);}
+.l4 .deck{background:var(--l4);} .l4 .sp{border-color:var(--l4);color:var(--l4);}
+.panel{background:var(--card);border-radius:14px;box-shadow:0 3px 14px rgba(26,36,54,.08);padding:22px 24px;margin-bottom:16px;}
+.panel h3{font-size:16px;color:#1a2436;margin-bottom:10px;}
+.panel p{font-size:14px;color:#4a4a55;margin-bottom:8px;}
+.panel p:last-child{margin-bottom:0;}
+.quote{background:#fdf8ec;border:1px solid #ecd9a8;border-radius:12px;padding:16px 20px;font-size:14px;color:#7a5c00;}
+.quote b{color:#8a6400;}
+.extra{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.extra a{text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center;transition:all .18s;display:block;}
+.extra a:hover{box-shadow:0 4px 16px rgba(26,36,54,.12);transform:translateY(-3px);border-color:var(--gold);}
+.extra .ico{font-size:30px;display:block;margin-bottom:8px;}
+.extra b{font-size:14.5px;display:block;color:#1a2436;}
+.extra span{font-size:12px;color:var(--sub);}
+.foot{text-align:center;font-size:12px;color:var(--sub);padding:30px 16px 40px;border-top:1px solid var(--line);margin-top:26px;}
+@media(max-width:860px){.ladder{grid-template-columns:1fr 1fr;}.extra{grid-template-columns:1fr;}.hero .stamp{display:none;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <div class="kicker">XIYOU · ICT PROJECT MANAGEMENT TRAINING</div>
+    <h1>取经计划 · <span class="accent">项目管理四级训练营</span></h1>
+    <p class="sub">一套西游IP，四个层级，四个45分钟课时。由浅入深、循序渐进——从听懂项目语言的新人，到能搭组织体系的总监，走完你的"取经路"。</p>
+    <div class="meta">
+      <span>🕐 每课时 45 分钟</span>
+      <span>👥 四级培训对象</span>
+      <span>📜 通关文牒结业体系</span>
+      <span>🎧 课件 / 口播稿 / 语音朗读</span>
+    </div>
+    <div class="stamp"><b>取经</b><i>计划</i></div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section-t"><h2>四课时选课</h2><div class="en">Choose Your Level</div></div>
+  <div class="ladder">
+
+    <div class="course-card l1">
+      <div class="cc-head">
+        <span class="lv">LEVEL 1 · 认知篇</span>
+        <h3>入个门：取经即项目</h3>
+        <div class="who">新入职员工（入职 0–1 年）</div>
+        <div class="stars">难度 ★</div>
+      </div>
+      <div class="cc-body">
+        <p>听懂项目语言，破除"项目管理=催进度"的误解。</p>
+        <ul>
+          <li>什么是项目：高考、婚礼与取经</li>
+          <li>西游对照表与师徒五角色</li>
+          <li>互动：测测你是取经团队里的谁</li>
+          <li>新人起步：沙僧与白龙马不丢人</li>
+        </ul>
+      </div>
+      <div class="cc-links">
+        <a class="deck" href="c1.html">📖 进入课件</a>
+        <a class="sp" href="speech-c1.html">🗣️ 口播稿</a>
+      </div>
+    </div>
+
+    <div class="course-card l2">
+      <div class="cc-head">
+        <span class="lv">LEVEL 2 · 基础篇</span>
+        <h3>上工具：跟着文牒走</h3>
+        <div class="who">项目经理助理 / 项目专员</div>
+        <div class="stars">难度 ★★</div>
+      </div>
+      <div class="cc-body">
+        <p>掌握项目"记录与跟催"四大件，成为PM的可靠外挂。</p>
+        <ul>
+          <li>文牒=章程，SMART 逐条对照</li>
+          <li>风险登记册：81难台账四栏</li>
+          <li>汇报保真：拒绝"二手小作文"</li>
+          <li>验收三栏清单入门</li>
+        </ul>
+      </div>
+      <div class="cc-links">
+        <a class="deck" href="c2.html">📖 进入课件</a>
+        <a class="sp" href="speech-c2.html">🗣️ 口播稿</a>
+      </div>
+    </div>
+
+    <div class="course-card l3">
+      <div class="cc-head">
+        <span class="lv">LEVEL 3 · 实战篇</span>
+        <h3>扛大旗：从承诺到交付</h3>
+        <div class="who">项目经理 / 交付骨干</div>
+        <div class="stars">难度 ★★★</div>
+      </div>
+      <div class="cc-body">
+        <p>独立管理项目全执行周期，从"被项目管"到"管项目"。</p>
+        <ul>
+          <li>三年变十四年：规划谬误与关键路径</li>
+          <li>女儿国：最难的一关（变更请求）</li>
+          <li>无字真经：敢打回才算范围管理</li>
+          <li>影响×概率：风险分级与应急</li>
+        </ul>
+      </div>
+      <div class="cc-links">
+        <a class="deck" href="c3.html">📖 进入课件</a>
+        <a class="sp" href="speech-c3.html">🗣️ 口播稿</a>
+      </div>
+    </div>
+
+    <div class="course-card l4">
+      <div class="cc-head">
+        <span class="lv">LEVEL 4 · 治理篇</span>
+        <h3>搭体系：从项目到组织</h3>
+        <div class="who">项目总监 / 交付负责人</div>
+        <div class="stars">难度 ★★★★</div>
+      </div>
+      <div class="cc-body">
+        <p>从"管好一个项目"升级到"设计一套体系"。</p>
+        <ul>
+          <li>红孩儿之问：选人与PIP用人观</li>
+          <li>论功行赏：封佛位次=绩效分配</li>
+          <li>思辨辩论：唐僧是好PM吗？</li>
+          <li>黑神话·悟空：现实版取经项目</li>
+        </ul>
+      </div>
+      <div class="cc-links">
+        <a class="deck" href="c4.html">📖 进入课件</a>
+        <a class="sp" href="speech-c4.html">🗣️ 口播稿</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-t"><h2>配套资源</h2><div class="en">Companion Tools</div></div>
+  <div class="extra">
+    <a href="test.html"><span class="ico">🧭</span><b>角色自测 H5</b><span>10 道情境题 · 测你是师徒五人中的谁</span></a>
+    <a href="../index.html"><span class="ico">🏠</span><b>返回课程总入口</b><span>西游记·ICT项目管理 全部内容</span></a>
+    <a href="#" onclick="alert('模板教具随课时讲义发放：①风险登记册 ②会议纪要 ③验收三栏清单 ④封赏与改进方案');return false;"><span class="ico">🧾</span><b>模板教具包</b><span>四份随堂模板（课时内发放）</span></a>
+  </div>
+
+  <div class="section-t"><h2>通关文牒 · 结业体系</h2><div class="en">Passport System</div></div>
+  <div class="panel">
+    <h3>📜 每过一级，加盖一印</h3>
+    <p>呼应西游"每过一国、加盖一印"的叙事：每级课程完成课后作业并经直接上级或讲师验收签字，即在你的《通关文牒》上加盖对应等级"通关印"。四级集齐，授予<b>"取经人"结业认证</b>，可纳入人才画像标签，并优先进入下一角色培养池。</p>
+    <p style="font-size:13px;color:var(--sub)">L1 自测+对照图 ｜ L2 登记册+纪要（PM签字） ｜ L3 双案例演练评审 ｜ L4 复盘主持+封赏方案答辩</p>
+  </div>
+  <div class="quote"><b>设计原则：</b>由浅入深（认知→工具→执行→治理）；一套IP四层复用（81难在四级分别讲"里程碑/台账/分级应对/容错治理"）；成长路径即招生路径——L1 的学员知道 L3 在等他。</div>
+
+</div>
+
+<div class="foot">取经计划 · 项目管理四级训练营 ｜ 基于对标研究全面升级 · 与《西游记·ICT项目管理》经典课程并存 ｜ 2026</div>
+</body>
+</html>

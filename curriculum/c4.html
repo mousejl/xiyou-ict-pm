@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课时四 · 治理篇｜取经计划</title>
+<style>
+:root{
+  --lv:#c62828; --lvd:#8f1d1d; --lv-rgb:198,40,40;
+  --paper:#f8f5ee; --card:#ffffff; --ink:#2b2b33; --sub:#6a6a76; --line:#e2dbcc; --gold:#b8912f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper);color:var(--ink);}
+#deck{display:flex;height:100vh;width:100000vw;transition:transform .55s cubic-bezier(.65,0,.25,1);}
+.slide{width:100vw;height:100vh;flex:0 0 100vw;padding:8vh 6vw 12vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.slide::after{content:"";position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0066CC 0%,#0066CC 25%,#00a97f 25%,#00a97f 50%,#FF6600 50%,#FF6600 75%,var(--lv) 75%,var(--lv) 100%);opacity:.85;}
+.chrome{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.2vh 6vw;font-size:12px;letter-spacing:.22em;color:var(--sub);}
+.chrome .badge{background:var(--lv);color:#fff;padding:4px 16px;border-radius:20px;font-weight:700;letter-spacing:.18em;}
+.kicker{font-size:13px;letter-spacing:.35em;color:var(--lv);margin-bottom:2.2vh;text-transform:uppercase;font-weight:700;}
+.h1{font-size:min(6.4vw,11vh);font-weight:800;line-height:1.15;letter-spacing:1px;}
+.h1 em{font-style:normal;color:var(--lv);}
+.h2{font-size:min(3.6vw,6.4vh);font-weight:800;line-height:1.3;margin-bottom:2.4vh;}
+.lead{font-size:max(15px,min(1.5vw,2.6vh));line-height:1.85;color:#4a4a55;max-width:70vw;}
+.grid{display:grid;gap:2.2vh 2vw;margin-top:3vh;}
+.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;} .g4c{grid-template-columns:repeat(4,1fr);}
+.card{background:var(--card);border-radius:12px;padding:2.6vh 1.6vw;box-shadow:0 2px 10px rgba(43,43,51,.06);border-top:3px solid var(--lv);}
+.card h4{font-size:max(14px,min(1.4vw,2.4vh));margin-bottom:1vh;color:var(--ink);}
+.card p{font-size:max(12px,min(1.05vw,1.9vh));color:var(--sub);line-height:1.6;}
+.callout{border-left:5px solid var(--gold);background:#fdf8ec;padding:2.2vh 1.8vw;border-radius:0 12px 12px 0;font-size:max(14px,1.15vw);line-height:1.75;color:#6d5312;}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;max-width:86vw;}
+.vs .side{border-radius:14px;padding:2.6vh 1.8vw;}
+.vs .pro{background:#e8f5ee;border:1px solid #bfe3cf;color:#1d5c40;}
+.vs .con{background:#fdeaea;border:1px solid #f5c2c2;color:#8f1d1d;}
+.vs h4{font-size:max(14px,1.2vw);margin-bottom:1vh;}
+.vs p{font-size:max(12px,1vw);line-height:1.7;}
+.table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(43,43,51,.06);font-size:max(12px,1vw);}
+.table th{background:rgba(var(--lv-rgb),.12);color:var(--lvd);padding:1.2vh 1vw;text-align:left;border-bottom:2px solid var(--lv);}
+.table td{padding:1.1vh 1vw;border-bottom:1px solid var(--line);color:#4a4a55;line-height:1.55;}
+.practice{background:linear-gradient(135deg,#fdf3e3,#fbedd4);border:2px dashed var(--gold);border-radius:16px;padding:3vh 2.2vw;text-align:center;max-width:84vw;margin:0 auto;}
+.practice .pt{font-size:min(2.6vw,4.6vh);font-weight:800;color:#8a6400;margin-bottom:1vh;}
+.practice p{font-size:max(13px,1vw);color:#7a5c00;line-height:1.75;}
+.nav{position:fixed;bottom:0;left:0;right:0;height:9vh;display:flex;align-items:center;justify-content:center;gap:14px;background:var(--paper);border-top:1px solid var(--line);z-index:50;}
+.nav button{width:44px;height:44px;border-radius:50%;border:2px solid var(--lvd);background:#fff;color:var(--lvd);font-size:19px;cursor:pointer;transition:all .15s;}
+.nav button:hover{background:var(--lv);color:#fff;border-color:var(--lv);}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:70vw;}
+.dot{width:10px;height:10px;border-radius:50%;background:#c9c2b0;cursor:pointer;transition:all .18s;}
+.dot.on{background:var(--lv);transform:scale(1.45);}
+.pgnum{position:absolute;bottom:10vh;right:6vw;font-size:12px;color:var(--sub);letter-spacing:.2em;}
+.anim{opacity:0;transform:translateY(24px);transition:all .7s ease .25s;}
+.slide.on .anim{opacity:1;transform:none;}
+.slide.on .anim.d1{transition-delay:.45s;} .slide.on .anim.d2{transition-delay:.65s;} .slide.on .anim.d3{transition-delay:.85s;}
+.foot{position:absolute;bottom:11vh;left:6vw;font-size:11px;color:var(--sub);letter-spacing:.15em;}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<section class="slide">
+  <div class="chrome"><span class="badge">LEVEL 4 · 治理篇</span><span>取经计划 · 项目管理四级训练营</span></div>
+  <div class="kicker anim">COURSE 4 / 4 · 项目总监 · 45 MIN</div>
+  <div class="h1 anim d1">搭体系：<em>从项目到组织</em></div>
+  <p class="lead anim d2">四十五分钟，从"管好一个项目"升级到"设计一套体系"——选人与授权、激励与收尾、相关方治理与容错文化，并对你的管理范式，来一次批判性体检。</p>
+  <div class="foot anim d3">课时目标：会选人 · 会分赏 · 会搭体系 · 会自我批判</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>01 / 10 · 视角切换</span></div>
+  <div class="h2 anim">总监之问：组织的胜利，能靠个人英雄吗？</h2></div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>PM 扛住了项目</h4><p>会留缓冲、敢打回、管住蔓延——一个优秀的 PM，能把一个项目从泥潭里拖出来。</p></div>
+    <div class="card anim d2" style="border-top-color:#c62828"><h4>但组织要的是：100个项目同时活</h4><p>靠招 100 个唐僧？不可能。<b>体系的意义：让平凡的人，在结构里做出不平凡的结果。</b>这是本课唯一的主线。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">取经项目的组织设计者其实不是唐僧——是<b>如来（发起）与观音（组建、护航、监理）</b>。总监的位置，从来不是"更大的项目经理"，而是<b>如来与观音的位置</b>。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>02 / 10 · 选人</span></div>
+  <div class="h2 anim">红孩儿之问：为什么不要能力爆表的猛人？</div>
+  <p class="lead anim d1">灵山脚下有一个让无数人意难平的问题：取经这个顶级项目组，为什么放着红孩儿、黑熊怪这种<b>业务能力爆表</b>的猛人不要，非得凑齐几个"问题员工"？</p>
+  <div class="grid g2" style="margin-top:2.4vh;max-width:84vw">
+    <div class="card anim d1"><h4>唐僧不是瞎，是在算三笔账</h4><p>① <b>可控性</b>：红孩儿连自己亲爹都敢烧，悟空再狂还敬师父三分；<br>② <b>忠诚度</b>：五个成员各带"戴罪之身"，全靠这个项目翻身——<b>离开成本极高</b>；<br>③ <b>团队化学</b>：两个红孩儿式的全能天才放一起，是内耗的开始。</p></div>
+    <div class="card anim d2"><h4>选人的组织级结论</h4><p><b>能力决定下限，忠诚与可控决定上限。</b><br>招人时问三个问题：这个人为什么来？他为什么会留下？<b>他什么时候会走？</b>——答不清"走"的，也留不住"来"。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:84vw">注意：不是"不要能人"，是<b>不要只有能的人</b>。红孩儿后来去了观音那儿——在合适的位置上（善财童子），猛人也能用。<b>选人 = 能力 × 可控性 × 岗位匹配</b>。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>03 / 10 · PIP 用人观</span></div>
+  <div class="h2 anim">戴罪立功：一支全靠"PIP"组建的梦之队</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>看他们的入职档案</h4><p>悟空：大闹天宫，判刑五百年——<b>绩效改进计划</b>：护送取经，将功赎罪；<br>八戒：调戏嫦娥，贬下凡间——观察期：戴罪修行；<br>沙僧：失手打碎琉璃盏——留用察看；<br>白龙马：纵火烧殿——基层改造。</p></div>
+    <div class="card anim d2"><h4>PIP 的组织启示</h4><p>不是所有"问题员工"都该淘汰——<b>给一个翻盘项目，配上明确目标（真经）+ 退出条件（散伙/紧箍咒）+ 终局激励（成佛）</b>，就是一套完整的绩效改进计划。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:84vw">组织里最容易被浪费的资产，是<b>"犯过错但想翻身的人"</b>。他们一旦被点燃，往往比"从没犯过错的人"更拼命——因为取经对别人是工作，对他们是<b>唯一的出路</b>。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>04 / 10 · 授权</span></div>
+  <div class="h2 anim">为什么悟空不能当项目经理？</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>思维惯性的陷阱</h4><p>"最能干的当负责人"——是绝大多数组织的第一反应，也是<b>组织设计里最常见的错误</b>。</p></div>
+    <div class="card anim d2"><h4>PM 的合法性从哪来</h4><p>不是能力，是<b>正式授权</b>。唐僧是四人中唯一被大唐皇帝正式授权的（通关文牒=任命书）。没有任命书的 PM，每次都要向成员解释"我为什么管你"——<b>项目还没开始，权威先崩了。</b></p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">总监的两个动作：① <b>任命要见文书</b>（发文、公开、明确权限边界）；② <b>能人要给 throne 以外的 honor</b>——悟空不当 PM，但给"齐天大圣"的技术序列高位：让能人在专业上封神，而不是在管理上错配。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>05 / 10 · 相关方治理</span></div>
+  <div class="h2 anim">有后台的妖怪：相关方治理的真相</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>西游妖界的生存规律</h4><p>有后台的，最后都被领导接走了；<b>没后台的，才是真风险，当场被打死。</b>这不是讽刺，这是相关方分析的真相：<b>先看后台，再动手。</b></p></div>
+    <div class="card anim d2"><h4>相关方地图：一张表管住"满天神佛"</h4><p>四类角色逐一登记：<b>谁点头（支持）、谁摇头（阻力）、谁能拍板（决策）、谁会搅局（隐形否决权）</b>。项目里多数"意外"，都是"没把某个相关方当回事"的结果。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:84vw">组织级要求：每个项目立项时附<b>相关方地图</b>；总监室挂<b>大图</b>——那个审批卡你三天的部门、那个说"哦忘了，不行"的窗口，<b>提前打招呼，永远比事后磕头便宜。</b></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>06 / 10 · 自建 vs 外包</span></div>
+  <div class="h2 anim">核心能力护城河：唐僧为什么只外包"打妖"？</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>他的标准采购流程</h4><p>供应商选对（观音：法力强、信誉好、不摆烂）→ 条件谈清（妖归你收，师徒我带走）→ 干完结账（收妖、道谢、不拖欠）。<b>请外援，从来不丢人。</b></p></div>
+    <div class="card anim d2"><h4>但"取经"二字从没外包过</h4><p>判断题：核心、多变、要快的——自建；稳定、标准化、能验收的——外包。<b>你把"核"外包了，你就只剩"壳"——而壳，别人也能干。</b></p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:84vw">总监的护城河之问：你组织里那件<b>"天天要改"的事</b>，外包了吗？——改一次，成本一次；改十次，能力就永远长在别人身上。唐僧要是把"取"也外包，他就不是项目经理，是顾问。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>07 / 10 · 论功行赏</span></div>
+  <div class="h2 anim">项目收尾：灵山封赏，一次教科书级绩效分配</div>
+  <table class="table anim d1" style="max-width:86vw">
+    <tr><th>成员</th><th>封号</th><th>职级</th><th>绩效画像</th></tr>
+    <tr><td>唐僧</td><td>旃檀功德佛</td><td>佛</td><td>目标坚定、授权清晰、从不甩锅——领导他领锅</td></tr>
+    <tr><td>孙悟空</td><td>斗战胜佛</td><td>佛</td><td>技术天花板+救场王，出事第一个上</td></tr>
+    <tr><td>猪八戒</td><td>净坛使者</td><td>菩萨</td><td>意志不坚但沟通救场（请回悟空的是他）→ 人岗匹配：管天下供品</td></tr>
+    <tr><td>沙僧</td><td>金身罗汉</td><td>菩萨</td><td>零失误交付，压舱石</td></tr>
+    <tr><td>白龙马</td><td>八部天龙</td><td>菩萨</td><td>基础设施，驮完全程</td></tr>
+  </table>
+  <div class="grid g2" style="margin-top:2vh;max-width:86vw">
+    <div class="callout"><b>八戒当场质问："凭啥他们都成佛，我只当使者？"</b>——这是绩效面谈最经典的一幕：分配不可能人人满意，但<b>理由必须说得出口</b>。如来当场答了：因你口壮身慵、食肠宽大，凡诸佛事，教汝净坛——<b>人岗匹配，各有其用</b>。</div>
+    <div class="callout" style="border-left-color:var(--lv)"><b>散伙经济学：</b>八戒一路喊散伙却没散成——不是觉悟，是<b>激励绑定</b>：成佛承诺=入职即锁定的期权，退出成本=回高老庄当妖怪。总监要记住：<b>留人靠的是机制，不是鸡汤。</b></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>08 / 10 · 容错与思辨</span></div>
+  <div class="h2 anim">思辨：唐僧是好 PM 吗？</div>
+  <div class="vs">
+    <div class="side pro anim d1"><h4>正方：是</h4><p>① 目标如磐：女儿国倾国之富不改道；<br>② 授权清晰：打妖归悟空、赶路归白龙马；<br>③ 出事不甩锅：他领锅——能领锅的 PM 比会甩锅的多活十年。</p></div>
+    <div class="side con anim d2"><h4>反方：不是</h4><p>① 只对上负责（六神磊磊）：对如来负责，徒弟全是"委屈"里干活；<br>② 肉眼凡胎却独揽验收权：三打白骨精，误判骨干、战力清零；<br>③ 沟通全靠念咒：以权威代替说服。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:86vw"><b>容错机制的启示：</b>赶走悟空再请回的代价，是差点全团覆没——组织要给犯错设"止损线"，而不是"一票否决线"。<b>没有容错的组织，人人都学会了瞒报</b>；瞒报，才是最大的风险登记册。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>09 / 10 · 黑神话对照</span></div>
+  <div class="h2 anim">现实版取经项目：黑神话·悟空</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>项目硬指标</h4><p>开发周期约 <b>7 年</b>；团队约 <b>140 人</b>；核心成员平均合作超 <b>10 年</b>；2024 年上线即爆——全球销量破千万、收入超 70 亿。<b>3A 游戏开发的时长、成本与协作复杂度，正是"现代版取经"。</b></p></div>
+    <div class="card anim d2"><h4>组织启示</h4><p>① <b>初心驱动</b>：2018 年重拾单机初心——愿景不是墙上的标语，是七年不改道的锚；<br>② <b>长期主义的组织配套</b>：核心稳定 + 专业序列 + 品质执着；<br>③ 总监职责：<b>替组织挡住短期诱惑</b>，让长周期项目活到交付那天。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.2vh;max-width:84vw;border-left-color:var(--lv)"><b>金句互文：</b>冯骥说，"踏上取经路，比抵达灵山更重要。"——与你课程结尾那句"敢问路在何方？路在脚下"，是同一句话的两个写法。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L4</span><span>10 / 10 · 收束与作业</span></div>
+  <div class="h2 anim">四级集齐，你的组织有了自己的取经体系</div>
+  <div class="grid g4c">
+    <div class="card anim d1" style="border-top-color:#0066CC"><h4>L1 认知</h4><p>共同语言：全员说"项目话"。</p></div>
+    <div class="card anim d1" style="border-top-color:#00a97f"><h4>L2 工具</h4><p>记录跟催：台账化、清单化。</p></div>
+    <div class="card anim d2" style="border-top-color:#e65c00"><h4>L3 实战</h4><p>全周期执行：敢说不、敢打回。</p></div>
+    <div class="card anim d2" style="border-top-color:#c62828"><h4>L4 治理</h4><p>组织设计：选人、授权、封赏、容错。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.6vh;max-width:84vw"><b>📜 通关文牒 · 结业作业：</b>① 主持一次真实项目的收尾复盘会（用论功行赏框架：先讲贡献、再讲分配、当面答"为什么"）；② 输出一份《团队封赏与改进方案》（含人岗匹配说明）。交导师组答辩，加盖 <b>L4 通关印 · 集齐四级"取经人"认证</b>。</div>
+  <div class="lead anim d3" style="margin-top:2vh;color:var(--lvd);font-weight:700">敢问路在何方？——路在脚下。</div>
+</section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">‹</button>
+  <div class="dots" id="dots"></div>
+  <button id="next">›</button>
+</div>
+<div class="pgnum" id="pgnum"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var deck=document.getElementById('deck');
+  var dotsBox=document.getElementById('dots');
+  var cur=0;
+  deck.style.width=(slides.length*100)+'vw';
+  slides.forEach(function(s,i){var d=document.createElement('div');d.className='dot';d.onclick=function(){go(i)};dotsBox.appendChild(d);});
+  var dots=[].slice.call(dotsBox.children);
+  function go(i){
+    if(i<0||i>=slides.length)return;
+    slides[cur].classList.remove('on');
+    cur=i;
+    deck.style.transform='translateX(-'+cur*100+'vw)';
+    slides[cur].classList.add('on');
+    dots.forEach(function(d,j){d.classList.toggle('on',j===cur)});
+    document.getElementById('pgnum').textContent=(cur+1)+' / '+slides.length;
+  }
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(slides.length-1);}
+  });
+  var sx=0;
+  document.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60){ if(dx<0)go(cur+1); else go(cur-1); }
+  },{passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>

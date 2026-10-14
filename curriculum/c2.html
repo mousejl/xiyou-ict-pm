@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课时二 · 基础篇｜取经计划</title>
+<style>
+:root{
+  --lv:#00a97f; --lvd:#00795c; --lv-rgb:0,169,127;
+  --paper:#f8f5ee; --card:#ffffff; --ink:#2b2b33; --sub:#6a6a76; --line:#e2dbcc; --gold:#b8912f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper);color:var(--ink);}
+#deck{display:flex;height:100vh;width:100000vw;transition:transform .55s cubic-bezier(.65,0,.25,1);}
+.slide{width:100vw;height:100vh;flex:0 0 100vw;padding:8vh 6vw 12vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.slide::after{content:"";position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0066CC 0%,#0066CC 25%,var(--lv) 25%,var(--lv) 50%,#FF6600 50%,#FF6600 75%,#E53935 75%,#E53935 100%);opacity:.85;}
+.chrome{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.2vh 6vw;font-size:12px;letter-spacing:.22em;color:var(--sub);}
+.chrome .badge{background:var(--lv);color:#fff;padding:4px 16px;border-radius:20px;font-weight:700;letter-spacing:.18em;}
+.kicker{font-size:13px;letter-spacing:.35em;color:var(--lv);margin-bottom:2.2vh;text-transform:uppercase;font-weight:700;}
+.h1{font-size:min(6.4vw,11vh);font-weight:800;line-height:1.15;letter-spacing:1px;}
+.h1 em{font-style:normal;color:var(--lv);}
+.h2{font-size:min(3.6vw,6.4vh);font-weight:800;line-height:1.3;margin-bottom:2.4vh;}
+.lead{font-size:max(15px,min(1.5vw,2.6vh));line-height:1.85;color:#4a4a55;max-width:70vw;}
+.grid{display:grid;gap:2.2vh 2vw;margin-top:3vh;}
+.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;} .g5{grid-template-columns:repeat(5,1fr);}
+.card{background:var(--card);border-radius:12px;padding:2.6vh 1.6vw;box-shadow:0 2px 10px rgba(43,43,51,.06);border-top:3px solid var(--lv);}
+.card h4{font-size:max(14px,min(1.4vw,2.4vh));margin-bottom:1vh;color:var(--ink);}
+.card p{font-size:max(12px,min(1.05vw,1.9vh));color:var(--sub);line-height:1.6;}
+.card .num{font-size:min(4.2vw,7.5vh);font-weight:800;color:var(--lv);line-height:1;}
+.card .cap{font-size:max(11px,.95vw);color:var(--sub);margin-top:.6vh;}
+.callout{border-left:5px solid var(--gold);background:#fdf8ec;padding:2.2vh 1.8vw;border-radius:0 12px 12px 0;font-size:max(14px,1.15vw);line-height:1.75;color:#6d5312;}
+.table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(43,43,51,.06);font-size:max(12px,1vw);}
+.table th{background:rgba(var(--lv-rgb),.12);color:var(--lvd);padding:1.2vh 1vw;text-align:left;border-bottom:2px solid var(--lv);}
+.table td{padding:1.1vh 1vw;border-bottom:1px solid var(--line);color:#4a4a55;line-height:1.55;}
+.practice{background:linear-gradient(135deg,#fdf3e3,#fbedd4);border:2px dashed var(--gold);border-radius:16px;padding:3vh 2.2vw;text-align:center;max-width:80vw;margin:0 auto;}
+.practice .pt{font-size:min(2.6vw,4.6vh);font-weight:800;color:#8a6400;margin-bottom:1vh;}
+.practice p{font-size:max(13px,1vw);color:#7a5c00;line-height:1.75;}
+.nav{position:fixed;bottom:0;left:0;right:0;height:9vh;display:flex;align-items:center;justify-content:center;gap:14px;background:var(--paper);border-top:1px solid var(--line);z-index:50;}
+.nav button{width:44px;height:44px;border-radius:50%;border:2px solid var(--lvd);background:#fff;color:var(--lvd);font-size:19px;cursor:pointer;transition:all .15s;}
+.nav button:hover{background:var(--lv);color:#fff;border-color:var(--lv);}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:70vw;}
+.dot{width:10px;height:10px;border-radius:50%;background:#c9c2b0;cursor:pointer;transition:all .18s;}
+.dot.on{background:var(--lv);transform:scale(1.45);}
+.pgnum{position:absolute;bottom:10vh;right:6vw;font-size:12px;color:var(--sub);letter-spacing:.2em;}
+.anim{opacity:0;transform:translateY(24px);transition:all .7s ease .25s;}
+.slide.on .anim{opacity:1;transform:none;}
+.slide.on .anim.d1{transition-delay:.45s;} .slide.on .anim.d2{transition-delay:.65s;} .slide.on .anim.d3{transition-delay:.85s;}
+.foot{position:absolute;bottom:11vh;left:6vw;font-size:11px;color:var(--sub);letter-spacing:.15em;}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<section class="slide">
+  <div class="chrome"><span class="badge">LEVEL 2 · 基础篇</span><span>取经计划 · 项目管理四级训练营</span></div>
+  <div class="kicker anim">COURSE 2 / 4 · 项目经理助理 · 45 MIN</div>
+  <div class="h1 anim d1">上工具：<em>跟着文牒走</em></div>
+  <p class="lead anim d2">四十五分钟，掌握项目"记录与跟催"四大件——章程摘要、SMART 目标、风险台账、信息保真汇报，让你成为 PM 最可靠的外挂。</p>
+  <div class="foot anim d3">课时目标：会做纪要 · 会记台账 · 会跟催 · 会汇报</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>01 / 09 · 回顾与衔接</span></div>
+  <div class="h2 anim">还记得上一课的词吗？</div>
+  <div class="grid g2" style="max-width:80vw">
+    <div class="card anim d1"><h4>❓ 快问</h4><p>八十一难，在项目管理里叫什么？<br><b style="color:var(--lvd)">——里程碑（也是风险清单的雏形）。</b></p></div>
+    <div class="card anim d2"><h4>🪜 今天升一级</h4><p>L1 你知道了"它是什么"；今天学会<b>把它记下来、盯起来</b>——从"知道"到"会用工具"。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:80vw">助理的全部秘密：项目里最重要的信息，永远不该只存在于某个人的脑子里。<b>记下来，才叫资产。</b></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>02 / 09 · 文牒=章程</span></div>
+  <div class="h2 anim">通关文牒 = 项目章程：一张纸说清三件事</div>
+  <div class="grid g3">
+    <div class="card anim d1"><h4>① 为什么办</h4><p>大唐缺大乘真经——<b>背景与必要性</b>，不写清，项目随时可被砍。</p></div>
+    <div class="card anim d2"><h4>② 谁来办</h4><p>御弟三藏——<b>责任人与授权</b>。为什么是唐僧？他被正式授权，悟空再能打也不行。</p></div>
+    <div class="card anim d3"><h4>③ 资源怎么给</h4><p>通关文牒、金钵、俩随从——<b>连"随从配几个"都写清楚</b>。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh">反面对照：多少项目的章程，连"谁是负责人"都是开会时现问的。<b>文档的价值，是把"默认共识"变成"明确承诺"。</b></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>03 / 09 · SMART 目标</span></div>
+  <div class="h2 anim">用 SMART 检验"取经"这个目标</div>
+  <table class="table anim d1" style="max-width:82vw">
+    <tr><th style="width:22%">SMART 字母</th><th style="width:33%">含义</th><th>取经项目对照</th></tr>
+    <tr><td><b>S</b>pecific 具体</td><td>不是"做点大事"，是明确的成果</td><td>取<b>三藏真经</b>（35部·5048卷），不是"去西边逛逛"</td></tr>
+    <tr><td><b>M</b>easurable 可衡量</td><td>完成与否能点验</td><td>经书<b>5048卷，点验合格</b>才算数</td></tr>
+    <tr><td><b>A</b>chievable 可实现</td><td>跳一跳够得着</td><td>有观音护航、文牒授权——<b>可达，但难</b></td></tr>
+    <tr><td><b>R</b>elevant 相关</td><td>与战略一致</td><td>大唐缺大乘教法——<b>国家战略级需求</b></td></tr>
+    <tr><td><b>T</b>ime-bound 有时限</td><td>有截止时间</td><td>"三年必回"——<b>承诺了期限</b>（虽然超了五倍）</td></tr>
+  </table>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:82vw">看清了吧：连"取经"这么玄的事都天然符合 SMART。<b>你手头那个"尽快优化系统"的目标，反而五个字母全不沾。</b></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>04 / 09 · 估时入门</span></div>
+  <div class="h2 anim">估时黑话翻译：助理的耳朵要灵</div>
+  <div class="grid g3">
+    <div class="card anim d1"><h4>"快了"</h4><p>项目管理最古老的成语，<br>真实含义：<b>"还没开始"</b>。<br>听到它，立刻记录+跟催。</p></div>
+    <div class="card anim d2"><h4>"基本通过"</h4><p>翻译：<b>"全挂了但我不敢说"</b>。<br>追问一句：哪几项没过？什么时候能过？</p></div>
+    <div class="card anim d3"><h4>"做完"</h4><p>四方四义——甲方眼里"能用"、开发眼里"能跑"、测试眼里"没炸"、PM眼里"该发周报了"。<br><b>别问"多久"，问"验收标准"。</b></p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh">助理基本功：把开发的"快了"翻译成<b>"几号几点前，交什么，验什么"</b>——写进纪要，落实人头。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>05 / 09 · 风险登记册</span></div>
+  <div class="h2 anim">风险登记册：把八十一难记成台账</div>
+  <table class="table anim d1" style="max-width:84vw">
+    <tr><th>什么妖（风险）</th><th>什么害（影响）</th><th>谁应对（责任人）</th><th>结果如何（状态）</th><th>何时复看</th></tr>
+    <tr><td>白骨精三变</td><td>团队信任危机</td><td>悟空（识别）/唐僧（决策）</td><td>已解决·复盘过</td><td>下次遇到同类</td></tr>
+    <tr><td>火焰山</td><td>路线阻断</td><td>悟空（借扇）</td><td>已解决</td><td>—</td></tr>
+    <tr><td>红孩儿</td><td>核心成员被困</td><td>悟空→请观音</td><td>已解决·外包</td><td>—</td></tr>
+    <tr><td>……</td><td>……</td><td>……</td><td>……</td><td>……</td></tr>
+  </table>
+  <div class="grid g2" style="margin-top:2vh;max-width:84vw">
+    <div class="callout">一难一录、条条在册——<b>这就是"风险登记册"的雏形</b>。四步走：识别、评估、应对、监控。</div>
+    <div class="callout" style="border-left-color:var(--lv)">反面对照：脑子里的风险叫"到时候再说"——<b>那是风险登记的坟头。</b>写下来的风险，才叫"下一步安排"。</div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>06 / 09 · 汇报保真</span></div>
+  <div class="h2 anim">汇报保真：别让一手信息变"二手小作文"</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1" style="border-top-color:#c62828"><h4>⚠️ 三打白骨精的教训</h4><p>悟空一手证据（"师父，这是妖"）不被采信；八戒"二手小作文"（"他那是诬蔑"）却一路放行——紧箍咒一收、贬书一写、骨干开除，战力清零。<br><b>信息源等级：一手 &gt; 转述 &gt; 脑补。</b></p></div>
+    <div class="card anim d2"><h4>✅ 纪要三要素</h4><p>① <b>结论</b>：定了什么（不是"进行了充分讨论"）<br>② <b>行动项</b>：谁、做什么、<b>几号前</b>交<br>③ <b>争议与待定</b>：没定的写明"待定+谁拍板"<br>——24小时内发出，抄送相关方。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.2vh;max-width:84vw">助理的笔就是项目的黑匣子：<b>写得清楚，PM 能拍板；写得含糊，神仙难断案。</b></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>07 / 09 · 核对清单</span></div>
+  <div class="h2 anim">验收三栏清单入门：没有清单=默许</div>
+  <div class="grid g3">
+    <div class="card anim d1"><h4>功能栏</h4><p>看"能用啥"——<br>每个功能跑一遍主流程。<br>对照：无字真经——主流程能走，<b>正文是空白</b>。</p></div>
+    <div class="card anim d2"><h4>文档栏</h4><p>看"留没留说明"——<br>操作手册、接口说明、变更记录。<br>对照：5048卷<b>点验合格</b>，才算交付。</p></div>
+    <div class="card anim d3"><h4>数据栏</h4><p>看"数字准不准"——<br>真实数据回归、报表抽样核对。<br>对照：缺一卷，都要<b>打回重谈</b>。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh">助理在验收现场的角色：逐条读清单、逐项打勾，<b>替PM守住"按单核对"的底线</b>——你不念，就没人念。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>08 / 09 · 助理的一天</span></div>
+  <div class="h2 anim">助理的一天：四大件怎么串起来</div>
+  <table class="table anim d1" style="max-width:84vw">
+    <tr><th style="width:14%">时间</th><th style="width:26%">场景</th><th>动作（对应工具）</th></tr>
+    <tr><td>09:00 晨会</td><td>各组报进度，众说纷纭</td><td>当场记纪要三要素（结论/行动项/待定），会后1小时发出</td></tr>
+    <tr><td>10:30 跟催</td><td>开发说"快了"（三天前也说快了）</td><td>翻译成具体日期+验收标准，更新到任务台账，抄送相关方</td></tr>
+    <tr><td>14:00 更新台账</td><td>新冒出一个隐患</td><td>登记册加一行：什么妖/什么害/谁应对/何时复看</td></tr>
+    <tr><td>16:00 预验收</td><td>供应商说"能上线吗就行"</td><td>掏出三栏清单逐条过：功能/文档/数据，缺项写"待整改"</td></tr>
+  </table>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:84vw">你会发现：四大件不是四个任务，<b>是一个循环</b>——记录、跟催、更新、核对。助理的靠谱，就是让这个循环不停转。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L2</span><span>09 / 09 · 小结与作业</span></div>
+  <div class="h2 anim">带走四大件，领你的通关印</div>
+  <div class="grid g4" style="max-width:84vw;grid-template-columns:1fr 1fr 1fr 1fr;gap:1.6vw">
+    <div class="card anim d1"><h4>📜 章程摘要</h4><p>为什么办/谁/资源。</p></div>
+    <div class="card anim d1"><h4>🎯 SMART</h4><p>五个字母验目标。</p></div>
+    <div class="card anim d2"><h4>🗂️ 风险台账</h4><p>写下来才是安排。</p></div>
+    <div class="card anim d2"><h4>📝 纪要三要素</h4><p>结论/行动/待定。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.6vh;max-width:84vw"><b>📜 通关文牒 · 课后作业：</b>为你手头真实项目产出①《风险登记册》（≥3条，含责任人与复看时间）②一份《会议纪要》（含三要素），交 PM 验收签字，加盖 <b>L2 通关印</b>。</div>
+</section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">‹</button>
+  <div class="dots" id="dots"></div>
+  <button id="next">›</button>
+</div>
+<div class="pgnum" id="pgnum"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var deck=document.getElementById('deck');
+  var dotsBox=document.getElementById('dots');
+  var cur=0;
+  deck.style.width=(slides.length*100)+'vw';
+  slides.forEach(function(s,i){var d=document.createElement('div');d.className='dot';d.onclick=function(){go(i)};dotsBox.appendChild(d);});
+  var dots=[].slice.call(dotsBox.children);
+  function go(i){
+    if(i<0||i>=slides.length)return;
+    slides[cur].classList.remove('on');
+    cur=i;
+    deck.style.transform='translateX(-'+cur*100+'vw)';
+    slides[cur].classList.add('on');
+    dots.forEach(function(d,j){d.classList.toggle('on',j===cur)});
+    document.getElementById('pgnum').textContent=(cur+1)+' / '+slides.length;
+  }
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(slides.length-1);}
+  });
+  var sx=0;
+  document.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60){ if(dx<0)go(cur+1); else go(cur-1); }
+  },{passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>

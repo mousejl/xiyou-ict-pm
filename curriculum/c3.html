@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>课时三 · 实战篇｜取经计划</title>
+<style>
+:root{
+  --lv:#e65c00; --lvd:#b34700; --lv-rgb:230,92,0;
+  --paper:#f8f5ee; --card:#ffffff; --ink:#2b2b33; --sub:#6a6a76; --line:#e2dbcc; --gold:#b8912f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper);color:var(--ink);}
+#deck{display:flex;height:100vh;width:100000vw;transition:transform .55s cubic-bezier(.65,0,.25,1);}
+.slide{width:100vw;height:100vh;flex:0 0 100vw;padding:8vh 6vw 12vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.slide::after{content:"";position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0066CC 0%,#0066CC 25%,#00a97f 25%,#00a97f 50%,var(--lv) 50%,var(--lv) 75%,#E53935 75%,#E53935 100%);opacity:.85;}
+.chrome{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.2vh 6vw;font-size:12px;letter-spacing:.22em;color:var(--sub);}
+.chrome .badge{background:var(--lv);color:#fff;padding:4px 16px;border-radius:20px;font-weight:700;letter-spacing:.18em;}
+.kicker{font-size:13px;letter-spacing:.35em;color:var(--lv);margin-bottom:2.2vh;text-transform:uppercase;font-weight:700;}
+.h1{font-size:min(6.4vw,11vh);font-weight:800;line-height:1.15;letter-spacing:1px;}
+.h1 em{font-style:normal;color:var(--lv);}
+.h2{font-size:min(3.6vw,6.4vh);font-weight:800;line-height:1.3;margin-bottom:2.4vh;}
+.lead{font-size:max(15px,min(1.5vw,2.6vh));line-height:1.85;color:#4a4a55;max-width:70vw;}
+.grid{display:grid;gap:2.2vh 2vw;margin-top:3vh;}
+.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;} .g4c{grid-template-columns:repeat(4,1fr);}
+.card{background:var(--card);border-radius:12px;padding:2.6vh 1.6vw;box-shadow:0 2px 10px rgba(43,43,51,.06);border-top:3px solid var(--lv);}
+.card h4{font-size:max(14px,min(1.4vw,2.4vh));margin-bottom:1vh;color:var(--ink);}
+.card p{font-size:max(12px,min(1.05vw,1.9vh));color:var(--sub);line-height:1.6;}
+.card .num{font-size:min(4.2vw,7.5vh);font-weight:800;color:var(--lv);line-height:1;}
+.card .cap{font-size:max(11px,.95vw);color:var(--sub);margin-top:.6vh;}
+.callout{border-left:5px solid var(--gold);background:#fdf8ec;padding:2.2vh 1.8vw;border-radius:0 12px 12px 0;font-size:max(14px,1.15vw);line-height:1.75;color:#6d5312;}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:1.6vh 1.4vw;max-width:84vw;}
+.q{border-radius:12px;padding:2vh 1.4vw;font-size:max(12px,1vw);line-height:1.65;}
+.q b{display:block;font-size:max(13px,1.1vw);margin-bottom:.6vh;}
+.q.lo{background:#e8f5ee;color:#1d6b46;border:1px solid #bfe3cf;}
+.q.hi{background:#fdeaea;color:#9c1c1c;border:1px solid #f5c2c2;}
+.q.warn{background:#fff2e6;color:#8a4a00;border:1px solid #ffd9b3;}
+.q.do{background:#e6f0fb;color:#1a4f8f;border:1px solid #b8d4f0;}
+.practice{background:linear-gradient(135deg,#fdf3e3,#fbedd4);border:2px dashed var(--gold);border-radius:16px;padding:3vh 2.2vw;text-align:center;max-width:84vw;margin:0 auto;}
+.practice .pt{font-size:min(2.6vw,4.6vh);font-weight:800;color:#8a6400;margin-bottom:1vh;}
+.practice p{font-size:max(13px,1vw);color:#7a5c00;line-height:1.75;}
+.nav{position:fixed;bottom:0;left:0;right:0;height:9vh;display:flex;align-items:center;justify-content:center;gap:14px;background:var(--paper);border-top:1px solid var(--line);z-index:50;}
+.nav button{width:44px;height:44px;border-radius:50%;border:2px solid var(--lvd);background:#fff;color:var(--lvd);font-size:19px;cursor:pointer;transition:all .15s;}
+.nav button:hover{background:var(--lv);color:#fff;border-color:var(--lv);}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:70vw;}
+.dot{width:10px;height:10px;border-radius:50%;background:#c9c2b0;cursor:pointer;transition:all .18s;}
+.dot.on{background:var(--lv);transform:scale(1.45);}
+.pgnum{position:absolute;bottom:10vh;right:6vw;font-size:12px;color:var(--sub);letter-spacing:.2em;}
+.anim{opacity:0;transform:translateY(24px);transition:all .7s ease .25s;}
+.slide.on .anim{opacity:1;transform:none;}
+.slide.on .anim.d1{transition-delay:.45s;} .slide.on .anim.d2{transition-delay:.65s;} .slide.on .anim.d3{transition-delay:.85s;}
+.foot{position:absolute;bottom:11vh;left:6vw;font-size:11px;color:var(--sub);letter-spacing:.15em;}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<section class="slide">
+  <div class="chrome"><span class="badge">LEVEL 3 · 实战篇</span><span>取经计划 · 项目管理四级训练营</span></div>
+  <div class="kicker anim">COURSE 3 / 4 · 项目经理 · 45 MIN</div>
+  <div class="h1 anim d1">扛大旗：<em>从承诺到交付</em></div>
+  <p class="lead anim d2">四十五分钟，学会独立管理项目的执行全周期——管住范围、留足缓冲、守得住验收、用对沟通。从"被项目管"，到"管项目"。</p>
+  <div class="foot anim d3">课时目标：敢说"不" · 会留缓冲 · 敢打回 · 管住蔓延</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>01 / 10 · 规划谬误</span></div>
+  <div class="h2 anim">承诺的代价：三年，怎么变成了十四年</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>唐太宗问：几时能回？</h4><p>唐僧拍着胸脯："只在三年，三年必回。"<br>——这个承诺的有效期，大概十天：第十天他就开始抓妖怪了，<b>进度条再也拉不回来</b>。</p></div>
+    <div class="card anim d2"><h4>实际干多久？</h4><p>十四年。超了将近五倍。<br>他不是唯一这么干的——你问开发"三周行不行"，他说行；三周后你问，他说"再对齐一下"。<b>在程序员嘴里，"天"是个计量单位，约等于一个季度。</b></p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">这有个学名叫<b>「规划谬误」</b>——人一到估工期就往好处想。经验法则：复杂项目，<b>初估乘二才是现实</b>；唐僧这种要闯八十一难的，<b>还得再乘二</b>。谁第一次估工期就按"理想路况"算，谁就等着把"理想"改成"遗憾"。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>02 / 10 · 关键路径与缓冲</span></div>
+  <div class="h2 anim">关键路径：狮驼岭为什么绕不过去</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>讲人话的定义</h4><p>项目里总有一串活，必须<b>一个个排队干</b>。这条线上<b>哪天晚一天，整个项目就晚一天</b>，谁也补不回来——唐僧一路最难的是狮驼岭：<b>不是打不过，是绕不过，它就在关键路径上。</b></p></div>
+    <div class="card anim d2"><h4>缓冲怎么留</h4><p>❌ 每个任务都多估两天 = 全部挤到结尾一起爆，等于没估。<br>✅ 给"关键链"留<b>一块整的缓冲</b>，其他任务按顺序紧着排。<br>唐僧要是每个妖怪都多绕两天，那不叫取经，叫"绕远"。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">所以管进度，不是管"所有活"，是管<b>"关键路径上的那几天"</b>。你的项目里，那几天是啥？——别告诉我，是"验收那天"。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>03 / 10 · 范围管理</span></div>
+  <div class="h2 anim">范围蔓延：八戒一喊"散伙"，警报就响了</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>信号识别</h4><p>"太难了，要不砍了吧""做个简化版""这需求不重要"——<b>每一句"算了、差不多、先这样"，都是在给目标放血。</b></p></div>
+    <div class="card anim d2"><h4>唐僧的标准答案</h4><p>他不吵、不纵容，就一句：<b>"贫僧自东土大唐而来，去往西天拜佛求经。"</b>翻译：初心没变，"散伙"这个需求，不在本期范围。</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:2vh;max-width:84vw">
+    <div class="card anim d2"><h4>铁锚之问</h4><p>每次有人提"加这个吧"，就问：<b>"这个，跟'真经'有关吗？"</b>有关，排期；无关，写进"需求池"，让它慢慢排队。</p></div>
+    <div class="card anim d3"><h4>两个亲戚也要认得</h4><p>① <b>镀金</b>：不停加好功能，觉得"更好"——加的全不是目标的活；<br>② <b>隐藏需求</b>：明知要做，假装"不重要"。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2vh;max-width:84vw">会"说不"的项目经理，不是难搞，是<b>有边界</b>。有边界的项目，才叫项目；没边界的，那叫散伙。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>04 / 10 · 女儿国</span></div>
+  <div class="h2 anim">女儿国：最难的一关，没有妖怪</div>
+  <p class="lead anim d1">无凶险、无打斗，却是全书<b>最危险的一关</b>：女王愿以<b>一国之富</b>相许——这是"目标诱惑型"变更请求的终极形态。</p>
+  <div class="grid g2" style="margin-top:2.4vh;max-width:84vw">
+    <div class="card anim d1"><h4>为什么会动摇</h4><p>诱惑的可怕在于它<b>不是威胁，是补偿</b>：干了十四年苦活的人，最想要的恰恰是"别干了"。唐僧那句"来世若有缘分"，就是项目经理的动摇时刻。</p></div>
+    <div class="card anim d2"><h4>假婚脱身：教科书式拒绝</h4><p>既不撕破脸（相关方关系），又不改目标（范围底线）——<b>拖、缓、给台阶，人走、目标不变</b>。优雅拒绝变更的三个动作全齐了。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">对照工具：所有"带条件的续期/加钱/顺手帮个忙"，都先过<b>铁锚之问</b>——跟真经有关吗？无关？那跟女儿国国王一样，<b>可以礼遇，不能改道</b>。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>05 / 10 · 演练一</span></div>
+  <div class="practice anim">
+    <div class="pt">⚔️ 演练一：批一份"女儿国式"变更请求</div>
+    <p>背景：你的项目干到第9个月，客户提出"顺便帮我们做个大数据平台，预算再加30%，工期不变"。<br>这是你在取经路上遇到的最舒服的一难——<b>有钱、有资源、听起来还挺合理</b>。</p>
+    <p style="margin-top:1.4vh"><b>任务（5分钟）：</b>小组讨论，给出书面批复：接 / 不接 / 部分接？理由必须用到铁锚之问；<br>若接，说明对关键路径的影响与新增验收标准；若不接，写出你的"假婚脱身"话术。</p>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>06 / 10 · 验收管理</span></div>
+  <div class="h2 anim">无字真经：熬了十四年，验收是一摞白纸</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1" style="border-top-color:#c62828"><h4>像不像你的项目？</h4><p>封面标着 <b>V1.0</b>，正文全是空白；主流程能走，返回的数据是空的，错误提示是空的，文档是空的——<b>但版本号已经从 1.0 升到 2.0。</b></p></div>
+    <div class="card anim d2"><h4>阿傩伽叶说了句实话</h4><p>"经不可轻传，不可以空取。"<br>翻译：请经，是要"请"的。紫金钵盂掏出来，才换回有字真经 5048 卷、<b>点验合格</b>。——<b>质量，是付费换来的</b>；你打回，是要掂量银子的。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">敢打回，才叫范围管理；不敢打回，叫睁一只眼闭一只眼。<b>闭眼一时爽，验收火葬场</b>——验收的手一软，前面十四年全白跑。唐僧差点就"闭眼收"了，要不是悟空瞪眼，他真收了。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>07 / 10 · 打回台阶</span></div>
+  <div class="h2 anim">打回的艺术：让对方改，而不是让对方崩</div>
+  <div class="grid g3">
+    <div class="card anim d1"><h4>第一步：先给台阶</h4><p>先说"好的点"，再提"不行的点"——乙方听着不至于崩溃。<b>你写清单，乙方才懂你专业；你不写，乙方只觉得你挑剔。</b></p></div>
+    <div class="card anim d2"><h4>第二步：写清三条</h4><p>哪里不行、怎么改、<b>哪天再验</b>。缺的写下来，一条条改。<br>打回≠全盘否定——<b>目的是让交付更合格，不是让乙方更伤心。</b></p></div>
+    <div class="card anim d3"><h4>第三步：掂量银子</h4><p>打回前想好三件事：<b>验收标准在哪、整改方案是啥、返工的代价给不给得起。</b>兜里没底只有一句"不行"，那不叫打回，叫空手耍流氓。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.4vh;max-width:84vw">验收不是"你赢我输"，是<b>一起把活往合格上推</b>。没有清单的验收不叫验收，叫默许——默许的后果，从签下去那天起，你就是那套烂系统的监护人。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>08 / 10 · 风险分级</span></div>
+  <div class="h2 anim">影响 × 概率：妖怪也要分类打</div>
+  <div class="quad">
+    <div class="q lo anim d1"><b>概率高 · 影响低 = 小妖</b>顺手办掉，别让它小毛病不断。对照：一路上的无名小妖，悟空一棒。</div>
+    <div class="q warn anim d1"><b>概率低 · 影响高 = 大佬</b>提前"买保险"（预案/外援/备份），别赌它不来。对照：狮驼岭三魔，得先探路、搬救兵。</div>
+    <div class="q do anim d2"><b>概率低 · 影响低 = 路过</b>登记在册，定期看一眼，别占用当期资源。</div>
+    <div class="q hi anim d2"><b>概率高 · 影响高 = 主线妖怪</b>必须专门对付，不能"看情况"。不分级，就是那个见妖就打的凡人——累死，还打不赢。</div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.2vh;max-width:84vw">还要备"救"：<b>防是风险管理，救是应急管理</b>。悟空被赶走那回，队伍缺应急方案——战力清零，差点全团覆没。好项目，不光有"防"，还得有"谁顶上、怎么补、多久恢复"。</div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>09 / 10 · 沟通与资源</span></div>
+  <div class="h2 anim">沟通保真 · 资源托底</div>
+  <div class="grid g2" style="max-width:84vw">
+    <div class="card anim d1"><h4>三打白骨精：最贵的沟通翻车</h4><p>悟空一手证据不采，八戒二手小作文放行——紧箍咒一收，骨干开除，战力清零。<br>教训：① 分清<b>一手信息与转述</b>；② 领导要做<b>信息枢纽</b>不是漏斗——"同样的数据，你信声音大的那个，就输了"；③ 重要的事<b>白纸黑字</b>，你把话落在明处，白骨精才散了原形。</p></div>
+    <div class="card anim d2"><h4>白龙马：基础设施要留冗余</h4><p>不出声、不抢戏，驮着整个项目跑——<b>它一停摆，全团瘫痪。</b>做PM的：① 给稳定者一句"谢谢"（平时多说一句，胜过出事时喊一百句"快修"）；② 给核心资源留<b>冗余预算</b>——你手里那个唯一会的人、那台唯一的服务器，都得想想：<b>他明天不干了，你是不是就瘫了？</b></p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span class="badge">L3</span><span>10 / 10 · 小结与作业</span></div>
+  <div class="h2 anim">PM 的四把武器，拿走</div>
+  <div class="grid g4c">
+    <div class="card anim d1"><h4>🕐 进度</h4><p>初估乘二；关键路径上盯紧那几天；缓冲整块留。</p></div>
+    <div class="card anim d1"><h4>🧭 范围</h4><p>铁锚之问+需求池；镀金和隐藏需求都别放过。</p></div>
+    <div class="card anim d2"><h4>⚔️ 验收</h4><p>三栏清单；打回给台阶写清单；质量是付费换来的。</p></div>
+    <div class="card anim d2"><h4>📡 沟通</h4><p>信息枢纽不是漏斗；一手信息留通道；白纸黑字。</p></div>
+  </div>
+  <div class="callout anim d3" style="margin-top:2.6vh;max-width:84vw"><b>📜 通关文牒 · 课后作业（双案例演练）：</b>① 写一份《女儿国式变更批复》（接/不接+理由+影响评估）；② 写一份《无字真经打回清单》（三栏各≥2条不合格项+整改要求+复验时间）。两项交讲师评审通过，加盖 <b>L3 通关印</b>。</div>
+</section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">‹</button>
+  <div class="dots" id="dots"></div>
+  <button id="next">›</button>
+</div>
+<div class="pgnum" id="pgnum"></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var deck=document.getElementById('deck');
+  var dotsBox=document.getElementById('dots');
+  var cur=0;
+  deck.style.width=(slides.length*100)+'vw';
+  slides.forEach(function(s,i){var d=document.createElement('div');d.className='dot';d.onclick=function(){go(i)};dotsBox.appendChild(d);});
+  var dots=[].slice.call(dotsBox.children);
+  function go(i){
+    if(i<0||i>=slides.length)return;
+    slides[cur].classList.remove('on');
+    cur=i;
+    deck.style.transform='translateX(-'+cur*100+'vw)';
+    slides[cur].classList.add('on');
+    dots.forEach(function(d,j){d.classList.toggle('on',j===cur)});
+    document.getElementById('pgnum').textContent=(cur+1)+' / '+slides.length;
+  }
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(slides.length-1);}
+  });
+  var sx=0;
+  document.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60){ if(dx<0)go(cur+1); else go(cur-1); }
+  },{passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
