@@ -15,16 +15,7 @@
 </head>
 <body>
 <script>
-  if(window.location.hostname.indexOf('github') !== -1){
-    var target = 'curriculum/index.html';
-    if(window.location.pathname !== '/' && window.location.pathname !== '/index.html'){
-      var depth = (window.location.pathname.match(/\//g)||[]).length - 1;
-      target = (depth>0 ? '../'.repeat(depth) : '') + target;
-    }
-    window.location.replace(target);
-  } else {
-    window.location.replace('curriculum/index.html');
-  }
+  window.location.replace('curriculum/index.html');
 </script>
 <div class="box">
   <h1>取经计划 · 项目管理四级训练营</h1>
