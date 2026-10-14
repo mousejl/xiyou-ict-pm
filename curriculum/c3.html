@@ -59,6 +59,14 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;}
 .dot.on{background:var(--gold);transform:scale(1.35);}
 .pgnum{position:absolute;bottom:9vh;right:5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.4);}
+.qr-fab{position:fixed;bottom:10vh;right:1.1vw;width:46px;background:#fff;border-radius:7px;padding:4px;box-shadow:0 3px 14px rgba(0,0,0,.4);z-index:60;opacity:.9;transition:opacity .2s}
+.qr-fab:hover{opacity:1}
+.qr-fab img{width:100%;display:block}
+.qr-fab::after{content:"扫码同步";display:block;text-align:center;font-size:8px;color:#555;letter-spacing:.06em;padding-top:2px}
+.qr-fab{cursor:pointer}
+.qr-fab.big{width:150px;z-index:70}
+.qr-fab.big::after{content:"点我收起";font-size:10px}
+@media print{.qr-fab{display:none}}
 .anim{opacity:0;transform:translateY(22px);transition:all .7s ease .2s;}
 .slide.on .anim{opacity:1;transform:none;}
 .slide.on .anim.d1{transition-delay:.4s;} .slide.on .anim.d2{transition-delay:.6s;} .slide.on .anim.d3{transition-delay:.8s;}
@@ -111,14 +119,42 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   <div class="chrome"><span>关键路径与缓冲</span><span>02 / 11</span></div>
   <div class="frame">
     <div class="text"><div class="kicker anim">进度怎么管</div><h1 class="h1-zh anim d">狮驼岭为什么绕不过去</h1><p class="body-zh anim d2" style="margin-top:1.6vh">关键路径：一串必须一个接一个排队干的活，这条线上哪天晚一天，整个项目就晚一天。<b style="color:var(--gold)">唐僧最难的是狮驼岭——不是打不过，是绕不过，它就在关键路径上。</b></p><div class="callout anim d3">错误做法：每个任务都多估两天＝挤到结尾一起爆，等于没估。<br>正确做法：<b style="color:var(--gold)">给关键链留一整块缓冲</b>，其他任务按顺序紧排。<div class="src">管进度，不是管所有活，是管路径上的那几天</div></div></div>
-    <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 150 L58 60 L86 110 L120 36 L158 108 L184 66 L222 150" stroke-opacity=".85"/>
+    <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M6 134 L34 98 L58 120 L86 88 L112 122 L142 86 L172 118 L204 90 L234 126" stroke-width="1.4" stroke-opacity=".22"/>
+<path d="M20 150 L58 60 L86 110 L120 36 L158 108 L184 66 L222 150" stroke-opacity=".9"/>
+<path d="M104 58 l12-9 M110 70 l9-6 M128 62 l-7 11 M52 84 l10-8 M176 90 l-9 9 M196 82 l8-8" stroke-width="1.1" stroke-opacity=".38"/>
+<path d="M120 36 v-20"/>
+<path d="M120 16 q16-4 23 3 q-11 7-23 3 Z"/>
+<path d="M86 110 v-20 M86 90 l14 4 l-14 5" stroke-opacity=".8"/>
+<path d="M158 110 v-18 M158 92 l13 4 l-13 5" stroke-opacity=".8"/>
+<path d="M64 76 q7 5 14 0 M168 82 q7 5 14 0" stroke-opacity=".5"/>
+<path d="M28 126 q26-8 52 0 t52 0 t52 0" stroke-width="1.1" stroke-opacity=".26"/>
+<path d="M42 140 q30-9 60 0 t60 0 t38 0" stroke-width="1.1" stroke-opacity=".2"/>
+<path d="M30 40 q12-10 26-6 M178 32 q12-8 26-3" stroke-opacity=".3"/>
+<path d="M54 58 q4-5 8 0 q-4 2-8 0 M202 52 q4-5 8 0 q-4 2-8 0" stroke-opacity=".3"/>
 <path d="M4 150 H236" stroke-opacity=".35"/>
-<path d="M30 150 q26-10 44-26 q8-8 24-10 q22-4 34-22 q10-14 26-16 q22-4 34-16" stroke-dasharray="6 5" stroke-opacity=".7"/>
-<path d="M120 36 v-24" stroke-width="2"/>
-<path d="M120 14 q18-4 26 4 q-12 8-26 2 Z"/>
-<path d="M64 78 q6 4 10 0 M170 84 q6 4 10 0" stroke-opacity=".5"/>
-<path d="M30 40 q12-10 26-6 M180 34 q12-8 26-3" stroke-opacity=".3"/>
-<path d="M54 60 q4-5 8 0 q-4 2-8 0 M204 56 q4-5 8 0 q-4 2-8 0" stroke-opacity=".3"/></g></svg><div class="cap">关键路径 · 盯紧那几天</div></div>
+<path d="M18 174 q34-8 64-16 q56-14 158-34" stroke-dasharray="7 6" stroke-width="1.6" stroke-opacity=".5"/>
+<path d="M2 174 H238" stroke-opacity=".3"/>
+<circle cx="36" cy="142" r="4.4" stroke-width="1.7"/>
+<path d="M36 147 v13 M29 153 l7-4 7 4 M34 156 l-5 13 M38 156 l5 13" stroke-width="1.7" stroke-opacity=".9"/>
+<path d="M44 138 v29" stroke-width="1.7" stroke-opacity=".7"/>
+<path d="M93 148 q14-8 26 0 q2 3 0 6 q-14 6-26 0 q-2-3 0-6 Z" stroke-width="1.7"/>
+<path d="M119 146 l11-9 q4-2 4 3 l-5 7" stroke-width="1.7"/>
+<path d="M97 154 v9 M109 154 v9 M123 152 v10" stroke-width="1.7"/>
+<path d="M93 146 l-6 5" stroke-width="1.4" stroke-opacity=".65"/>
+<circle cx="101" cy="133" r="4" stroke-width="1.7"/>
+<path d="M101 137 v8" stroke-width="1.7"/>
+<circle cx="147" cy="144" r="4.4" stroke-width="1.7"/>
+<path d="M147 149 v12 M140 155 l7-4 7 4" stroke-width="1.7" stroke-opacity=".9"/>
+<path d="M143 158 l-5 12 M151 158 l5 12" stroke-width="1.7" stroke-opacity=".9"/>
+<path d="M157 148 q6 1 6 7 l-3 9" stroke-width="1.4" stroke-opacity=".65"/>
+<circle cx="190" cy="142" r="4.4" stroke-width="1.7"/>
+<path d="M190 147 v13 M183 153 l7-4 7 4" stroke-width="1.7" stroke-opacity=".9"/>
+<path d="M190 154 l-5 12 M190 154 l5 12" stroke-width="1.7" stroke-opacity=".9"/>
+<path d="M176 136 q14 8 28-3" stroke-width="1.4" stroke-opacity=".65"/>
+<path d="M174 132 l6 6 M208 129 l6 6" stroke-width="1.4" stroke-opacity=".65"/>
+<path d="M8 174 q-1-36 18-60 M232 174 q1-38-18-62" stroke-dasharray="4 5" stroke-width="1.4" stroke-opacity=".35"/>
+<path d="M20 102 l10-9 M30 102 l-10-9 M210 100 l10-9 M220 100 l-10-9" stroke-width="1.8" stroke-opacity=".55"/></g></svg><div class="cap">关键路径 · 盯紧那几天，绕不开就排上</div></div>
   </div>
   <div class="foot"><span class="t">进度管理</span><span>— · —</span></div>
 </section>
@@ -144,11 +180,26 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   <div class="chrome"><span>女儿国</span><span>04 / 11</span></div>
   <div class="frame">
     <div class="text"><div class="kicker anim">最难的一关 · 没有妖怪</div><h1 class="h1-zh anim d1">女儿国：目标诱惑型变更</h1><p class="body-zh anim d2" style="margin-top:1.6vh">女王愿以一国之富相许——这是最毒的一种变更：诱惑不是威胁，是补偿。<b style="color:var(--gold)">唐僧那句来世若有缘分，不是煽情，是项目经理的动摇时刻。</b></p><div class="callout anim d3">假婚脱身：<b style="color:var(--gold)">不撕破脸 + 不改目标 + 给台阶</b>——优雅拒绝变更三件套。所有带条件的加钱/续期/顺手帮，先过铁锚之问。<div class="src">无关？那它跟女儿国国王一样：可以礼遇，不能改道</div></div></div>
-    <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M84 150 V96 M156 150 V96" stroke-opacity=".8"/>
+    <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<path d="M28 12 H212" stroke-width="2.4"/>
+<circle cx="28" cy="12" r="3" stroke-width="1.5"/><circle cx="212" cy="12" r="3" stroke-width="1.5"/>
+<path d="M32 14 q10 26 20 0 q10 26 20 0 q10 26 20 0 q10 26 20 0 q10 26 20 0 q10 26 20 0 q10 26 20 0 q10 26 20 0" stroke-width="1.6" stroke-opacity=".72"/>
+<path d="M42 40 v5 M62 40 v5 M82 40 v5 M102 40 v5 M122 40 v5 M142 40 v5 M162 40 v5 M182 40 v5" stroke-width="1.1" stroke-opacity=".5"/>
+<path d="M40 16 v16" stroke-width="1.3" stroke-opacity=".6"/>
+<circle cx="40" cy="48" r="8" stroke-width="1.6"/>
+<path d="M33 40 h14" stroke-width="1.3" stroke-opacity=".8"/>
+<path d="M40 56 v6 M40 62 l-3 5 M40 62 l3 5" stroke-width="1.1" stroke-opacity=".55"/>
+<path d="M200 16 v16" stroke-width="1.3" stroke-opacity=".6"/>
+<circle cx="200" cy="48" r="8" stroke-width="1.6"/>
+<path d="M193 40 h14" stroke-width="1.3" stroke-opacity=".8"/>
+<path d="M200 56 v6 M200 62 l-3 5 M200 62 l3 5" stroke-width="1.1" stroke-opacity=".55"/>
+<path d="M84 150 V96 M156 150 V96" stroke-opacity=".8"/>
 <path d="M76 100 q40-24 88 0" stroke-opacity=".85"/>
 <path d="M70 100 l-8-4 M200 100 l8-4" stroke-opacity=".5"/>
 <path d="M110 150 v-30 q10-8 20 0 v30" stroke-opacity=".6"/>
 <path d="M120 76 V56 M112 62 l8-10 8 10" stroke-opacity=".6"/>
+<path d="M56 118 q10-12 20-2 q8 8 18 0" stroke-width="1" stroke-opacity=".22"/>
+<path d="M146 116 q10-12 20-2 q8 8 18 0" stroke-width="1" stroke-opacity=".22"/>
 <circle cx="52" cy="96" r="8"/>
 <path d="M44 92 l-3-9 M60 92 l3-9" stroke-opacity=".7"/>
 <path d="M52 104 v26 M52 130 l-8 20 M52 130 l8 20" stroke-opacity=".85"/>
@@ -159,7 +210,8 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <path d="M196 100 v28 M196 128 l-8 22 M196 128 l8 22" stroke-opacity=".85"/>
 <path d="M196 104 q-12 12-10 46 h20 q3-34-10-46 Z"/>
 <path d="M120 60 q10 40 0 92" stroke-dasharray="5 6" stroke-opacity=".3"/>
-<path d="M8 168 H232" stroke-opacity=".3"/></g></svg><div class="cap">城楼 · 一国之富</div></div>
+<path d="M160 152 H234 M168 160 H236" stroke-width="1.2" stroke-opacity=".28"/>
+<path d="M8 168 H232" stroke-opacity=".3"/></g></svg><div class="cap">宫帏 · 一国之富，不改一道</div></div>
   </div>
   <div class="foot"><span class="t">女儿国 · 目标考验</span><span>— · —</span></div>
 </section>
@@ -171,6 +223,8 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <path d="M32 160 H208" stroke-opacity=".3"/>
 <path d="M76 74 h88 v36 h-88 Z" stroke-opacity=".85"/>
 <path d="M86 84 h20 M86 94 h34 M86 104 h26" stroke-opacity=".5"/>
+<path d="M108 64 l5-9 7 7 7-7 5 9 Z" stroke-width="1.5" stroke-opacity=".7"/>
+<path d="M152 66 q3-4 6 0 q0-5 6 0 q0 5-6 9 q-6-4-6-9 Z" stroke-width="1.3" stroke-opacity=".55"/>
 <rect x="140" y="90" width="12" height="12" stroke-width="1.6"/>
 <path d="M143 96 l3 3 5-7" stroke-width="1.6"/>
 <path d="M172 92 l20-26" stroke-width="1.8"/>
@@ -178,7 +232,8 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <path d="M166 108 h16 v14 h-16 Z" stroke-opacity=".7"/>
 <path d="M171 115 h6" stroke-width="1.4" stroke-opacity=".7"/>
 <path d="M36 128 q-10 20 0 32 M206 128 q10 20 0 32" stroke-opacity=".4"/>
-<path d="M22 60 q4-5 8 0 M216 58 q4-5 8 0" stroke-opacity=".3"/></g></svg><div class="cap">书面批复 · 有理有据</div></div>
+<path d="M30 52 h40 l8-8 8 8 h26 M146 52 h40 l8-8 8 8 h14" stroke-width="1.1" stroke-opacity=".3"/>
+<path d="M22 60 q4-5 8 0 M216 58 q4-5 8 0" stroke-opacity=".3"/></g></svg><div class="cap">批复 · 不撕破脸的拒绝</div></div>
   </div>
   <div class="foot"><span class="t">演练一 · 变更批复</span><span>— · —</span></div>
 </section>
@@ -275,17 +330,30 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <section class="slide light">
   <div class="chrome"><span>小结与作业</span><span>10 / 11</span></div>
   <div class="frame">
-    <div class="text"><div class="kicker gold anim">PM 四把武器</div><h1 class="h1-zh anim d1">四样带走 · 双演练通关</h1><div class="grid-3"><div class="gcard anim d1"><h4>进度</h4><p>初估乘二 · 关键路径盯紧 · 缓冲整块留</p></div><div class="gcard anim d2"><h4>范围</h4><p>铁锚之问+需求池 · 镀金隐藏别放过</p></div><div class="gcard anim d3"><h4>验收</h4><p>三栏清单 · 打回写清单 · 质量付费换</p></div></div><div class="callout anim d3" style="color:#5a4a12">📜 <b>通关文牒 · 双案例演练：</b>①《女儿国式变更批复》（接/不接+理由+影响）②《无字真经打回清单》（三栏各≥2条+整改+复验）。交讲师评审，盖 <b>L3 通关印</b>。</div></div>
+    <div class="text"><div class="kicker gold anim">PM 四把武器</div><h1 class="h1-zh anim d1">四样带走 · 双演练通关</h1><div class="grid-3"><div class="gcard anim d1"><h4>进度</h4><p>初估乘二 · 关键路径盯紧 · 缓冲整块留</p></div><div class="gcard anim d2"><h4>范围</h4><p>铁锚之问+需求池 · 镀金隐藏别放过</p></div><div class="gcard anim d3"><h4>验收</h4><p>三栏清单 · 打回写清单 · 质量付费换</p></div></div><div class="callout anim d3" style="color:#5a4a12">📜 <b>通关文牒 · 双案例演练：</b>①《女儿国式变更批复》（接/不接+理由+影响）②《无字真经打回清单》（三栏各≥2条+整改+复验）。交讲师评审，盖 <b>L3 通关印</b>。</div><div class="anim d3" style="display:flex;align-items:center;gap:12px;margin-top:1.4vh"><div style="flex:0 0 auto;background:#fff;border-radius:8px;padding:4px;width:58px;box-shadow:0 3px 10px rgba(0,0,0,.18)"><img src="images-qr-test.svg" alt="角色自测二维码" style="width:100%;display:block"><div style="text-align:center;font-size:8px;letter-spacing:.08em;color:#888;padding-top:2px">扫码自测</div></div><div style="font-size:12px;opacity:.72;line-height:1.65">课后彩蛋 · 测测你是取经团队里的谁：你的授权位 / 打回勇气 / 汇报保真，都在角色说明书里</div></div></div>
     <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="48" cy="82" r="8"/><circle cx="192" cy="82" r="8"/>
 <path d="M56 70 H184 M56 94 H184" stroke-opacity=".8"/>
 <path d="M56 70 V94 M184 70 V94" stroke-opacity=".8"/>
-<path d="M72 78 h96 M72 86 h80" stroke-opacity=".4"/>
+<rect x="72" y="73" width="12" height="12" stroke-width="1.3" stroke-opacity=".55"/>
+<path d="M75 79 l3 3 5-6" stroke-width="1.2" stroke-opacity=".6"/>
+<circle cx="106" cy="79" r="5.5" stroke-width="1.3" stroke-opacity=".55"/>
+<circle cx="106" cy="79" r="1.8" stroke-width="1.1" stroke-opacity=".55"/>
+<rect x="124" y="73" width="12" height="12" stroke-width="1.3" stroke-opacity=".55"/>
+<path d="M127 77 h6 M127 81 h6" stroke-width="1.1" stroke-opacity=".6"/>
+<rect x="152" y="73" width="12" height="12" stroke-width="1.3" stroke-opacity=".55"/>
+<path d="M155 78 l3 3 5-7" stroke-width="1.2" stroke-opacity=".6"/>
 <rect x="82" y="108" width="30" height="26" rx="2" stroke-opacity=".85"/>
 <path d="M90 116 h14 M90 124 h14" stroke-width="1.7"/>
+<circle cx="97" cy="94" r="6" stroke-width="1.6"/>
+<path d="M97 100 v8" stroke-width="1.6"/>
 <rect x="130" y="108" width="30" height="26" rx="2" stroke-opacity=".85"/>
 <path d="M138 116 h14 M138 124 h14" stroke-width="1.7"/>
-<path d="M120 60 q6 5 0 10 q-6-5 0-10" stroke-opacity=".4"/>
-<path d="M40 150 q4-5 8 0 M192 148 q4-5 8 0" stroke-opacity=".3"/></g></svg><div class="cap">通关文牒 · 评审签印</div></div>
+<circle cx="145" cy="95" r="6" stroke-width="1.6"/>
+<path d="M145 101 v7 M138 99 l7-3 7 3" stroke-width="1.6"/>
+<circle cx="196" cy="138" r="12" stroke-width="1.6" stroke-opacity=".85"/>
+<path d="M190 138 l4 4 9-9" stroke-width="1.7" stroke-opacity=".85"/>
+<path d="M18 54 h34 l7-8 7 8 h22 M134 54 h34 l7-8 7 8 h30" stroke-width="1.1" stroke-opacity=".3"/>
+<path d="M40 150 q4-5 8 0 M192 148 q4-5 8 0" stroke-opacity=".3"/></g></svg><div class="cap">双演练 · 过关盖印</div></div>
   </div>
   <div class="foot"><span class="t">小结 · 作业</span><span>— · —</span></div>
 </section>
@@ -297,6 +365,8 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   <button id="next">›</button>
 </div>
 <div class="pgnum" id="pgnum"></div>
+<div class="qr-fab" title="点击放大 · 学员扫码同步课件"><img src="images-qr-c3.svg" alt="本课件二维码"></div>
+<script>(function(){var f=document.querySelector('.qr-fab');if(f)f.addEventListener('click',function(){this.classList.toggle('big')});})();</script>
 
 <script>
 (function(){

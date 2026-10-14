@@ -59,6 +59,14 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;}
 .dot.on{background:var(--gold);transform:scale(1.35);}
 .pgnum{position:absolute;bottom:9vh;right:5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.4);}
+.qr-fab{position:fixed;bottom:10vh;right:1.1vw;width:46px;background:#fff;border-radius:7px;padding:4px;box-shadow:0 3px 14px rgba(0,0,0,.4);z-index:60;opacity:.9;transition:opacity .2s}
+.qr-fab:hover{opacity:1}
+.qr-fab img{width:100%;display:block}
+.qr-fab::after{content:"扫码同步";display:block;text-align:center;font-size:8px;color:#555;letter-spacing:.06em;padding-top:2px}
+.qr-fab{cursor:pointer}
+.qr-fab.big{width:150px;z-index:70}
+.qr-fab.big::after{content:"点我收起";font-size:10px}
+@media print{.qr-fab{display:none}}
 .anim{opacity:0;transform:translateY(22px);transition:all .7s ease .2s;}
 .slide.on .anim{opacity:1;transform:none;}
 .slide.on .anim.d1{transition-delay:.4s;} .slide.on .anim.d2{transition-delay:.6s;} .slide.on .anim.d3{transition-delay:.8s;}
@@ -161,9 +169,23 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <path d="M96 146 q20-16 40 0" stroke-width="1.4" stroke-opacity=".8"/>
 <path d="M120 88 v44" stroke-width="1.4" stroke-opacity=".7"/>
 <path d="M96 62 q24-12 48 0" stroke-width="1.4" stroke-opacity=".7"/>
-<path d="M40 70 q10-8 20 0 q-10 6-20 0 M180 120 q10-8 20 0 q-10 6-20 0" stroke-opacity=".35"/>
-<path d="M120 44 a6 6 0 0 1 6 6 M120 150 a6 6 0 0 0-6-6" stroke-opacity=".0"/>
-<path d="M36 172 q4-5 8 0 q-4 2-8 0 M196 168 q4-5 8 0 q-4 2-8 0" stroke-opacity=".3"/></g></svg><div class="cap">时间 · 藏在黑话里</div></div>
+<path d="M100 54 h22 M100 62 h14" stroke-width="1.2" stroke-opacity=".45"/>
+<path d="M100 138 l5 5 9-10" stroke-width="1.6" stroke-opacity=".7"/>
+<path d="M108 130 h16" stroke-width="1.3" stroke-opacity=".55"/>
+<circle cx="38" cy="84" r="7"/>
+<path d="M38 91 v16 M38 107 l-5 13 M38 107 l5 13" stroke-opacity=".85"/>
+<path d="M38 94 q-8 8-7 24 h14 q2-16-7-24 Z"/>
+<path d="M46 86 q3-3 6 0 M53 82 q3-3 6 0" stroke-width="1.2" stroke-opacity=".55"/>
+<path d="M54 66 h28 v18 h-20 l-6 7 v-7 h-2 Z" stroke-width="1.6" stroke-opacity=".65"/>
+<path d="M60 73 h14 M60 78 h10" stroke-width="1.1" stroke-opacity=".5"/>
+<circle cx="206" cy="112" r="7"/>
+<path d="M206 119 v16 M206 135 l-5 13 M206 135 l5 13" stroke-opacity=".85"/>
+<path d="M206 122 q-8 8-7 24 h14 q2-16-7-24 Z"/>
+<rect x="216" y="104" width="18" height="22" stroke-width="1.5" stroke-opacity=".7"/>
+<path d="M220 111 h10 M220 117 h10 M220 123 h6" stroke-width="1.1" stroke-opacity=".55"/>
+<path d="M218 98 l22 20" stroke-width="1.6" stroke-opacity=".7"/>
+<path d="M40 70 q10-8 20 0 q-10 6-20 0" stroke-opacity=".35"/>
+<path d="M36 172 q4-5 8 0 q-4 2-8 0 M196 168 q4-5 8 0 q-4 2-8 0" stroke-opacity=".3"/></g></svg><div class="cap">黑话进 · 工期出</div></div>
   </div>
   <div class="foot"><span class="t">估时入门</span><span>— · —</span></div>
 </section>
@@ -173,14 +195,20 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
     <div class="text"><div class="kicker anim">第三件工具</div><h1 class="h1-zh anim d1">把八十一难记成台账</h1><div class="grid-2"><div class="gcard anim d1"><h4>什么妖</h4><p>风险是什么</p></div><div class="gcard anim d1"><h4>什么害</h4><p>影响是什么</p></div><div class="gcard anim d2"><h4>谁应对</h4><p>责任人</p></div><div class="gcard anim d2"><h4>结果+何时复看</h4><p>状态 & 复看时间</p></div></div><div class="callout anim d3">脑子里的风险叫"到时候再说"——那是风险登记的坟头；<b style="color:var(--gold)">写下来的风险，才叫"下一步安排"。</b><div class="src">识别 → 评估 → 应对 → 监控</div></div></div>
     <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 132 L64 58 L88 98 L114 40 L150 100 L172 66 L212 132" stroke-opacity=".8"/>
 <path d="M8 132 H232" stroke-opacity=".35"/>
+<path d="M58 82 q7-16 18-8 M112 54 q7-16 18-8 M162 90 q7-16 18-8" stroke-width="1.5" stroke-opacity=".6"/>
+<path d="M64 76 l4-2 M72 74 l4-2 M118 48 l4-2 M126 46 l4-2 M168 84 l4-2 M176 82 l4-2" stroke-width="1.2" stroke-opacity=".5"/>
+<path d="M30 122 q28-9 56 0 M148 126 q30-9 58 0" stroke-width="1.1" stroke-opacity=".25"/>
 <path d="M104 132 q10-20 22 0 Z" stroke-opacity=".7"/>
 <path d="M46 54 q12-10 26-6 M186 46 q12-8 26-3" stroke-opacity=".3"/>
 <path d="M84 152 q28-14 36-2 q8-12 36 2 l-4 22 q-16-10-32-2 q-16-8-32 2 Z" stroke-width="1.8"/>
 <path d="M120 150 v22" stroke-opacity=".5"/>
 <path d="M92 162 h10 M100 158 h9 M138 162 h10 M131 158 h9" stroke-width="1.3" stroke-opacity=".5"/>
+<path d="M92 171 l4 4 7-8" stroke-width="1.4" stroke-opacity=".7"/>
+<path d="M141 166 l4-7 4 7 M145 172 v4" stroke-width="1.3" stroke-opacity=".7"/>
+<path d="M86 174 h10" stroke-width="1.2" stroke-opacity=".5"/>
 <path d="M150 138 l26-32" stroke-width="1.6"/>
 <path d="M174 108 l4 8 8 2" stroke-width="1.6"/>
-<path d="M62 120 q4-5 8 0 q-4 2-8 0 M176 116 q4-5 8 0 q-4 2-8 0" stroke-opacity=".35"/></g></svg><div class="cap">妖云 · 登记在册</div></div>
+<path d="M62 120 q4-5 8 0 q-4 2-8 0 M176 116 q4-5 8 0 q-4 2-8 0" stroke-opacity=".35"/></g></svg><div class="cap">八十一难 · 一一在册</div></div>
   </div>
   <div class="foot"><span class="t">风险台账</span><span>— · —</span></div>
 </section>
@@ -214,19 +242,26 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   <div class="frame">
     <div class="text"><div class="kicker gold anim">第四件工具</div><h1 class="h1-zh anim d1">没有清单 = 默许</h1><div class="grid-3"><div class="gcard anim d1"><h4>功能栏</h4><p>能用啥 · 主流程跑一遍</p></div><div class="gcard anim d2"><h4>文档栏</h4><p>留没留说明 · 手册/接口/变更</p></div><div class="gcard anim d3"><h4>数据栏</h4><p>数字准不准 · 回归抽样</p></div></div><div class="callout anim d3" style="color:#5a4a12">无字真经：封面 V1.0，正文空白，验收单却写"合格"。<b>缺了清单，"验收"只剩默许。</b>助理逐条读清单，替 PM 守住底线。</div></div>
     <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M120 44 V150 M92 156 q28 10 56 0 M104 166 h32" stroke-opacity=".8"/>
+<path d="M120 44 V38 M115 38 h10" stroke-width="1.5" stroke-opacity=".6"/>
+<path d="M120 56 v10" stroke-width="1.6" stroke-opacity=".8"/>
 <path d="M120 44 l-10 12 M120 44 l10 12" stroke-opacity=".6"/>
 <path d="M44 68 H196 M120 68 V44" stroke-width="2.2"/>
 <path d="M44 68 l-16 24 M44 68 l16 24" stroke-opacity=".55"/>
 <path d="M18 96 q26 18 52 0" stroke-width="1.8"/>
 <path d="M32 82 h24 v12 H32 Z" stroke-opacity=".8"/>
 <circle cx="32" cy="88" r="4" stroke-opacity=".8"/>
+<path d="M29 89 l3 3 4-6" stroke-width="1.3" stroke-opacity=".85"/>
 <circle cx="56" cy="88" r="4" stroke-opacity=".8"/>
+<path d="M54 86 q2-2 4 0 q-2 2-4 0" stroke-width="1.1" stroke-opacity=".6"/>
 <path d="M196 68 l-16 24 M196 68 l16 24" stroke-opacity=".55"/>
 <path d="M170 96 q26 18 52 0" stroke-width="1.8"/>
 <path d="M184 82 h24 v12 h-24 Z" stroke-opacity=".8"/>
 <circle cx="184" cy="88" r="4" stroke-opacity=".8"/>
+<path d="M182 86 q2-2 4 0 q-2 2-4 0" stroke-width="1.1" stroke-opacity=".6"/>
 <circle cx="208" cy="88" r="4" stroke-opacity=".8"/>
-<path d="M56 176 q4-5 8 0 M176 174 q4-5 8 0" stroke-opacity=".3"/></g></svg><div class="cap">三栏 · 逐条打勾</div></div>
+<path d="M205 89 l3 3 4-6" stroke-width="1.3" stroke-opacity=".85"/>
+<path d="M76 178 H164" stroke-width="1.2" stroke-opacity=".25"/>
+<path d="M56 176 q4-5 8 0 M176 174 q4-5 8 0" stroke-opacity=".3"/></g></svg><div class="cap">三栏 · 逐条打勾，无清单即默许</div></div>
   </div>
   <div class="foot"><span class="t">验收清单</span><span>— · —</span></div>
 </section>
@@ -256,18 +291,29 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <section class="slide dark">
   <div class="chrome"><span>小结与作业</span><span>10 / 10</span></div>
   <div class="frame">
-    <div class="text"><div class="kicker gold anim">带走四大件</div><h1 class="h1-zh anim d1">四样工具 · 一枚通关印</h1><div class="grid-3"><div class="gcard anim d1"><h4>📜 章程摘要</h4><p>为什么办/谁/资源</p></div><div class="gcard anim d2"><h4>🎯 SMART</h4><p>五字母验目标</p></div><div class="gcard anim d3"><h4>🗂️ 风险台账</h4><p>写下来才是安排</p></div></div><div class="callout anim d3" style="color:#5a4a12">📜 <b>通关文牒 · 作业：</b>为真实项目产出①《风险登记册》（≥3条，含责任人与复看）②《会议纪要》（三要素齐全），交 PM 验收签字，盖 <b>L2 通关印</b>。</div></div>
-    <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="46" cy="86" r="8"/>
+    <div class="text"><div class="kicker gold anim">带走四大件</div><h1 class="h1-zh anim d1">四样工具 · 一枚通关印</h1><div class="grid-3"><div class="gcard anim d1"><h4>📜 章程摘要</h4><p>为什么办/谁/资源</p></div><div class="gcard anim d2"><h4>🎯 SMART</h4><p>五字母验目标</p></div><div class="gcard anim d3"><h4>🗂️ 风险台账</h4><p>写下来才是安排</p></div></div><div class="callout anim d3" style="color:#5a4a12">📜 <b>通关文牒 · 作业：</b>为真实项目产出①《风险登记册》（≥3条，含责任人与复看）②《会议纪要》（三要素齐全），交 PM 验收签字，盖 <b>L2 通关印</b>。</div><div class="anim d3" style="display:flex;align-items:center;gap:12px;margin-top:1.4vh"><div style="flex:0 0 auto;background:#fff;border-radius:8px;padding:4px;width:58px;box-shadow:0 3px 10px rgba(0,0,0,.18)"><img src="images-qr-test.svg" alt="角色自测二维码" style="width:100%;display:block"><div style="text-align:center;font-size:8px;letter-spacing:.08em;color:#888;padding-top:2px">扫码自测</div></div><div style="font-size:12px;opacity:.72;line-height:1.65">课后彩蛋 · 测测你是取经团队里的谁：唐僧 / 悟空 / 八戒 / 沙僧 / 白龙马——十道情境题出角色标签 + 角色说明书</div></div></div>
+    <div class="art"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="46" y="28" width="18" height="18" rx="2" stroke-width="1.5" stroke-opacity=".8"/>
+<path d="M50 34 h10 M50 39 h10 M50 44 h6" stroke-width="1.2" stroke-opacity=".55"/>
+<circle cx="92" cy="37" r="9" stroke-width="1.5" stroke-opacity=".8"/>
+<circle cx="92" cy="37" r="3.5" stroke-width="1.4" stroke-opacity=".8"/>
+<rect x="126" y="28" width="18" height="18" rx="2" stroke-width="1.5" stroke-opacity=".8"/>
+<path d="M130 34 h5 M137 34 h4 M130 39 h5 M137 39 h4 M130 44 h6" stroke-width="1.2" stroke-opacity=".55"/>
+<rect x="166" y="28" width="18" height="18" rx="2" stroke-width="1.5" stroke-opacity=".8"/>
+<path d="M171 34 h8 M171 39 h8 M171 44 h5" stroke-width="1.2" stroke-opacity=".55"/>
+<path d="M178 34 l4 3 -4 3" stroke-width="1.2" stroke-opacity=".7"/>
+<circle cx="46" cy="86" r="8"/>
 <circle cx="194" cy="86" r="8"/>
 <path d="M54 74 H186 M54 98 H186" stroke-opacity=".8"/>
 <path d="M54 74 V98 M186 74 V98" stroke-opacity=".8"/>
 <path d="M70 82 h88 M70 90 h72" stroke-opacity=".4"/>
+<rect x="92" y="102" width="56" height="44" stroke-opacity=".35" stroke-width="1.4"/>
 <path d="M96 106 h48 v36 h-48 Z" stroke-opacity=".85"/>
-<path d="M108 114 h24 M108 122 h24 M108 130 h14" stroke-width="1.8"/>
+<path d="M104 114 h32 M104 120 h20" stroke-width="1.5" stroke-opacity=".55"/>
+<path d="M106 134 l6 6 12-12" stroke-width="2.2" stroke-opacity=".9"/>
 <path d="M120 96 v-12" stroke-opacity=".6"/>
 <path d="M120 62 q6 5 0 10 q-6-5 0-10" stroke-opacity=".4"/>
 <path d="M30 122 q4-5 8 0 M210 122 q4-5 8 0" stroke-opacity=".3"/>
-<path d="M8 168 H232" stroke-opacity=".25"/></g></svg><div class="cap">通关文牒 · 签名验收</div></div>
+<path d="M8 168 H232" stroke-opacity=".25"/></g></svg><div class="cap">四大件 · 集齐盖印</div></div>
   </div>
   <div class="foot"><span class="t">小结 · 作业</span><span>— · —</span></div>
 </section>
@@ -279,6 +325,8 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   <button id="next">›</button>
 </div>
 <div class="pgnum" id="pgnum"></div>
+<div class="qr-fab" title="点击放大 · 学员扫码同步课件"><img src="images-qr-c2.svg" alt="本课件二维码"></div>
+<script>(function(){var f=document.querySelector('.qr-fab');if(f)f.addEventListener('click',function(){this.classList.toggle('big')});})();</script>
 
 <script>
 (function(){

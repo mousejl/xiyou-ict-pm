@@ -59,6 +59,14 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;}
 .dot.on{background:var(--gold);transform:scale(1.35);}
 .pgnum{position:absolute;bottom:9vh;right:5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.4);}
+.qr-fab{position:fixed;bottom:10vh;right:1.1vw;width:46px;background:#fff;border-radius:7px;padding:4px;box-shadow:0 3px 14px rgba(0,0,0,.4);z-index:60;opacity:.9;transition:opacity .2s}
+.qr-fab:hover{opacity:1}
+.qr-fab img{width:100%;display:block}
+.qr-fab::after{content:"扫码同步";display:block;text-align:center;font-size:8px;color:#555;letter-spacing:.06em;padding-top:2px}
+.qr-fab{cursor:pointer}
+.qr-fab.big{width:150px;z-index:70}
+.qr-fab.big::after{content:"点我收起";font-size:10px}
+@media print{.qr-fab{display:none}}
 .anim{opacity:0;transform:translateY(22px);transition:all .7s ease .2s;}
 .slide.on .anim{opacity:1;transform:none;}
 .slide.on .anim.d1{transition-delay:.4s;} .slide.on .anim.d2{transition-delay:.6s;} .slide.on .anim.d3{transition-delay:.8s;}
@@ -369,6 +377,7 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
     </div>
     <div class="art anim d1">
       <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="88" y="52" width="48" height="48" rx="3"/>
+<rect x="92" y="56" width="40" height="40" rx="2" stroke-opacity=".3"/>
 <rect x="76" y="42" width="72" height="68" rx="4" stroke-opacity=".2"/>
 <path d="M100 66 h24 M100 78 h11 M115 78 h9 M100 90 h24" stroke-width="2.2"/>
 <path d="M106 48 v-10 h12 v10" stroke-opacity=".7"/>
@@ -377,10 +386,18 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
 <circle cx="200" cy="120" r="6" stroke-opacity=".8"/>
 <path d="M46 100 V140 M194 100 V140" stroke-opacity=".8"/>
 <path d="M46 100 H194 M46 140 H194" stroke-opacity=".8"/>
+<path d="M98 96 h44" stroke-width="1.2" stroke-opacity=".3"/>
 <rect x="102" y="112" width="22" height="18" stroke-opacity=".7"/>
+<path d="M62 112 l4 4 7-8" stroke-width="1.5" stroke-opacity=".7"/>
+<path d="M96 112 l4 4 7-8" stroke-width="1.5" stroke-opacity=".7"/>
+<path d="M130 112 l4 4 7-8" stroke-width="1.5" stroke-opacity=".7"/>
+<path d="M164 112 l4 4 7-8" stroke-width="1.5" stroke-opacity=".7"/>
+<path d="M58 124 h14 M92 124 h14 M126 124 h14 M160 124 h14" stroke-width="1.2" stroke-opacity=".35"/>
+<circle cx="200" cy="150" r="10" stroke-width="1.6" stroke-opacity=".75"/>
+<path d="M195 150 l4 4 8-9" stroke-width="1.5" stroke-opacity=".8"/>
 <path d="M60 90 q6 4 0 8 q-6-4 0-8 M182 86 q6 4 0 8 q-6-4 0-8" stroke-opacity=".35"/>
 <path d="M20 158 q4-5 8 0 q-4 2-8 0 M212 150 q4-5 8 0 q-4 2-8 0" stroke-opacity=".3"/></g></svg>
-      <div class="cap">通关文牒 · 加盖通关印</div>
+      <div class="cap">三样带走 · 一印验讫</div>
     </div>
   </div>
   <div class="foot"><span class="t">L1 完成 · 下一站 L2</span><span>— · —</span></div>
@@ -395,7 +412,7 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
       <p class="lead anim d2" style="margin-top:1.6vh">L2 基础篇 · 跟着文牒走 · 会做纪要 · 会记台账 · 会跟催 · 会汇报</p>
       <div class="callout anim d3" style="max-width:56vw">想升级，先把通关印盖了。</div>
     </div>
-    <div class="art anim d2"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="120" cy="104" r="26"/><circle cx="120" cy="104" r="34" stroke-opacity=".25"/><circle cx="120" cy="104" r="44" stroke-opacity=".12"/><path d="M110 126 q10-8 20 0" stroke-opacity=".4"/><path d="M16 196 L104 116 M224 196 L136 116" stroke-opacity=".8"/><path d="M106 132 h9 M114 122 l-4 7 M122 112 l-3 6" stroke-opacity=".5"/><path d="M4 152 q40-18 76-4" stroke-opacity=".3"/><path d="M164 148 q34-12 70 2" stroke-opacity=".3"/><path d="M54 126 q4-5 8 0 q-4 2-8 0 M70 118 q4-5 8 0 q-4 2-8 0 M162 122 q4-5 8 0 q-4 2-8 0 M178 130 q4-5 8 0 q-4 2-8 0" stroke-opacity=".5"/><path d="M120 44 v-10 M104 52 l-7-7 M136 52 l7-7" stroke-opacity=".35"/></g></svg><div class="cap">敢问路在何方 · 路在脚下</div></div>
+    <div class="art anim d2"><svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="120" cy="104" r="26"/><circle cx="120" cy="104" r="34" stroke-opacity=".25"/><circle cx="120" cy="104" r="44" stroke-opacity=".12"/><path d="M110 126 q10-8 20 0" stroke-opacity=".4"/><path d="M72 148 q10-9 20 0 M168 146 q10-9 20 0" stroke-width="1.2" stroke-opacity=".45"/><path d="M16 196 L104 116 M224 196 L136 116" stroke-opacity=".8"/><path d="M92 168 l-9 4 M108 150 l-9 4 M140 152 l9 4 M162 172 l9 4" stroke-width="1.2" stroke-opacity=".5"/><path d="M120 196 l-6-30 l14-18 l-8-20 l12-16" stroke-width="1.8" stroke-opacity=".75"/><path d="M106 132 h9 M114 122 l-4 7 M122 112 l-3 6" stroke-opacity=".5"/><circle cx="110" cy="164" r="4.5" stroke-width="1.7"/><path d="M110 169 v11 M105 173 l5-3 4 3 M107 177 l-4 11 M113 177 l4 11" stroke-width="1.6" stroke-opacity=".85"/><path d="M99 154 q11 6 22-3" stroke-width="1.3" stroke-opacity=".6"/><path d="M97 149 l5 6 M123 147 l5 6" stroke-width="1.3" stroke-opacity=".6"/><path d="M4 152 q40-18 76-4" stroke-opacity=".3"/><path d="M164 148 q34-12 70 2" stroke-opacity=".3"/><path d="M54 126 q4-5 8 0 q-4 2-8 0 M70 118 q4-5 8 0 q-4 2-8 0 M162 122 q4-5 8 0 q-4 2-8 0 M178 130 q4-5 8 0 q-4 2-8 0" stroke-opacity=".5"/><path d="M120 44 v-10 M104 52 l-7-7 M136 52 l7-7" stroke-opacity=".35"/></g></svg><div class="cap">敢问路在何方 · 路在脚下</div></div>
   </div>
   <div class="foot"><span class="t">取经计划 · 四级训练营</span><span>L1 / END</span></div>
 </section>
@@ -408,6 +425,8 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   <button id="next">›</button>
 </div>
 <div class="pgnum" id="pgnum"></div>
+<div class="qr-fab" title="点击放大 · 学员扫码同步课件"><img src="images-qr-c1.svg" alt="本课件二维码"></div>
+<script>(function(){var f=document.querySelector('.qr-fab');if(f)f.addEventListener('click',function(){this.classList.toggle('big')});})();</script>
 
 <script>
 (function(){
