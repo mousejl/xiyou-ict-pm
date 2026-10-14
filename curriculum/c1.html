@@ -6,150 +6,333 @@
 <title>课时一 · 认知篇｜取经计划</title>
 <style>
 :root{
-  --lv:#0066CC; --lvd:#004080; --lv-rgb:0,102,204;
-  --paper:#f8f5ee; --card:#ffffff; --ink:#2b2b33; --sub:#6a6a76; --line:#e2dbcc; --gold:#b8912f;
+  --ink:#0c0e11; --ink2:#14171c; --paper:#efece3; --paper2:#e3dfd2;
+  --gold:#c9a64a; --gold2:#e4c96f; --line:rgba(201,166,74,.35);
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --lv:#d8b45f;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
-body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper);color:var(--ink);}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
 #deck{display:flex;height:100vh;width:100000vw;transition:transform .55s cubic-bezier(.65,0,.25,1);}
-.slide{width:100vw;height:100vh;flex:0 0 100vw;padding:8vh 6vw 12vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
-.slide::after{content:"";position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--lv) 0%,var(--lv) 25%,#FF6600 25%,#FF6600 50%,#00CC99 50%,#00CC99 75%,#E53935 75%,#E53935 100%);opacity:.85;}
-.chrome{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.2vh 6vw;font-size:12px;letter-spacing:.22em;color:var(--sub);}
-.chrome .badge{background:var(--lv);color:#fff;padding:4px 16px;border-radius:20px;font-weight:700;letter-spacing:.18em;}
-.kicker{font-size:13px;letter-spacing:.35em;color:var(--lv);margin-bottom:2.2vh;text-transform:uppercase;font-weight:700;}
-.h1{font-size:min(6.4vw,11vh);font-weight:800;line-height:1.15;letter-spacing:1px;}
-.h1 em{font-style:normal;color:var(--lv);}
-.h2{font-size:min(3.6vw,6.4vh);font-weight:800;line-height:1.3;margin-bottom:2.4vh;}
-.lead{font-size:max(15px,min(1.5vw,2.6vh));line-height:1.85;color:#4a4a55;max-width:70vw;}
-.big{font-size:min(11vw,19vh);font-weight:800;color:var(--lv);line-height:.95;font-family:Georgia,"STZhongsong",serif;}
-.grid{display:grid;gap:2.2vh 2vw;margin-top:3vh;}
-.g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;} .g5{grid-template-columns:repeat(5,1fr);}
-.card{background:var(--card);border-radius:12px;padding:2.6vh 1.6vw;box-shadow:0 2px 10px rgba(43,43,51,.06);border-top:3px solid var(--lv);}
-.card h4{font-size:max(14px,min(1.4vw,2.4vh));margin-bottom:1vh;color:var(--ink);}
-.card p{font-size:max(12px,min(1.05vw,1.9vh));color:var(--sub);line-height:1.6;}
-.card .num{font-size:min(4.2vw,7.5vh);font-weight:800;color:var(--lv);line-height:1;}
-.card .cap{font-size:max(11px,.95vw);color:var(--sub);margin-top:.6vh;}
-.callout{border-left:5px solid var(--gold);background:#fdf8ec;padding:2.2vh 1.8vw;border-radius:0 12px 12px 0;font-size:max(14px,1.15vw);line-height:1.75;color:#6d5312;}
-.tag{display:inline-block;background:rgba(var(--lv-rgb),.1);color:var(--lv);font-size:max(11px,.85vw);padding:3px 12px;border-radius:14px;margin:0 6px 8px 0;font-weight:700;}
-.practice{background:linear-gradient(135deg,#fdf3e3,#fbedd4);border:2px dashed var(--gold);border-radius:16px;padding:3.4vh 2.4vw;text-align:center;}
-.practice .pt{font-size:min(3vw,5vh);font-weight:800;color:#8a6400;margin-bottom:1.2vh;}
-.practice p{font-size:max(13px,1.05vw);color:#7a5c00;line-height:1.8;}
-.nav{position:fixed;bottom:0;left:0;right:0;height:9vh;display:flex;align-items:center;justify-content:center;gap:14px;background:var(--paper);border-top:1px solid var(--line);z-index:50;}
-.nav button{width:44px;height:44px;border-radius:50%;border:2px solid var(--lvd);background:#fff;color:var(--lvd);font-size:19px;cursor:pointer;transition:all .15s;}
-.nav button:hover{background:var(--lv);color:#fff;border-color:var(--lv);}
-.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:70vw;}
-.dot{width:10px;height:10px;border-radius:50%;background:#c9c2b0;cursor:pointer;transition:all .18s;}
-.dot.on{background:var(--lv);transform:scale(1.45);}
-.pgnum{position:absolute;bottom:10vh;right:6vw;font-size:12px;color:var(--sub);letter-spacing:.2em;}
-.anim{opacity:0;transform:translateY(24px);transition:all .7s ease .25s;}
+.slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:8vh 5.5vw 10vh;overflow:hidden;display:flex;flex-direction:column;}
+.slide.dark{background:radial-gradient(120% 120% at 20% 10%,#171a20 0%,#0b0e11 58%);color:var(--paper);}
+.slide.light{background:linear-gradient(160deg,#efece3,#e4e0d3);color:#20222a;}
+.slide.dark .chrome{color:rgba(255,255,255,.5);}
+.slide.light .chrome{color:rgba(0,0,0,.5);}
+.chrome{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.6vh 5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55;padding-top:2vh;}
+.foot .t{font-family:var(--serif);letter-spacing:.04em;text-transform:none;font-size:12px;opacity:.8;}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;opacity:.62;margin-bottom:2.2vh;}
+.kicker.gold{color:var(--lv);opacity:1;}
+.hero-zh{font-family:var(--serif);font-weight:700;font-size:min(7.6vw,13.5vh);line-height:1.05;letter-spacing:-.005em;}
+.h1-zh{font-family:var(--serif);font-weight:700;font-size:min(4.2vw,7.4vh);line-height:1.12;letter-spacing:-.005em;}
+.h2-zh{font-family:var(--serif);font-weight:600;font-size:min(2.6vw,4.6vh);line-height:1.2;}
+.lead{font-family:var(--serif);font-size:max(15px,min(1.5vw,2.6vh));line-height:1.7;opacity:.82;}
+.body-zh{font-family:var(--sans);font-size:max(14px,1.15vw);line-height:1.75;opacity:.85;}
+.frame{display:flex;gap:3.4vw;align-items:stretch;flex:1;min-height:0;}
+.text{flex:1.35;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+.art{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;}
+.art svg{width:min(38vw,52vh);height:auto;filter:drop-shadow(0 6px 24px rgba(0,0,0,.45));}
+.art .cap{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-top:1.6vh;}
+.slide.light .art svg{filter:none;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;margin-top:2.6vh;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw;margin-top:2.6vh;}
+.gcard{border:1px solid rgba(127,127,127,.32);padding:2.2vh 1.5vw;display:flex;flex-direction:column;gap:1.2vh;}
+.gcard .n{font-family:var(--serif);font-weight:700;font-size:min(3.4vw,6vh);color:var(--lv);line-height:1;}
+.gcard h4{font-family:var(--serif);font-weight:600;font-size:min(1.7vw,3vh);}
+.gcard p{font-family:var(--sans);font-size:max(12px,1vw);opacity:.75;line-height:1.6;}
+.slide.light .gcard{border-color:rgba(0,0,0,.22);}
+.callout{border-left:3px solid var(--lv);padding:2.2vh 2vw;margin-top:2.4vh;background:rgba(201,166,74,.06);font-family:var(--serif);font-size:max(14px,1.1vw);line-height:1.65;}
+.slide.light .callout{background:rgba(0,0,0,.05);}
+.callout .src{display:block;margin-top:1.2vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:3px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin:0 8px 10px 0;color:var(--lv);}
+.statline{display:flex;gap:3vw;margin-top:3vh;}
+.statline .n{font-family:var(--serif);font-weight:700;font-size:min(6vw,11vh);line-height:.9;color:var(--lv);font-feature-settings:"tnum";}
+.statline .l{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-top:1vh;}
+.nav{position:fixed;bottom:0;left:0;right:0;height:8vh;display:flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);border-top:1px solid rgba(255,255,255,.1);z-index:50;}
+.nav button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);font-size:17px;cursor:pointer;}
+.nav button:hover{background:var(--gold);color:#101;border-color:var(--gold);}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:66vw;}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;}
+.dot.on{background:var(--gold);transform:scale(1.35);}
+.pgnum{position:absolute;bottom:9vh;right:5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.4);}
+.anim{opacity:0;transform:translateY(22px);transition:all .7s ease .2s;}
 .slide.on .anim{opacity:1;transform:none;}
-.slide.on .anim.d1{transition-delay:.45s;} .slide.on .anim.d2{transition-delay:.65s;} .slide.on .anim.d3{transition-delay:.85s;}
-.foot{position:absolute;bottom:11vh;left:6vw;font-size:11px;color:var(--sub);letter-spacing:.15em;}
+.slide.on .anim.d1{transition-delay:.4s;} .slide.on .anim.d2{transition-delay:.6s;} .slide.on .anim.d3{transition-delay:.8s;}
+.art svg .fill-gold{fill:var(--gold);}
 </style>
 </head>
 <body>
 <div id="deck">
 
-<section class="slide">
-  <div class="chrome"><span class="badge">LEVEL 1 · 认知篇</span><span>取经计划 · 项目管理四级训练营</span></div>
-  <div class="kicker anim">COURSE 1 / 4 · 新入职员工 · 45 MIN</div>
-  <div class="h1 anim d1">入个门：<em>取经即项目</em></div>
-  <p class="lead anim d2">四十五分钟，带你听懂项目语言，认识西游团队里的五个角色，并找到你自己的起步位置。<br>——不需要任何项目管理基础，带耳朵来就行。</p>
-  <div class="foot anim d3">课时目标：听懂语言 · 认识角色 · 找到位置</div>
+<section class="slide dark">
+  <div class="chrome"><span>取经计划 · 项目管理四级训练营</span><span>L1 · COURSE 01 / 04</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">LEVEL 1 · 认知篇 · 新入职员工 · 45 MIN</div>
+      <h1 class="hero-zh anim d1">入个门：<br>取经即项目</h1>
+      <p class="lead anim d2" style="margin-top:2.4vh">四十五分钟，带你听懂项目语言，认识西游团队里的五个角色，找到你自己的起步位置。不需要任何基础，带耳朵来就行。</p>
+      <div class="callout anim d3">课时目标：<span style="color:var(--gold)">听懂语言 · 认识角色 · 找到位置</span></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="var(--gold)" stroke-width="2">
+          <path d="M20 178 H224" stroke-opacity=".5"/>
+          <path d="M40 178 C52 148 72 140 84 120 C96 140 118 148 128 118 C138 140 152 146 160 124 C172 142 188 148 196 178" stroke-opacity=".8"/>
+          <path d="M60 178 C66 138 84 128 92 106" stroke-opacity=".6"/>
+          <path d="M120 178 C124 146 132 132 140 108 C148 126 158 134 162 178" stroke-opacity=".7"/>
+          <rect x="150" y="44" width="40" height="62" rx="3"/>
+          <path d="M158 44 L158 30 M182 44 L182 30" />
+          <path d="M140 178 L150 106" />
+          <ellipse cx="170" cy="86" rx="9" ry="12" stroke-width="1.5"/>
+          <path d="M88 30 c-8 0-12 8-20 8 8 4 8 12 20 12 12 0 12-8 20-8-8 0-12-8-20-8z" stroke-opacity=".9"/>
+          <path d="M196 22 c-6 0-10 6-16 6 7 3 7 9 3 10 7 0 10-5 16-5-6-2-7-8-3-11z" stroke-opacity=".8"/>
+          <path d="M34 60 c-7 0-11 7-18 7 9 3 9 10 4 13 8-1 11-6 18-10-7-2-9-4-4-10z" stroke-opacity=".7"/>
+        </g>
+      </svg>
+      <div class="cap">一部取经史 · 半部项目经</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">认知篇 · 新入职员工</span><span>COVER / 09</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>01 / 08 · 什么是项目经理</span></div>
-  <div class="h2 anim">开场：项目经理到底是干啥的？</div>
-  <div class="grid g2">
-    <div class="card anim d1"><h4>很多人第一反应</h4><p>"哦，就是那个天天催进度的？"<br><b style="color:var(--ink)">这话只对了一半。</b></p></div>
-    <div class="card anim d2"><h4>另一半真相</h4><p>他不但催进度——还催需求、催文档、催测试、催验收、催你那个从来没动过的"待办"。</p></div>
+<section class="slide dark">
+  <div class="chrome"><span>开场 · 破冰</span><span>01 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker anim">项目经理到底是干啥的</div>
+      <h1 class="h1-zh anim d1">先破除一个误解</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">"哦，就是那个天天催进度的？"——<b style="color:var(--gold)">这话只对了一半。</b>他不光催进度，还催需求、催文档、催测试、催验收，催你那个从来没动过的"待办"。</p>
+      <div class="callout anim d3">有人给项目经理总结过三件事：<b>开会、挨骂、写PPT。</b>开会——确认大家都没在干活；挨骂——替大家背锅；写PPT——替这场锅剪个彩。<div class="src">他其实是全公司最"真实"的岗位：有验收权，能验出你干成没干成</div></div>
+      <p class="body-zh anim d3" style="margin-top:1.8vh"><b style="color:var(--gold)">项目最真实的写照：</b>周报比代码长，代码比功能长，功能比真经短——这就是"周报驱动"阶段的项目。</p>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="var(--gold)" stroke-width="2">
+          <rect x="52" y="42" width="52" height="72" rx="4"/>
+          <path d="M64 56 h36 M64 70 h36 M64 84 h24" stroke-opacity=".7"/>
+          <rect x="128" y="42" width="52" height="72" rx="4" stroke-opacity=".7"/>
+          <path d="M154 54 v48" stroke-opacity=".8"/>
+          <path d="M138 66 l16-12 16 12" stroke-opacity=".8"/>
+          <circle cx="56" cy="152" r="8" stroke-opacity=".6"/>
+          <circle cx="120" cy="152" r="8" stroke-opacity=".6"/>
+          <circle cx="184" cy="152" r="8" stroke-opacity=".6"/>
+          <path d="M56 168 h128" stroke-opacity=".4"/>
+        </g>
+      </svg>
+      <div class="cap">开会 · 挨骂 · 写 PPT</div>
+    </div>
   </div>
-  <div class="callout anim d3" style="margin-top:2.4vh">项目经理总结的三件事：<b>开会、挨骂、写PPT</b>。开会，确认大家都没在干活；挨骂，替大家背锅；写PPT，是替这场锅剪个彩。但别忘了——<b>他有"验收"权，能验出你到底干成没干成</b>：成了叫结项，不成叫延期，再不成叫复盘。</div>
+  <div class="foot"><span class="t">破除误区 · 项目经理的真实身份</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>02 / 08 · 项目的定义</span></div>
-  <div class="h2 anim">什么是"项目"？</div>
-  <p class="lead anim d1">项目 = <b>为创造独特成果而进行的临时性工作</b>。两个关键词：<b>独特产出</b>（做完就没了）、<b>临时性</b>（有始有终）。</p>
-  <div class="grid g3" style="margin-top:3vh">
-    <div class="card anim d1"><h4>🧭 高考</h4><p>独特：只考这一次；<br>临时：考完就散。<br><b>是项目 ✔</b></p></div>
-    <div class="card anim d2"><h4>💐 婚礼</h4><p>独特：一辈子一回；<br>临时：办完收场。<br><b>是项目 ✔</b></p></div>
-    <div class="card anim d3"><h4>🍚 每天做饭</h4><p>重复、无终点、日常运转。<br><b>是日常运维 ✘</b><br>（把它"项目化"的人，活得累）</p></div>
+<section class="slide dark">
+  <div class="chrome"><span>概念 · 项目的定义</span><span>02 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker anim">什么是"项目"</div>
+      <h1 class="h1-zh anim d1">独特成果 · 临时过程</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">判断标准很简单：<b style="color:var(--gold)">做完就交卷、有始又有终</b>。管项目和管理日常，是两套完全不同的打法。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><div class="n">✓</div><h4>高考</h4><p>独特一次，临时有终。<b style="color:var(--gold)">是项目</b></p></div>
+        <div class="gcard anim d2"><div class="n">✓</div><h4>婚礼</h4><p>一辈子一回，办完收场。<b style="color:var(--gold)">是项目</b></p></div>
+        <div class="gcard anim d3"><div class="n">✕</div><h4>每天做饭</h4><p>重复日常运转。<b style="color:var(--gold)">是运维</b></p></div>
+      </div>
+      <div class="callout anim d3">取经，是项目：独特的成果（三藏真经）、临时性（十四年走完即止）。<b style="color:var(--gold)">"天天撞钟"不是项目，是运营。</b></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="var(--gold)" stroke-width="2">
+          <circle cx="120" cy="92" r="34" stroke-opacity=".8"/>
+          <circle cx="120" cy="92" r="12" stroke-opacity=".95"/>
+          <circle cx="120" cy="92" r="1.5" fill="var(--gold)"/>
+          <path d="M120 58 V42 M120 142 V158 M86 92 H70 M154 92 H170" stroke-opacity=".6"/>
+          <path d="M30 176 210 176" stroke-opacity=".4"/>
+        </g>
+      </svg>
+      <div class="cap">目标 · 有准星，才叫瞄准</div>
+    </div>
   </div>
-  <div class="callout anim d3" style="margin-top:2.4vh">取经，是项目：独特的成果（三藏真经），临时性（14年走完就结束）。而"天天撞钟"，不是项目，是运营。</div>
+  <div class="foot"><span class="t">项目 vs 日常运维</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>03 / 08 · 取经项目硬指标</span></div>
-  <div class="kicker anim">先看一组硬数据 · PROJECT PROFILE</div>
-  <div class="grid g5">
-    <div class="card anim d1"><div class="num">108,000</div><div class="cap">里 · 总里程</div></div>
-    <div class="card anim d1"><div class="num">14</div><div class="cap">年 · 工期（承诺3年）</div></div>
-    <div class="card anim d2"><div class="num">81</div><div class="cap">难 · 风险事件</div></div>
-    <div class="card anim d2"><div class="num">5</div><div class="cap">人 · 团队（含1匹马）</div></div>
-    <div class="card anim d3"><div class="num">¥0</div><div class="cap">预算 · 靠化缘</div></div>
+<section class="slide dark">
+  <div class="chrome"><span>项目概况 · 硬指标</span><span>03 / 09</span></div>
+  <div class="frame" style="flex-direction:column;justify-content:center">
+    <div class="kicker anim">取经项目 · 立项概览</div>
+    <h1 class="h1-zh anim d1">先看一组硬数据</h1>
+    <div class="statline">
+      <div class="stat-wrap anim d1"><div class="n">10.8万</div><div class="l">里 · 总里程</div></div>
+      <div class="stat-wrap anim d1"><div class="n">14</div><div class="l">年 · 实际工期</div></div>
+      <div class="stat-wrap anim d2"><div class="n">81</div><div class="l">难 · 风险事件</div></div>
+      <div class="stat-wrap anim d2"><div class="n">5</div><div class="l">人 · 团队</div></div>
+      <div class="stat-wrap anim d3"><div class="n">¥0</div><div class="l">预算 · 化缘</div></div>
+    </div>
+    <div class="callout anim d3" style="margin-top:3vh">跨地域、长周期、高风险、零预算，老板还是位高僧——<b style="color:var(--gold)">这样的项目写进立项系统，评审都过不去，但它做成了。</b>靠的不是法术，是整套项目管理打法。</div>
   </div>
-  <p class="lead anim d3" style="margin-top:3vh">跨地域、长周期、高风险、零预算——<b>而它做成了</b>。这不是神话，这是一次教科书级的项目管理实战。</p>
+  <div class="foot"><span class="t">跨地域 · 长周期 · 高风险 · 零预算</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>04 / 08 · 西游对照表</span></div>
-  <div class="h2 anim">西游对照表：一本书的项目黑话</div>
-  <div class="grid g2" style="max-width:78vw">
-    <div class="card anim d1"><h4>唐僧 → 项目经理</h4><p>不打妖怪，但保证打妖怪的人朝着对的方向打。</p></div>
-    <div class="card anim d1"><h4>真经 → 交付物</h4><p>项目最终要交出去的东西，验收看它，不看你辛苦。</p></div>
-    <div class="card anim d2"><h4>八十一难 → 里程碑+风险</h4><p>一难一录，条条在册；难关数得清，才叫进度。</p></div>
-    <div class="card anim d2"><h4>通关文牒 → 项目章程</h4><p>为什么办、谁来办、资源给多少——一张纸，全说清。</p></div>
-    <div class="card anim d3"><h4>化缘 → 零预算</h4><p>没钱也要把事办成，靠的是资源整合能力。</p></div>
-    <div class="card anim d3"><h4>紧箍咒 → 规则共识</h4><p>不是谁狠，是团队得有一条谁都得守的底线。</p></div>
+<section class="slide light">
+  <div class="chrome"><span>西游对照表</span><span>04 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">一本西游 · 一套项目黑话</div>
+      <h1 class="h1-zh anim d1">西游对照表</h1>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>唐僧 = 项目经理</h4><p>不打妖怪，但决定往哪打、打完怎么收</p></div>
+        <div class="gcard anim d1"><h4>真经 = 交付物</h4><p>验收看它，不看你多辛苦</p></div>
+        <div class="gcard anim d2"><h4>八十一难 = 里程碑+风险</h4><p>一难一录，条条在册</p></div>
+        <div class="gcard anim d2"><h4>通关文牒 = 项目章程</h4><p>为什么办、谁、资源，一张纸说清</p></div>
+        <div class="gcard anim d3"><h4>化缘 = 零预算</h4><p>没钱也要把事办成</p></div>
+        <div class="gcard anim d3"><h4>紧箍咒 = 规则共识</h4><p>团队得有一条谁都得守的底线</p></div>
+      </div>
+      <div class="callout anim d3">以后开会听到"里程碑""交付物""章程"，别慌——<b>翻译成西游，你全都认识。</b></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#8a7420" stroke-width="2">
+          <rect x="70" y="28" width="100" height="72" rx="6"/>
+          <path d="M80 48 h80 M80 62 h80 M80 76 h56" stroke-opacity=".7"/>
+          <rect x="112" y="120" width="20" height="20" stroke-opacity=".6"/>
+          <path d="M64 120 l-8 40 M176 120 l8 40 M64 164 h16 M160 164 h16" stroke-opacity=".7"/>
+          <path d="M120 64 l12-20 12 20" stroke-opacity=".5"/>
+        </g>
+      </svg>
+      <div class="cap">通关文牒 = 项目章程</div>
+    </div>
   </div>
-  <div class="callout anim d3" style="margin-top:2vh;max-width:78vw">以后开会听到"里程碑""交付物""章程"，别慌——翻译成西游，你都认识。</div>
+  <div class="foot"><span class="t">一本书的项目黑话</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>05 / 08 · 师徒五角色</span></div>
-  <div class="h2 anim">师徒五人 = 一个标准项目组</div>
-  <div class="grid g5">
-    <div class="card anim d1" style="border-top-color:#8f5bbf"><h4>唐僧 · 掌舵人</h4><p><span class="tag">完美型</span>定方向、守底线、扛最终责任。手无缚鸡之力，却谁也替代不了。</p></div>
-    <div class="card anim d1" style="border-top-color:#e65c00"><h4>悟空 · 技术担当</h4><p><span class="tag">力量型</span>硬仗全靠他。代价是：出事第一个上，没事第一个挨骂。</p></div>
-    <div class="card anim d2" style="border-top-color:#3d9bd1"><h4>八戒 · 协调担当</h4><p><span class="tag">活泼型</span>气氛组+外交官。看着懒，散伙时却是请回大师兄的人。</p></div>
-    <div class="card anim d2" style="border-top-color:#00a97f"><h4>沙僧 · 执行担当</h4><p><span class="tag">和平型</span>挑担、牵马、传话。任劳任怨，团队压舱石。</p></div>
-    <div class="card anim d3" style="border-top-color:#b8912f"><h4>白龙马 · 后勤担当</h4><p><span class="tag">沉默型</span>不出声、不抢戏，驮着整个项目跑完全程。</p></div>
+<section class="slide dark">
+  <div class="chrome"><span>角色矩阵</span><span>05 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker anim">一支标准项目组</div>
+      <h1 class="h1-zh anim d1">师徒五人 = 一个项目组</h1>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>唐僧 · 掌舵人</h4><p>定方向 · 守底线 · 扛责任</p></div>
+        <div class="gcard anim d1"><h4>悟空 · 技术担当</h4><p>硬仗靠他 · 出事先上</p></div>
+        <div class="gcard anim d2"><h4>八戒 · 协调担当</h4><p>气氛组 · 请回大师兄</p></div>
+        <div class="gcard anim d2"><h4>沙僧 · 执行担当</h4><p>挑担传话 · 压舱石</p></div>
+        <div class="gcard anim d3"><h4>白龙马 · 后勤担当</h4><p>驮着项目跑 · 不声不响</p></div>
+      </div>
+      <div class="callout anim d3">反常识：<b style="color:var(--gold)">全是悟空会内耗，全是唐僧会原地打转。</b>完美团队 = 角色互补 + 目标一致。</div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="var(--gold)" stroke-width="2">
+          <circle cx="60" cy="70" r="16"/><path d="M60 86 L60 120" stroke-opacity=".7"/>
+          <circle cx="105" cy="70" r="16"/><path d="M105 86 L105 120" stroke-opacity=".7"/>
+          <circle cx="150" cy="70" r="16"/><path d="M150 86 L150 120" stroke-opacity=".7"/>
+          <circle cx="60" cy="124" r="13"/><path d="M60 137 L60 160" stroke-opacity=".6"/>
+          <circle cx="150" cy="124" r="13"/><path d="M150 137 L150 160" stroke-opacity=".6"/>
+          <path d="M105 86 v34 M105 120 l-22 20 M105 120 l22 20" stroke-opacity=".6"/>
+          <ellipse cx="105" cy="70" rx="3" ry="5" stroke-opacity=".5"/>
+        </g>
+      </svg>
+      <div class="cap">五角色 · 缺一不可</div>
+    </div>
   </div>
-  <div class="callout anim d3" style="margin-top:2.2vh;max-width:80vw">记住一个反常识：<b>全是悟空的团队会内耗解散，全是唐僧的团队会原地打转</b>。完美团队 = 角色互补 + 目标一致。</div>
+  <div class="foot"><span class="t">五种角色 · 没有高低贵贱</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>06 / 08 · 新人起步</span></div>
-  <div class="h2 anim">新人起步：从沙僧和白龙马做起，不丢人</div>
-  <div class="grid g2" style="max-width:80vw">
-    <div class="card anim d1"><h4>🌱 你入职时多半是"沙僧"</h4><p>资料整理、数据核对、文档排版——看着不起眼，却直接影响最终呈现。<b>靠谱，是新人的第一张名片。</b></p></div>
-    <div class="card anim d2"><h4>🐴 甚至是"白龙马"</h4><p>默默无闻地驮着项目跑。没关系——<b>稳定的输出，就是你的不可替代性。</b></p></div>
+<section class="slide light">
+  <div class="chrome"><span>新人视角</span><span>06 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">新人起步</div>
+      <h1 class="h1-zh anim d1">沙僧、白龙马，不丢人</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">你多半是<b>沙僧</b>——资料、数据、文档，不起眼却决定最终呈现；甚至暂时是<b>白龙马</b>——默默驮着项目跑。<b style="color:#10122a">稳定的输出，就是你的不可替代性。</b></p>
+      <div class="callout anim d2" style="margin-top:2vh"><b style="color:var(--gold)">三条"被看见"小贴士</b><br>① 关键节点留痕（落在邮件/纪要）· ② 稳定交付（件件有回音）· ③ 节点汇报（过程中同步进展）<br><span style="font-size:.88em;opacity:.8">白龙马想被看见，靠的不是嘶鸣，是每一步都踩得稳。</span></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#10122a" stroke-width="2">
+          <path d="M30 150 C50 120 80 118 100 130 C120 120 150 122 160 150 L30 150Z" stroke-opacity=".7"/>
+          <path d="M160 150 q20 -16 40 -6 v6" stroke-opacity=".8"/>
+          <path d="M92 120 l0 -34 M92 120 l26 -26 M118 86 l-8 20 M100 150 h16" stroke-opacity=".8"/>
+          <circle cx="70" cy="92" r="6" stroke-opacity=".6"/>
+          <path d="M76 92 h24" stroke-opacity=".5"/>
+          <path d="M40 172 200 172" stroke-opacity=".4"/>
+        </g>
+      </svg>
+      <div class="cap">白马驮行 · 稳定托底</div>
+    </div>
   </div>
-  <div class="callout anim d3" style="margin-top:2.4vh;max-width:80vw"><b>打工人小贴士（被看见策略）：</b>关键节点留痕（邮件/纪要）、稳定交付（答应的事件件有回音）、节点汇报（阶段性同步进度）——白龙马想被看见，靠的不是嘶鸣，是每一步都踩得稳。</div>
+  <div class="foot"><span class="t">靠谱，是新人的第一张名片</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>07 / 08 · 互动环节</span></div>
-  <div class="practice anim" style="max-width:80vw;margin:0 auto">
-    <div class="pt">🧭 互动：测测你是取经团队里的谁？</div>
-    <p>扫码或打开「角色自测」，10 道情境题，5 分钟出结果。<br>你会拿到：你的角色标签 + 一份角色说明书 + 一条给你的起步建议。</p>
-    <p style="margin-top:1.6vh"><b>入口：curriculum/test.html</b>（课程入口页 · 配套资源区）</p>
-    <p style="margin-top:1.2vh;font-size:12.5px">测完别急着对号入座——角色会成长：这次是沙僧，下次可能是唐僧。</p>
+<section class="slide dark">
+  <div class="chrome"><span>互动 · 角色自测</span><span>07 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">互动环节</div>
+      <h1 class="h1-zh anim d1">测测你是取经团队里的谁？</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">打开课程入口页的<b style="color:var(--gold)">「角色自测」</b>，十道情境题，五分钟出结果：你的角色标签 + 一份角色说明书 + 一条起步建议。</p>
+      <div class="callout anim d3">测出的不是命运，是<b style="color:var(--gold)">倾向</b>——角色会成长：这次是沙僧，下次可能是掌舵的人。<div class="src">入口 · 课程入口页 · 配套资源区</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="var(--gold)" stroke-width="2">
+          <circle cx="120" cy="96" r="52"/>
+          <path d="M120 44 v18 M120 96 h30" stroke-opacity=".7"/>
+          <path d="M120 96 L96 78 M120 96 L144 78" stroke-opacity=".5"/>
+          <path d="M68 96 h-14 M120 62 v-16 M172 96 h14" stroke-opacity=".7"/>
+          <circle cx="120" cy="96" r="4" fill="var(--gold)"/>
+        </g>
+      </svg>
+      <div class="cap">测一测 · 你在团队里的位置</div>
+    </div>
   </div>
+  <div class="foot"><span class="t">互动 · 认识自己</span><span>— · —</span></div>
 </section>
 
-<section class="slide">
-  <div class="chrome"><span class="badge">L1</span><span>08 / 08 · 小结与作业</span></div>
-  <div class="h2 anim">带走三个词，完成一张图</div>
-  <div class="grid g3" style="max-width:78vw">
-    <div class="card anim d1"><h4>① 目标</h4><p>项目为独特成果而存在。目标丢了，干得越多越偏。</p></div>
-    <div class="card anim d2"><h4>② 分工</h4><p>五个人五个角色，没有谁是多余的，也没有谁能包打天下。</p></div>
-    <div class="card anim d3"><h4>③ 靠谱</h4><p>新人最贵的品质。件件有着落，事事有回音。</p></div>
+<section class="slide light">
+  <div class="chrome"><span>小结与作业</span><span>08 / 09</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">小结 · 三个词</div>
+      <h1 class="h1-zh anim d1">带走三样，盖你的通关印</h1>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>① 目标</h4><p>项目为独特成果存在</p></div>
+        <div class="gcard anim d2"><h4>② 分工</h4><p>五角色，缺一不可</p></div>
+        <div class="gcard anim d3"><h4>③ 靠谱</h4><p>件件有着落，事事有回音</p></div>
+      </div>
+      <div class="callout anim d3" style="margin-top:2.4vh">📜 <b>通关文牒 · 课后作业：</b>画一张你所在团队的「西游对照图」——谁是唐僧？谁是悟空？自己在哪个位置？交带教人或讲师验收，加盖 <b>L1 通关印</b>。</div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none" stroke="#10122a" stroke-width="2">
+          <rect x="60" y="52" width="120" height="96" rx="10"/>
+          <path d="M60 70 h120" stroke-opacity=".7"/>
+          <path d="M100 96 l12 12 20-24" stroke-opacity=".8"/>
+          <path d="M74 120 h92" stroke-opacity=".5"/>
+          <path d="M90 168 h60 l-30 22Z" stroke-opacity=".7"/>
+          <path d="M120 168 v22" stroke-opacity=".7"/>
+        </g>
+      </svg>
+      <div class="cap">通关文牒 · 加盖通关印</div>
+    </div>
   </div>
-  <div class="callout anim d3" style="margin-top:2.6vh;max-width:78vw"><b>📜 通关文牒 · 课后作业：</b>观察你所在的团队（或最近的入职项目），画一张"西游对照图"——谁是唐僧？谁是悟空？你自己在哪个位置？交给带教人或讲师验收，加盖 <b>L1 通关印</b>。</div>
+  <div class="foot"><span class="t">L1 完成 · 下一站 L2</span><span>— · —</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>下课</span><span>09 / 09</span></div>
+  <div class="frame" style="justify-content:center;text-align:center;align-items:center">
+    <div>
+      <div class="kicker gold anim">课间 · 休息</div>
+      <h1 class="hero-zh anim d1" style="font-size:min(9vw,16vh)">下一课<br>上工具</h1>
+      <p class="lead anim d2" style="margin-top:1.6vh">L2 基础篇 · 跟着文牒走 · 会做纪要 · 会记台账 · 会跟催 · 会汇报</p>
+      <div class="callout anim d3" style="max-width:56vw;margin-inline:auto">想升级，先把通关印盖了。</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">取经计划 · 四级训练营</span><span>L1 / END</span></div>
 </section>
 
 </div>
