@@ -4,35 +4,322 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>课时四 · 治理篇 口播稿｜取经计划</title>
-<style> :root{ --primary:#c62828; --primary-dark:#8f1d1d; --accent-orange:#FF6600; --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff; --text:#333; --text-light:#888; }
-  *{box-sizing:border-box;margin:0;padding:0} html,body{height:100%} body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent} .header{background:linear-gradient(135deg,#c62828,#8f1d1d);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10} .header h1{font-size:16px;font-weight:700;letter-spacing:2px} .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px} .qrchip{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#fff;border-radius:8px;padding:4px;width:56px;box-shadow:0 3px 12px rgba(0,0,0,.25);text-align:center} .qrchip img{width:100%;display:block} .qrchip div{font-size:8px;color:#666;letter-spacing:.05em;padding-top:3px} .colorbar{display:flex;height:4px} .colorbar div{flex:1} #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden} .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease} .page.active{display:block;opacity:1} .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px} .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px} .pagemeta .tag.g{background:var(--accent-green)} .pagemeta .tag.o{background:var(--accent-orange)} .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4} .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)} .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px} .page .script p:last-child{margin-bottom:0} .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle} .page .script .stage.o{background:var(--accent-orange)} .page .script .key{color:var(--primary);font-weight:700} .page .script .joke{color:#9a3b0e;font-weight:600} #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))} .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto} .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none} .nav-btn:active{background:var(--primary);color:#fff} .nav-btn.disabled{opacity:.3;pointer-events:none} .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch} .pager::-webkit-scrollbar{display:none} .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer} .pnum.on{background:var(--primary);color:#fff;font-weight:700} .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px} .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap} .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600} .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)} .rb-btn:disabled{opacity:.4;pointer-events:none} .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)} .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px} .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle} .reader-info .dot.on{background:var(--accent-green)}
+<style>
+  :root{
+    --primary:#c62828; --primary-dark:#8f1d1d; --accent-orange:#FF6600;
+    --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff;
+    --text:#333; --text-light:#888;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+  .header{background:linear-gradient(135deg,#c62828,#8f1d1d);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10}
+  .header h1{font-size:16px;font-weight:700;letter-spacing:2px}
+  .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
+  .qrchip{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#fff;border-radius:8px;padding:4px;width:56px;box-shadow:0 3px 12px rgba(0,0,0,.25);text-align:center}
+  .qrchip img{width:100%;display:block}
+  .qrchip div{font-size:8px;color:#666;letter-spacing:.05em;padding-top:3px}
+  .colorbar{display:flex;height:4px}
+  .colorbar div{flex:1}
+  #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden}
+  .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
+  .page.active{display:block;opacity:1}
+  .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
+  .pagemeta .tag.g{background:var(--accent-green)}
+  .pagemeta .tag.o{background:var(--accent-orange)}
+  .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4}
+  .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)}
+  .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px}
+  .page .script p:last-child{margin-bottom:0}
+  .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .page .script .stage.o{background:var(--accent-orange)}
+  .page .script .key{color:var(--primary);font-weight:700}
+  .page .script .joke{color:#9a3b0e;font-weight:600}
+  #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
+  .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none}
+  .nav-btn:active{background:var(--primary);color:#fff}
+  .nav-btn.disabled{opacity:.3;pointer-events:none}
+  .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pager::-webkit-scrollbar{display:none}
+  .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer}
+  .pnum.on{background:var(--primary);color:#fff;font-weight:700}
+  .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap}
+  .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600}
+  .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .rb-btn:disabled{opacity:.4;pointer-events:none}
+  .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)}
+  .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle}
+  .reader-info .dot.on{background:var(--accent-green)}
 </style>
 </head>
-<body> <div class="header"> <h1>口播稿 · 课时四 治理篇</h1> <div class="sub">取经计划 · L4 项目总监 ｜ 对应课件 c4.html · 11 段 ｜ 全稿约5100字</div>
+<body>
+
+<div class="header">
+  <h1>口播稿 · 课时四 治理篇</h1>
+  <div class="sub">取经计划 · L4 项目总监 ｜ 对应课件 c4.html · 11 段 ｜ 全稿约5100字</div>
 <div class="qrchip"><img src="images-qr-c4.svg" alt="本课课件二维码"><div>学员扫码看课件</div></div>
 </div>
-<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div> <div id="pages"> <div class="page" data-p="1"> <div class="pagemeta"><span class="tag">开场</span><span>第 01 段 / 11 · 课件第1页 · 约 2 分钟</span></div> <div class="title">开场｜总监之位，在唐僧之上</div> <div class="script"> <p>各位总监、各位交付负责人，大家好。欢迎来到"取经计划"的最后一课，也是最高的一课——L4治理篇：<span class="key">搭体系，从项目到组织。</span></p> <p>开课先问一个问题：<span class="stage">互动</span>你觉得取经项目的组织设计者，是谁？<span class="stage">停顿</span>（听几个答案，多数会说唐僧）说唐僧的，请坐——唐僧是项目经理。真正设计这个项目的，是<span class="key">如来：发起；和观音：组建、护航、监理</span>。</p> <p>这就是今天课程的定位：<span class="key">总监的位置，从来不是"更大的项目经理"，而是如来与观音的位置。</span>PM管一个项目，总监管一套体系。这一课，我们讲六件事：选人、用人、授权、画界、封赏、容错——最后，还要对你信奉的管理范式，做一次批判性体检。开始。</p> </div>
-</div> <div class="page" data-p="2"> <div class="pagemeta"><span class="tag g">视角</span><span>第 02 段 / 11 · 课件第2页 · 约 3 分钟</span></div> <div class="title">组织之问：胜利能靠个人英雄吗？</div> <div class="script"> <p>先立总纲。L3培养的优秀PM什么样？会留缓冲、敢打回、管得住蔓延——确实，一个优秀的PM，能把一个项目从泥潭里拖出来。</p> <p>但组织要的不是"一个项目活"，是<span class="key">一百个项目同时活</span>。靠什么？靠招一百个唐僧吗？<span class="stage">停顿</span>不可能——唐僧那种"十四年不改道"的人，市场上招不到量产款。所以体系的意义只有一句话：<span class="key">让平凡的人，在结构里做出不平凡的结果。</span></p> <p>看观音的设计就知道什么叫体系。目标（真经）是提前定的；人员（戴罪立功五人组）是精挑的；规则（紧箍咒）是先立的；激励（成佛）是入职就承诺的。全程没有任何一步依赖"某个人特别英雄"。<span class="stage">停顿</span>唐僧本人手无缚鸡之力，体系照样把他推到灵山——<span class="joke">这就是治理和管理的区别：管理靠能人，治理靠结构。</span>你手上的问题，如果只能靠某个人加班解决，那不是人不行，是结构缺了一块。</p> </div>
-</div> <div class="page" data-p="3"> <div class="pagemeta"><span class="tag">选人</span><span>第 03 段 / 11 · 课件第3页 · 约 5 分钟</span></div> <div class="title">红孩儿之问：为什么不要能力爆表的猛人？</div> <div class="script"> <p>治理第一课：选人。先讲一个让无数人意难平的问题。灵山脚下有一个现成的"超级人才库"：红孩儿——三昧真火，连悟空都吃过亏；黑熊怪——战力强，还爱学习佛经，简直是自驱型技术骨干。<span class="key">取经这个顶级项目组，为什么一个都不要，非得凑齐五个"问题员工"？</span></p> <p>唐僧瞎吗？不瞎。设这个局的观音更不瞎。他们是在算三笔账。<b>第一笔，可控性：</b>红孩儿连自己亲爹都敢烧，悟空再狂，还敬师父三分——能力越强、越不可控的人，组织风险越高。<b>第二笔，忠诚度：</b>五个人各带戴罪之身，全靠这个项目翻身，离开成本极高；红孩儿呢？有家有山头有退路，随时可以走。<b>第三笔，团队化学：</b>两个红孩儿式的全能天才放一个组，不是如虎添翼，是内耗的开始——谁服谁？</p> <p>组织级结论，请记下来，这是今天第一条要带走的：<span class="key">能力决定下限，忠诚与可控决定上限。</span>招人的时候问自己三个问题：这个人为什么来？他为什么会留下？<span class="key">——他什么时候会走？</span>第三个问题答不清的，前两个也不用答了——答不清"走"的，也留不住"来"。</p> <p>这三笔账放到公司里怎么查？给你三个可操作的动作：一，背调问细节——候选人讲的项目，追问"你们团队当时怎么分工的"，讲不出他人贡献的，协作性存疑；二，试用期给约束性任务——别只看他能干什么，看他"不干什么"——守不守规矩、报不报风险；三，算离开成本——这个人手里有多少客户关系、多少未交接的系统？<span class="joke">离职带走的不是技术，是你的相关方地图。</span></p> <p>最后纠个偏，免得有人回家就把技术骨干优化了：<span class="key">不是"不要能人"，是"不要只有能的人"。</span>看看结局：红孩儿后来去了观音那儿，做善财童子，专业对口，干得不错——猛人在合适的位置上照样是猛人。所以选人的公式是：<span class="key">能力 × 可控性 × 岗位匹配</span>。三个乘数，有一个是零，乘出来就是零。</p> </div>
-</div> <div class="page" data-p="4"> <div class="pagemeta"><span class="tag">用人</span><span>第 04 段 / 11 · 课件第4页 · 约 4 分钟</span></div> <div class="title">戴罪立功：一支全靠"PIP"组建的梦之队</div> <div class="script"> <p>选完人，看用人。我们把五人的"入职档案"正式念一遍，大家听清楚每个人犯了什么事。<span class="stage">停顿</span>孙悟空：大闹天宫，判刑五百年——绩效改进方案：护送取经，将功赎罪。猪八戒：调戏嫦娥，贬下凡间——观察期：戴罪修行。沙僧：失手打碎琉璃盏——留用察看。白龙马：纵火烧了殿上明珠——基层改造。</p> <p>发现了吗？<span class="key">这是一支全员PIP的队伍。</span>PIP，绩效改进计划——在现代公司里，这个词通常和"劝退流程"连在一起用。但取经团队告诉你PIP的真正用法：<span class="key">不是给问题员工递辞呈，是给想翻盘的人递梯子。</span>看这套设计：目标明确（真经）、退出条件明确（散伙或紧箍咒）、终局激励明确（成佛）——一份完整的绩效改进计划，三要素齐了。</p> <p>给总监的启示：<span class="key">组织里最容易被浪费的资产，是"犯过错但想翻身的人"。</span>他们一旦被点燃，往往比"从没犯过错的人"更拼命——因为取经对别人是工作，对他们，是唯一的出路。<span class="joke">你看悟空的出勤率，比谁都高——他不是敬业，他是无路可退。</span></p> <p>当然，梯子得配扶手：观音给的梯子，全都配了紧箍咒——激励给足、底线给死、退出写明。只给梯子不给扶手的PIP，不是改进计划，是甩锅计划。</p> </div>
-</div> <div class="page" data-p="5"> <div class="pagemeta"><span class="tag o">授权</span><span>第 05 段 / 11 · 课件第5页 · 约 4 分钟</span></div> <div class="title">为什么悟空不能当项目经理？</div> <div class="script"> <p>选人用人之后，是授权。有个高频问题：既然悟空最能干，为什么不让悟空当项目经理？——"最能干的当负责人"，这是绝大多数组织的第一反应，也是<span class="key">组织设计里最常见的错误</span>，术语叫能人错配。</p> <p>PM的合法性从哪来？不是能力，是<span class="key">正式授权</span>。唐僧是四人里唯一被大唐皇帝正式授权的——通关文牒，就是任命书。没有任命书的PM什么下场？每次指挥都得先解释"我为什么管你"——项目还没开始，权威先崩了。<span class="stage">停顿</span>你回想一下，是不是见过这种"高级顾问"：能力全场最强，说话没人执行？不是他不配，是他没有那张纸。</p> <p>所以总监有两个规定动作。第一，<span class="key">任命要见文书</span>：发文、公开、写清权限边界——别让你的项目经理拿着"口头任命"去打仗，那仗还没打，先内耗三成。第二，更重要的：<span class="key">能人要给"王座以外的高位"。</span>悟空不当PM，但要封"齐天大圣"——让能人在专业序列上封神，而不是在管理岗位上错配。</p> <p>反面教材天庭已经演过了：给悟空封了个弼马温——能力顶级，岗位九品，结果呢？大闹天宫。<span class="joke">天庭为此付出的整改成本，是十万天兵天将，外加一座五行山的维保费用。</span>能人错配的账，最后都是组织买单。</p> </div>
-</div> <div class="page" data-p="6"> <div class="pagemeta"><span class="tag">治理</span><span>第 06 段 / 11 · 课件第6页 · 约 3.5 分钟</span></div> <div class="title">有后台的妖怪：相关方治理的真相</div> <div class="script"> <p>第四个治理动作：相关方治理。先念一条西游妖界的生存规律，大家品一品：<span class="key">有后台的，最后都被领导接走了；没后台的，才是真风险，当场被打死。</span></p> <p>这不是讽刺，这是相关方分析的真相。金角银角，太上老君的人，最后回收；青牛精，坐骑，牵走了；连那条鲤鱼精，都是观音莲花池里的。<span class="stage">停顿</span>所以悟空后来学精了，每遇妖怪先查户口——<span class="key">先看后台，再动手。</span>你项目里最难搞的那个"妖怪"，多半也上边有位——硬打，打的是它背后的山头。</p> <p>组织级的要求就一条：每个项目立项时，附一张<span class="key">相关方地图</span>，四类角色逐一登记：谁点头（支持方）、谁摇头（阻力方）、谁能拍板（决策方）、谁会搅局（那个有隐形否决权的小窗口）。地图挂总监室。<span class="stage">停顿</span>为什么这么较真？因为<span class="key">项目里多数的"意外"，都是"没把某个相关方当回事"的结果</span>——那个审批卡你三天的部门、那个在会上突然说"哦，这个不行"的科室，提前打一次招呼、提前走一次拜会，永远比事后磕头便宜。</p> <p>相关方地图怎么画，五步：第一步，列名字——所有在这个项目上"能说一句话"的人，一个不落；第二步，标态度——用四种颜色标支持、反对、中立、观望；第三步，找连线——谁的意见会影响谁，画出影响力脉络；第四步，圈关键——把"他说不行就不行"的人圈出来，重点经营；第五步，定期更新——<span class="key">相关方地图不是立项画一次就完的挂历，是每月更新的作战地图。</span></p> <p><span class="joke">记住悟空的觉悟：打妖之前先问一句"你是谁的坐骑"——这不叫怂，这叫相关方治理。</span></p> </div>
-</div> <div class="page" data-p="7"> <div class="pagemeta"><span class="tag">边界</span><span>第 07 段 / 11 · 课件第7页 · 约 3.5 分钟</span></div> <div class="title">自建还是外包：核心能力的护城河</div> <div class="script"> <p>第五个动作：定组织的外包边界。先看唐僧团队的采购有多规范：供应商选对——请观音，法力强、信誉好、不摆烂；条件谈清——妖归你收，师徒我带走；干完结账——收妖、道谢、不拖欠。<span class="key">请外援，从来不丢人。</span>一路上大半的硬仗，都是"采购"解决的。</p> <p>但注意一个细节：<span class="key">打妖外包了一路，"取经"二字，从没外包过。</span>方向他们自己定，路线他们自己走，真经他们自己取——判断题记好：<b>核心、多变、要快的，自建；稳定、标准化、能验收的，外包。</b><span class="stage">停顿</span>为什么？<span class="key">你把"核"外包了，你就只剩"壳"——而壳，别人也能干。</span></p> <p>给总监一条护城河之问，回去对着自己的部门问一遍：<span class="key">你组织里那件"天天要改"的事，外包了吗？</span>改一次，付一次钱；改十次，能力就永远长在别人身上，到最后你连需求都描述不清了。唐僧要是把"取"也外包出去，他就不再是项目经理了——他是顾问：<span class="joke">只有建议权，没有决定权，和真经的分红更没关系。</span>顾问和PM的区别，各位看看预算表就懂了。</p> </div>
-</div> <div class="page" data-p="8"> <div class="pagemeta"><span class="tag o">收尾</span><span>第 08 段 / 11 · 课件第8页 · 约 5 分钟</span></div> <div class="title">论功行赏：灵山封赏的绩效分配</div> <div class="script"> <p>第六个动作，也是多数组织的盲区：<span class="key">项目收尾的绩效分配。</span>取经成功，灵山封赏。我们看这张表：唐僧，旃檀功德佛——佛级；悟空，斗战胜佛——佛级；八戒，净坛使者——菩萨级；沙僧，金身罗汉——菩萨级；白龙马，八部天龙——菩萨级。五个人，三个档位，没有一个并列。</p> <p>然后，全场最经典的一幕来了——颁奖现场，八戒当场质问：<span class="key">"凭啥他们都成佛，只让我当个使者？"</span><span class="stage">停顿</span>各位，这是绩效面谈的活教材，值得逐帧分析。第一，八戒这一问合不合规？合规——分配永远有人不满意，敢当面问，说明组织的沟通通道是开的。第二，看如来怎么答：因你口壮身慵、食肠宽大，凡诸佛事，教汝净坛——管天下供品。翻译过来：<b>人岗匹配，各有其用。</b>而且这理由说得出口、站得住脚——八戒听完，居然还挺满意。<span class="joke">毕竟这个岗位的核心KPI是"吃"，他专业对口。</span></p> <p>组织级结论：<span class="key">分配不可能人人满意，但理由必须说得出口。</span>说不出口的分配，轻则抱怨，重则第二个项目没人跟你干。</p> <p>落到你的组织，绩效分配三条铁律：一，差距要讲得出成因——金额可以保密，规则必须公开；二，贡献要在分配之前讲——先让每个人被看见，再谈数字，顺序反了就是"只见分蛋糕，没人打野怪"；三，"净坛使者"式的安置要配说明——把人放到匹配的岗位上，必须当面讲清楚他的贡献被怎么计算了。<span class="joke">如来那套面谈话术，值得所有HR拿去抄。</span></p> <p>再深一层，八戒之谜还有下半段：他一路喊散伙，为什么十四年没散成？不是觉悟高，是<span class="key">激励绑定</span>——成佛的承诺，是入职那天就锁定的"期权"，走到一半放弃，前面的苦全白吃；退出成本，是回高老庄继续当妖怪。<span class="key">留人靠机制，不靠鸡汤。</span>所以，总监主持收尾复盘的顺序照这个来：<span class="key">先讲贡献，再讲分配，当面回答"为什么"。</span>这个顺序错了，前面做得再好，最后一刻塌房。</p> </div>
-</div> <div class="page" data-p="9"> <div class="pagemeta"><span class="tag o">思辨</span><span>第 09 段 / 11 · 课件第9页 · 约12分钟（含辩论）</span></div> <div class="title">辩论：唐僧是好PM吗？</div> <div class="script"> <p>最后一部分，也是压轴环节——一场辩论。<span class="stage">互动</span>辩题：<span class="key">唐僧，是好项目经理吗？</span>现场分正反两方，三分钟准备，各三分钟陈词，然后自由交锋。</p> <p>先发牌。正方三论点：第一，目标如磐——女儿国倾国之富不改其道，这是愿景领导力；第二，授权清晰——打妖归悟空、赶路归白龙马，从不越位抢活；第三，出事领锅——徒弟闯祸他担着，能领锅的PM，比会甩锅的多活十年。</p> <p>反方三论点：第一，<span class="key">只对上负责</span>——有位评论家六神磊磊，专门写过文章讽刺唐僧式的管理："我只对如来负责"——徒弟全在委屈里干活；第二，肉眼凡胎却独揽验收权——三打白骨精，一手证据不采信，误判骨干，战力清零；第三，沟通全靠念咒——<span class="key">以权威代替说服，是最坏的沟通示范。</span></p> <p><span class="stage">互动</span>（辩论交给现场，讲师主持计时，控制在十二分钟内；收场前点题）</p> <p>辩完我补一个治理视角，算是裁判意见——这场辩论真正的价值不在胜负，在<span class="key">容错机制</span>：赶走悟空再请回的代价，是差点全团覆没。组织要给犯错设"止损线"，而不是"一票否决线"。<span class="key">没有容错的组织，人人都学会了瞒报；而瞒报，才是最大的风险登记册。</span><span class="stage">停顿</span>你回去看看：你的团队，报忧的速度，有报喜的一半快吗？</p> </div>
-</div> <div class="page" data-p="10"> <div class="pagemeta"><span class="tag">热点</span><span>第 10 段 / 11 · 课件第10页 · 约 3 分钟</span></div> <div class="title">现实版取经：黑神话·悟空的组织启示</div> <div class="script"> <p>讲个现代案例收个尾——现实版取经项目：《黑神话·悟空》。开发周期约<span class="key">七年</span>；团队约<span class="key">一百四十人</span>；核心成员平均合作超过<span class="key">十年</span>；上线即爆，全球销量破千万。3A游戏的时长、成本、协作复杂度，跟取经是一个量级的——而且它没有神仙护航。</p> <p>它给总监的启示三条。<b>第一，初心驱动：</b>2018年，团队从旧商业计划书里翻出"做国产单机"的初心，重拾梦想——愿景不是墙上的标语，是七年不改道的锚。<b>第二，长期主义的组织配套：</b>核心稳定、专业序列清晰、对品质偏执——长周期项目能活到交付，靠的是这些人七年没有散。<b>第三，总监的真正职责：</b><span class="key">替组织挡住短期诱惑。</span>七年里，市场上短线赚钱的机会天天有，接外包、做手游、快变现——是他们没松手，才有了后来的爆发。</p> <p>最后送大家一句制作人冯骥的原话：<span class="key">"踏上取经路，比抵达灵山更重要。"</span><span class="stage">停顿</span>这句话，和咱们这套课程结尾那句"敢问路在何方？路在脚下"——是同一句话的两个写法。东方项目的浪漫，从来不是到达，是走。</p> </div>
-</div> <div class="page" data-p="11"> <div class="pagemeta"><span class="tag o">收束</span><span>第 11 段 / 11 · 课件第11页 · 约 3 分钟</span></div> <div class="title">收束：四级集齐，组织有了取经体系</div> <div class="script"> <p>时间到，我们收尾了。回顾这一路：L1，给组织建立了<span class="key">共同语言</span>——全员会说项目话；L2，建立了<span class="key">工具层</span>——记录跟催台账化；L3，建立了<span class="key">执行层</span>——敢说不、敢打回的PM队伍；L4，就是今天——<span class="key">治理层</span>：选人、授权、画界、封赏、容错。</p> <p>四级集齐，你的组织就有了自己的"取经体系"：新人有起点，骨干有阶梯，PM有武器，总监有结构。这套体系最好的地方在于——它不再依赖某个人特别英雄。<span class="key">平凡的人，在结构里，做出不平凡的事。</span></p> <p>结业作业，也是最后一枚通关文牒，两件事：第一，<span class="key">主持一次真实项目的收尾复盘会</span>——按论功行赏的框架：先讲贡献、再讲分配、当面回答"为什么"；第二，<span class="key">输出一份《团队封赏与改进方案》</span>——含人岗匹配说明，含至少一名"想翻身的人"的使用计划。交导师组答辩，通过即加盖L4通关印，<span class="key">四级集齐，授予"取经人"认证。</span></p> <p>最后一句话，送给每一位走到这里的取经人。<span class="stage">停顿</span>项目不是打妖怪，是交付真经；管理不是管人，是搭一条让平凡人做成不平凡事的路。<span class="key">敢问路在何方？——路在脚下。</span>谢谢大家。咱们，灵山再见。</p> </div>
-</div> </div> <div id="nav"> <div class="nav-row"> <div class="nav-btn" id="btnPrev">‹</div> <div class="pager" id="pager"></div> <div class="nav-btn" id="btnNext">›</div> </div> <div class="reader"> <button id="rbPlay" class="rb-btn primary">▶ 朗读</button> <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button> <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button> <select id="rbRate" class="rb-rate" title="语速"> <option value="0.85">0.85×</option> <option value="1">1.0×</option> <option value="1.1" selected>1.1×</option> <option value="1.3">1.3×</option> </select> </div> <div class="reader-info"> <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span> <span id="rbPos">11 段</span> </div> <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 11 段</div>
-</div> <script>
-(function(){ var pages = Array.prototype.slice.call(document.querySelectorAll('.page')); var pager = document.getElementById('pager'); var btnPrev = document.getElementById('btnPrev'); var btnNext = document.getElementById('btnNext'); var cur = 0; var total = pages.length; pages.forEach(function(p, i){ var b = document.createElement('button'); b.className = 'pnum'; b.textContent = i + 1; b.addEventListener('click', function(){ go(i); }); pager.appendChild(b); }); var nums = pager.querySelectorAll('.pnum'); function go(i){ if(i < 0 || i >= total) return; pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i; nums.forEach(function(n, j){ n.classList.toggle('on', j === i); }); btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1); var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block: 'nearest', inline: 'center'}); } pages[cur].scrollTop = 0; var hint = document.getElementById('hint'); if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; } }
-  btnPrev.addEventListener('click', function(){ go(cur - 1); }); btnNext.addEventListener('click', function(){ go(cur + 1); }); document.addEventListener('keydown', function(e){ if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); } else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); } else if(e.key === 'Home') { go(0); } else if(e.key === 'End') { go(total - 1); } }); var sx = 0, sy = 0, sw = false; document.addEventListener('touchstart', function(e){ var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true; }, {passive:true}); document.addEventListener('touchend', function(e){ if(!sw) return; sw = false; var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy; if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); } }, {passive:true}); var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos'); window.SEGS = {"segs": [{"start": 0.0,"end": 48.7},{"start": 51.1,"end": 107.96},{"start": 109.56,"end": 238.34},{"start": 238.84,"end": 322.31},{"start": 323.91,"end": 407.93},{"start": 409.53,"end": 506.95},{"start": 508.55,"end": 580.72},{"start": 582.32,"end": 718.04},{"start": 719.64,"end": 800.57},{"start": 802.97,"end": 876.24},{"start": 877.84,"end": 957.66}],"total": 957.66}; var audio = null, reading = false, paused = false, ridx = 0; function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; } function rSet(){ var s = window.SEGS; rPlay.disabled = reading && !paused; rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读'; rPause.disabled = !reading || paused; rStop.disabled = !reading; var pct = reading ? Math.min(100, Math.round((audio ? audio.currentTime : 0) / s.total * 100)) : 0; rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）'; var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading); }
-  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); } function ensureAudio(){ if(!audio){ audio = new Audio('audio/c4/full.mp3'); audio.preload = 'auto'; audio.onended = function(){ rFinish(); }; audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; }; audio.ontimeupdate = function(){ if(!reading || paused) return; var k = segIndex(audio.currentTime); if(k !== ridx){ ridx = k; rHl(k); go(k); } rSet(); }; }
-    audio.playbackRate = parseFloat(rRate.value); return audio; }
-  function rStart(){ if(paused && audio){ paused = false; audio.play(); rSet(); return; } if(reading) return; var a = ensureAudio(); reading = true; paused = false; ridx = segIndex(a.currentTime); a.play().catch(function(){}); rSet(); }
-  function rPause(){ if(!reading || paused) return; paused = true; if(audio) audio.pause(); rSet(); }
-  function rStop(){ if(audio){ audio.pause(); audio.currentTime = 0; } reading = false; paused = false; ridx = 0; rHl(-1); rSet(); }
-  function rFinish(){ if(audio) audio.pause(); reading = false; paused = false; ridx = 0; rHl(-1); rSet(); }
-  rPlay.addEventListener('click', rStart); rPause.addEventListener('click', rPause); rStop.addEventListener('click', rStop); rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); }); window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); }); rSet(); go(0);
+<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
+
+<div id="pages">
+
+<div class="page" data-p="1">
+  <div class="pagemeta"><span class="tag">开场</span><span>第 01 段 / 11 · 课件第1页 · 约 2 分钟</span></div>
+  <div class="title">开场｜总监之位，在唐僧之上</div>
+  <div class="script">
+    <p>各位总监、各位交付负责人，大家好。欢迎来到"取经计划"的最后一课，也是最高的一课——L4治理篇：<span class="key">搭体系，从项目到组织。</span></p>
+    <p>开课先问一个问题：<span class="stage">互动</span>你觉得取经项目的组织设计者，是谁？<span class="stage">停顿</span>（听几个答案，多数会说唐僧）说唐僧的，请坐——唐僧是项目经理。真正设计这个项目的，是<span class="key">如来：发起；和观音：组建、护航、监理</span>。</p>
+    <p>这就是今天课程的定位：<span class="key">总监的位置，从来不是"更大的项目经理"，而是如来与观音的位置。</span>PM管一个项目，总监管一套体系。这一课，我们讲六件事：选人、用人、授权、画界、封赏、容错——最后，还要对你信奉的管理范式，做一次批判性体检。开始。</p>
+  </div>
+</div>
+
+<div class="page" data-p="2">
+  <div class="pagemeta"><span class="tag g">视角</span><span>第 02 段 / 11 · 课件第2页 · 约 3 分钟</span></div>
+  <div class="title">组织之问：胜利能靠个人英雄吗？</div>
+  <div class="script">
+    <p>先立总纲。L3培养的优秀PM什么样？会留缓冲、敢打回、管得住蔓延——确实，一个优秀的PM，能把一个项目从泥潭里拖出来。</p>
+    <p>但组织要的不是"一个项目活"，是<span class="key">一百个项目同时活</span>。靠什么？靠招一百个唐僧吗？<span class="stage">停顿</span>不可能——唐僧那种"十四年不改道"的人，市场上招不到量产款。所以体系的意义只有一句话：<span class="key">让平凡的人，在结构里做出不平凡的结果。</span></p>
+    <p>看观音的设计就知道什么叫体系。目标（真经）是提前定的；人员（戴罪立功五人组）是精挑的；规则（紧箍咒）是先立的；激励（成佛）是入职就承诺的。全程没有任何一步依赖"某个人特别英雄"。<span class="stage">停顿</span>唐僧本人手无缚鸡之力，体系照样把他推到灵山——<span class="joke">这就是治理和管理的区别：管理靠能人，治理靠结构。</span>你手上的问题，如果只能靠某个人加班解决，那不是人不行，是结构缺了一块。</p>
+  </div>
+</div>
+
+<div class="page" data-p="3">
+  <div class="pagemeta"><span class="tag">选人</span><span>第 03 段 / 11 · 课件第3页 · 约 5 分钟</span></div>
+  <div class="title">红孩儿之问：为什么不要能力爆表的猛人？</div>
+  <div class="script">
+    <p>治理第一课：选人。先讲一个让无数人意难平的问题。灵山脚下有一个现成的"超级人才库"：红孩儿——三昧真火，连悟空都吃过亏；黑熊怪——战力强，还爱学习佛经，简直是自驱型技术骨干。<span class="key">取经这个顶级项目组，为什么一个都不要，非得凑齐五个"问题员工"？</span></p>
+    <p>唐僧瞎吗？不瞎。设这个局的观音更不瞎。他们是在算三笔账。<b>第一笔，可控性：</b>红孩儿连自己亲爹都敢烧，悟空再狂，还敬师父三分——能力越强、越不可控的人，组织风险越高。<b>第二笔，忠诚度：</b>五个人各带戴罪之身，全靠这个项目翻身，离开成本极高；红孩儿呢？有家有山头有退路，随时可以走。<b>第三笔，团队化学：</b>两个红孩儿式的全能天才放一个组，不是如虎添翼，是内耗的开始——谁服谁？</p>
+    <p>组织级结论，请记下来，这是今天第一条要带走的：<span class="key">能力决定下限，忠诚与可控决定上限。</span>招人的时候问自己三个问题：这个人为什么来？他为什么会留下？<span class="key">——他什么时候会走？</span>第三个问题答不清的，前两个也不用答了——答不清"走"的，也留不住"来"。</p>
+    <p>这三笔账放到公司里怎么查？给你三个可操作的动作：一，背调问细节——候选人讲的项目，追问"你们团队当时怎么分工的"，讲不出他人贡献的，协作性存疑；二，试用期给约束性任务——别只看他能干什么，看他"不干什么"——守不守规矩、报不报风险；三，算离开成本——这个人手里有多少客户关系、多少未交接的系统？<span class="joke">离职带走的不是技术，是你的相关方地图。</span></p>
+    <p>最后纠个偏，免得有人回家就把技术骨干优化了：<span class="key">不是"不要能人"，是"不要只有能的人"。</span>看看结局：红孩儿后来去了观音那儿，做善财童子，专业对口，干得不错——猛人在合适的位置上照样是猛人。所以选人的公式是：<span class="key">能力 × 可控性 × 岗位匹配</span>。三个乘数，有一个是零，乘出来就是零。</p>
+  </div>
+</div>
+
+<div class="page" data-p="4">
+  <div class="pagemeta"><span class="tag">用人</span><span>第 04 段 / 11 · 课件第4页 · 约 4 分钟</span></div>
+  <div class="title">戴罪立功：一支全靠"PIP"组建的梦之队</div>
+  <div class="script">
+    <p>选完人，看用人。我们把五人的"入职档案"正式念一遍，大家听清楚每个人犯了什么事。<span class="stage">停顿</span>孙悟空：大闹天宫，判刑五百年——绩效改进方案：护送取经，将功赎罪。猪八戒：调戏嫦娥，贬下凡间——观察期：戴罪修行。沙僧：失手打碎琉璃盏——留用察看。白龙马：纵火烧了殿上明珠——基层改造。</p>
+    <p>发现了吗？<span class="key">这是一支全员PIP的队伍。</span>PIP，绩效改进计划——在现代公司里，这个词通常和"劝退流程"连在一起用。但取经团队告诉你PIP的真正用法：<span class="key">不是给问题员工递辞呈，是给想翻盘的人递梯子。</span>看这套设计：目标明确（真经）、退出条件明确（散伙或紧箍咒）、终局激励明确（成佛）——一份完整的绩效改进计划，三要素齐了。</p>
+    <p>给总监的启示：<span class="key">组织里最容易被浪费的资产，是"犯过错但想翻身的人"。</span>他们一旦被点燃，往往比"从没犯过错的人"更拼命——因为取经对别人是工作，对他们，是唯一的出路。<span class="joke">你看悟空的出勤率，比谁都高——他不是敬业，他是无路可退。</span></p>
+    <p>当然，梯子得配扶手：观音给的梯子，全都配了紧箍咒——激励给足、底线给死、退出写明。只给梯子不给扶手的PIP，不是改进计划，是甩锅计划。</p>
+  </div>
+</div>
+
+<div class="page" data-p="5">
+  <div class="pagemeta"><span class="tag o">授权</span><span>第 05 段 / 11 · 课件第5页 · 约 4 分钟</span></div>
+  <div class="title">为什么悟空不能当项目经理？</div>
+  <div class="script">
+    <p>选人用人之后，是授权。有个高频问题：既然悟空最能干，为什么不让悟空当项目经理？——"最能干的当负责人"，这是绝大多数组织的第一反应，也是<span class="key">组织设计里最常见的错误</span>，术语叫能人错配。</p>
+    <p>PM的合法性从哪来？不是能力，是<span class="key">正式授权</span>。唐僧是四人里唯一被大唐皇帝正式授权的——通关文牒，就是任命书。没有任命书的PM什么下场？每次指挥都得先解释"我为什么管你"——项目还没开始，权威先崩了。<span class="stage">停顿</span>你回想一下，是不是见过这种"高级顾问"：能力全场最强，说话没人执行？不是他不配，是他没有那张纸。</p>
+    <p>所以总监有两个规定动作。第一，<span class="key">任命要见文书</span>：发文、公开、写清权限边界——别让你的项目经理拿着"口头任命"去打仗，那仗还没打，先内耗三成。第二，更重要的：<span class="key">能人要给"王座以外的高位"。</span>悟空不当PM，但要封"齐天大圣"——让能人在专业序列上封神，而不是在管理岗位上错配。</p>
+    <p>反面教材天庭已经演过了：给悟空封了个弼马温——能力顶级，岗位九品，结果呢？大闹天宫。<span class="joke">天庭为此付出的整改成本，是十万天兵天将，外加一座五行山的维保费用。</span>能人错配的账，最后都是组织买单。</p>
+  </div>
+</div>
+
+<div class="page" data-p="6">
+  <div class="pagemeta"><span class="tag">治理</span><span>第 06 段 / 11 · 课件第6页 · 约 3.5 分钟</span></div>
+  <div class="title">有后台的妖怪：相关方治理的真相</div>
+  <div class="script">
+    <p>第四个治理动作：相关方治理。先念一条西游妖界的生存规律，大家品一品：<span class="key">有后台的，最后都被领导接走了；没后台的，才是真风险，当场被打死。</span></p>
+    <p>这不是讽刺，这是相关方分析的真相。金角银角，太上老君的人，最后回收；青牛精，坐骑，牵走了；连那条鲤鱼精，都是观音莲花池里的。<span class="stage">停顿</span>所以悟空后来学精了，每遇妖怪先查户口——<span class="key">先看后台，再动手。</span>你项目里最难搞的那个"妖怪"，多半也上边有位——硬打，打的是它背后的山头。</p>
+    <p>组织级的要求就一条：每个项目立项时，附一张<span class="key">相关方地图</span>，四类角色逐一登记：谁点头（支持方）、谁摇头（阻力方）、谁能拍板（决策方）、谁会搅局（那个有隐形否决权的小窗口）。地图挂总监室。<span class="stage">停顿</span>为什么这么较真？因为<span class="key">项目里多数的"意外"，都是"没把某个相关方当回事"的结果</span>——那个审批卡你三天的部门、那个在会上突然说"哦，这个不行"的科室，提前打一次招呼、提前走一次拜会，永远比事后磕头便宜。</p>
+    <p>相关方地图怎么画，五步：第一步，列名字——所有在这个项目上"能说一句话"的人，一个不落；第二步，标态度——用四种颜色标支持、反对、中立、观望；第三步，找连线——谁的意见会影响谁，画出影响力脉络；第四步，圈关键——把"他说不行就不行"的人圈出来，重点经营；第五步，定期更新——<span class="key">相关方地图不是立项画一次就完的挂历，是每月更新的作战地图。</span></p>
+    <p><span class="joke">记住悟空的觉悟：打妖之前先问一句"你是谁的坐骑"——这不叫怂，这叫相关方治理。</span></p>
+  </div>
+</div>
+
+<div class="page" data-p="7">
+  <div class="pagemeta"><span class="tag">边界</span><span>第 07 段 / 11 · 课件第7页 · 约 3.5 分钟</span></div>
+  <div class="title">自建还是外包：核心能力的护城河</div>
+  <div class="script">
+    <p>第五个动作：定组织的外包边界。先看唐僧团队的采购有多规范：供应商选对——请观音，法力强、信誉好、不摆烂；条件谈清——妖归你收，师徒我带走；干完结账——收妖、道谢、不拖欠。<span class="key">请外援，从来不丢人。</span>一路上大半的硬仗，都是"采购"解决的。</p>
+    <p>但注意一个细节：<span class="key">打妖外包了一路，"取经"二字，从没外包过。</span>方向他们自己定，路线他们自己走，真经他们自己取——判断题记好：<b>核心、多变、要快的，自建；稳定、标准化、能验收的，外包。</b><span class="stage">停顿</span>为什么？<span class="key">你把"核"外包了，你就只剩"壳"——而壳，别人也能干。</span></p>
+    <p>给总监一条护城河之问，回去对着自己的部门问一遍：<span class="key">你组织里那件"天天要改"的事，外包了吗？</span>改一次，付一次钱；改十次，能力就永远长在别人身上，到最后你连需求都描述不清了。唐僧要是把"取"也外包出去，他就不再是项目经理了——他是顾问：<span class="joke">只有建议权，没有决定权，和真经的分红更没关系。</span>顾问和PM的区别，各位看看预算表就懂了。</p>
+  </div>
+</div>
+
+<div class="page" data-p="8">
+  <div class="pagemeta"><span class="tag o">收尾</span><span>第 08 段 / 11 · 课件第8页 · 约 5 分钟</span></div>
+  <div class="title">论功行赏：灵山封赏的绩效分配</div>
+  <div class="script">
+    <p>第六个动作，也是多数组织的盲区：<span class="key">项目收尾的绩效分配。</span>取经成功，灵山封赏。我们看这张表：唐僧，旃檀功德佛——佛级；悟空，斗战胜佛——佛级；八戒，净坛使者——菩萨级；沙僧，金身罗汉——菩萨级；白龙马，八部天龙——菩萨级。五个人，三个档位，没有一个并列。</p>
+    <p>然后，全场最经典的一幕来了——颁奖现场，八戒当场质问：<span class="key">"凭啥他们都成佛，只让我当个使者？"</span><span class="stage">停顿</span>各位，这是绩效面谈的活教材，值得逐帧分析。第一，八戒这一问合不合规？合规——分配永远有人不满意，敢当面问，说明组织的沟通通道是开的。第二，看如来怎么答：因你口壮身慵、食肠宽大，凡诸佛事，教汝净坛——管天下供品。翻译过来：<b>人岗匹配，各有其用。</b>而且这理由说得出口、站得住脚——八戒听完，居然还挺满意。<span class="joke">毕竟这个岗位的核心KPI是"吃"，他专业对口。</span></p>
+    <p>组织级结论：<span class="key">分配不可能人人满意，但理由必须说得出口。</span>说不出口的分配，轻则抱怨，重则第二个项目没人跟你干。</p>
+    <p>落到你的组织，绩效分配三条铁律：一，差距要讲得出成因——金额可以保密，规则必须公开；二，贡献要在分配之前讲——先让每个人被看见，再谈数字，顺序反了就是"只见分蛋糕，没人打野怪"；三，"净坛使者"式的安置要配说明——把人放到匹配的岗位上，必须当面讲清楚他的贡献被怎么计算了。<span class="joke">如来那套面谈话术，值得所有HR拿去抄。</span></p>
+    <p>再深一层，八戒之谜还有下半段：他一路喊散伙，为什么十四年没散成？不是觉悟高，是<span class="key">激励绑定</span>——成佛的承诺，是入职那天就锁定的"期权"，走到一半放弃，前面的苦全白吃；退出成本，是回高老庄继续当妖怪。<span class="key">留人靠机制，不靠鸡汤。</span>所以，总监主持收尾复盘的顺序照这个来：<span class="key">先讲贡献，再讲分配，当面回答"为什么"。</span>这个顺序错了，前面做得再好，最后一刻塌房。</p>
+  </div>
+</div>
+
+<div class="page" data-p="9">
+  <div class="pagemeta"><span class="tag o">思辨</span><span>第 09 段 / 11 · 课件第9页 · 约12分钟（含辩论）</span></div>
+  <div class="title">辩论：唐僧是好PM吗？</div>
+  <div class="script">
+    <p>最后一部分，也是压轴环节——一场辩论。<span class="stage">互动</span>辩题：<span class="key">唐僧，是好项目经理吗？</span>现场分正反两方，三分钟准备，各三分钟陈词，然后自由交锋。</p>
+    <p>先发牌。正方三论点：第一，目标如磐——女儿国倾国之富不改其道，这是愿景领导力；第二，授权清晰——打妖归悟空、赶路归白龙马，从不越位抢活；第三，出事领锅——徒弟闯祸他担着，能领锅的PM，比会甩锅的多活十年。</p>
+    <p>反方三论点：第一，<span class="key">只对上负责</span>——有位评论家六神磊磊，专门写过文章讽刺唐僧式的管理："我只对如来负责"——徒弟全在委屈里干活；第二，肉眼凡胎却独揽验收权——三打白骨精，一手证据不采信，误判骨干，战力清零；第三，沟通全靠念咒——<span class="key">以权威代替说服，是最坏的沟通示范。</span></p>
+    <p><span class="stage">互动</span>（辩论交给现场，讲师主持计时，控制在十二分钟内；收场前点题）</p>
+    <p>辩完我补一个治理视角，算是裁判意见——这场辩论真正的价值不在胜负，在<span class="key">容错机制</span>：赶走悟空再请回的代价，是差点全团覆没。组织要给犯错设"止损线"，而不是"一票否决线"。<span class="key">没有容错的组织，人人都学会了瞒报；而瞒报，才是最大的风险登记册。</span><span class="stage">停顿</span>你回去看看：你的团队，报忧的速度，有报喜的一半快吗？</p>
+  </div>
+</div>
+
+<div class="page" data-p="10">
+  <div class="pagemeta"><span class="tag">热点</span><span>第 10 段 / 11 · 课件第10页 · 约 3 分钟</span></div>
+  <div class="title">现实版取经：黑神话·悟空的组织启示</div>
+  <div class="script">
+    <p>讲个现代案例收个尾——现实版取经项目：《黑神话·悟空》。开发周期约<span class="key">七年</span>；团队约<span class="key">一百四十人</span>；核心成员平均合作超过<span class="key">十年</span>；上线即爆，全球销量破千万。3A游戏的时长、成本、协作复杂度，跟取经是一个量级的——而且它没有神仙护航。</p>
+    <p>它给总监的启示三条。<b>第一，初心驱动：</b>2018年，团队从旧商业计划书里翻出"做国产单机"的初心，重拾梦想——愿景不是墙上的标语，是七年不改道的锚。<b>第二，长期主义的组织配套：</b>核心稳定、专业序列清晰、对品质偏执——长周期项目能活到交付，靠的是这些人七年没有散。<b>第三，总监的真正职责：</b><span class="key">替组织挡住短期诱惑。</span>七年里，市场上短线赚钱的机会天天有，接外包、做手游、快变现——是他们没松手，才有了后来的爆发。</p>
+    <p>最后送大家一句制作人冯骥的原话：<span class="key">"踏上取经路，比抵达灵山更重要。"</span><span class="stage">停顿</span>这句话，和咱们这套课程结尾那句"敢问路在何方？路在脚下"——是同一句话的两个写法。东方项目的浪漫，从来不是到达，是走。</p>
+  </div>
+</div>
+
+<div class="page" data-p="11">
+  <div class="pagemeta"><span class="tag o">收束</span><span>第 11 段 / 11 · 课件第11页 · 约 3 分钟</span></div>
+  <div class="title">收束：四级集齐，组织有了取经体系</div>
+  <div class="script">
+    <p>时间到，我们收尾了。回顾这一路：L1，给组织建立了<span class="key">共同语言</span>——全员会说项目话；L2，建立了<span class="key">工具层</span>——记录跟催台账化；L3，建立了<span class="key">执行层</span>——敢说不、敢打回的PM队伍；L4，就是今天——<span class="key">治理层</span>：选人、授权、画界、封赏、容错。</p>
+    <p>四级集齐，你的组织就有了自己的"取经体系"：新人有起点，骨干有阶梯，PM有武器，总监有结构。这套体系最好的地方在于——它不再依赖某个人特别英雄。<span class="key">平凡的人，在结构里，做出不平凡的事。</span></p>
+    <p>结业作业，也是最后一枚通关文牒，两件事：第一，<span class="key">主持一次真实项目的收尾复盘会</span>——按论功行赏的框架：先讲贡献、再讲分配、当面回答"为什么"；第二，<span class="key">输出一份《团队封赏与改进方案》</span>——含人岗匹配说明，含至少一名"想翻身的人"的使用计划。交导师组答辩，通过即加盖L4通关印，<span class="key">四级集齐，授予"取经人"认证。</span></p>
+    <p>最后一句话，送给每一位走到这里的取经人。<span class="stage">停顿</span>项目不是打妖怪，是交付真经；管理不是管人，是搭一条让平凡人做成不平凡事的路。<span class="key">敢问路在何方？——路在脚下。</span>谢谢大家。咱们，灵山再见。</p>
+  </div>
+</div>
+
+</div>
+
+<div id="nav">
+  <div class="nav-row">
+    <div class="nav-btn" id="btnPrev">‹</div>
+    <div class="pager" id="pager"></div>
+    <div class="nav-btn" id="btnNext">›</div>
+  </div>
+  <div class="reader">
+    <button id="rbPlay" class="rb-btn primary">▶ 朗读</button>
+    <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button>
+    <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button>
+    <select id="rbRate" class="rb-rate" title="语速">
+      <option value="0.85">0.85×</option>
+      <option value="1">1.0×</option>
+      <option value="1.1" selected>1.1×</option>
+      <option value="1.3">1.3×</option>
+    </select>
+  </div>
+  <div class="reader-info">
+    <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span>
+    <span id="rbPos">11 段</span>
+  </div>
+  <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 11 段</div>
+</div>
+
+<script>
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var pager = document.getElementById('pager');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var cur = 0;
+  var total = pages.length;
+  pages.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.className = 'pnum'; b.textContent = i + 1;
+    b.addEventListener('click', function(){ go(i); });
+    pager.appendChild(b);
+  });
+  var nums = pager.querySelectorAll('.pnum');
+  function go(i){
+    if(i < 0 || i >= total) return;
+    pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i;
+    nums.forEach(function(n, j){ n.classList.toggle('on', j === i); });
+    btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1);
+    var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block: 'nearest', inline: 'center'}); }
+    pages[cur].scrollTop = 0;
+    var hint = document.getElementById('hint');
+    if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; }
+  }
+  btnPrev.addEventListener('click', function(){ go(cur - 1); });
+  btnNext.addEventListener('click', function(){ go(cur + 1); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if(e.key === 'Home') { go(0); }
+    else if(e.key === 'End') { go(total - 1); }
+  });
+  var sx = 0, sy = 0, sw = false;
+  document.addEventListener('touchstart', function(e){
+    var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true;
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!sw) return; sw = false;
+    var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
+  }, {passive:true});
+  var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
+  window.SEGS = {"segs": [{"start": 0.0,"end": 48.7},{"start": 51.1,"end": 107.96},{"start": 109.56,"end": 238.34},{"start": 238.84,"end": 322.31},{"start": 323.91,"end": 407.93},{"start": 409.53,"end": 506.95},{"start": 508.55,"end": 580.72},{"start": 582.32,"end": 718.04},{"start": 719.64,"end": 800.57},{"start": 802.97,"end": 876.24},{"start": 877.84,"end": 957.66}],"total": 957.66};
+  var audio = null, reading = false, paused = false, ridx = 0;
+  function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; }
+  function rSet(){
+    var s = window.SEGS;
+    rPlay.disabled = reading && !paused;
+    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
+    rPause.disabled = !reading || paused;
+    rStop.disabled = !reading;
+    var pct = reading ? Math.min(100, Math.round((audio ? audio.currentTime : 0) / s.total * 100)) : 0;
+    rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）';
+    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
+  }
+  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
+  function ensureAudio(){
+    if(!audio){
+      audio = new Audio('audio/c4/full.mp3');
+      audio.preload = 'auto';
+      audio.onended = function(){ rFinish(); };
+      audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; };
+      audio.ontimeupdate = function(){
+        if(!reading || paused) return;
+        var k = segIndex(audio.currentTime);
+        if(k !== ridx){ ridx = k; rHl(k); go(k); }
+        rSet();
+      };
+    }
+    audio.playbackRate = parseFloat(rRate.value);
+    return audio;
+  }
+  function rStart(){
+    if(paused && audio){ paused = false; audio.play(); rSet(); return; }
+    if(reading) return;
+    var a = ensureAudio();
+    reading = true; paused = false;
+    ridx = segIndex(a.currentTime);
+    a.play().catch(function(){});
+    rSet();
+  }
+  function rPause(){
+    if(!reading || paused) return;
+    paused = true;
+    if(audio) audio.pause();
+    rSet();
+  }
+  function rStop(){
+    if(audio){ audio.pause(); audio.currentTime = 0; }
+    reading = false; paused = false; ridx = 0;
+    rHl(-1); rSet();
+  }
+  function rFinish(){
+    if(audio) audio.pause();
+    reading = false; paused = false; ridx = 0;
+    rHl(-1); rSet();
+  }
+  rPlay.addEventListener('click', rStart);
+  rPause.addEventListener('click', rPause);
+  rStop.addEventListener('click', rStop);
+  rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); });
+  window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); });
+  rSet();
+
+  go(0);
 })();
 </script>
 </body>
