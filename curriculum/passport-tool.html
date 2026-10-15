@@ -347,9 +347,18 @@
   }
   window.addEventListener('resize',fitZoom);
 
-  /* 认证日期：干支纪年 + 中文月（如"丙午年十月"，配仿古文牒形制） */
+  /* 认证日期：严格干支纪年 + 严格农历月（含立春边界、闰月，如"丙午年闰六月"）；
+     用 Intl 中国农历日历，跨浏览器一致，失败时回退公历干支+中文公历月 */
   function ganzhiDate(){
-    var d=new Date(), y=d.getFullYear();
+    var d=new Date();
+    if(window.Intl && typeof Intl.DateTimeFormat==='function'){
+      try{
+        var s=new Intl.DateTimeFormat('zh-CN-u-ca-chinese',{year:'numeric',month:'long'}).format(d);
+        var g=s.match(/([甲乙丙丁戊己庚辛壬癸][子丑寅卯辰巳午未申酉戌亥]年)/);
+        if(g){ return g[0]+s.slice(s.indexOf(g[0])+g[0].length); }
+      }catch(e){}
+    }
+    var y=d.getFullYear();
     var gan=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
     var zhi=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
     var mm=['','一','二','三','四','五','六','七','八','九','十','十一','十二'];
