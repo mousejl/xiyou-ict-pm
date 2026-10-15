@@ -36,8 +36,8 @@
   .body .v{font-weight:700;color:var(--gold-d);letter-spacing:1px}
   .body .v.nm{font-size:19px}
   .sealzone{display:flex;gap:18px;justify-content:center;align-items:center;margin:26px 0;flex-wrap:wrap}
-  .sealzone img{width:92px;height:92px}
-  .sealzone .blank{width:92px;height:92px;border:1.5px dashed rgba(138,106,42,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b0a27c;font-size:12px}
+  .sealzone img{width:130px;height:130px}
+  .sealzone .blank{width:130px;height:130px;border:1.5px dashed rgba(138,106,42,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b0a27c;font-size:13px}
   .meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:14px;color:var(--sub)}
   .meta b{color:var(--gold-d);letter-spacing:1px}
   .sign{margin-top:26px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;font-size:13.5px;color:var(--sub)}
@@ -136,7 +136,7 @@
       im.alt = names[i]+'印';
       im.src = 'seal/seal-l'+i+'.svg'; // 先显示 SVG，转换成功后替换为 PNG
       zone.appendChild(im);
-      svgToPng('seal/seal-l'+i+'.svg', 184).then(function(dataUrl){ im.src = dataUrl; }).catch(function(){});
+      svgToPng('seal/seal-l'+i+'.svg', 260).then(function(dataUrl){ im.src = dataUrl; }).catch(function(){});
     });
   } else {
     var b = document.createElement('div'); b.className='blank'; b.textContent='加盖通关印';
