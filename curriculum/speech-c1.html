@@ -4,307 +4,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>课时一 · 认知篇 口播稿｜取经计划</title>
-<style>
-  :root{
-    --primary:#0066CC; --primary-dark:#004080; --accent-orange:#FF6600;
-    --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff;
-    --text:#333; --text-light:#888;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
-  .header{background:linear-gradient(135deg,#0066CC,#004080);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10}
-  .header h1{font-size:16px;font-weight:700;letter-spacing:2px}
-  .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
-  .qrchip{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#fff;border-radius:8px;padding:4px;width:56px;box-shadow:0 3px 12px rgba(0,0,0,.25);text-align:center}
-  .qrchip img{width:100%;display:block}
-  .qrchip div{font-size:8px;color:#666;letter-spacing:.05em;padding-top:3px}
-  .colorbar{display:flex;height:4px}
-  .colorbar div{flex:1}
-  #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden}
-  .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
-  .page.active{display:block;opacity:1}
-  .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-  .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
-  .pagemeta .tag.g{background:var(--accent-green)}
-  .pagemeta .tag.o{background:var(--accent-orange)}
-  .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4}
-  .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)}
-  .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px}
-  .page .script p:last-child{margin-bottom:0}
-  .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle}
-  .page .script .stage.o{background:var(--accent-orange)}
-  .page .script .key{color:var(--primary);font-weight:700}
-  .page .script .joke{color:#9a3b0e;font-weight:600}
-  #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
-  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
-  .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none}
-  .nav-btn:active{background:var(--primary);color:#fff}
-  .nav-btn.disabled{opacity:.3;pointer-events:none}
-  .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .pager::-webkit-scrollbar{display:none}
-  .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer}
-  .pnum.on{background:var(--primary);color:#fff;font-weight:700}
-  .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
-  .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap}
-  .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600}
-  .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
-  .rb-btn:disabled{opacity:.4;pointer-events:none}
-  .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)}
-  .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
-  .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle}
-  .reader-info .dot.on{background:var(--accent-green)}
+<style> :root{ --primary:#0066CC; --primary-dark:#004080; --accent-orange:#FF6600; --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff; --text:#333; --text-light:#888; }
+  *{box-sizing:border-box;margin:0;padding:0} html,body{height:100%} body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent} .header{background:linear-gradient(135deg,#0066CC,#004080);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10} .header h1{font-size:16px;font-weight:700;letter-spacing:2px} .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px} .qrchip{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#fff;border-radius:8px;padding:4px;width:56px;box-shadow:0 3px 12px rgba(0,0,0,.25);text-align:center} .qrchip img{width:100%;display:block} .qrchip div{font-size:8px;color:#666;letter-spacing:.05em;padding-top:3px} .colorbar{display:flex;height:4px} .colorbar div{flex:1} #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden} .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease} .page.active{display:block;opacity:1} .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px} .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px} .pagemeta .tag.g{background:var(--accent-green)} .pagemeta .tag.o{background:var(--accent-orange)} .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4} .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)} .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px} .page .script p:last-child{margin-bottom:0} .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle} .page .script .stage.o{background:var(--accent-orange)} .page .script .key{color:var(--primary);font-weight:700} .page .script .joke{color:#9a3b0e;font-weight:600} #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))} .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto} .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none} .nav-btn:active{background:var(--primary);color:#fff} .nav-btn.disabled{opacity:.3;pointer-events:none} .pager{flex:1;display:flex;gap:5px;overflow-x:auto;justify-content:center;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch} .pager::-webkit-scrollbar{display:none} .pnum{flex:0 0 auto;min-width:30px;height:34px;padding:0 6px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer} .pnum.on{background:var(--primary);color:#fff;font-weight:700} .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px} .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap} .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600} .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)} .rb-btn:disabled{opacity:.4;pointer-events:none} .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)} .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px} .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle} .reader-info .dot.on{background:var(--accent-green)}
 </style>
 </head>
-<body>
-
-<div class="header">
-  <h1>口播稿 · 课时一 认知篇</h1>
-  <div class="sub">取经计划 · L1 新入职员工 ｜ 对应课件 c1.html · 9 段 ｜ 45分钟课时 = 讲授约25分钟 + 互动自测约15分钟 + 问答缓冲约5分钟 ｜ 全稿约5000字</div>
+<body> <div class="header"> <h1>口播稿 · 课时一 认知篇</h1> <div class="sub">取经计划 · L1 新入职员工 ｜ 对应课件 c1.html · 9 段 ｜ 全稿约5000字</div>
 <div class="qrchip"><img src="images-qr-c1.svg" alt="本课课件二维码"><div>学员扫码看课件</div></div>
 </div>
-<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
-
-<div id="pages">
-
-<div class="page" data-p="1">
-  <div class="pagemeta"><span class="tag">开场</span><span>第 01 段 / 9 · 课件第1页 · 约 3 分钟</span></div>
-  <div class="title">开场｜欢迎来到取经计划</div>
-  <div class="script">
-    <p>各位新同事，大家好！欢迎来到"取经计划"——项目管理四级训练营的第一课。<span class="stage">互动</span>（等大家坐定，扫一圈全场）在正式开始之前，我想先做个小调查：听说过"里程碑"这个词的，请举个手？<span class="stage">停顿</span>（环视）好，手不多，正常。那听说过"需求池"的？<span class="joke">更少了——很好，这堂课就是为你们设计的。</span></p>
-    <p>我先说一个大家很快就会遇到的真实场景：入职第二周，你被拉进一个项目群，群名叫"XX项目攻坚组"。周一早上九点，群里弹出一条消息："@新同事 把上周的里程碑进展同步一下，十点评审要用。"<span class="stage">停顿</span>我猜此刻你心里的声音是：里程碑是什么？进展去哪看？同步给谁？——别慌，一个月后你会答得飞快，但今天，我要让你当场就懂。</p>
-    <p>这一课叫"认知篇"，主题就一句话：<span class="key">入个门——取经即项目。</span>四十五分钟之后，你会听懂项目管理的常用语言，认识一支历史上最了不起的项目团队，还会知道，你自己在这支队伍里，从哪个位置起步。</p>
-    <p>这堂课不需要任何基础——<span class="key">带耳朵来就行</span>。我们唯一的口号是：听完这一课，开会不再懵。现在，上路。</p>
-  </div>
-</div>
-
-<div class="page" data-p="2">
-  <div class="pagemeta"><span class="tag g">破冰</span><span>第 02 段 / 9 · 课件第2页 · 约 4 分钟</span></div>
-  <div class="title">项目经理到底是干啥的？</div>
-  <div class="script">
-    <p>我先问一个问题：你觉得项目经理是干啥的？<span class="stage">互动</span>（请一两位新同事随口说，通常是"管人的""催进度的"）听到最多的答案是："哦，就是那个天天催进度的？"<span class="key">这话只对了一半。</span></p>
-    <p>另一半真相是：他不光催进度——还催需求、催文档、催测试、催验收，催你那个躺在待办清单里从来没动过的"事项"。<span class="stage">停顿</span>有人给项目经理总结过三件事：<span class="key">开会、挨骂、写PPT。</span>开会是确认大家都没在干活；挨骂是替大家背锅；写PPT呢，是替这场锅剪个彩。<span class="joke">你们以后会认出这类PPT：封面写着"复盘"，正文全是"持续优化"。</span></p>
-    <p>但你千万别觉得这是个惨差事。我要讲一个重要事实：项目经理是全公司最"真实"的岗位——因为他手里有<span class="key">验收权</span>。什么叫验收权？就是项目做完了，评价"这事到底成没成"的人，是他。<span class="key">成了叫结项，不成叫延期，再不成叫复盘。</span><span class="joke">复来复去，人就要退休了。</span></p>
-    <p>给你一个更真实的画面：很多项目进入后期，会出现一种状态，叫"周报驱动"——周报比代码长，代码比功能长，功能比真经短。<span class="stage">停顿</span>什么意思？文档越来越厚，能用的东西越来越少，但汇报越来越漂亮。你别笑，这是行业通病，以后你会亲眼见到。</p>
-    <p>再给新同学打个预防针，说三个"新人三大错觉"。错觉一："项目是技术活，我不懂技术插不上手。"——错，项目里六成的工作是沟通、记录和协调，正是你的主场。错觉二："等安排吧，会有人告诉我做什么。"——错，取经团里没有等安排的人，唐僧只说"往西"，路要自己找。错觉三："我先把活干了，干了自然有人看见。"——大错，白龙马驮了十四年，靠的是踩得稳，不是等你想起它。<span class="key">新人正确的姿势：主动领活、主动留痕、主动汇报。</span></p>
-    <p>请记住今天的第一句话，也是理解整个课程的钥匙：<span class="key">项目经理，不是打妖怪的人；他是保证打妖怪的人，朝着对的方向打的人。</span>这句话现在听着有点绕，四十五分钟后你再回来品，你会点头。</p>
-  </div>
-</div>
-
-<div class="page" data-p="3">
-  <div class="pagemeta"><span class="tag">概念</span><span>第 03 段 / 9 · 课件第3页 · 约 4 分钟</span></div>
-  <div class="title">什么是"项目"？</div>
-  <div class="script">
-    <p>好，进入正题。项目管理的"圣经"叫PMBOK，它对项目的定义只有两个关键词：<span class="key">独特的成果，临时的过程。</span>翻译成人话：第一，这件事做完就交卷了，产出的东西是独一无二的；第二，它有开始、有结束，不是天天重复的日常。</p>
-    <p>我们做几个小测试。高考，是项目吗？<span class="stage">互动</span>（停两秒看反应）是——独特，你这辈子就考这么一回；临时，考完就散。婚礼呢？是，道理一样：独特的一次性成果，办完收场。那每天做饭呢？<span class="stage">停顿</span>每天做饭不是项目，是日常运维——<span class="joke">把做饭做成项目的人，活得都挺累的：每天立项，每天复盘，每天烧糊。</span></p>
-    <p>再来两个现场判断题。<span class="stage">互动</span>（快速问答）第一题：家里装修，算项目吗？——算，独特成果是新房子，临时，装完就结束。第二题：公司每月出财务月报，算项目吗？<span class="stage">停顿</span>——不算，它月月重复、永不结束，那是运营。但注意一个细节："上线第一套月报系统"是项目，"以后每月跑它"是运营。<b>同一件事，第一次做叫项目，重复做就叫运营。</b></p>
-    <p>加练一题：<span class="stage">互动</span>"给客户写年度总结报告"，算项目吗？——看情况：第一次为客户定制年度分析框架，独特加临时，算；框架定型后每年套用生成，是运营。很多工作的分界线就在这：第一次是创造，从第二次起是复制。<span class="joke">所以涨薪的机会都藏在"第一次"里——第一个把重复做成模板的人，才是组织里的取经人。</span></p>
-    <p>为什么要把这个界限分得这么清？因为两件事的考核方式完全不同：<span class="key">运营看稳定，项目看交付。</span>运营的KPI是别出错，项目的KPI是按期把新东西做出来。你要是用管运营的方式管项目，项目会被管死；反过来，用管项目的方式管日常，团队会被折腾死。</p>
-    <p>取经是什么？教科书级的项目：独特的成果——三藏真经，全天下只此一套；临时性——十四年走完即结束，不会循环。至于这个项目有多离谱，我们看下一页。</p>
-  </div>
-</div>
-
-<div class="page" data-p="4">
-  <div class="pagemeta"><span class="tag">硬指标</span><span>第 04 段 / 9 · 课件第4页 · 约 3 分钟</span></div>
-  <div class="title">取经项目硬指标：一组数字看懂</div>
-  <div class="script">
-    <p>现在，我们用公司立项的格式，把取经项目的概况念一遍。总里程，<span class="key">十万八千里</span>——横贯多国的跨地域项目。工期，唐僧当初承诺三年，实际走了<span class="key">十四年</span>——超期接近五倍，这个账谁没算明白，我们第三课专门算。风险事件，登记在册的<span class="key">八十一难</span>——每一难都有完整记录、应对过程和结果，这是一份从启动跟到收尾的风险台账。团队，<span class="key">五人</span>，含一匹马。预算，<span class="key">零元</span>——全部经费，靠化缘。</p>
-    <p><span class="stage">互动</span>我问大家：这么一个项目——跨地域、长周期、高风险、零预算，团队里还有两个前科人员、一匹没有编制的马——放在你们公司的立项评审会上，能过吗？<span class="stage">停顿</span><span class="joke">过不了。评审委员会主任会当场表示：贫僧建议，不予受理。</span></p>
-    <p>但它做成了。为什么？靠的不是法术，是一套完整的项目管理打法：目标锁定、授权清晰、风险登记、外援采购、验收把关——一环不少。<span class="key">这套打法，就是这四级课程要拆开揉碎交给你的东西。</span>今天你只需要记住一句话：项目再难，难不过取经；取经能成，你的项目也能成。</p>
-  </div>
-</div>
-
-<div class="page" data-p="5">
-  <div class="pagemeta"><span class="tag">对照表</span><span>第 05 段 / 9 · 课件第5页 · 约 5 分钟</span></div>
-  <div class="title">西游对照表：一本书的项目黑话</div>
-  <div class="script">
-    <p>这一页是今天的核心，请大家打起精神。<span class="stage">停顿</span>为什么用《西游记》讲项目管理？因为它是中国人的集体记忆——你不用背概念，你只需要"翻译"。我现在把最重要的六个词过一遍，每一个都请你在心里配上画面。</p>
-    <p>第一个词：<span class="key">里程碑。</span>八十一难，就是里程碑——每过一难，就是完成一个标志性节点。唐僧心里数着呢：这是第几难了，离八十一还差多少。<span class="joke">相当于每打完一个妖怪都要发一条周报：本周期完成降妖一项，累计进度十九比八十一。</span>第二个词：<span class="key">交付物。</span>真经，就是交付物——项目最终要交出去的东西。验收的时候，看的不是你路上多辛苦，看的是它：5048卷，一卷不能少。</p>
-    <p>第三个词：<span class="key">项目章程。</span>通关文牒为什么厉害？它一张纸写清了三件事：为什么办——大唐缺大乘真经；谁来办——御弟三藏，注意，是被正式授权的；资源怎么给——文牒、金钵、俩随从。<span class="stage">停顿</span>所以唐僧每到一个国家，第一件事就是掏文牒盖章——那不是盖章瘾，那是过"立项关口"的合法手续。<span class="joke">没有文牒试试？国王会把你当流窜僧人处理。</span></p>
-    <p>第四个词：<span class="key">零预算资源整合。</span>化缘，就是没钱也要把事办成——钵盂在身，走到哪化到哪，全程现金流为零，但团队没有一顿断粮。第五个词：<span class="key">规则共识。</span>紧箍咒不是谁比谁狠，是团队需要一条谁都得守的底线——哪怕是团队里最能打的人。<span class="stage">停顿</span>第六个词先露个脸：<span class="key">相关方。</span>满天神佛都是相关方——有的要供奉，有的给支援，有的关键时刻点头，有的全程看不惯你。这件事第四课会专门讲。</p>
-    <p><span class="stage">互动</span>现在做个小验收：下周一你在会上听到"这个里程碑要延期"，你脑子里应该浮现什么画面？<span class="stage">停顿</span>对——一难没过掉。<span class="key">把它们翻译成西游，你全都认识。</span>这就是今天给你的第一件武器：一套项目共同语言。</p>
-  </div>
-</div>
-
-<div class="page" data-p="6">
-  <div class="pagemeta"><span class="tag g">角色</span><span>第 06 段 / 9 · 课件第6页 · 约 5 分钟</span></div>
-  <div class="title">师徒五人 = 一个标准项目组</div>
-  <div class="script">
-    <p>接下来认识团队。<span class="stage">互动</span>先聊聊：取经团五个成员，你最喜欢谁？<span class="stage">停顿</span>（请两三人回答，通常是悟空，偶尔有人选八戒）好，接下来我讲这五个人，你可以对照一下自己的答案——听完你可能想换。</p>
-    <p><span class="key">唐僧，掌舵人。</span>不能打、不能飞、一被抓就喊"悟空救我"——但他是唯一知道终点在哪、并且十四年没有改变过方向的人。<span class="stage">停顿</span>他还干了一件很多人忽略的事：团队闯了祸，他领罚；徒弟被冤枉，他去跟上级解释。<b>能领锅的领导，比会甩锅的领导金贵。</b></p>
-    <p><span class="key">孙悟空，技术担当。</span>硬仗全靠他，出事第一个上。<span class="stage">停顿</span>但我提醒你注意一个扎心的规律：<b>他没事的时候，第一个挨骂。</b>三打白骨精，他明明是对的，紧箍咒念的是他，开除通知发的也是他。<span class="joke">所以技术的尽头，是学会汇报。</span>这个话题，等你升到L3我们细说。</p>
-    <p><span class="key">猪八戒，协调担当。</span>全场最容易被低估的男人。你说他懒，没错；说他动不动想散伙，也没错。但你想过没有——大师兄被开除、师父被变成老虎、团队濒临解散的时候，是谁去的花果山？<span class="key">是他。</span>而且他是用"激将法加怀柔术"把人请回来的：<span class="joke">一边说"那妖怪骂你是弼马温"，一边说"哥哥是有仁有义的君子"。</span>这叫危机公关。</p>
-    <p><span class="key">沙僧，执行担当。</span>话不多，但没有一次掉链子。注意一个细节：通关文牒——这个项目的"营业执照"——是放在他挑的担子里的。<b>把最重要的资产交给最稳的人，这是团队最深的信任。</b><span class="key">白龙马，后勤担当。</span>不出声、不抢戏，驮着整个项目跑完全程——它要是罢工一天，全团瘫痪。</p>
-    <p>给你一个画面感很强的反面案例：如果一支团队全是悟空——五个技术大神，个个能单挑妖怪。第一次技术评审，五个方案，五星连珠；第二次，谁也不服谁的架构，各写各的；第三次，组长还在解释"我为什么管你们"。<span class="joke">取经第三个月，团队解散，各自回山头创业——花果山、高老庄、流沙河，各占一个赛道。</span>如果全是唐僧呢？原则讨论了三年，还没走出长安城。</p>
-    <p>现在敲黑板，讲今天的反常识：<span class="key">全是孙悟空的团队，会因为谁都不服谁而内耗解散；全是唐僧的团队，会因为只会讲原则而原地打转；全是八戒的团队，半途而废；全是沙僧的团队，稳是稳，永远破不了局。</span><span class="stage">停顿</span>完美团队的公式只有一条：<span class="key">角色互补，加目标一致。</span>五种角色，没有高低贵贱，只有缺一不可。</p>
-  </div>
-</div>
-
-<div class="page" data-p="7">
-  <div class="pagemeta"><span class="tag o">新人视角</span><span>第 07 段 / 9 · 课件第7页 · 约 4 分钟</span></div>
-  <div class="title">新人起步：从沙僧和白龙马做起，不丢人</div>
-  <div class="script">
-    <p>好，问题来了：你，刚入职的你，在团队里大概是什么角色？<span class="stage">停顿</span>我直接说答案：多半是<span class="key">沙僧</span>——资料整理、数据核对、文档排版、会议记录。这些活儿看着不起眼，但你想想上一页说的：交付物是靠谁一笔一划攒出来的？<span class="key">靠谱，是新人的第一张名片。</span></p>
-    <p>你甚至可能暂时是<span class="key">白龙马</span>——默默无闻地驮着项目跑，功劳簿上看不见你的名字。没关系，我送你一句话：<span class="key">稳定的输出，就是你的不可替代性。</span>白龙马在全书里几乎没有台词，但取经能走到灵山，它一步都没有少走。</p>
-    <p>但是——沉默不等于隐身。给大家三条"被看见"的小贴士，每一条都是血泪经验。第一条，<b>关键节点留痕</b>。举个小例子：口头答应的事，事后补一封确认邮件："照今天的沟通，我明天下午三点前把测试数据发您，如有出入请指出。"就这一封邮件，将来对方翻脸的时候，能救你一命。<span class="joke">别问我怎么知道的。</span>第二条，<b>稳定交付</b>：答应的事，截止之前主动给结果，永远不要让人追着你问——别人交给你的事不用追，这十个字就是你的口碑。第三条，<b>节点汇报</b>：不要等做完了才说，做到一半、遇到卡点，及时同步——领导不怕看到问题，怕的是最后一个知道问题。</p>
-    <p>白龙马想被看见，靠的不是嘶鸣，是每一步都踩得稳。<span class="stage">停顿</span><span class="joke">当然，该嘶鸣的时候也要嘶鸣——比如加班加到没有草吃的时候，那不但要嘶鸣，还要抄送给马夫。</span></p>
-  </div>
-</div>
-
-<div class="page" data-p="8">
-  <div class="pagemeta"><span class="tag g">互动</span><span>第 08 段 / 9 · 课件第8页 · 约12分钟（含现场自测8-10分钟）</span></div>
-  <div class="title">互动：测测你是取经团队里的谁？</div>
-  <div class="script">
-    <p>接下来是今天最好玩的环节。<span class="stage">互动</span>请大家拿出手机，打开微信"扫一扫"——扫屏幕上这个二维码（课件第7页 / 入口页卡片上都有），直接进入"角色自测"。一共十道情境题——都是真实项目场景，比如"项目验收前夜你最关注什么""被甩锅了你的第一反应是什么"。五分钟做完，马上出结果。</p>
-    <p>测完之后，你会拿到三样东西：你的角色标签、一份角色说明书、还有一条专门给你的起步建议。<span class="stage">互动</span>（等大家陆续测完，请两三位分享）来，这位"孙悟空"，说说你哪道题选了什么？——很好，你看，选"交给我来搞定"的，基本都是技术担当体质。<span class="stage">停顿</span>有没有测出八戒的？别不好意思，举个手——恭喜，你们是团队里未来的外交担当，大师兄被开除那天，就靠你了。</p>
-    <p>我提醒两点。第一，<span class="key">测出来的不是命运，是倾向。</span>角色是可以成长的：这次项目你是沙僧，下次可能就是八戒，五年后，也许你就是那个掌舵的人。第二，测出白龙马的同学，请回到上一页那句话：稳定的输出，就是不可替代性——这不是安慰，这是策略。<span class="stage">互动</span>（组织分享与讨论，总时长控制在十二分钟内，注意留出小结时间）</p>
-  </div>
-</div>
-
-<div class="page" data-p="9">
-  <div class="pagemeta"><span class="tag o">小结</span><span>第 09 段 / 9 · 课件第9页 · 约 3 分钟</span></div>
-  <div class="title">小结与通关文牒</div>
-  <div class="script">
-    <p>四十五分钟快到了。今天你只需要带走三个词。<span class="stage">停顿</span>第一个词，<span class="key">目标</span>——项目为独特的成果而存在，目标丢了，干得越多偏得越远。第二个词，<span class="key">分工</span>——五个人五个角色，没有谁是多余的，也没有谁能包打天下。第三个词，<span class="key">靠谱</span>——件件有着落，事事有回音，这是新人最贵的品质。</p>
-    <p>然后是课后作业。《西游记》里，唐僧每过一国，都要在通关文牒上加盖一印——从今天起，你的四级学习也有一本文牒。<b>作业是：观察你所在的团队，或者你最近参与的项目，画一张"西游对照图"</b>：谁是唐僧？谁是悟空？谁是那个默默驮货的白龙马？你自己，现在站在哪个位置？画完再回答一个加分题：你觉得你们团队，还缺哪个角色？</p>
-    <p>交给你的带教人或讲师验收，就加盖L1通关印。<span class="key">四级集齐，你就是认证的"取经人"。</span><span class="stage">停顿</span>下一课，L2"上工具：跟着文牒走"——你将学会把今天听懂的东西，一条条记下来、盯起来：纪要怎么写、台账怎么记。我听到有人叹气了——<span class="joke">放心，下一课我教你怎么写出让领导舍不得删的会议纪要。</span></p>
-    <p>最后送大家一句话作为这堂课的收尾：入职头一年，别急着当齐天大圣——先把脚下这条路走稳。<span class="key">所有的师父，都是从沙僧做起的。</span></p>
-    <p>我是你们的讲师。下课，上路。</p>
-  </div>
-</div>
-
-</div>
-
-<div id="nav">
-  <div class="nav-row">
-    <div class="nav-btn" id="btnPrev">‹</div>
-    <div class="pager" id="pager"></div>
-    <div class="nav-btn" id="btnNext">›</div>
-  </div>
-  <div class="reader">
-    <button id="rbPlay" class="rb-btn primary">▶ 朗读</button>
-    <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button>
-    <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button>
-    <select id="rbRate" class="rb-rate" title="语速">
-      <option value="0.85">0.85×</option>
-      <option value="1">1.0×</option>
-      <option value="1.1" selected>1.1×</option>
-      <option value="1.3">1.3×</option>
-    </select>
-  </div>
-  <div class="reader-info">
-    <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span>
-    <span id="rbPos">9 段</span>
-  </div>
-  <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 9 段</div>
-</div>
-
-<script>
-(function(){
-  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
-  var pager = document.getElementById('pager');
-  var btnPrev = document.getElementById('btnPrev');
-  var btnNext = document.getElementById('btnNext');
-  var cur = 0;
-  var total = pages.length;
-  pages.forEach(function(p, i){
-    var b = document.createElement('button');
-    b.className = 'pnum'; b.textContent = i + 1;
-    b.addEventListener('click', function(){ go(i); });
-    pager.appendChild(b);
-  });
-  var nums = pager.querySelectorAll('.pnum');
-  function go(i){
-    if(i < 0 || i >= total) return;
-    pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i;
-    nums.forEach(function(n, j){ n.classList.toggle('on', j === i); });
-    btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1);
-    var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block: 'nearest', inline: 'center'}); }
-    pages[cur].scrollTop = 0;
-    var hint = document.getElementById('hint');
-    if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; }
-  }
-  btnPrev.addEventListener('click', function(){ go(cur - 1); });
-  btnNext.addEventListener('click', function(){ go(cur + 1); });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
-    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
-    else if(e.key === 'Home') { go(0); }
-    else if(e.key === 'End') { go(total - 1); }
-  });
-  var sx = 0, sy = 0, sw = false;
-  document.addEventListener('touchstart', function(e){
-    var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true;
-  }, {passive:true});
-  document.addEventListener('touchend', function(e){
-    if(!sw) return; sw = false;
-    var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy;
-    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); }
-  }, {passive:true});
-  var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
-  window.SEGS = {"segs": [{"start": 0.0,"end": 72.07},{"start": 74.47,"end": 204.96},{"start": 207.36,"end": 338.66},{"start": 341.06,"end": 415.58},{"start": 417.98,"end": 542.54},{"start": 544.94,"end": 705.04},{"start": 707.44,"end": 800.49},{"start": 802.09,"end": 866.19},{"start": 868.59,"end": 956.09}],"total": 956.09};
-  var audio = null, reading = false, paused = false, ridx = 0;
-  function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; }
-  function rSet(){
-    var s = window.SEGS;
-    rPlay.disabled = reading && !paused;
-    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
-    rPause.disabled = !reading || paused;
-    rStop.disabled = !reading;
-    var pct = reading ? Math.min(100, Math.round((audio ? audio.currentTime : 0) / s.total * 100)) : 0;
-    rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）';
-    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
-  }
-  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
-  function ensureAudio(){
-    if(!audio){
-      audio = new Audio('audio/c1/full.mp3');
-      audio.preload = 'auto';
-      audio.onended = function(){ rFinish(); };
-      audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; };
-      audio.ontimeupdate = function(){
-        if(!reading || paused) return;
-        var k = segIndex(audio.currentTime);
-        if(k !== ridx){ ridx = k; rHl(k); go(k); }
-        rSet();
-      };
-    }
-    audio.playbackRate = parseFloat(rRate.value);
-    return audio;
-  }
-  function rStart(){
-    if(paused && audio){ paused = false; audio.play(); rSet(); return; }
-    if(reading) return;
-    var a = ensureAudio();
-    reading = true; paused = false;
-    ridx = segIndex(a.currentTime);
-    a.play().catch(function(){});
-    rSet();
-  }
-  function rPause(){
-    if(!reading || paused) return;
-    paused = true;
-    if(audio) audio.pause();
-    rSet();
-  }
-  function rStop(){
-    if(audio){ audio.pause(); audio.currentTime = 0; }
-    reading = false; paused = false; ridx = 0;
-    rHl(-1); rSet();
-  }
-  function rFinish(){
-    if(audio) audio.pause();
-    reading = false; paused = false; ridx = 0;
-    rHl(-1); rSet();
-  }
-  rPlay.addEventListener('click', rStart);
-  rPause.addEventListener('click', rPause);
-  rStop.addEventListener('click', rStop);
-  rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); });
-  window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); });
-  rSet();
-
-  go(0);
+<div class="colorbar"><div style="background:#0066CC"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div> <div id="pages"> <div class="page" data-p="1"> <div class="pagemeta"><span class="tag">开场</span><span>第 01 段 / 9 · 课件第1页 · 约 3 分钟</span></div> <div class="title">开场｜欢迎来到取经计划</div> <div class="script"> <p>各位新同事，大家好！欢迎来到"取经计划"——项目管理四级训练营的第一课。<span class="stage">互动</span>（等大家坐定，扫一圈全场）在正式开始之前，我想先做个小调查：听说过"里程碑"这个词的，请举个手？<span class="stage">停顿</span>（环视）好，手不多，正常。那听说过"需求池"的？<span class="joke">更少了——很好，这堂课就是为你们设计的。</span></p> <p>我先说一个大家很快就会遇到的真实场景：入职第二周，你被拉进一个项目群，群名叫"XX项目攻坚组"。周一早上九点，群里弹出一条消息："@新同事 把上周的里程碑进展同步一下，十点评审要用。"<span class="stage">停顿</span>我猜此刻你心里的声音是：里程碑是什么？进展去哪看？同步给谁？——别慌，一个月后你会答得飞快，但今天，我要让你当场就懂。</p> <p>这一课叫"认知篇"，主题就一句话：<span class="key">入个门——取经即项目。</span>听完这一课，你会听懂项目管理的常用语言，认识一支历史上最了不起的项目团队，还会知道，你自己在这支队伍里，从哪个位置起步。</p> <p>这堂课不需要任何基础——<span class="key">带耳朵来就行</span>。我们唯一的口号是：听完这一课，开会不再懵。现在，上路。</p> </div>
+</div> <div class="page" data-p="2"> <div class="pagemeta"><span class="tag g">破冰</span><span>第 02 段 / 9 · 课件第2页 · 约 4 分钟</span></div> <div class="title">项目经理到底是干啥的？</div> <div class="script"> <p>我先问一个问题：你觉得项目经理是干啥的？<span class="stage">互动</span>（请一两位新同事随口说，通常是"管人的""催进度的"）听到最多的答案是："哦，就是那个天天催进度的？"<span class="key">这话只对了一半。</span></p> <p>另一半真相是：他不光催进度——还催需求、催文档、催测试、催验收，催你那个躺在待办清单里从来没动过的"事项"。<span class="stage">停顿</span>有人给项目经理总结过三件事：<span class="key">开会、挨骂、写PPT。</span>开会是确认大家都没在干活；挨骂是替大家背锅；写PPT呢，是替这场锅剪个彩。<span class="joke">你们以后会认出这类PPT：封面写着"复盘"，正文全是"持续优化"。</span></p> <p>但你千万别觉得这是个惨差事。我要讲一个重要事实：项目经理是全公司最"真实"的岗位——因为他手里有<span class="key">验收权</span>。什么叫验收权？就是项目做完了，评价"这事到底成没成"的人，是他。<span class="key">成了叫结项，不成叫延期，再不成叫复盘。</span><span class="joke">复来复去，人就要退休了。</span></p> <p>给你一个更真实的画面：很多项目进入后期，会出现一种状态，叫"周报驱动"——周报比代码长，代码比功能长，功能比真经短。<span class="stage">停顿</span>什么意思？文档越来越厚，能用的东西越来越少，但汇报越来越漂亮。你别笑，这是行业通病，以后你会亲眼见到。</p> <p>再给新同学打个预防针，说三个"新人三大错觉"。错觉一："项目是技术活，我不懂技术插不上手。"——错，项目里六成的工作是沟通、记录和协调，正是你的主场。错觉二："等安排吧，会有人告诉我做什么。"——错，取经团里没有等安排的人，唐僧只说"往西"，路要自己找。错觉三："我先把活干了，干了自然有人看见。"——大错，白龙马驮了十四年，靠的是踩得稳，不是等你想起它。<span class="key">新人正确的姿势：主动领活、主动留痕、主动汇报。</span></p> <p>请记住今天的第一句话，也是理解整个课程的钥匙：<span class="key">项目经理，不是打妖怪的人；他是保证打妖怪的人，朝着对的方向打的人。</span>这句话现在听着有点绕，讲完你再回来品，你会点头。</p> </div>
+</div> <div class="page" data-p="3"> <div class="pagemeta"><span class="tag">概念</span><span>第 03 段 / 9 · 课件第3页 · 约 4 分钟</span></div> <div class="title">什么是"项目"？</div> <div class="script"> <p>好，进入正题。项目管理的"圣经"叫PMBOK，它对项目的定义只有两个关键词：<span class="key">独特的成果，临时的过程。</span>翻译成人话：第一，这件事做完就交卷了，产出的东西是独一无二的；第二，它有开始、有结束，不是天天重复的日常。</p> <p>我们做几个小测试。高考，是项目吗？<span class="stage">互动</span>（停两秒看反应）是——独特，你这辈子就考这么一回；临时，考完就散。婚礼呢？是，道理一样：独特的一次性成果，办完收场。那每天做饭呢？<span class="stage">停顿</span>每天做饭不是项目，是日常运维——<span class="joke">把做饭做成项目的人，活得都挺累的：每天立项，每天复盘，每天烧糊。</span></p> <p>再来两个现场判断题。<span class="stage">互动</span>（快速问答）第一题：家里装修，算项目吗？——算，独特成果是新房子，临时，装完就结束。第二题：公司每月出财务月报，算项目吗？<span class="stage">停顿</span>——不算，它月月重复、永不结束，那是运营。但注意一个细节："上线第一套月报系统"是项目，"以后每月跑它"是运营。<b>同一件事，第一次做叫项目，重复做就叫运营。</b></p> <p>加练一题：<span class="stage">互动</span>"给客户写年度总结报告"，算项目吗？——看情况：第一次为客户定制年度分析框架，独特加临时，算；框架定型后每年套用生成，是运营。很多工作的分界线就在这：第一次是创造，从第二次起是复制。<span class="joke">所以涨薪的机会都藏在"第一次"里——第一个把重复做成模板的人，才是组织里的取经人。</span></p> <p>为什么要把这个界限分得这么清？因为两件事的考核方式完全不同：<span class="key">运营看稳定，项目看交付。</span>运营的KPI是别出错，项目的KPI是按期把新东西做出来。你要是用管运营的方式管项目，项目会被管死；反过来，用管项目的方式管日常，团队会被折腾死。</p> <p>取经是什么？教科书级的项目：独特的成果——三藏真经，全天下只此一套；临时性——十四年走完即结束，不会循环。至于这个项目有多离谱，我们看下一页。</p> </div>
+</div> <div class="page" data-p="4"> <div class="pagemeta"><span class="tag">硬指标</span><span>第 04 段 / 9 · 课件第4页 · 约 3 分钟</span></div> <div class="title">取经项目硬指标：一组数字看懂</div> <div class="script"> <p>现在，我们用公司立项的格式，把取经项目的概况念一遍。总里程，<span class="key">十万八千里</span>——横贯多国的跨地域项目。工期，唐僧当初承诺三年，实际走了<span class="key">十四年</span>——超期接近五倍，这个账谁没算明白，我们第三课专门算。风险事件，登记在册的<span class="key">八十一难</span>——每一难都有完整记录、应对过程和结果，这是一份从启动跟到收尾的风险台账。团队，<span class="key">五人</span>，含一匹马。预算，<span class="key">零元</span>——全部经费，靠化缘。</p> <p><span class="stage">互动</span>我问大家：这么一个项目——跨地域、长周期、高风险、零预算，团队里还有两个前科人员、一匹没有编制的马——放在你们公司的立项评审会上，能过吗？<span class="stage">停顿</span><span class="joke">过不了。评审委员会主任会当场表示：贫僧建议，不予受理。</span></p> <p>但它做成了。为什么？靠的不是法术，是一套完整的项目管理打法：目标锁定、授权清晰、风险登记、外援采购、验收把关——一环不少。<span class="key">这套打法，就是这四级课程要拆开揉碎交给你的东西。</span>今天你只需要记住一句话：项目再难，难不过取经；取经能成，你的项目也能成。</p> </div>
+</div> <div class="page" data-p="5"> <div class="pagemeta"><span class="tag">对照表</span><span>第 05 段 / 9 · 课件第5页 · 约 5 分钟</span></div> <div class="title">西游对照表：一本书的项目黑话</div> <div class="script"> <p>这一页是今天的核心，请大家打起精神。<span class="stage">停顿</span>为什么用《西游记》讲项目管理？因为它是中国人的集体记忆——你不用背概念，你只需要"翻译"。我现在把最重要的六个词过一遍，每一个都请你在心里配上画面。</p> <p>第一个词：<span class="key">里程碑。</span>八十一难，就是里程碑——每过一难，就是完成一个标志性节点。唐僧心里数着呢：这是第几难了，离八十一还差多少。<span class="joke">相当于每打完一个妖怪都要发一条周报：本周期完成降妖一项，累计进度十九比八十一。</span>第二个词：<span class="key">交付物。</span>真经，就是交付物——项目最终要交出去的东西。验收的时候，看的不是你路上多辛苦，看的是它：5048卷，一卷不能少。</p> <p>第三个词：<span class="key">项目章程。</span>通关文牒为什么厉害？它一张纸写清了三件事：为什么办——大唐缺大乘真经；谁来办——御弟三藏，注意，是被正式授权的；资源怎么给——文牒、金钵、俩随从。<span class="stage">停顿</span>所以唐僧每到一个国家，第一件事就是掏文牒盖章——那不是盖章瘾，那是过"立项关口"的合法手续。<span class="joke">没有文牒试试？国王会把你当流窜僧人处理。</span></p> <p>第四个词：<span class="key">零预算资源整合。</span>化缘，就是没钱也要把事办成——钵盂在身，走到哪化到哪，全程现金流为零，但团队没有一顿断粮。第五个词：<span class="key">规则共识。</span>紧箍咒不是谁比谁狠，是团队需要一条谁都得守的底线——哪怕是团队里最能打的人。<span class="stage">停顿</span>第六个词先露个脸：<span class="key">相关方。</span>满天神佛都是相关方——有的要供奉，有的给支援，有的关键时刻点头，有的全程看不惯你。这件事第四课会专门讲。</p> <p><span class="stage">互动</span>现在做个小验收：下周一你在会上听到"这个里程碑要延期"，你脑子里应该浮现什么画面？<span class="stage">停顿</span>对——一难没过掉。<span class="key">把它们翻译成西游，你全都认识。</span>这就是今天给你的第一件武器：一套项目共同语言。</p> </div>
+</div> <div class="page" data-p="6"> <div class="pagemeta"><span class="tag g">角色</span><span>第 06 段 / 9 · 课件第6页 · 约 5 分钟</span></div> <div class="title">师徒五人 = 一个标准项目组</div> <div class="script"> <p>接下来认识团队。<span class="stage">互动</span>先聊聊：取经团五个成员，你最喜欢谁？<span class="stage">停顿</span>（请两三人回答，通常是悟空，偶尔有人选八戒）好，接下来我讲这五个人，你可以对照一下自己的答案——听完你可能想换。</p> <p><span class="key">唐僧，掌舵人。</span>不能打、不能飞、一被抓就喊"悟空救我"——但他是唯一知道终点在哪、并且十四年没有改变过方向的人。<span class="stage">停顿</span>他还干了一件很多人忽略的事：团队闯了祸，他领罚；徒弟被冤枉，他去跟上级解释。<b>能领锅的领导，比会甩锅的领导金贵。</b></p> <p><span class="key">孙悟空，技术担当。</span>硬仗全靠他，出事第一个上。<span class="stage">停顿</span>但我提醒你注意一个扎心的规律：<b>他没事的时候，第一个挨骂。</b>三打白骨精，他明明是对的，紧箍咒念的是他，开除通知发的也是他。<span class="joke">所以技术的尽头，是学会汇报。</span>这个话题，等你升到L3我们细说。</p> <p><span class="key">猪八戒，协调担当。</span>全场最容易被低估的男人。你说他懒，没错；说他动不动想散伙，也没错。但你想过没有——大师兄被开除、师父被变成老虎、团队濒临解散的时候，是谁去的花果山？<span class="key">是他。</span>而且他是用"激将法加怀柔术"把人请回来的：<span class="joke">一边说"那妖怪骂你是弼马温"，一边说"哥哥是有仁有义的君子"。</span>这叫危机公关。</p> <p><span class="key">沙僧，执行担当。</span>话不多，但没有一次掉链子。注意一个细节：通关文牒——这个项目的"营业执照"——是放在他挑的担子里的。<b>把最重要的资产交给最稳的人，这是团队最深的信任。</b><span class="key">白龙马，后勤担当。</span>不出声、不抢戏，驮着整个项目跑完全程——它要是罢工一天，全团瘫痪。</p> <p>给你一个画面感很强的反面案例：如果一支团队全是悟空——五个技术大神，个个能单挑妖怪。第一次技术评审，五个方案，五星连珠；第二次，谁也不服谁的架构，各写各的；第三次，组长还在解释"我为什么管你们"。<span class="joke">取经第三个月，团队解散，各自回山头创业——花果山、高老庄、流沙河，各占一个赛道。</span>如果全是唐僧呢？原则讨论了三年，还没走出长安城。</p> <p>现在敲黑板，讲今天的反常识：<span class="key">全是孙悟空的团队，会因为谁都不服谁而内耗解散；全是唐僧的团队，会因为只会讲原则而原地打转；全是八戒的团队，半途而废；全是沙僧的团队，稳是稳，永远破不了局。</span><span class="stage">停顿</span>完美团队的公式只有一条：<span class="key">角色互补，加目标一致。</span>五种角色，没有高低贵贱，只有缺一不可。</p> </div>
+</div> <div class="page" data-p="7"> <div class="pagemeta"><span class="tag o">新人视角</span><span>第 07 段 / 9 · 课件第7页 · 约 4 分钟</span></div> <div class="title">新人起步：从沙僧和白龙马做起，不丢人</div> <div class="script"> <p>好，问题来了：你，刚入职的你，在团队里大概是什么角色？<span class="stage">停顿</span>我直接说答案：多半是<span class="key">沙僧</span>——资料整理、数据核对、文档排版、会议记录。这些活儿看着不起眼，但你想想上一页说的：交付物是靠谁一笔一划攒出来的？<span class="key">靠谱，是新人的第一张名片。</span></p> <p>你甚至可能暂时是<span class="key">白龙马</span>——默默无闻地驮着项目跑，功劳簿上看不见你的名字。没关系，我送你一句话：<span class="key">稳定的输出，就是你的不可替代性。</span>白龙马在全书里几乎没有台词，但取经能走到灵山，它一步都没有少走。</p> <p>但是——沉默不等于隐身。给大家三条"被看见"的小贴士，每一条都是血泪经验。第一条，<b>关键节点留痕</b>。举个小例子：口头答应的事，事后补一封确认邮件："照今天的沟通，我明天下午三点前把测试数据发您，如有出入请指出。"就这一封邮件，将来对方翻脸的时候，能救你一命。<span class="joke">别问我怎么知道的。</span>第二条，<b>稳定交付</b>：答应的事，截止之前主动给结果，永远不要让人追着你问——别人交给你的事不用追，这十个字就是你的口碑。第三条，<b>节点汇报</b>：不要等做完了才说，做到一半、遇到卡点，及时同步——领导不怕看到问题，怕的是最后一个知道问题。</p> <p>白龙马想被看见，靠的不是嘶鸣，是每一步都踩得稳。<span class="stage">停顿</span><span class="joke">当然，该嘶鸣的时候也要嘶鸣——比如加班加到没有草吃的时候，那不但要嘶鸣，还要抄送给马夫。</span></p> </div>
+</div> <div class="page" data-p="8"> <div class="pagemeta"><span class="tag g">互动</span><span>第 08 段 / 9 · 课件第8页 · 约12分钟（含现场自测8-10分钟）</span></div> <div class="title">互动：测测你是取经团队里的谁？</div> <div class="script"> <p>接下来是今天最好玩的环节。<span class="stage">互动</span>请大家拿出手机，打开微信"扫一扫"——扫屏幕上这个二维码（课件第7页 / 入口页卡片上都有），直接进入"角色自测"。一共十道情境题——都是真实项目场景，比如"项目验收前夜你最关注什么""被甩锅了你的第一反应是什么"。五分钟做完，马上出结果。</p> <p>测完之后，你会拿到三样东西：你的角色标签、一份角色说明书、还有一条专门给你的起步建议。<span class="stage">互动</span>（等大家陆续测完，请两三位分享）来，这位"孙悟空"，说说你哪道题选了什么？——很好，你看，选"交给我来搞定"的，基本都是技术担当体质。<span class="stage">停顿</span>有没有测出八戒的？别不好意思，举个手——恭喜，你们是团队里未来的外交担当，大师兄被开除那天，就靠你了。</p> <p>我提醒两点。第一，<span class="key">测出来的不是命运，是倾向。</span>角色是可以成长的：这次项目你是沙僧，下次可能就是八戒，五年后，也许你就是那个掌舵的人。第二，测出白龙马的同学，请回到上一页那句话：稳定的输出，就是不可替代性——这不是安慰，这是策略。<span class="stage">互动</span>（组织分享与讨论，总时长控制在十二分钟内，注意留出小结时间）</p> </div>
+</div> <div class="page" data-p="9"> <div class="pagemeta"><span class="tag o">小结</span><span>第 09 段 / 9 · 课件第9页 · 约 3 分钟</span></div> <div class="title">小结与通关文牒</div> <div class="script"> <p>今天这节课快收尾了。今天你只需要带走三个词。<span class="stage">停顿</span>第一个词，<span class="key">目标</span>——项目为独特的成果而存在，目标丢了，干得越多偏得越远。第二个词，<span class="key">分工</span>——五个人五个角色，没有谁是多余的，也没有谁能包打天下。第三个词，<span class="key">靠谱</span>——件件有着落，事事有回音，这是新人最贵的品质。</p> <p>然后是课后作业。《西游记》里，唐僧每过一国，都要在通关文牒上加盖一印——从今天起，你的四级学习也有一本文牒。<b>作业是：观察你所在的团队，或者你最近参与的项目，画一张"西游对照图"</b>：谁是唐僧？谁是悟空？谁是那个默默驮货的白龙马？你自己，现在站在哪个位置？画完再回答一个加分题：你觉得你们团队，还缺哪个角色？</p> <p>交给你的带教人或讲师验收，就加盖L1通关印。<span class="key">四级集齐，你就是认证的"取经人"。</span><span class="stage">停顿</span>下一课，L2"上工具：跟着文牒走"——你将学会把今天听懂的东西，一条条记下来、盯起来：纪要怎么写、台账怎么记。我听到有人叹气了——<span class="joke">放心，下一课我教你怎么写出让领导舍不得删的会议纪要。</span></p> <p>最后送大家一句话作为这堂课的收尾：入职头一年，别急着当齐天大圣——先把脚下这条路走稳。<span class="key">所有的师父，都是从沙僧做起的。</span></p> <p>我是你们的讲师。下课，上路。</p> </div>
+</div> </div> <div id="nav"> <div class="nav-row"> <div class="nav-btn" id="btnPrev">‹</div> <div class="pager" id="pager"></div> <div class="nav-btn" id="btnNext">›</div> </div> <div class="reader"> <button id="rbPlay" class="rb-btn primary">▶ 朗读</button> <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button> <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button> <select id="rbRate" class="rb-rate" title="语速"> <option value="0.85">0.85×</option> <option value="1">1.0×</option> <option value="1.1" selected>1.1×</option> <option value="1.3">1.3×</option> </select> </div> <div class="reader-info"> <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span> <span id="rbPos">9 段</span> </div> <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 9 段</div>
+</div> <script>
+(function(){ var pages = Array.prototype.slice.call(document.querySelectorAll('.page')); var pager = document.getElementById('pager'); var btnPrev = document.getElementById('btnPrev'); var btnNext = document.getElementById('btnNext'); var cur = 0; var total = pages.length; pages.forEach(function(p, i){ var b = document.createElement('button'); b.className = 'pnum'; b.textContent = i + 1; b.addEventListener('click', function(){ go(i); }); pager.appendChild(b); }); var nums = pager.querySelectorAll('.pnum'); function go(i){ if(i < 0 || i >= total) return; pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i; nums.forEach(function(n, j){ n.classList.toggle('on', j === i); }); btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1); var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block: 'nearest', inline: 'center'}); } pages[cur].scrollTop = 0; var hint = document.getElementById('hint'); if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; } }
+  btnPrev.addEventListener('click', function(){ go(cur - 1); }); btnNext.addEventListener('click', function(){ go(cur + 1); }); document.addEventListener('keydown', function(e){ if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); } else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); } else if(e.key === 'Home') { go(0); } else if(e.key === 'End') { go(total - 1); } }); var sx = 0, sy = 0, sw = false; document.addEventListener('touchstart', function(e){ var t = e.changedTouches[0]; sx = t.clientX; sy = t.clientY; sw = true; }, {passive:true}); document.addEventListener('touchend', function(e){ if(!sw) return; sw = false; var t = e.changedTouches[0]; var dx = t.clientX - sx, dy = t.clientY - sy; if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur + 1); else go(cur - 1); } }, {passive:true}); var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos'); window.SEGS = {"segs": [{"start": 0.0,"end": 72.07},{"start": 74.47,"end": 204.96},{"start": 207.36,"end": 338.66},{"start": 341.06,"end": 415.58},{"start": 417.98,"end": 542.54},{"start": 544.94,"end": 705.04},{"start": 707.44,"end": 800.49},{"start": 802.09,"end": 866.19},{"start": 868.59,"end": 956.09}],"total": 956.09}; var audio = null, reading = false, paused = false, ridx = 0; function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; } function rSet(){ var s = window.SEGS; rPlay.disabled = reading && !paused; rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读'; rPause.disabled = !reading || paused; rStop.disabled = !reading; var pct = reading ? Math.min(100, Math.round((audio ? audio.currentTime : 0) / s.total * 100)) : 0; rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）'; var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading); }
+  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); } function ensureAudio(){ if(!audio){ audio = new Audio('audio/c1/full.mp3'); audio.preload = 'auto'; audio.onended = function(){ rFinish(); }; audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; }; audio.ontimeupdate = function(){ if(!reading || paused) return; var k = segIndex(audio.currentTime); if(k !== ridx){ ridx = k; rHl(k); go(k); } rSet(); }; }
+    audio.playbackRate = parseFloat(rRate.value); return audio; }
+  function rStart(){ if(paused && audio){ paused = false; audio.play(); rSet(); return; } if(reading) return; var a = ensureAudio(); reading = true; paused = false; ridx = segIndex(a.currentTime); a.play().catch(function(){}); rSet(); }
+  function rPause(){ if(!reading || paused) return; paused = true; if(audio) audio.pause(); rSet(); }
+  function rStop(){ if(audio){ audio.pause(); audio.currentTime = 0; } reading = false; paused = false; ridx = 0; rHl(-1); rSet(); }
+  function rFinish(){ if(audio) audio.pause(); reading = false; paused = false; ridx = 0; rHl(-1); rSet(); }
+  rPlay.addEventListener('click', rStart); rPause.addEventListener('click', rPause); rStop.addEventListener('click', rStop); rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); }); window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); }); rSet(); go(0);
 })();
 </script>
 </body>
