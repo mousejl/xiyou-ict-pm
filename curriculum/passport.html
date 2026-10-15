@@ -75,7 +75,7 @@
   .stamp-cell .void{
     width:88px;height:88px;border:1.4px dashed var(--grid);border-radius:50%;
     display:flex;align-items:center;justify-content:center;
-    font-size:11px;color:rgba(140,47,32,.62);letter-spacing:1px;writing-mode:vertical-rl;line-height:2;
+    font-size:11px;color:rgba(140,47,32,.74);letter-spacing:1px;writing-mode:vertical-rl;line-height:2;
   }
   .note{padding:8px 14px 4px;font-size:11.5px;color:var(--ink-light);letter-spacing:2.5px;text-align:center}
 
@@ -479,7 +479,7 @@ function drawVoidSeal(ctx, r, label){
   ctx.strokeStyle = 'rgba(166,59,42,.35)'; ctx.setLineDash([4,3]); ctx.lineWidth = 1.4;
   ctx.beginPath(); ctx.arc(r.x+r.w/2, r.y+r.h/2, Math.min(r.w,r.h)/2-1, 0, 6.2832); ctx.stroke();
   ctx.setLineDash([]);
-  ctx.fillStyle = 'rgba(140,47,32,.62)'; ctx.font = '11px "Kaiti SC","KaiTi",serif';
+  ctx.fillStyle = 'rgba(140,47,32,.74)'; ctx.font = '11px "Kaiti SC","KaiTi",serif';
   ctx.textAlign='center'; ctx.textBaseline='middle';
   var chars = label.replace(/\s+/g,'').split('');
   var step = 26;

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,2 27,7 27,25 16,31 5,25 5,7' fill='%238a6a2a'/%3E%3C/svg%3E">
 <title>通关文牒 · 生成工具｜取经计划</title>
 <style>
   :root{--c:#b8912f;--gold:#b8912f;--gold-d:#8a6a2a;--paper:#f7f1e3;--ink:#2b2a26;--sub:#6b6353;}
@@ -98,7 +99,7 @@
   .stamp-cell .void{
     width:88px;height:88px;border:1.4px dashed var(--grid);border-radius:50%;
     display:flex;align-items:center;justify-content:center;
-    font-size:11px;color:rgba(140,47,32,.62);letter-spacing:1px;writing-mode:vertical-rl;line-height:2;
+    font-size:11px;color:rgba(140,47,32,.74);letter-spacing:1px;writing-mode:vertical-rl;line-height:2;
   }
   .note{padding:8px 14px 4px;font-size:11.5px;color:var(--ink-light);letter-spacing:2.5px;text-align:center}
 
@@ -346,6 +347,15 @@
   }
   window.addEventListener('resize',fitZoom);
 
+  /* 认证日期：干支纪年 + 中文月（如"丙午年十月"，配仿古文牒形制） */
+  function ganzhiDate(){
+    var d=new Date(), y=d.getFullYear();
+    var gan=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+    var zhi=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+    var mm=['','一','二','三','四','五','六','七','八','九','十','十一','十二'];
+    return gan[(y-4)%10]+zhi[(y-4)%12]+'年'+mm[d.getMonth()+1]+'月';
+  }
+
   /* 生成 */
   function gen(){
     var name=document.getElementById('name').value.trim();
@@ -353,8 +363,7 @@
     var sel=currentSel();
     if(!name){ alert('请填写学员姓名'); return; }
     var no='XY2026-'+String(Math.floor(1000+Math.random()*9000));
-    var d=new Date();
-    var date=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+    var date=ganzhiDate();
     /* 预览 */
     document.getElementById('pv-no').textContent=no;
     document.getElementById('pv-date').textContent=date;
