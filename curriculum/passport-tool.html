@@ -38,37 +38,118 @@
   .result .qrw{text-align:center;margin-top:10px}
   .result .qrw canvas{width:150px;height:150px}
   .result .qrw .cap{font-size:11px;color:var(--gold-d);margin-top:4px;letter-spacing:1px}
-  /* ===== 文牒预览 ===== */
-  .diploma{position:relative;background:var(--paper);border:1px solid #d8cfb2;border-radius:6px;padding:10px 14px 12px;box-shadow:0 8px 30px rgba(0,0,0,.16)}
-  .diploma .axis{position:absolute;left:4%;right:4%;height:16px;background:linear-gradient(180deg,#a38d5a,#7c6a41);border-radius:4px}
-  .diploma .axis.top{top:-4px}
-  .diploma .axis.bottom{bottom:-4px}
-  .diploma   .docwrap{border:1px solid var(--c);border-radius:6px;padding:4px;background:var(--paper)}
-  .doc{position:relative;border:1.5px solid var(--c);border-radius:4px;padding:40px 36px 34px;background:radial-gradient(900px 300px at 50% 0%, rgba(184,145,47,.07), transparent 60%), var(--paper)}
-  .diploma .doc::before,.diploma .doc::after{content:"◆";position:absolute;color:var(--c);opacity:.45;font-size:12px}
-  .diploma .doc::before{top:10px;left:12px}
-  .diploma .doc::after{bottom:10px;right:12px}
-  .head{text-align:center}
-  .head .brand{font-family:"Microsoft YaHei",sans-serif;font-size:11px;letter-spacing:3px;color:var(--sub);border-bottom:1px dashed rgba(138,106,42,.4);display:inline-block;padding-bottom:3px}
-  .head h1{margin:12px 0 2px;font-size:38px;letter-spacing:12px;color:var(--gold-d);font-weight:700;text-indent:12px}
-  .head .en{font-size:10px;letter-spacing:5px;color:var(--sub)}
-  .head .tagline{margin-top:12px;font-size:12px;color:var(--sub);letter-spacing:2px}
-  .body{margin-top:20px;font-size:14.5px;line-height:2}
-  .body .v{font-weight:700;color:var(--gold-d)}
-  .body .v.nm{font-size:18px}
-  .sealzone{display:flex;gap:14px;justify-content:center;align-items:center;margin:20px 0;flex-wrap:wrap;min-height:92px}
-  .sealzone img{width:116px;height:116px}
-  .sealzone .blank{width:116px;height:116px;border:1.5px dashed rgba(138,106,42,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b0a27c;font-size:13px}
-  .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--sub);margin-top:6px}
-  .meta b{color:var(--gold-d);letter-spacing:1px}
-  .sign{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-end;font-size:12px;color:var(--sub)}
-  .sign .line{width:140px;border-bottom:1px solid var(--gold-d);margin-top:5px}
+
+  /* ===== 文牒预览：仿古经折装（与学员端 passport.html 样式一致） ===== */
+  .pv-cap{font-family:"Microsoft YaHei",sans-serif;font-size:13px;color:var(--sub);letter-spacing:2px;margin-bottom:12px}
+  .pv-cap b{color:var(--gold-d)}
+  .pv-wrap{overflow:hidden;border-radius:2px}
+  .book{
+    /* 局部覆盖工具页同名变量 → 仿古宣纸配色 */
+    --paper:#e9dcbb;--ink:#2b241c;--ink-light:#5a4f42;
+    --cinnabar:#a63b2a;--cinnabar-deep:#8c2f20;--grid:rgba(166,59,42,.34);
+    position:relative;display:grid;grid-template-columns:0.9fr 1.5fr;
+    width:940px;               /* 固定自然宽度，由 zoom 适配容器 */
+    color:var(--ink);
+    font-family:"Kaiti SC","STKaiti","KaiTi","Songti SC","SimSun",serif;
+    background:var(--paper);
+    background-image:
+      radial-gradient(ellipse 380px 240px at 12% 18%, rgba(120,90,40,.12), transparent 62%),
+      radial-gradient(ellipse 300px 260px at 88% 82%, rgba(110,80,35,.14), transparent 60%),
+      radial-gradient(ellipse 240px 180px at 72% 12%, rgba(140,100,45,.08), transparent 65%),
+      radial-gradient(circle 3px at 22% 66%, rgba(105,75,30,.18) 46%, transparent 52%),
+      radial-gradient(circle 2px at 34% 28%, rgba(105,75,30,.15) 46%, transparent 52%),
+      radial-gradient(circle 2.5px at 58% 78%, rgba(105,75,30,.14) 46%, transparent 52%),
+      radial-gradient(circle 2px at 80% 36%, rgba(105,75,30,.16) 46%, transparent 52%),
+      radial-gradient(circle 3px at 44% 92%, rgba(105,75,30,.13) 46%, transparent 52%),
+      radial-gradient(circle 2px at 10% 44%, rgba(105,75,30,.15) 46%, transparent 52%),
+      radial-gradient(ellipse 620px 90px at 50% 110%, rgba(95,70,30,.18), transparent 70%),
+      radial-gradient(ellipse 620px 90px at 50% -10%, rgba(95,70,30,.14), transparent 70%);
+    box-shadow:0 14px 44px rgba(46,35,20,.38), inset 0 0 60px rgba(112,84,38,.16);
+    border:1px solid #b8a682;
+  }
+  .fold{position:absolute;top:0;bottom:0;left:calc(100%*0.9/2.4);width:2px;z-index:3;pointer-events:none;
+    background:linear-gradient(90deg,rgba(70,50,25,.28),rgba(120,95,55,.42),rgba(70,50,25,.28))}
+  .noise{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.85;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.40 0 0 0 0 0.31 0 0 0 0 0.16 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23p)'/%3E%3C/svg%3E")}
+  .frame{position:absolute;pointer-events:none;z-index:3}
+  .frame.f1{inset:9px;border:1.8px solid var(--cinnabar);opacity:.92}
+  .frame.f2{inset:14px;border:.7px solid var(--cinnabar);opacity:.75}
+  .page{position:relative;padding:16px}
+
+  /* 左页 · 盖印区 */
+  .stamp-page{display:flex;flex-direction:column;align-items:center}
+  .brand{text-align:center;padding:14px 8px 8px}
+  .brand .mark{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:62px;height:62px;
+    border:2.4px solid var(--cinnabar);border-radius:4px;
+    font-size:14px;font-weight:900;color:var(--cinnabar-deep);
+    letter-spacing:1px;line-height:1.3;padding:3px;
+    writing-mode:vertical-rl;
+    box-shadow:inset 0 0 0 1px rgba(166,59,42,.3);
+  }
+  .brand .mkname{margin-top:9px;font-size:13.5px;letter-spacing:5px}
+  .brand .mken{font-size:9px;letter-spacing:3px;color:var(--ink-light);margin-top:3px;font-family:"Microsoft YaHei",sans-serif}
+  .rule{height:.9px;background:var(--grid);width:78%;margin:8px 0}
+  .stamps{flex:1;display:flex;flex-direction:column;gap:13px;justify-content:center;width:100%;padding:8px 10px}
+  .srow{display:flex;justify-content:center;gap:13px}
+  .stamp-cell{display:flex;align-items:center;justify-content:center}
+  .stamp-cell img{width:104px;height:104px;filter:drop-shadow(0 2px 5px rgba(120,40,25,.22))}
+  .stamp-cell .void{
+    width:88px;height:88px;border:1.4px dashed var(--grid);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:rgba(140,47,32,.62);letter-spacing:1px;writing-mode:vertical-rl;line-height:2;
+  }
+  .note{padding:8px 14px 4px;font-size:11.5px;color:var(--ink-light);letter-spacing:2.5px;text-align:center}
+
+  /* 右页 · 正文（竖排右读；row-reverse 自右向左排，避开启 html2canvas 竖排缺陷的同款结构） */
+  .text-page{
+    display:flex;flex-direction:row-reverse;justify-content:space-between;
+    padding:30px 26px;
+    min-height:560px;
+    position:relative;
+  }
+  .col{
+    writing-mode:vertical-rl;
+    font-size:15px;line-height:1.72;letter-spacing:2.5px;
+    padding:2px 8px;border-left:1px solid var(--grid);
+    max-height:500px;overflow:hidden;
+    flex:0 0 auto;
+  }
+  .col:last-child{border-left:1px solid var(--grid)}
+  .title{
+    writing-mode:vertical-rl;
+    font-family:"Songti SC","STSong","SimSun",serif;
+    font-weight:900;font-size:44px;letter-spacing:12px;
+    text-shadow:0 1px 0 rgba(255,250,235,.5);
+    padding:2px 12px 2px 4px;
+    flex:0 0 auto;
+  }
+  .cname{font-weight:900;font-size:24px;color:var(--cinnabar-deep);letter-spacing:8px;line-height:1.5}
+  .col .big{font-size:17px;font-weight:700}
+  .col .light{color:var(--ink-light);font-size:12.5px;letter-spacing:2px}
+  /* 首印压字（压"加盖宝印"列） */
+  .stamp-note-col{position:relative}
+  .press-seal{
+    position:absolute;left:50%;top:64%;transform:translate(-50%,-50%);
+    width:100px;height:100px;opacity:.97;z-index:2;
+    filter:drop-shadow(0 2px 5px rgba(120,40,25,.3));
+    pointer-events:none;
+  }
+  /* 发牒官方大印：压末两列落款（挂 book 避免被列裁剪） */
+  .official-seal{
+    position:absolute;
+    width:112px;height:112px;opacity:.9;z-index:2;
+    filter:drop-shadow(0 1px 4px rgba(120,40,25,.25));
+    pointer-events:none;
+  }
+  .pv-foot{margin-top:12px;text-align:center;font-size:11.5px;color:#7a6c52;letter-spacing:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="rowbar" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+  <div class="topbar" style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px">
     <div class="t">
       <h1>通关文牒 · 生成工具</h1>
       <p style="font-size:12px;color:var(--sub);margin-top:5px">老师端：填写学员信息 → 勾选通过等级 → 生成文牒编号与认证日期 → 加盖等级印章 → 生成电子证书下载二维码发给学员</p>
@@ -102,87 +183,197 @@
       </div>
     </div>
 
-    <!-- 文牒预览 -->
+    <!-- 文牒预览：仿古经折装（与学员端样式一致） -->
     <div>
-      <div id="diploma" class="diploma">
-        <div class="axis top"></div>
-        <div class="docwrap">
-      <div class="doc">
-          <div class="head">
-            <div class="brand">取经计划 · 项目管理四级训练营</div>
-            <h1>通关文牒</h1>
-            <div class="en">Passport · Certificate of Completion</div>
-            <div class="tagline">—— 一本取经史 · 半部项目经 ——</div>
+      <div class="pv-cap">📜 文牒预览 · <b>与学员端样式一致</b>（勾选等级即时联动）</div>
+      <div class="pv-wrap" id="pvWrap">
+        <div id="book" class="book">
+          <div class="noise"></div>
+          <div class="fold"></div>
+
+          <!-- 左页 · 盖印区（右读第二页） -->
+          <div class="page stamp-page">
+            <div class="frame f1"></div><div class="frame f2"></div>
+            <div class="brand">
+              <div class="mark">取经计划</div>
+              <div class="mkname">项目管理训练营</div>
+              <div class="mken">QUJING TRAINING</div>
+            </div>
+            <div class="rule"></div>
+            <div class="stamps" id="pv-seals"></div>
+            <div class="rule"></div>
+            <div class="note">每过一关 加盖一印<br>五印俱全 授取经人</div>
           </div>
-          <div class="body">
-            <p>兹有学员 <span class="v nm" id="pv-name"></span>，<span class="v" id="pv-dept"></span>，圆满完成《取经计划》项目通关训练，经考核验收合格，依《通关文牒》之规制，加盖对应等级通关印，特发此牒，以资认证。</p>
+
+          <!-- 右页 · 正文（竖排右读：首列在最右） -->
+          <div class="page text-page">
+            <div class="frame f1"></div><div class="frame f2"></div>
+            <div class="title">通关文牒</div>
+            <div class="col">取经计划 项目管理训练营 谨开</div>
+            <div class="col">佳期盛世 良辰谷旦 学子远来</div>
+            <div class="col">有通关学子</div>
+            <div class="col"><span class="cname" id="pv-name">＿＿＿</span></div>
+            <div class="col">系 <span class="big" id="pv-dept">＿＿＿＿</span> 人氏</div>
+            <div class="col">修项目管理取经之道</div>
+            <div class="col" id="pv-passed">历诸关考核 俱各合格</div>
+            <div class="col">希沿途守关丞 照牒放行</div>
+            <div class="col stamp-note-col" id="pv-stampnote">加盖宝印 须至牒者</div>
+            <div class="col"><span class="light">牒号 <b id="pv-no">XY2026-＿＿＿＿</b></span></div>
+            <div class="col" id="pv-date">＿＿＿＿年＿＿月</div>
           </div>
-          <div class="sealzone" id="pv-seals"></div>
-          <div class="meta">
-            <div>文牒编号：<b id="pv-no"></b></div>
-            <div>认证日期：<b id="pv-date"></b></div>
-          </div>
-          <div class="sign">
-            <div>发证机构 · 取经计划</div>
-            <div style="text-align:center"><div>认证签署</div><div class="line"></div></div>
-            <div style="text-align:right">学员电子存档</div>
-          </div>
+        </div>
       </div>
-      </div>
-      <div class="axis bottom"></div>
-      </div>
+      <div class="pv-foot">本证为电子结业凭证，仅用于学习认证展示；牒号可向发证机构核验。</div>
     </div>
   </div>
 </div>
 
 <script src="vendor/qrcode.min.js"></script>
 <script>
-(function(){
-  // 等级勾选交互
-  var lvs = [].slice.call(document.querySelectorAll('#lvbox .lv'));
+  var NAMES={0:'通识',1:'认知',2:'工具',3:'实战',4:'治理'};
+  var ALL=['0','1','2','3','4'];
+  var book=document.getElementById('book');
+  var pvWrap=document.getElementById('pvWrap');
+
+  /* 等级勾选交互 → 实时联动预览 */
+  var lvs=[].slice.call(document.querySelectorAll('#lvbox .lv'));
   lvs.forEach(function(l){
     var cb=l.querySelector('input[type=checkbox]');
     l.onclick=function(e){
       if(e.target!==cb){ cb.checked=!cb.checked; }
-      l.classList.toggle('on', cb.checked);
+      l.classList.toggle('on',cb.checked);
+      renderSealWall(currentSel());
     };
   });
-  // 入口二维码（指向工具自身，老师扫码进入）
-  var entryUrl = location.href.split('?')[0];
-  QRCode.toCanvas(document.getElementById('entryQR'), entryUrl, {width:120,margin:1}).catch(function(){});
-  // 实时预览姓名/部门
-  document.getElementById('name').addEventListener('input',function(){document.getElementById('pv-name').textContent=this.value||'________';});
-  document.getElementById('dept').addEventListener('input',function(){document.getElementById('pv-dept').textContent=this.value||'（部门 / 岗位）';});
-})();
-// 生成
-function gen(){
-  var name=document.getElementById('name').value.trim();
-  var dept=document.getElementById('dept').value.trim();
-  var sel=[].slice.call(document.querySelectorAll('#lvbox .lv.on')).map(function(l){return l.dataset.i;});
-  if(!name){ alert('请填写学员姓名'); return; }
-  // 编号 + 日期
-  var no='XY2026-'+String(Math.floor(1000+Math.random()*9000));
-  var d=new Date();
-  var date=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
-  // 预览
-  document.getElementById('pv-no').textContent=no;
-  document.getElementById('pv-date').textContent=date;
-  renderSeals('pv-seals', sel, name);
-  // 结果
-  document.getElementById('no').textContent=no;
-  document.getElementById('date').textContent=date;
-  document.getElementById('result').style.display='block';
-  // 下载二维码 -> passport.html?参数
-  var base=location.href.split('?')[0].replace('passport-tool.html','passport.html');
-  var q='name='+encodeURIComponent(name)+'&dept='+encodeURIComponent(dept||'')+'&no='+encodeURIComponent(no)+'&date='+encodeURIComponent(date)+'&seal='+sel.join(',');
-  QRCode.toCanvas(document.getElementById('qrCanvas'), base+'?'+q, {width:150,margin:1}).catch(function(){});
-}
-function renderSeals(containerId, idx, name){
-  var zone=document.getElementById(containerId); zone.innerHTML='';
-  var names={0:'通识',1:'认知',2:'工具',3:'实战',4:'治理'};
-  if(idx.length){ idx.forEach(function(i){ var im=document.createElement('img'); im.src='seal/seal-l'+i+'.svg'; im.alt=names[i]+'印'; zone.appendChild(im); }); }
-  else { var b=document.createElement('div'); b.className='blank'; b.textContent='加盖通关印'; zone.appendChild(b); }
-}
+  function currentSel(){
+    return [].slice.call(document.querySelectorAll('#lvbox .lv.on')).map(function(l){return l.dataset.i;});
+  }
+
+  /* 入口二维码（指向工具自身） */
+  (function(){
+    var entryUrl=location.href.split('?')[0];
+    QRCode.toCanvas(document.getElementById('entryQR'),entryUrl,{width:120,margin:1}).catch(function(){});
+  })();
+
+  /* 实时预览姓名/部门（默认占位与学员端一致） */
+  document.getElementById('name').addEventListener('input',function(){
+    document.getElementById('pv-name').textContent=this.value.trim()||'＿＿＿'; schedPlace();
+  });
+  document.getElementById('dept').addEventListener('input',function(){
+    document.getElementById('pv-dept').textContent=this.value.trim()||'＿＿＿＿'; schedPlace();
+  });
+
+  /* 印章墙：上排3 + 下排2 居中；未过关为朱印虚位；压字宝印随最高印 */
+  function renderSealWall(idx){
+    var zone=document.getElementById('pv-seals'); zone.innerHTML='';
+    var row1=document.createElement('div'); row1.className='srow';
+    var row2=document.createElement('div'); row2.className='srow';
+    ALL.forEach(function(i){
+      var cell=document.createElement('div'); cell.className='stamp-cell';
+      if(idx.indexOf(i)!==-1){
+        var im=document.createElement('img');
+        im.alt=(NAMES[i]||'')+'印';
+        im.src='seal/seal-l'+i+'.svg';
+        cell.appendChild(im);
+      } else {
+        var v=document.createElement('div'); v.className='void';
+        v.textContent=(NAMES[i]||'')+'关虚位';
+        cell.appendChild(v);
+      }
+      (i<3?row1:row2).appendChild(cell);
+    });
+    zone.appendChild(row1); zone.appendChild(row2);
+    /* 正文"历…诸关"：纯中文（L编号在印章上） */
+    document.getElementById('pv-passed').textContent=idx.length
+      ? '历'+idx.map(function(i){return NAMES[i]||'';}).join('')+'诸关 俱各合格'
+      : '历诸关考核 俱各合格';
+    /* 压字宝印：最高一枚正置压"加盖宝印"列（仿古用印规制） */
+    var noteCol=document.getElementById('pv-stampnote');
+    var old=noteCol.querySelector('.press-seal'); if(old) old.remove();
+    if(idx.length){
+      var p=document.createElement('img');
+      p.className='press-seal'; p.alt='宝印';
+      p.src='seal/seal-l'+idx[idx.length-1]+'.svg';
+      noteCol.appendChild(p);
+    }
+    schedPlace();
+  }
+
+  /* 发牒官方大印：方形朱文官印压末两列落款（与学员端同款） */
+  var OFFICIAL_SVG=('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">'
+    +'<g stroke="#9c3524" fill="none">'
+    +'<rect x="4" y="4" width="112" height="112" stroke-width="4.5"/>'
+    +'<rect x="12" y="12" width="96" height="96" stroke-width="1.4"/>'
+    +'<g fill="#9c3524" stroke="none" font-family="Kaiti SC,KaiTi,Songti SC,serif" font-weight="700" text-anchor="middle">'
+    +'<text x="88" y="28" font-size="15" writing-mode="tb" letter-spacing="4">取经计划</text>'
+    +'<text x="60" y="24" font-size="14" writing-mode="tb" letter-spacing="3">项目管理</text>'
+    +'<text x="32" y="26" font-size="13" writing-mode="tb" letter-spacing="2">训练营</text>'
+    +'<text x="88" y="86" font-size="15" writing-mode="tb" letter-spacing="4">谨发此牒</text>'
+    +'<text x="60" y="84" font-size="15" writing-mode="tb" letter-spacing="3">照验为凭</text>'
+    +'<text x="32" y="86" font-size="15" writing-mode="tb" letter-spacing="4">行者无疆</text>'
+    +'</g></g></svg>');
+  var officialImg=document.createElement('img');
+  officialImg.className='official-seal';
+  officialImg.alt='发牒官印';
+  officialImg.src=URL.createObjectURL(new Blob([OFFICIAL_SVG],{type:'image/svg+xml;charset=utf-8'}));
+  book.appendChild(officialImg);
+
+  /* 官印动态定位：rect 为视觉坐标，布局坐标需 ÷zoom（probe 实测缩放系数） */
+  function placeOfficial(){
+    var page=book.querySelector('.text-page');
+    var cols=[].slice.call(page.querySelectorAll('.col'));
+    if(cols.length<2) return;
+    var probe=document.createElement('div');
+    probe.style.cssText='position:absolute;left:0;top:0;width:100px;height:1px;visibility:hidden;';
+    book.appendChild(probe);
+    var z=probe.getBoundingClientRect().width/100||1;
+    probe.parentNode.removeChild(probe);
+    var bk=book.getBoundingClientRect();
+    var c1=cols[cols.length-2].getBoundingClientRect(), c2=cols[cols.length-1].getBoundingClientRect();
+    var cx=((c1.left+c1.right)/2+(c2.left+c2.right)/2)/2-bk.left;
+    var cy=c1.top-bk.top+c1.height*0.42;
+    officialImg.style.left=(cx/z-56)+'px';
+    officialImg.style.top=(cy/z-56)+'px';
+  }
+  var placeTimer=null;
+  function schedPlace(){ clearTimeout(placeTimer); placeTimer=setTimeout(placeOfficial,60); }
+
+  /* 预览缩放：book 固定 940px 自然宽度，用 zoom 适配容器 */
+  function fitZoom(){
+    var z=Math.min(1,Math.max(0.34,pvWrap.clientWidth/940));
+    book.style.zoom=z;
+    schedPlace();
+  }
+  window.addEventListener('resize',fitZoom);
+
+  /* 生成 */
+  function gen(){
+    var name=document.getElementById('name').value.trim();
+    var dept=document.getElementById('dept').value.trim();
+    var sel=currentSel();
+    if(!name){ alert('请填写学员姓名'); return; }
+    var no='XY2026-'+String(Math.floor(1000+Math.random()*9000));
+    var d=new Date();
+    var date=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+    /* 预览 */
+    document.getElementById('pv-no').textContent=no;
+    document.getElementById('pv-date').textContent=date;
+    renderSealWall(sel);
+    /* 结果 */
+    document.getElementById('no').textContent=no;
+    document.getElementById('date').textContent=date;
+    document.getElementById('result').style.display='block';
+    /* 下载二维码 -> passport.html?参数 */
+    var base=location.href.split('?')[0].replace('passport-tool.html','passport.html');
+    var q='name='+encodeURIComponent(name)+'&dept='+encodeURIComponent(dept||'')+'&no='+encodeURIComponent(no)+'&date='+encodeURIComponent(date)+'&seal='+sel.join(',');
+    QRCode.toCanvas(document.getElementById('qrCanvas'),base+'?'+q,{width:150,margin:1}).catch(function(){});
+  }
+
+  /* 初始化 */
+  fitZoom();
+  renderSealWall([]);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ schedPlace(); }); }
+  window.addEventListener('load',function(){ fitZoom(); schedPlace(); });
 </script>
 </body>
 </html>
