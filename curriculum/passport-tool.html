@@ -51,7 +51,7 @@
     position:relative;display:grid;grid-template-columns:0.9fr 1.5fr;
     width:940px;               /* 固定自然宽度，由 zoom 适配容器 */
     color:var(--ink);
-    font-family:"Kaiti SC","STKaiti","KaiTi","Songti SC","SimSun",serif;
+    font-family:"Weibei SC","STWeibei","KaiTi","Songti SC",serif;
     background:var(--paper);
     background-image:
       radial-gradient(ellipse 380px 240px at 12% 18%, rgba(120,90,40,.12), transparent 62%),
@@ -90,7 +90,6 @@
     box-shadow:inset 0 0 0 1px rgba(166,59,42,.3);
   }
   .brand .mkname{margin-top:9px;font-size:13.5px;letter-spacing:5px}
-  .brand .mken{font-size:9px;letter-spacing:3px;color:var(--ink-light);margin-top:3px;font-family:"Microsoft YaHei",sans-serif}
   .rule{height:.9px;background:var(--grid);width:78%;margin:8px 0}
   .stamps{flex:1;display:flex;flex-direction:column;gap:13px;justify-content:center;width:100%;padding:8px 10px}
   .srow{display:flex;justify-content:center;gap:13px}
@@ -120,7 +119,7 @@
   .col:last-child{border-left:1px solid var(--grid)}
   .title{
     writing-mode:vertical-rl;
-    font-family:"Songti SC","STSong","SimSun",serif;
+    font-family:"Weibei SC","STWeibei","Songti SC",serif;
     font-weight:900;font-size:44px;letter-spacing:12px;
     text-shadow:0 1px 0 rgba(255,250,235,.5);
     padding:2px 12px 2px 4px;
@@ -198,7 +197,6 @@
             <div class="brand">
               <div class="mark">取经计划</div>
               <div class="mkname">项目管理训练营</div>
-              <div class="mken">QUJING TRAINING</div>
             </div>
             <div class="rule"></div>
             <div class="stamps" id="pv-seals"></div>
@@ -219,7 +217,7 @@
             <div class="col" id="pv-passed">历诸关考核 俱各合格</div>
             <div class="col">希沿途守关丞 照牒放行</div>
             <div class="col stamp-note-col" id="pv-stampnote">加盖宝印 须至牒者</div>
-            <div class="col"><span class="light">牒号 <b id="pv-no">XY2026-＿＿＿＿</b></span></div>
+            <div class="col"><span class="light">牒号 <b id="pv-no">第＿＿＿＿号</b></span></div>
             <div class="col" id="pv-date">＿＿＿＿年＿＿月</div>
           </div>
         </div>
@@ -305,7 +303,7 @@
     +'<g stroke="#9c3524" fill="none">'
     +'<rect x="4" y="4" width="112" height="112" stroke-width="4.5"/>'
     +'<rect x="12" y="12" width="96" height="96" stroke-width="1.4"/>'
-    +'<g fill="#9c3524" stroke="none" font-family="Kaiti SC,KaiTi,Songti SC,serif" font-weight="700" text-anchor="middle">'
+    +'<g fill="#9c3524" stroke="none" font-family="Weibei SC,KaiTi,Songti SC,serif" font-weight="700" text-anchor="middle">'
     +'<text x="88" y="55" font-size="14" writing-mode="tb" letter-spacing="1">取经计划</text>'
     +'<text x="60" y="55" font-size="14" writing-mode="tb" letter-spacing="1">谨发此牒</text>'
     +'<text x="32" y="55" font-size="14" writing-mode="tb" letter-spacing="1">照验为凭</text>'
@@ -368,7 +366,7 @@
     var dept=document.getElementById('dept').value.trim();
     var sel=currentSel();
     if(!name){ alert('请填写学员姓名'); return; }
-    var no='XY2026-'+String(Math.floor(1000+Math.random()*9000));
+    var no='第'+String(Math.floor(1000+Math.random()*9000))+'号';
     var date=ganzhiDate();
     /* 预览 */
     document.getElementById('pv-no').textContent=no;
