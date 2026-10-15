@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通关文牒 · 生成工具｜取经计划</title>
+<style>
+  :root{--c:#b8912f;--gold:#b8912f;--gold-d:#8a6a2a;--paper:#f7f1e3;--ink:#2b2a26;--sub:#6b6353;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#eee9db;font-family:"Songti SC","SimSun","STSong",serif;color:var(--ink);min-height:100vh;padding:20px 16px 40px}
+  .wrap{max-width:960px;margin:0 auto}
+  /* 顶部说明 */
+  .topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+  .topbar .t h1{font-size:22px;color:var(--gold-d);letter-spacing:3px}
+  .topbar .t p{font-size:13px;color:var(--sub);margin-top:6px;line-height:1.8}
+  .entryqr{text-align:center}
+  .entryqr canvas{width:120px;height:120px;border:1px solid #d8cfb2;border-radius:6px}
+  .entryqr .cap{font-size:10px;color:var(--sub);margin-top:4px;letter-spacing:1px}
+  /* 布局 */
+  .grid{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:start}
+  @media(max-width:820px){.grid{grid-template-columns:1fr}}
+  .panel{background:#fffdf8;border:1px solid #e0d6b8;border-radius:12px;padding:20px}
+  .panel h3{font-size:15px;color:var(--gold-d);letter-spacing:2px;margin-bottom:14px;border-left:4px solid var(--c);padding-left:10px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-family:"Microsoft YaHei",sans-serif;font-size:12.5px;color:var(--sub);margin-bottom:5px}
+  .field input{width:100%;border:1.5px solid #d8cfb2;border-radius:8px;padding:9px 12px;font-size:14px;font-family:"Microsoft YaHei",sans-serif;background:#fff}
+  .field input:focus{outline:none;border-color:var(--c)}
+  .lv-box{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+  .lv{display:flex;align-items:center;gap:8px;border:1.5px solid #e0d6ba;border-radius:8px;padding:9px 10px;cursor:pointer;font-size:13px;font-family:"Microsoft YaHei",sans-serif;transition:all .15s}
+  .lv input{width:auto;margin:0}
+  .lv .dot{width:12px;height:12px;border-radius:50%;flex:0 0 auto}
+  .lv.on{border-color:var(--c);background:#fdf8ec}
+  .btn{width:100%;border:none;border-radius:9px;padding:13px;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;font-family:"Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#c9a64a,#8a6a2a);color:#fff}
+  .btn:active{opacity:.85}
+  .result{margin-top:16px;padding-top:14px;border-top:1px dashed #d8cfb2;display:none}
+  .result .rrow{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--sub);margin-bottom:8px;font-family:"Microsoft YaHei",sans-serif}
+  .result .rrow b{color:var(--gold-d);letter-spacing:1px}
+  .result .qrw{text-align:center;margin-top:10px}
+  .result .qrw canvas{width:150px;height:150px}
+  .result .qrw .cap{font-size:11px;color:var(--gold-d);margin-top:4px;letter-spacing:1px}
+  /* ===== 文牒预览 ===== */
+  .diploma{position:relative;background:var(--paper);border:1px solid #d8cfb2;border-radius:6px;padding:10px 14px 12px;box-shadow:0 8px 30px rgba(0,0,0,.16)}
+  .diploma .axis{position:absolute;left:4%;right:4%;height:16px;background:linear-gradient(180deg,#a38d5a,#7c6a41);border-radius:4px}
+  .diploma .axis.top{top:-4px}
+  .diploma .axis.bottom{bottom:-4px}
+  .diploma   .docwrap{border:1px solid var(--c);border-radius:6px;padding:4px;background:var(--paper)}
+  .doc{position:relative;border:1.5px solid var(--c);border-radius:4px;padding:40px 36px 34px;background:radial-gradient(900px 300px at 50% 0%, rgba(184,145,47,.07), transparent 60%), var(--paper)}
+  .diploma .doc::before,.diploma .doc::after{content:"◆";position:absolute;color:var(--c);opacity:.45;font-size:12px}
+  .diploma .doc::before{top:10px;left:12px}
+  .diploma .doc::after{bottom:10px;right:12px}
+  .head{text-align:center}
+  .head .brand{font-family:"Microsoft YaHei",sans-serif;font-size:11px;letter-spacing:3px;color:var(--sub);border-bottom:1px dashed rgba(138,106,42,.4);display:inline-block;padding-bottom:3px}
+  .head h1{margin:12px 0 2px;font-size:38px;letter-spacing:12px;color:var(--gold-d);font-weight:700;text-indent:12px}
+  .head .en{font-size:10px;letter-spacing:5px;color:var(--sub)}
+  .head .tagline{margin-top:12px;font-size:12px;color:var(--sub);letter-spacing:2px}
+  .body{margin-top:20px;font-size:14.5px;line-height:2}
+  .body .v{font-weight:700;color:var(--gold-d)}
+  .body .v.nm{font-size:18px}
+  .sealzone{display:flex;gap:14px;justify-content:center;align-items:center;margin:20px 0;flex-wrap:wrap;min-height:92px}
+  .sealzone img{width:84px;height:84px}
+  .sealzone .blank{width:84px;height:84px;border:1.5px dashed rgba(138,106,42,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b0a27c;font-size:12px}
+  .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--sub);margin-top:6px}
+  .meta b{color:var(--gold-d);letter-spacing:1px}
+  .sign{margin-top:20px;display:flex;justify-content:space-between;align-items:flex-end;font-size:12px;color:var(--sub)}
+  .sign .line{width:140px;border-bottom:1px solid var(--gold-d);margin-top:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="rowbar" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:16px">
+    <div class="t">
+      <h1>通关文牒 · 生成工具</h1>
+      <p style="font-size:12px;color:var(--sub);margin-top:5px">老师端：填写学员信息 → 勾选通过等级 → 生成文牒编号与认证日期 → 加盖等级印章 → 生成电子证书下载二维码发给学员</p>
+    </div>
+    <div class="entryqr" style="text-align:center">
+      <canvas id="entryQR" width="120" height="120"></canvas>
+      <div class="cap" style="font-size:10px;color:var(--sub);margin-top:3px">老师 · 扫码进入工具</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- 表单 -->
+    <div class="panel">
+      <h3>学员信息与通关等级</h3>
+      <div class="field"><label>学员姓名</label><input id="name" placeholder="如：张三"></div>
+      <div class="field"><label>部门 / 岗位</label><input id="dept" placeholder="如：数智中心 · 项目助理"></div>
+      <div class="field"><label>本次通关等级（可多选 · 已学通过的等级）</label>
+        <div class="lv-box" id="lvbox">
+          <div class="lv" data-i="0"><input type="checkbox"><span class="dot" style="background:#c9a64a"></span>通识 · L0</div>
+          <div class="lv" data-i="1"><input type="checkbox"><span class="dot" style="background:#0066CC"></span>认知 · L1</div>
+          <div class="lv" data-i="2"><input type="checkbox"><span class="dot" style="background:#00CC99"></span>工具 · L2</div>
+          <div class="lv" data-i="3"><input type="checkbox"><span class="dot" style="background:#FF6600"></span>实战 · L3</div>
+          <div class="lv" data-i="4"><input type="checkbox"><span class="dot" style="background:#E53935"></span>治理 · L4</div>
+        </div>
+      </div>
+      <button class="btn" onclick="gen()">生成通关文牒</button>
+      <div class="result" id="result">
+        <div class="rrow">文牒编号：<b id="no"></b></div>
+        <div class="rrow">认证日期：<b id="date"></b></div>
+        <div class="qrw"><canvas id="qrCanvas" width="150" height="150"></canvas><div class="cap">学员下载二维码 · 扫码领取</div></div>
+      </div>
+    </div>
+
+    <!-- 文牒预览 -->
+    <div>
+      <div id="diploma" class="diploma">
+        <div class="axis top"></div>
+        <div class="docwrap">
+      <div class="doc">
+          <div class="head">
+            <div class="brand">取经计划 · 项目管理四级训练营</div>
+            <h1>通关文牒</h1>
+            <div class="en">Passport · Certificate of Completion</div>
+            <div class="tagline">—— 一本取经史 · 半部项目经 ——</div>
+          </div>
+          <div class="body">
+            <p>兹有学员 <span class="v nm" id="pv-name"></span>，<span class="v" id="pv-dept"></span>，圆满完成《取经计划》项目通关训练，经考核验收合格，依《通关文牒》之规制，加盖对应等级通关印，特发此牒，以资认证。</p>
+          </div>
+          <div class="sealzone" id="pv-seals"></div>
+          <div class="meta">
+            <div>文牒编号：<b id="pv-no"></b></div>
+            <div>认证日期：<b id="pv-date"></b></div>
+          </div>
+          <div class="sign">
+            <div>发证机构 · 取经计划</div>
+            <div style="text-align:center"><div>认证签署</div><div class="line"></div></div>
+            <div style="text-align:right">学员电子存档</div>
+          </div>
+      </div>
+      </div>
+      <div class="axis bottom"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/qrcode.min.js"></script>
+<script>
+(function(){
+  // 等级勾选交互
+  var lvs = [].slice.call(document.querySelectorAll('#lvbox .lv'));
+  lvs.forEach(function(l){
+    var cb=l.querySelector('input[type=checkbox]');
+    l.onclick=function(e){
+      if(e.target!==cb){ cb.checked=!cb.checked; }
+      l.classList.toggle('on', cb.checked);
+    };
+  });
+  // 入口二维码（指向工具自身，老师扫码进入）
+  var entryUrl = location.href.split('?')[0];
+  QRCode.toCanvas(document.getElementById('entryQR'), entryUrl, {width:120,margin:1}).catch(function(){});
+  // 实时预览姓名/部门
+  document.getElementById('name').addEventListener('input',function(){document.getElementById('pv-name').textContent=this.value||'________';});
+  document.getElementById('dept').addEventListener('input',function(){document.getElementById('pv-dept').textContent=this.value||'（部门 / 岗位）';});
+})();
+// 生成
+function gen(){
+  var name=document.getElementById('name').value.trim();
+  var dept=document.getElementById('dept').value.trim();
+  var sel=[].slice.call(document.querySelectorAll('#lvbox .lv.on')).map(function(l){return l.dataset.i;});
+  if(!name){ alert('请填写学员姓名'); return; }
+  // 编号 + 日期
+  var no='XY2026-'+String(Math.floor(1000+Math.random()*9000));
+  var d=new Date();
+  var date=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+  // 预览
+  document.getElementById('pv-no').textContent=no;
+  document.getElementById('pv-date').textContent=date;
+  renderSeals('pv-seals', sel, name);
+  // 结果
+  document.getElementById('no').textContent=no;
+  document.getElementById('date').textContent=date;
+  document.getElementById('result').style.display='block';
+  // 下载二维码 -> passport.html?参数
+  var base=location.href.split('?')[0].replace('passport-tool.html','passport.html');
+  var q='name='+encodeURIComponent(name)+'&dept='+encodeURIComponent(dept||'')+'&no='+encodeURIComponent(no)+'&date='+encodeURIComponent(date)+'&seal='+sel.join(',');
+  QRCode.toCanvas(document.getElementById('qrCanvas'), base+'?'+q, {width:150,margin:1}).catch(function(){});
+}
+function renderSeals(containerId, idx, name){
+  var zone=document.getElementById(containerId); zone.innerHTML='';
+  var names={0:'通识',1:'认知',2:'工具',3:'实战',4:'治理'};
+  if(idx.length){ idx.forEach(function(i){ var im=document.createElement('img'); im.src='seal/seal-l'+i+'.svg'; im.alt=names[i]+'印'; zone.appendChild(im); }); }
+  else { var b=document.createElement('div'); b.className='blank'; b.textContent='加盖通关印'; zone.appendChild(b); }
+}
+</script>
+</body>
+</html>

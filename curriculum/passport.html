@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通关文牒 · 结业凭证｜取经计划</title>
+<style>
+  :root{--c:#b8912f;--gold:#b8912f;--gold-d:#8a6a2a;--paper:#f7f1e3;--ink:#2b2a26;--sub:#6b6353;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e9e4d5;font-family:"Songti SC","SimSun","STSong",serif;color:var(--ink);min-height:100vh;padding:24px 16px 40px}
+  .wrap{max-width:860px;margin:0 auto}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+  .bar .btns{display:flex;gap:10px;flex-wrap:wrap}
+  .btn{border:none;border-radius:9px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
+  .btn.gold{background:var(--c);color:#fff}
+  .btn.outline{background:#fff;border:1.5px solid var(--c);color:var(--gold-d)}
+  .hint{font-size:11px;color:#8a7d5f;letter-spacing:1px}
+  /* ===== 通关文牒 ===== */
+  .diploma{position:relative;background:var(--paper);border:1px solid #d8cfb2;border-radius:6px;padding:10px 14px 12px;box-shadow:0 8px 30px rgba(0,0,0,.16)}
+  .diploma .axis{position:absolute;left:4%;right:4%;height:16px;background:linear-gradient(180deg,#a38d5a,#7c6a41);border-radius:4px;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  .diploma .axis.top{top:-4px}
+  .diploma .axis.bottom{bottom:-4px}
+  .diploma   .docwrap{border:1px solid var(--c);border-radius:6px;padding:4px;background:var(--paper)}
+  .doc{position:relative;border:1.5px solid var(--c);border-radius:4px;padding:44px 40px 38px;background:
+      radial-gradient(900px 300px at 50% 0%, rgba(184,145,47,.07), transparent 60%),
+      var(--paper);}
+  .diploma .doc::before,.diploma .doc::after{content:"◆";position:absolute;color:var(--c);opacity:.45;font-size:12px}
+  .diploma .doc::before{top:10px;left:12px}
+  .diploma .doc::after{bottom:10px;right:12px}
+  .head{text-align:center}
+  .head .brand{font-family:"Microsoft YaHei",sans-serif;font-size:12px;letter-spacing:4px;color:var(--sub);border-bottom:1px dashed rgba(138,106,42,.4);display:inline-block;padding-bottom:4px}
+  .head h1{margin:16px 0 2px;font-size:46px;letter-spacing:14px;color:var(--gold-d);font-weight:700;text-indent:14px}
+  .head .en{font-size:11px;letter-spacing:6px;color:var(--sub);text-transform:uppercase}
+  .head .tagline{margin-top:14px;font-size:13px;color:var(--sub);letter-spacing:2px}
+  .body{margin-top:26px;font-size:15.5px;line-height:2}
+  .body .v{font-weight:700;color:var(--gold-d);letter-spacing:1px}
+  .body .v.nm{font-size:19px}
+  .sealzone{display:flex;gap:18px;justify-content:center;align-items:center;margin:26px 0;flex-wrap:wrap}
+  .sealzone img{width:92px;height:92px}
+  .sealzone .blank{width:92px;height:92px;border:1.5px dashed rgba(138,106,42,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#b0a27c;font-size:12px}
+  .meta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:14px;color:var(--sub)}
+  .meta b{color:var(--gold-d);letter-spacing:1px}
+  .sign{margin-top:26px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;font-size:13.5px;color:var(--sub)}
+  .sign .issuer{font-family:"Microsoft YaHei",sans-serif}
+  .sign .line{width:150px;border-bottom:1px solid var(--gold-d);margin-top:6px}
+  .foot-note{margin-top:18px;text-align:center;font-size:11px;color:#9a8f72;letter-spacing:1px}
+  /* 打印 */
+  @media print{
+    body{background:#fff;padding:0}
+    .bar,.hint,.btn{display:none!important}
+    .wrap{max-width:100%}
+    .diploma{box-shadow:none;border:none}
+    .diploma .doc{outline-offset:0}
+    @page{margin:12mm}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <div class="hint">📜 你的通关文牒 · 可保存图片 / 打印 PDF</div>
+    <div class="btns">
+      <button class="btn outline" onclick="downloadPng()">🖼 保存图片</button>
+      <button class="btn gold" onclick="window.print()">🖨 打印 / 存 PDF</button>
+    </div>
+  </div>
+
+  <div id="diploma" class="diploma">
+    <div class="axis top"></div>
+    <div class="docwrap">
+    <div class="doc">
+      <div class="head">
+        <div class="brand">取经计划 · 项目管理四级训练营</div>
+        <h1>通关文牒</h1>
+        <div class="en">Passport · Certificate of Completion</div>
+        <div class="tagline">—— 一本取经史 · 半部项目经 ——</div>
+      </div>
+      <div class="body">
+        <p>兹有学员 <span class="v nm" id="name"></span>，<span class="v" id="dept"></span>，圆满完成《取经计划》项目通关训练，经考核验收合格，依《通关文牒》之规制，加盖对应等级通关印，特发此牒，以资认证。</p>
+      </div>
+      <div class="sealzone" id="sealzone"></div>
+      <div class="meta">
+        <div>文牒编号：<b id="no"></b></div>
+        <div>认证日期：<b id="date"></b></div>
+      </div>
+      <div class="sign">
+        <div class="b">发证机构 · 取经计划<br>项目管理四级训练营</div>
+        <div style="text-align:center"><div>认证签署</div><div class="line"></div></div>
+        <div class="b" style="text-align:right">学员电子存档<br><span style="font-weight:400;font-size:12px;color:var(--sub)">扫码可复核</span></div>
+      </div>
+    </div>
+    </div>
+    <div class="axis bottom"></div>
+  </div>
+  <div class="foot-note">本证为电子结业凭证，仅用于学习认证展示；文牒编号可向发证机构核验。</div>
+</div>
+
+<script src="vendor/html2canvas.min.js"></script>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var name = p.get('name')||'';
+  var dept = p.get('dept')||'';
+  var no = p.get('no')||'';
+  var date = p.get('date')||'';
+  var seal = p.get('seal')||''; // 逗号分隔等级索引 0-4
+  document.getElementById('name').textContent = name || '________';
+  document.getElementById('dept').textContent = dept || '（部门 / 岗位）';
+  document.getElementById('no').textContent = no || 'XY2026-____';
+  document.getElementById('date').textContent = date || '________年__月__日';
+  // 印章：SVG 先转 PNG dataURL（浏览器原生 canvas 绘制，规避 html2canvas 对 SVG 的兼容缺陷）
+  function svgToPng(svgPath, size){
+    return fetch(svgPath).then(function(r){return r.text();}).then(function(txt){
+      return new Promise(function(resolve, reject){
+        var blob = new Blob([txt], {type:'image/svg+xml;charset=utf-8'});
+        var url = URL.createObjectURL(blob);
+        var img = new Image();
+        img.onload = function(){
+          var c = document.createElement('canvas');
+          c.width = size; c.height = size;
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          URL.revokeObjectURL(url);
+          resolve(c.toDataURL('image/png'));
+        };
+        img.onerror = function(){ URL.revokeObjectURL(url); reject(); };
+        img.src = url;
+      });
+    });
+  }
+  var zone = document.getElementById('sealzone');
+  var idx = seal ? seal.split(',').filter(Boolean) : [];
+  var names = {0:'通识',1:'认知',2:'工具',3:'实战',4:'治理'};
+  if(idx.length){
+    idx.forEach(function(i){
+      var im = document.createElement('img');
+      im.alt = names[i]+'印';
+      im.src = 'seal/seal-l'+i+'.svg'; // 先显示 SVG，转换成功后替换为 PNG
+      zone.appendChild(im);
+      svgToPng('seal/seal-l'+i+'.svg', 184).then(function(dataUrl){ im.src = dataUrl; }).catch(function(){});
+    });
+  } else {
+    var b = document.createElement('div'); b.className='blank'; b.textContent='加盖通关印';
+    zone.appendChild(b);
+  }
+})();
+window.downloadPng = function(){
+  var el = document.getElementById('diploma');
+  html2canvas(el, {scale:2, backgroundColor:'#e9e4d5'}).then(function(canvas){
+    var a = document.createElement('a');
+    a.download = '通关文牒-'+ (new URLSearchParams(location.search).get('name')||'') + '.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  });
+};
+</script>
+</body>
+</html>
