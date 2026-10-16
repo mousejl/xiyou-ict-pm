@@ -119,7 +119,7 @@ function save(){ try{ localStorage.setItem(SKEY(exam.id), JSON.stringify({ans, s
 function load(){ try{ const r = JSON.parse(localStorage.getItem(SKEY(exam.id))); if(r){ ans = r.ans||{}; submitted = !!r.submitted; t0 = r.t0||0; tUsed = r.tUsed||0; } }catch(e){} }
   const letter = i => 'ABCD'[i];
   /* PDF 直链兜底：旧上报记录 localStorage 无 pass_pdf 时，由网页牒链接推导 */
-  const pdfUrl = (u, pdf) => { const b = pdf || String(u||'').replace('https://mousejl.github.io/xiyou-ict-pm/curriculum/passport.html','https://exam-report.mousejl.top/passport.pdf'); return b + (b.includes('?') ? '&' : '?') + 'fmt=pv'; };
+  const pdfUrl = (u, pdf) => { const b = pdf || String(u||'').replace('https://mousejl.github.io/xiyou-ict-pm/curriculum/passport.html','https://exam-report.mousejl.top/passport.pdf'); return b + (b.includes('?') ? '&' : '?') + 'fmt=ph'; };
 
 /* ---------- 选择页 ---------- */
 function renderChoose(){

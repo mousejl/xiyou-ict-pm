@@ -243,7 +243,7 @@
   var el = document.getElementById('pdfDl');
   if(el){
     var q = location.search || '?seal=';
-    if(q.indexOf('fmt=') < 0) q += '&fmt=pv';   // 版本参数绕过CDN旧缓存（竖版）
+    if(q.indexOf('fmt=') < 0) q += '&fmt=ph';   // 版本参数绕过CDN旧缓存（横版）
     el.href = 'https://exam-report.mousejl.top/passport.pdf' + q;
   }
 })();
