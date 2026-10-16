@@ -93,9 +93,8 @@
   .passzone{background:#f4fbf7;border:1px solid #cfe6d9;border-radius:10px;padding:12px 14px;margin-top:12px}
   .passzone .pt{font-size:14px;font-weight:800;color:#00895a}
   .passzone .pt-sub{font-size:12px;color:var(--sub);margin:4px 0 8px}
-  .passzone a.btn{display:inline-block;text-decoration:none;padding:9px 20px;border-radius:9px;font-size:13.5px;font-weight:800;color:#fff;letter-spacing:1px;background:linear-gradient(135deg,#00895a,#005f3f)}
+  .passzone a.btn{display:inline-block;text-decoration:none;padding:9px 22px;border-radius:9px;font-size:13.5px;font-weight:800;color:#fff;letter-spacing:1px;background:linear-gradient(135deg,#0066CC,#004080)}
   .passzone .seal{display:inline-block;width:40px;height:40px;vertical-align:middle;margin-right:8px;background:#fff;border-radius:6px;padding:3px}
-  .passzone a.btn.pdf{background:linear-gradient(135deg,#0066CC,#004080);margin-left:8px}
   @media print{.passzone{display:none}}
   @media print{.report{display:none}}
   @media print{.foot{display:none}}
@@ -118,7 +117,9 @@ let t0 = 0, tUsed = 0;
 const $ = s => document.querySelector(s);
 function save(){ try{ localStorage.setItem(SKEY(exam.id), JSON.stringify({ans, submitted, t0, tUsed})); }catch(e){} }
 function load(){ try{ const r = JSON.parse(localStorage.getItem(SKEY(exam.id))); if(r){ ans = r.ans||{}; submitted = !!r.submitted; t0 = r.t0||0; tUsed = r.tUsed||0; } }catch(e){} }
-const letter = i => 'ABCD'[i];
+  const letter = i => 'ABCD'[i];
+  /* PDF 直链兜底：旧上报记录 localStorage 无 pass_pdf 时，由网页牒链接推导 */
+  const pdfUrl = (u, pdf) => pdf || String(u||'').replace('https://mousejl.github.io/xiyou-ict-pm/curriculum/passport.html','https://exam-report.mousejl.top/passport.pdf');
 
 /* ---------- 选择页 ---------- */
 function renderChoose(){
@@ -306,7 +307,7 @@ function renderResult(r, scroll){
           <div class="rmsg" id="r-msg"></div>
         </div>
         ${reportCtx.done ? '<div class="rlink" onclick="reReport()">修改信息后重新上报</div>' : ''}
-        ${reportCtx.pass_url ? `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${reportCtx.pass_no||''} · 已集齐 ${reportCtx.level_count||0} 枚等级印 · 同名手机号通关多卷会在此牒自动累加印章</div><a class="btn" href="${reportCtx.pass_url}" target="_blank" rel="noopener">查看通关文牒 →</a>${reportCtx.pass_pdf ? `<a class="btn pdf" href="${reportCtx.pass_pdf}">📄 直接下载PDF</a>` : ''}</div>` : ''}
+        ${reportCtx.pass_url ? `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${reportCtx.pass_no||''} · 已集齐 ${reportCtx.level_count||0} 枚等级印 · 同名手机号通关多卷会在此牒自动累加印章</div><a class="btn" href="${pdfUrl(reportCtx.pass_url, reportCtx.pass_pdf)}">📄 下载通关文牒PDF</a></div>` : ''}
       </div>
       <div class="acts">
         <button class="btn p" onclick="retry()">再考一次</button>
@@ -364,7 +365,7 @@ function report(){
       const rep = document.querySelector('.report');
       rep.querySelectorAll('.passzone').forEach(x=>x.remove());
       if(j.qualify && j.pass_url){
-        rep.insertAdjacentHTML('beforeend', `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${j.pass_no||''} · 已集齐 ${j.level_count||0} 枚等级印 · 同名手机号通关多卷会共用此牒自动累加印章</div><a class="btn" href="${j.pass_url}" target="_blank" rel="noopener">查看通关文牒 →</a>${j.pass_pdf ? `<a class="btn pdf" href="${j.pass_pdf}">📄 直接下载PDF</a>` : ''}</div>`);
+        rep.insertAdjacentHTML('beforeend', `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${j.pass_no||''} · 已集齐 ${j.level_count||0} 枚等级印 · 同名手机号通关多卷会共用此牒自动累加印章</div><a class="btn" href="${pdfUrl(j.pass_url, j.pass_pdf)}">📄 下载通关文牒PDF</a></div>`);
         msg.className='rmsg ok'; msg.textContent='✓ 上报成功，成绩已交至老师总表';
       } else {
         msg.className='rmsg ok'; msg.textContent='✓ 成绩已上报（未达95分合格线，暂不发放通关文牒）';
