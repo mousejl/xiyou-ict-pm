@@ -17,7 +17,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:#c9bda0;font-family:"ZCOOL XiaoWei","Weibei SC","STWeibei","KaiTi","Songti SC",serif;color:var(--ink);min-height:100vh;padding:22px 14px 44px}
-  .wrap{max-width:940px;margin:0 auto}
+  .wrap{max-width:1000px;margin:0 auto}
   .bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
   .bar .btns{display:flex;gap:10px;flex-wrap:wrap}
   .btn{border:none;border-radius:4px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:"Songti SC","SimSun",serif;letter-spacing:2px}
@@ -27,7 +27,7 @@
 
   /* ===== 仿古文牒：经折装两页 ===== */
   .book{
-    position:relative;display:grid;grid-template-columns:0.9fr 1.5fr;
+    position:relative;display:grid;grid-template-columns:390px minmax(0,1fr);
     background:var(--paper);
     /* 仿古纸斑驳肌理 */
     background-image:
@@ -46,13 +46,13 @@
     border:1px solid #b8a682;
   }
   /* 折缝与纸面肌理：真实DOM（供 foreignObject 导出） */
-  .fold{position:absolute;top:0;bottom:0;left:calc(100%*0.9/2.4);width:2px;z-index:3;pointer-events:none;
+  .fold{position:absolute;top:0;bottom:0;left:390px;width:2px;z-index:3;pointer-events:none;
     background:linear-gradient(90deg,rgba(70,50,25,.28),rgba(120,95,55,.42),rgba(70,50,25,.28))}
   .noise{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.85;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='2' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.40 0 0 0 0 0.31 0 0 0 0 0.16 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23p)'/%3E%3C/svg%3E")}
   .frame{position:absolute;pointer-events:none;z-index:3}
   .frame.f1{inset:9px;border:1.8px solid var(--cinnabar);opacity:.92}
-  .frame.f2{inset:14px;border:.7px solid var(--cinnabar);opacity:.75}}
+  .frame.f2{inset:14px;border:.7px solid var(--cinnabar);opacity:.75}
   .page{position:relative;padding:16px}
 
   /* ===== 左页 · 盖印区 ===== */
@@ -125,17 +125,48 @@
 
   .foot-note{margin-top:13px;text-align:center;font-size:11.5px;color:#7a6c52;letter-spacing:2px;font-family:"Microsoft YaHei","PingFang SC",sans-serif}
 
-  /* 移动端纵排 */
-  @media(max-width:760px){
-    .book{grid-template-columns:1fr}
-    .book::before{left:9px;right:9px;top:auto;bottom:auto;width:auto;height:2px;
-      background:linear-gradient(180deg,rgba(70,50,25,.28),rgba(120,95,55,.42),rgba(70,50,25,.28));
-      position:absolute}
-    /* 让折缝落在两页之间：用绝对定位不行，改为隐藏折缝 */
-    .book::before{display:none}
-    .text-page{min-height:auto;font-size:13.5px;padding:22px 16px}
-    .title{font-size:36px;letter-spacing:12px}
-    .col{max-height:none}
+  /* 单栏上下堆叠 + 压缩：手机竖屏及窄横屏/平板竖屏（≤800px），保证两页完整不溢出不错乱 */
+  @media(max-width:800px){
+    .wrap{padding:0 6px}
+    .book{grid-template-columns:minmax(0,1fr)}
+    .fold{display:none}
+    .text-page{padding:18px 8px;min-height:auto;gap:0}
+    .col{font-size:12px;line-height:1.55;letter-spacing:1.5px;padding:2px 3px;max-height:none}
+    .col .big{font-size:13px}
+    .cname{font-size:16px;letter-spacing:4px;line-height:1.4}
+    .col .light{font-size:10px;letter-spacing:1px}
+    .title{font-size:26px;letter-spacing:8px;padding:2px 6px 2px 2px}
+    .official-seal{width:56px;height:56px}
+    /* 左页盖印区缩排 */
+    .stamp-page{padding:12px 6px}
+    .brand{padding:10px 4px 6px}
+    .brand .mark{width:52px;height:52px;font-size:11px}
+    .brand .mkname{font-size:12px;letter-spacing:3px;margin-top:6px}
+    .stamps{gap:9px;padding:6px 4px}
+    .srow{gap:9px}
+    .stamp-cell img{width:78px;height:78px}
+    .stamp-cell .void{width:64px;height:64px;font-size:9px}
+    .note{font-size:10px;letter-spacing:2px;padding:6px 8px 2px}
+  }
+  /* 双栏 + 窄列压缩：平板横屏/桌面小窗（801-1100px），保证右栏放得下不溢出 */
+  @media(min-width:801px) and (max-width:1100px){
+    .col{font-size:12px;line-height:1.55;letter-spacing:1.5px;padding:2px 3px;max-height:none}
+    .col .big{font-size:13px}
+    .cname{font-size:16px;letter-spacing:4px;line-height:1.4}
+    .col .light{font-size:10px;letter-spacing:1px}
+    .title{font-size:26px;letter-spacing:8px;padding:2px 6px 2px 2px}
+    .official-seal{width:56px;height:56px}
+    .stamp-cell img{width:88px;height:88px}
+    .stamp-cell .void{width:70px;height:70px}
+  }
+  /* 超窄屏（≤360px）进一步收紧 */
+  @media(max-width:360px){
+    .col{font-size:11px;line-height:1.45;letter-spacing:1px;padding:2px 2px}
+    .title{font-size:22px;letter-spacing:6px;padding:2px 5px 2px 1px}
+    .cname{font-size:14px;letter-spacing:3px}
+    .stamp-cell img{width:70px;height:70px}
+    .stamp-cell .void{width:58px;height:58px}
+    .official-seal{width:50px;height:50px}
   }
   @media print{
     body{background:#fff;padding:0}
@@ -295,8 +326,13 @@
     var c1 = noCol.getBoundingClientRect(), c2 = dateCol.getBoundingClientRect();
     var cx = (c1.left + c1.right + c2.left + c2.right) / 4 - bk.left; // 两列水平中心
     var cy = c1.top - bk.top + c1.height * 0.42;                      // 文字中部
-    officialImg.style.left = (cx - 56) + 'px';
-    officialImg.style.top = (cy - 56) + 'px';
+    var halfW = parseFloat(getComputedStyle(officialImg).width) / 2 || 56;
+    var halfH = parseFloat(getComputedStyle(officialImg).height) / 2 || 56;
+    var tpRect = page.getBoundingClientRect();
+    var x = cx - halfW; if(x < tpRect.left - bk.left + 4) x = tpRect.left - bk.left + 4;
+    var y = cy - halfH; if(y < tpRect.top - bk.top + 4) y = tpRect.top - bk.top + 4;
+    officialImg.style.left = x + 'px';
+    officialImg.style.top = y + 'px';
   })();
 })();
 window.downloadPng = function(){
