@@ -90,6 +90,12 @@
   .rmsg.ok{color:#00a06a;font-weight:700}
   .rmsg.bad{color:#E53935}
   .rlink{font-size:11.5px;color:var(--tc);cursor:pointer;text-decoration:underline}
+  .passzone{background:#f4fbf7;border:1px solid #cfe6d9;border-radius:10px;padding:12px 14px;margin-top:12px}
+  .passzone .pt{font-size:14px;font-weight:800;color:#00895a}
+  .passzone .pt-sub{font-size:12px;color:var(--sub);margin:4px 0 8px}
+  .passzone a.btn{display:inline-block;text-decoration:none;padding:9px 20px;border-radius:9px;font-size:13.5px;font-weight:800;color:#fff;letter-spacing:1px;background:linear-gradient(135deg,#00895a,#005f3f)}
+  .passzone .seal{display:inline-block;width:40px;height:40px;vertical-align:middle;margin-right:8px;background:#fff;border-radius:6px;padding:3px}
+  @media print{.passzone{display:none}}
   @media print{.report{display:none}}
   @media print{.foot{display:none}}
 </style>
@@ -270,7 +276,7 @@ function submit(){
   renderResult(judgeAll(), true);
 }
 function renderResult(r, scroll){
-  let reportCtx = {name:'',company:'',dept:'',phone:'',done:false};
+  let reportCtx = {name:'',company:'',dept:'',phone:'',done:false,pass_url:'',pass_no:''};
   try{ const x = JSON.parse(localStorage.getItem(RKEY(exam.id)) || '{}'); if(x && x.done) reportCtx = x; }catch(e){}
   document.documentElement.style.setProperty('--tc', exam.theme[0]);
   document.documentElement.style.setProperty('--tc2', exam.theme[1]);
@@ -299,6 +305,7 @@ function renderResult(r, scroll){
           <div class="rmsg" id="r-msg"></div>
         </div>
         ${reportCtx.done ? '<div class="rlink" onclick="reReport()">修改信息后重新上报</div>' : ''}
+        ${reportCtx.pass_url ? `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${reportCtx.pass_no||''} · 已自动填写姓名并加盖对应等级印</div><a class="btn" href="${reportCtx.pass_url}" target="_blank" rel="noopener">查看我的通关文牒 →</a></div>` : ''}
       </div>
       <div class="acts">
         <button class="btn p" onclick="retry()">再考一次</button>
@@ -352,10 +359,17 @@ function report(){
     score: r.score, s_score: r.sR[0]*2, m_score: r.mR[0]*3, j_score: r.jR[0]*2, seconds: tUsed||0
   })}).then(x=>x.json()).then(j=>{
     if(j.ok){
-      try{ localStorage.setItem(RKEY(exam.id), JSON.stringify({name, company, dept, phone, done:true})); }catch(e){}
-      msg.className='rmsg ok'; msg.textContent='✓ 上报成功，成绩已交至老师总表';
-      const li = document.querySelector('.report .rlink');
-      if(!li) document.querySelector('.report').insertAdjacentHTML('beforeend','<div class="rlink" onclick="reReport()">修改信息后重新上报</div>');
+      try{ localStorage.setItem(RKEY(exam.id), JSON.stringify({name, company, dept, phone, done:true, pass_url: j.pass_url||'', pass_no: j.pass_no||''})); }catch(e){}
+      const rep = document.querySelector('.report');
+      rep.querySelectorAll('.passzone').forEach(x=>x.remove());
+      if(j.qualify && j.pass_url){
+        rep.insertAdjacentHTML('beforeend', `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${j.pass_no||''} · 已自动填写姓名并加盖对应等级印</div><a class="btn" href="${j.pass_url}" target="_blank" rel="noopener">查看我的通关文牒 →</a></div>`);
+        msg.className='rmsg ok'; msg.textContent='✓ 上报成功，成绩已交至老师总表';
+      } else {
+        msg.className='rmsg ok'; msg.textContent='✓ 成绩已上报（未达95分合格线，暂不发放通关文牒）';
+      }
+      const li = rep.querySelector('.rlink');
+      if(!li) rep.insertAdjacentHTML('beforeend','<div class="rlink" onclick="reReport()">修改信息后重新上报</div>');
     } else {
       msg.className='rmsg bad'; msg.textContent=(j.msg||'上报失败')+'，请重试'; btn.disabled=false;
     }
