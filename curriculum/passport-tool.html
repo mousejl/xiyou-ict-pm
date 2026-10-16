@@ -287,10 +287,11 @@
     document.getElementById('pv-passed').textContent=idx.length
       ? '历'+idx.map(function(i){return NAMES[i]||'';}).join('')+'诸关 俱各合格'
       : '历诸关考核 俱各合格';
-    /* 压字宝印：最高一枚正置压"加盖宝印"列（仿古用印规制） */
+    /* 压字宝印：仅当本牒盖有两枚及以上等级印时，以最高一枚正置压"加盖宝印"列（仿古用印防篡改规制）；
+       单枚等级印（如自动发放）不再在正文页重复压印 */
     var noteCol=document.getElementById('pv-stampnote');
     var old=noteCol.querySelector('.press-seal'); if(old) old.remove();
-    if(idx.length){
+    if(idx.length > 1){
       var p=document.createElement('img');
       p.className='press-seal'; p.alt='宝印';
       p.src='seal/seal-l'+idx[idx.length-1]+'.svg';
