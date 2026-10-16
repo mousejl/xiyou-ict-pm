@@ -241,7 +241,11 @@
 /* 文牒PDF：服务器端矢量渲染，点开即下载（参数与本页完全一致，含内嵌字体，免等字体加载） */
 (function(){
   var el = document.getElementById('pdfDl');
-  if(el) el.href = 'https://exam-report.mousejl.top/passport.pdf' + (location.search || '?seal=');
+  if(el){
+    var q = location.search || '?seal=';
+    if(q.indexOf('fmt=') < 0) q += '&fmt=pv';   // 版本参数绕过CDN旧缓存（竖版）
+    el.href = 'https://exam-report.mousejl.top/passport.pdf' + q;
+  }
 })();
 </script>
 <script src="vendor/html2canvas.min.js"></script>
