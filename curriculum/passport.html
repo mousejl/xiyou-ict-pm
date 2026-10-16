@@ -34,6 +34,7 @@
   .bar .btns{display:flex;gap:10px;flex-wrap:wrap}
   .btn{border:none;border-radius:4px;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:"Songti SC","SimSun",serif;letter-spacing:2px}
   .btn.cinnabar{background:var(--cinnabar);color:#f5ecd8}
+  .btn.pdf{background:#0066CC;color:#f5ecd8}
   .btn.outline{background:transparent;border:1.5px solid var(--cinnabar);color:var(--cinnabar-deep)}
   .hint{font-size:12px;color:#6b5f4c;letter-spacing:2px}
 
@@ -195,6 +196,7 @@
     <div class="hint">📜 你的通关文牒 · 可保存图片 / 打印</div>
     <div class="btns">
       <button class="btn outline" onclick="downloadPng()">🖼 保存图片</button>
+      <a class="btn pdf" id="pdfDl" style="text-decoration:none;display:inline-block" href="#">📄 文牒PDF</a>
       <button class="btn cinnabar" onclick="window.print()">🖨 打印 / 存为文件</button>
     </div>
   </div>
@@ -237,6 +239,13 @@
   <div class="foot-note">本证为电子结业凭证，仅用于学习认证展示；牒号可向发证机构核验。</div>
 </div>
 
+<script>
+/* 文牒PDF：服务器端矢量渲染，点开即下载（参数与本页完全一致，含内嵌字体，免等字体加载） */
+(function(){
+  var el = document.getElementById('pdfDl');
+  if(el) el.href = 'https://exam-report.mousejl.top/passport.pdf' + (location.search || '?seal=');
+})();
+</script>
 <script src="vendor/html2canvas.min.js"></script>
 <script>
 (function(){
