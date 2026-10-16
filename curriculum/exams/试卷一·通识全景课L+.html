@@ -36,7 +36,17 @@
   .answers .ansbox .n{color:var(--sub);min-width:22px}
   .answers .ansbox b{color:var(--red)}
   .foot{text-align:center;font-size:12px;color:#9aa4b2;padding:14px;border-top:1px solid #eef1f5}
-  @media print{body{background:#fff;padding:0}.paper{box-shadow:none;max-width:100%}.answers{display:block}}
+  @media print{
+    @page{size:A4;margin:12mm 11mm}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{background:#fff;padding:0;margin:0}
+    .paper{box-shadow:none;max-width:100%;border-radius:0}
+    .paper section:nth-of-type(n+2),.answers{break-before:page;page-break-before:always}
+    .q,.sec-t,.meta,.fillbar{break-inside:avoid;page-break-inside:avoid}
+    .answers details{display:block}
+    .answers details summary{display:none}
+    .answers details .ansbox{display:block}
+  }
 </style>
 </head>
 <body>
