@@ -307,7 +307,7 @@ function renderResult(r, scroll){
           <div class="rmsg" id="r-msg"></div>
         </div>
         ${reportCtx.done ? '<div class="rlink" onclick="reReport()">修改信息后重新上报</div>' : ''}
-        ${reportCtx.pass_url ? `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${reportCtx.pass_no||''} · 已集齐 ${reportCtx.level_count||0} 枚等级印 · 同名手机号通关多卷会在此牒自动累加印章</div><a class="btn" href="${pdfUrl(reportCtx.pass_url, reportCtx.pass_pdf)}">📄 下载通关文牒PDF</a></div>` : ''}
+        ${reportCtx.pass_url ? `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！<br>通关文牒已自动生成</div><div class="pt-sub">牒号：${reportCtx.pass_no||''} · 已集齐 ${reportCtx.level_count||0} 枚等级印 · 同名手机号通关多卷会在此牒自动累加印章</div><a class="btn" href="${pdfUrl(reportCtx.pass_url, reportCtx.pass_pdf)}">📄 下载通关文牒PDF</a></div>` : ''}
       </div>
       <div class="acts">
         <button class="btn p" onclick="retry()">再考一次</button>
@@ -365,7 +365,7 @@ function report(){
       const rep = document.querySelector('.report');
       rep.querySelectorAll('.passzone').forEach(x=>x.remove());
       if(j.qualify && j.pass_url){
-        rep.insertAdjacentHTML('beforeend', `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！通关文牒已自动生成</div><div class="pt-sub">牒号：${j.pass_no||''} · 已集齐 ${j.level_count||0} 枚等级印 · 同名手机号通关多卷会共用此牒自动累加印章</div><a class="btn" href="${pdfUrl(j.pass_url, j.pass_pdf)}">📄 下载通关文牒PDF</a></div>`);
+        rep.insertAdjacentHTML('beforeend', `<div class="passzone"><div class="pt">🎉 恭喜合格（≥95分）！<br>通关文牒已自动生成</div><div class="pt-sub">牒号：${j.pass_no||''} · 已集齐 ${j.level_count||0} 枚等级印 · 同名手机号通关多卷会共用此牒自动累加印章</div><a class="btn" href="${pdfUrl(j.pass_url, j.pass_pdf)}">📄 下载通关文牒PDF</a></div>`);
         msg.className='rmsg ok'; msg.textContent='✓ 上报成功，成绩已交至老师总表';
       } else {
         msg.className='rmsg ok'; msg.textContent='✓ 成绩已上报（未达95分合格线，暂不发放通关文牒）';
