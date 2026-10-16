@@ -259,8 +259,9 @@
   });
   zone.appendChild(row1); zone.appendChild(row2);
 
-  // 首印压字：最高一枚印正置压在"加盖宝印"列上（仿古用印规制）
-  if(idx.length){
+  // 首印压字：仅当本牒盖有两枚及以上等级印时，以最高一级正置压在"加盖宝印"列（仿古用印防篡改规制）；
+  // 单枚等级印的文牒（如自动发放）不重复压印，避免在正文页多盖一枚
+  if(idx.length > 1){
     var press = document.createElement('img');
     press.className = 'press-seal';
     press.src = 'seal/seal-l'+idx[idx.length-1]+'.svg';
