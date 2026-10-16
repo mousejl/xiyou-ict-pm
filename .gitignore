@@ -1,1 +1,4 @@
-.temp/image-plan.md
+.DS_Store
+.temp/
+__pycache__/
+*.pyc
