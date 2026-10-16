@@ -318,7 +318,8 @@
   })();
   document.getElementById('book').appendChild(officialImg);
   // 动态定位：官印悬挂于 book（absolute），中心对准末两列（牒号/日期列）文字中部
-  (function(){
+  // Safari 字体/图片晚加载会致布局变化，首次定位后需多时机重算（fonts.ready / load / resize），导出前再校位
+  window.positionOfficialSeal = function(){
     var page = document.querySelector('.text-page');
     var cols = [].slice.call(page.querySelectorAll('.col'));
     var noCol = cols[cols.length-2], dateCol = cols[cols.length-1]; // 末两列
@@ -333,11 +334,17 @@
     var y = cy - halfH; if(y < tpRect.top - bk.top + 4) y = tpRect.top - bk.top + 4;
     officialImg.style.left = x + 'px';
     officialImg.style.top = y + 'px';
-  })();
+  };
+  window.positionOfficialSeal();
+  if (document.fonts && document.fonts.ready){ document.fonts.ready.then(function(){ window.requestAnimationFrame(window.positionOfficialSeal); }); }
+  window.addEventListener('load', function(){ window.requestAnimationFrame(window.positionOfficialSeal); });
+  var rsTimer = null;
+  window.addEventListener('resize', function(){ if(rsTimer) clearTimeout(rsTimer); rsTimer = setTimeout(window.positionOfficialSeal, 60); });
 })();
 window.downloadPng = function(){
   var el = document.getElementById('book');
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(function(){
+    window.positionOfficialSeal();   // 导出前按当前布局终校官印位（Safari 字体晚到后重定位）
     return exportHandDraw(el);
   }).then(function(dataUrl){
     triggerDownload(dataUrl);
