@@ -34,7 +34,13 @@
   .answers .ansbox .row{display:flex;gap:6px;padding:2px 0;border-bottom:1px dotted #e3e8ef}
   .answers .ansbox .n{color:var(--sub);min-width:22px}
   .foot{text-align:center;font-size:12px;color:#9aa4b2;padding:14px;border-top:1px solid #eef1f5}
+  .quiz-entry{display:flex;gap:14px;align-items:center;margin:14px 30px 0;padding:12px 14px;background:#faf5e8;border:1px solid #e4d9bc;border-radius:10px}
+  .quiz-entry img{width:74px;height:74px;background:#fff;border-radius:8px;padding:5px;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer}
+  .quiz-entry .qi-txt b{display:block;font-size:14px;color:#5a4a12}
+  .quiz-entry .qi-txt span{display:block;font-size:12px;color:#8a7c58;margin-top:2px}
+  .quiz-entry .qi-txt a{display:inline-block;font-size:12.5px;font-weight:700;color:var(--primary);margin-top:4px;text-decoration:none}
   @media print{
+    .quiz-entry{display:none}
     @page{size:A4;margin:12mm 11mm}
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     body{background:#fff;padding:0;margin:0}
@@ -57,6 +63,14 @@
   <div class="meta">
     <span>课程：<b>基础篇</b></span><span>级别：<b>L2 · 工具</b></span>
     <span>题型：<b>单选 / 多选 / 判断</b></span><span>满分：<b>100 分</b></span>
+  </div>
+  <div class="quiz-entry">
+    <img src="qr-quiz-3.svg" alt="学生在线答题二维码" title="手机扫码进入在线答题">
+    <div class="qi-txt">
+      <b>学生在线答题 · 交卷自动评分</b>
+      <span>手机扫码 → 在线作答 → 自动出分与错题回顾（进度本机保存，中途可续答）</span>
+      <a href="quiz.html?e=3">或点此进入在线答题 →</a>
+    </div>
   </div>
   <div class="fillbar">
     <span>姓名：</span><span>部门 / 岗位：</span><span>得分：</span>

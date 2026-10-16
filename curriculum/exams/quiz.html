@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>结业在线测验｜取经计划</title>
+<style>
+  :root{--ink:#2b2a26;--sub:#6b6353;--paper:#fff;--line:#e8e0d0;--gold:#c9a64a;--goldD:#a5843a;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{background:#efece3;font-family:"PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);line-height:1.7;padding-bottom:76px}
+  .app{max-width:680px;margin:0 auto}
+  /* 选择页 */
+  .hero{background:linear-gradient(135deg,#1b1e26,#0c0e11);color:#efece3;padding:30px 22px 24px;text-align:center}
+  .hero .k{font-size:11px;letter-spacing:.35em;color:var(--gold);opacity:.9}
+  .hero h1{font-size:23px;letter-spacing:3px;margin:8px 0 4px}
+  .hero p{font-size:12.5px;opacity:.75}
+  .cards{padding:18px 16px 30px;display:flex;flex-direction:column;gap:14px}
+  .card{display:block;text-decoration:none;color:var(--ink);background:#fff;border-radius:12px;padding:16px 16px 14px;box-shadow:0 3px 12px rgba(0,0,0,.06);border-left:5px solid var(--tc)} 
+  .card b{font-size:16.5px;display:block;margin-bottom:2px}
+  .card .lv{font-size:11px;color:#fff;background:var(--tc);border-radius:4px;padding:1px 8px;letter-spacing:1px}
+  .card p{font-size:12.5px;color:var(--sub);margin-top:4px}
+  .card .go{font-size:12px;color:var(--tc);font-weight:700;margin-top:8px}
+  /* 答题页 */
+  .bar{position:sticky;top:0;z-index:30;background:var(--ink);color:#efece3;padding:10px 16px}
+  .bar .row1{display:flex;align-items:center;gap:10px}
+  .bar .name{font-size:14px;font-weight:700;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .name em{font-style:normal;color:var(--gold);font-size:11px;margin-right:6px;letter-spacing:1px}
+  .bar .cnt{font-size:12px;opacity:.85;font-variant-numeric:tabular-nums}
+  .pbar{height:4px;background:rgba(255,255,255,.15);border-radius:3px;margin-top:8px;overflow:hidden}
+  .pbar i{display:block;height:100%;background:var(--gold);width:0;transition:width .25s;border-radius:3px}
+  .body{padding:16px 14px 20px;display:flex;flex-direction:column;gap:14px}
+  .sec{display:flex;align-items:center;gap:8px;margin:6px 0 -2px}
+  .sec .t{font-size:13px;font-weight:800;color:var(--ink)}
+  .sec .pts{font-size:11px;color:var(--sub)}
+  .sec .l{height:1px;flex:1;background:var(--line)}
+  .q{background:#fff;border-radius:12px;padding:14px 14px 12px;box-shadow:0 3px 12px rgba(0,0,0,.05);border:1.5px solid transparent}
+  .q .qt{font-size:15px;font-weight:600}
+  .q .qt .n{color:var(--tc);font-weight:800;margin-right:4px}
+  .q .tag{display:inline-block;font-size:10px;color:#fff;background:var(--tc);opacity:.85;border-radius:3px;padding:0 6px;margin-left:6px;vertical-align:2px}
+  .opts{margin-top:10px;display:flex;flex-direction:column;gap:8px}
+  .opt{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border:1.5px solid var(--line);border-radius:9px;font-size:14.5px;cursor:pointer;user-select:none;background:#fff;transition:all .12s}
+  .opt .k{flex:0 0 auto;width:22px;height:22px;border-radius:50%;border:1.5px solid #c8c0b0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--sub)}
+  .opt:active{transform:scale(.99)}
+  .opt.on{border-color:var(--tc);background:var(--tcBg)}
+  .opt.on .k{background:var(--tc);border-color:var(--tc);color:#fff}
+  .opts.two{flex-direction:row}
+  .opts.two .opt{flex:1;justify-content:center;padding:11px}
+  .lock .opt{pointer-events:none}
+  .q.wrong{border-color:#E53935}
+  .q.right{border-color:#00b377}
+  .q .judge{display:inline-flex;gap:6px;margin-top:10px}
+  .q .judge div{padding:8px 26px;border:1.5px solid var(--line);border-radius:9px;font-size:15px;font-weight:700;cursor:pointer}
+  .q .judge div.on{background:var(--tcBg);border-color:var(--tc);color:var(--tc)}
+  .fb{margin-top:10px;font-size:12.5px;border-top:1px dashed var(--line);padding-top:8px;color:var(--sub)}
+  .fb b.ok{color:#00a06a}.fb b.bad{color:#E53935}
+  /* 底部交卷 */
+  .foot{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,253,.96);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:30}
+  .foot .in{max-width:680px;margin:0 auto;display:flex;gap:12px;align-items:center}
+  .foot .tip{font-size:11.5px;color:var(--sub);flex:1}
+  .btn{appearance:none;border:none;border-radius:10px;font-size:15.5px;font-weight:800;padding:12px 26px;cursor:pointer;letter-spacing:2px}
+  .btn.p{color:#fff;background:linear-gradient(135deg,var(--tc),var(--tc2))}
+  .btn.g{background:#f0ece0;color:var(--ink)}
+  /* 成绩页 */
+  .score{background:#fff;border-radius:0 0 18px 18px;padding:30px 20px 26px;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+  .score .num{font-size:64px;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+  .score .of{font-size:15px;color:var(--sub);margin-top:2px}
+  .verdict{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;padding:4px 16px;border-radius:99px;color:#fff}
+  .stats{display:flex;gap:10px;margin-top:18px}
+  .stats div{flex:1;background:#faf7ef;border-radius:10px;padding:10px 4px;font-size:12px;color:var(--sub)}
+  .stats b{display:block;font-size:17px;color:var(--ink)}
+  .meta2{font-size:12px;color:var(--sub);margin-top:14px}
+  .wrap2{max-width:680px;margin:0 auto;padding:18px 14px 30px}
+  .acts{display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+  .wronglist{margin-top:18px;display:flex;flex-direction:column;gap:14px}
+  .wl-t{font-size:14px;font-weight:800;color:var(--ink)}
+  .wl-t span{font-weight:400;color:var(--sub);font-size:12px}
+  .allright{text-align:center;font-size:14.5px;font-weight:700;color:#00a06a;background:#fff;border-radius:12px;padding:22px;margin-top:14px}
+  @media print{.foot{display:none}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<script>
+const DATA = [{"id":1,"name":"通识全景课（L+）","short":"L+ · 通识","theme":["#0066CC","#004080"],"desc":"全员入门必修：项目定义 · 西游对照 · 十大知识域","single":[["“一辈子一回，办完收场”，这种“独特一次、临时有终”的活动，属于",["日常运维","项目","规章制度","团队文化"],1],["“每天做饭”这类重复发生的日常事务，在项目管理视角下属于",["项目","里程碑","运维","交付物"],2],["取经项目的“硬指标”中，不属于其突出特征的是",["跨地域","长周期","高风险","高预算"],3],["在“西游对照表”中，唐僧对应的项目管理角色是",["项目经理","技术担当","后勤保障","外部监理"],0],["取经路上要取的“真经”，在项目语言中对应的是",["里程碑","风险","交付物","会议纪要"],2],["“八十一难”在项目视角下对应的是",["每日晨会","里程碑 + 风险","人员考核","报销单据"],1],["唐僧随身携带的“通关文牒”，对应项目管理中的",["验收报告","风险登记册","甘特图","项目章程"],3],["取经团队“化缘”这一做法，体现的成本观是",["零预算也要把事办成","有钱就能任性","先花钱再算账","节约是唯一目的"],0],["团队里“紧箍咒”代表的项目管理要素是",["通讯工具","一条谁都得守的底线","武器库","报销凭证"],1],["在“十大知识域”中，负责把各模块统筹成一个整体的知识域是",["采购管理","沟通管理","风险管理","整合管理"],3],["取经全程“一难一录，条条在册”，这种管理做法对应的是",["成本压降","会议管理","风险登记与跟踪","团建活动"],2],["项目信息传递中，可信度最高的信息来源是",["一手信息","转述信息","脑补信息","小道消息"],0],["“管项目和管日常，是两套完全不同的打法”，这说明",["可以直接照搬日常经验","项目管理需要专门的方法","小项目无需管理","管理可有可无"],1],["项目“五大过程组”整体特征可概括为",["有始无终","只重结果","一启一收，环环相扣","随机推进"],2],["关于“里程碑”，下列说法正确的是",["形式主义","只能有一个","与风险无关","关键节点，可分段校验"],3]],"multi":[["下列属于“项目”特征的有",["独特一次","临时有终","可无限延期","有明确交付成果"],[0,1,3]],["一份项目章程（通关文牒）通常要写清楚的内容包括",["为什么办","谁负责","资源怎么给","食堂菜单"],[0,1,2]],["作为项目经理，唐僧在团队中的职责包括",["定方向","管冲突","对外协调","守底线"],[0,1,2,3]],["“十个镜头（十大知识域）”中，与人和资源相关的知识域有",["资源管理","相关方管理","采购管理","结果管理"],[0,1,2]],["设置里程碑的作用包括",["把大目标拆成可校验的节点","便于风险登记","让进度看得见","完全替代详细计划"],[0,1,2]],["关于“沟通保真”，正确的做法有",["优先采纳一手信息","倾听时带判断","汇报内容要保真","转述的内容直接当真"],[0,1,2]],["风险登记“四步法”通常包括",["识别风险","评估影响","指定责任人","设置复看时间"],[0,1,2,3]],["取经项目中可作为“里程碑”的阶段节点有",["离开大唐","途经各国","抵达灵山","任何一只妖怪出场"],[0,1,2]],["“谁扛谁”的资源管理原则，正确理解有",["责任落实到人","事情有专人盯","大家共同负责就行","资源与责任对应"],[0,1,3]],["项目启动阶段要回答的关键问题有",["为什么做","做什么、不做什么","谁做什么","交付物怎么验收"],[0,1,2,3]]],"judge":[["项目的最大特点是“一辈子一回、办完收场”",true],["日常运维就是项目，两者完全等同",false],["取经项目体现了“零预算”也要办成事的成本观",true],["唐僧在团队中不负责“定方向”",false],["“真经”是交付物，是验收对标的最终成果",true],["里程碑是项目中的关键节点，可分段校验进度",true],["“八十一难”既是风险，也都是里程碑",false],["项目管理只关注结果，过程并不重要",false],["紧箍咒说明团队需要一条大家都得守的底线",true],["化缘说明资源有限时更要围绕交付物来花钱",true],["整合管理就是把各环节统筹成一个整体推进",true],["风险登记后写清楚即可，不需要再安排复看",false],["沟通中，一手信息比转述信息更接近真实",true],["项目经理可以不关心外部相关方（如各国国王）的需求",false],["“谁扛谁”就是让每个事项都有明确的责任人",true],["项目可以没有明确的验收标准，凭感觉验收",false],["里程碑设得越细，项目就越容易失控",false],["“汇报要保真”指汇报的内容必须真实准确",true],["项目收尾之后不需要再做任何总结归档",false],["取经全过程本身，就是一套项目管理方法的样本",true]]},{"id":2,"name":"认知篇（L1）","short":"L1 · 认知","theme":["#0066CC","#004080"],"desc":"新入职员工：听懂语言 · 认识角色 · 找到位置","single":[["很多人以为项目经理“就是那个天天催进度的”，其真实身份应是",["只会催活的监工","专职写材料","项目的统筹者与推动者","跑腿打杂"],2],["“天天撞钟”这类重复发生、没有终点的活动，属于",["项目","日常运营","里程碑","培训课"],1],["取经团队中，负责“硬仗靠他、出事先上”的技术担当是",["唐僧","八戒","沙僧","悟空"],3],["团队里负责“请回大师兄、调和气氛”的协调担当是",["八戒","白龙马","沙僧","悟空"],0],["“挑担传话、稳稳压舱”的执行担当是",["八戒","沙僧","唐僧","白龙马"],1],["负责“驮着项目跑、不声不响”的后勤担当是",["沙僧","悟空","白龙马","八戒"],2],["关于取经团队五种角色，正确的观点是",["打妖怪的最重要","后勤最不重要","只有一人能当领导","无高低贵贱，缺一不可"],3],["对于刚入职的新人，第一张“名片”应当是",["靠谱","聪明","嗓门大","加班多"],0],["“件件有着落、事事有回音”体现的是",["只回不问的应付","拖延战术","闭环确认的工作习惯","不敢表态"],2],["项目验收时，最应作为验收依据的是",["过程有多辛苦","加班时长","汇报篇幅","交付物是否达标"],3],["新人要“被看见”，首先应该",["主动汇报、留下工作痕迹","等领导问","默默做完藏起来","频繁请假"],0],["“判断标准很简单：做完就交卷、有始又有终”，这句话指向",["项目与运维的区别","休假制度","会议纪律","食堂管理"],0],["“这次是沙僧，下次可能是掌舵的人”，说明",["岗位固定不变","角色会成长","谁都不想干活","领导不换人"],1],["项目经理“不打妖怪，但决定往哪打、打完怎么收”，这句话强调",["项目经理也要打妖怪","只管开火","决策与收尾而非亲自动手","无需收尾"],2],["一个项目组想要运转，最合理的组织是",["只配一个全能超人","人越多越好","尽量少人省成本","五角色齐配、各司其职"],3]],"multi":[["一支标准取经项目组通常包含的角色有",["掌舵人唐僧","技术担当悟空","协调担当八戒","执行担当沙僧与后勤白龙马"],[0,1,2,3]],["作为掌舵人，唐僧的职责包括",["定方向","扛责任","对外协调","稳住团队不散"],[0,1,2,3]],["技术担当悟空的特点有",["出事先上","能硬扛硬仗","技术上有办法","从不惹事"],[0,1,2]],["协调担当八戒的典型做法有",["调和气氛","请回大师兄","传递信息","只添乱不干活"],[0,1,2]],["执行担当沙僧的日常包括",["挑担","传话","落地执行","决策"],[0,1,2]],["新人“被看见”的三条小贴士包括",["主动汇报进展","留下工作痕迹","及时确认","隐身不吭声"],[0,1,2]],["关于“靠谱”，正确的做法有",["说到做到","及时反馈","主动确认","答应后消失"],[0,1,2]],["判断“是项目还是运维”，可以参考",["是否独特一次","是否有始有终","是否有明确交付","是否天天重复"],[0,1,2]],["关于角色成长，正确的理解有",["岗位可随项目需要变化","新人可向掌舵人发展","角色等级固定","每级都可学到东西"],[0,1,3]],["对项目经理职责的常见误解有",["只是催进度","只需写文档","不承担责任","权威来自能力"],[0,1,2]]],"judge":[["项目经理的角色就是催进度、盯考勤",false],["悟空是团队的技术担当，硬仗靠他",true],["八戒负责对外协调与氛围，是协调担当",true],["沙僧只是“打杂”，在团队中可有可无",false],["白龙马是后勤担当，驮着项目默默赶路",true],["五种角色有高低贵贱之分，坐最前的才算厉害",false],["新人要“被看见”，就要主动发声、留下工作痕迹",true],["靠谱，是新人拿得出手的第一张名片",true],["“件件有着落、事事有回音”是一种工作闭环",true],["遇到不确定的任务，先装作听懂再硬扛最稳妥",false],["一个项目组只要有一两个强人就够了",false],["唐僧能当项目经理，是因为他法力最高",false],["分工明确、各司其职，团队才能跑得动",true],["目标定好就行，不用再向团队反复传达",false],["主动汇报、及时确认，是新人的加分项",true],["团队角色一经分配，永远固定不变",false],["角色会成长：这次是沙僧，下次可能就是掌舵人",true],["五个角色缺一不可，少了谁队伍都不完整",true],["汇报时说一句“知道了”就代表已经落实",false],["靠谱的人会主动确认、及时反馈，把事情闭环",true]]},{"id":3,"name":"基础篇（L2）","short":"L2 · 工具","theme":["#00A87E","#00705A"],"desc":"项目经理助理：会做纪要 · 会记台账 · 会跟催 · 会汇报","single":[["在项目团队里，项目经理助理最重要的角色定位是",["会议记录员","组织的记忆","部门协调人","财务出纳"],1],["\"写下来的信息是资产，记在心里的信息是隐患\"，这句话强调的是",["记性越好，项目越稳","口口相传效率最高","重要信息必须落成书面记录","只有领导需要掌握信息"],2],["章程三问中，\"为什么办\"要回答的是",["项目的背景与必要性","项目分几个阶段","团队在哪里办公","用什么技术实现"],0],["章程三问中，\"谁来办\"最关键的是写清",["办公地点与值班表","会议频次与时长","供应商报价单","责任人与授权"],3],["\"连随从配几个都写清楚\"，这是章程中（ ）问题的颗粒度示范。",["资源怎么给","为什么办","谁来办","何时办完"],0],["文档的价值，是把\"默认共识\"变成",["响亮口号","美好愿景","明确承诺","口头约定"],2],["\"经书点验合格才算数\"，这句话对应 SMART 五要素中的",["具体","可衡量","可实现","有时限"],1],["\"三年必回\"这句承诺，对应 SMART 中的",["相关","具体","有时限","可实现"],2],["\"尽快优化系统\"这类要求的问题在于",["它只是愿望不是目标，缺少具体与衡量","它太超前","它成本太高","它没有责任人"],0],["估时黑话中，\"快了\"通常意味着",["今天之内完成","还没开始","就差验收","已完成九成"],1],["\"基本通过\"这句话，比较接近的真实含义是",["全部通过","通过但不完美","待补充材料","全挂了但不敢直说"],3],["破解\"估时黑话\"的正确做法是",["多催几次","相信直觉","别问\"多久\"，改问\"验收标准\"和截止时间","让他写保证书"],2],["风险登记册里，\"什么妖\"记录的是",["风险是什么","责任人是谁","何时复看","影响有多大"],0],["会议纪要的三要素是指",["时间、地点、参会人","结论、行动项、争议待定","开场、过程、总结","表扬、批评、下一步"],1],["\"无字真经\"的故事告诉我们，验收时",["可以凭感觉","只需看封面版本号","要信交付方的口头保证","没有清单，\"验收\"就只剩默许"],3]],"multi":[["作为项目经理助理，本课要求练好的基本功包括",["会做纪要","会记台账","会跟催","会汇报"],[0,1,2,3]],["关于项目章程（文档）的价值，理解正确的有",["把\"默认共识\"变成\"明确承诺\"","不写清\"为什么办\"，项目随时可能被砍","不写清\"谁来办\"，连负责人都是开会现问的","章程写完就束之高阁，不必再看"],[0,1,2]],["检查一个目标是否合格，可以从这些角度去问",["是否具体","是否可衡量","是否有时间期限","是否足够宏大"],[0,1,2]],["关于\"尽快优化系统\"，对照 SMART 判断正确的有",["S 不达标：没有具体对象与指标","它已经是合格的目标","M 不达标：无法衡量何时算完成","T 不达标：没有时间期限"],[0,2,3]],["风险登记册要写清的内容包括",["什么妖——风险是什么","什么害——影响是什么","谁应对——责任人","结果与何时复看——状态与复看时间"],[0,1,2,3]],["发出会议纪要的正确要求有",["会后 24 小时内发出","抄送相关方","行动项写明\"谁、做什么、几号前\"","只记录讨论过程，不必写结论"],[0,1,2]],["验收三栏清单包括",["功能栏——能用啥，主流程跑一遍","文档栏——手册、接口、变更说明是否齐全","人情栏——交付方态度好不好","数据栏——数字准不准，回归抽样"],[0,1,3]],["\"做完\"这个词，在不同场景下可能分别指",["能用","能跑","没炸","该发周报了"],[0,1,2,3]],["关于跟催与销项，正确的做法有",["把\"快了\"翻译成\"几号几点前交什么、验什么\"","听到\"做完\"就直接销项","翻译结果落实到人头、更新台账","跟催确认的结果写进纪要或台账留痕"],[0,2,3]],["关于把信息\"记下来\"，正确的做法有",["重要信息落成书面记录，变成组织资产","会议纪要存档备查","关键信息记在自己脑子里即可，不必落笔","承诺与变更写进台账留痕"],[0,1,3]]],"judge":[["写下来的信息是资产，记在心里的信息是隐患",true],["章程只需要写清\"为什么办\"，\"谁来办\"和\"资源怎么给\"都可以省略",false],["文档的价值，是把\"默认共识\"变成\"明确承诺\"",true],["\"M 可衡量\"指完成与否有明确的衡量依据，比如\"经书点验合格才算数\"",true],["\"尽快优化系统\"符合 SMART 原则，是合格的目标",false],["目标只要方向对就行，有没有时间期限不重要",false],["\"快了\"意味着马上就能交货，无需再确认",false],["破解\"估时黑话\"的正确做法：别问\"多久\"，改问\"验收标准\"",true],["听到\"基本通过\"，就可以按通过直接验收归档",false],["跟催只要多问几遍\"好了没有\"就行，不必翻译成具体日期",false],["风险只要记在脑子里就行，写下来反而麻烦",false],["风险登记一次就够了，不需要安排复看更新",false],["风险登记册要写清\"什么妖、什么害、谁应对、结果与何时复看\"",true],["会议纪要的三要素是：结论、行动项、争议待定",true],["会议纪要应在会后 24 小时内发出，并抄送相关方",true],["会议纪要重点是记录讨论过程，行动项写不写无所谓",false],["\"做完\"可能分别指\"能用、能跑、没炸、该发周报了\"",true],["验收清单通常包括功能栏、文档栏、数据栏三栏",true],["没有验收清单时，\"验收\"就可能只剩\"默许\"",true],["助理每日循环\"记录 → 跟催 → 更新 → 核对\"中，\"更新\"可以省略",false]]},{"id":4,"name":"实战篇（L3）","short":"L3 · 实战","theme":["#E65C00","#B23E00"],"desc":"项目经理：敢说不 · 会留缓冲 · 敢打回 · 管住蔓延","single":[["唐僧承诺\"三年必回\"、实际走了十四年，这一现象在项目管理中称为",["范围蔓延","关键路径","规划谬误","镀金"],2],["对复杂项目，\"现实中更好用\"的经验法则是",["按最理想状况估算","初估乘二","初估对折","估完不再看"],1],["\"狮驼岭绕不过去\"，是因为它位于",["关键路径上","后勤清单里","需求池里","风险登记册里"],0],["关于进度缓冲，正确的做法是",["每个任务各自多估两天","缓冲藏进每个任务里","不需要预留缓冲","给关键链留一整块缓冲"],3],["八戒喊\"散伙\"时，项目经理的正确回应是",["立刻解散分行李","回到初心：目标与范围没变","先做新加的需求","装作没听见"],1],["面对\"顺便加个小功能\"的请求，用来过滤它的问题是",["\"这个跟真经有关吗？\"","\"是谁提的？\"","\"要花多少钱？\"","\"能不能明天再说？\""],0],["\"镀金\"指的是",["交付方偷工减料","给客户送礼品","悄悄加上\"更好\"的功能，造成范围蔓延","给项目镀保护层"],2],["\"隐藏需求\"的典型表现是",["根本不存在的需求","写在合同第一条的需求","越早提越好的需求","假装不重要、事后才提的需求"],3],["女儿国国王\"以一国之富相许\"，这类变更最本质的特点是",["明摆着的威胁","补偿式诱惑","无关紧要","明抢"],1],["应对\"女儿国式\"变更的三件套是",["一拍两散","全盘接受","不撕破脸、不改目标、给台阶","拖延不回应"],2],["\"封面标着 V1.0、正文全是空白\"，这个故事提醒我们",["恭喜提前交付","版本号升高即是进步","封面最权威","警惕\"空版本交付\"，按清单核对后再决定收不收"],3],["阿傩伽叶说\"经不可轻传，不可以空取\"，意思是",["质量是付费换来的，打回要掂量银子","经书不能邮寄","交流要收报名费","不能空手见人"],0],["打回交付物的第一步，应当是",["直接列出全部问题","先给台阶，先说好的点","立刻扣款施压","当场换人"],1],["打回时要写清的\"三条\"，指的是",["时间、地点、人物","谁、做什么、几号前","预算、进度、质量","哪里不行、怎么改、哪天再验"],3],["对\"低概率高影响\"的妖怪级风险，正确对策是",["提前买保险：预案、外援、备份","登记一下即可","到时候再说","绕开它"],0]],"multi":[["关于\"三年变十四年\"的教训，正确的有",["人估工期容易往好处想，这就是规划谬误","复杂项目初估乘二才接近现实","唐僧这类项目还得再乘二","第一次按理想路况估没关系，反正后面能改"],[0,1,2]],["关于关键路径，理解正确的有",["是一串必须排队、一个接一个干的活","这条线上晚一天，整个项目就晚一天","关键路径上的活可以随便挂新任务","狮驼岭绕不过去，因为它就在关键路径上"],[0,1,3]],["关于\"无字真经\"的启示，正确的有",["交付前要警惕\"封面齐、内容空\"","版本号升高不等于内容真实","验收要按清单逐项核对","主流程能跑就算合格，可以放心收"],[0,1,2]],["八戒喊\"散伙\"时，正确的应对有",["用初心回应：\"去往西天拜佛求经\"","心想动摇就顺着散伙","判断散伙是否在本期范围内","新想法记入需求池，遵循\"有关排期、无关入池\""],[0,2,3]],["范围管理要重点防范的两个\"亲戚\"是",["镀金——悄悄加\"更好\"的功能","隐藏需求——假装不重要、事后才提","关键路径——绕不过去的活","应急储备——预留的救火资源"],[0,1]],["\"女儿国式\"变更的特点有",["诱惑不是威胁，是补偿","一定是骗局，一律不接","听起来越舒服，越要小心","应对先过\"铁锚之问\""],[0,2,3]],["拒绝变更的\"假婚脱身\"三件套包括",["不撕破脸","不改目标","给台阶","全盘接受"],[0,1,2]],["打回交付物时，\"打回三步走\"包括",["先给台阶，先说好的点","写清三条：哪里不行、怎么改、哪天再验","掂量银子：验收标准、整改方案、返工代价","当众开炮，杀一儆百"],[0,1,2]],["按\"影响 × 概率\"分级，风险应对正确对应有",["高概率低影响——小妖，顺手办掉","低概率高影响——登记在册即可","高概率高影响——主线妖怪，专门对付","低概率低影响——路过，登记定期看一眼"],[0,2,3]],["关于沟通保真与资源托底，正确的做法有",["一手信息留通道，别信声音大的","重要的事白纸黑字","给稳定支撑者一句谢谢","核心资源留冗余，防止\"唯一会的人\"断档"],[0,1,2,3]]],"judge":[["唐僧承诺\"三年必回\"、实际走了十四年，是\"规划谬误\"的典型案例",true],["第一次估工期就按最理想路况估算，是最专业的做法",false],["复杂项目\"初估乘二\"才接近现实，唐僧这类项目还得再乘二",true],["关键路径上哪天晚一天，整个项目就晚一天",true],["狮驼岭之所以难，是因为打不过，与关键路径无关",false],["给每个任务都多估两天，是最科学的缓冲方式",false],["缓冲应整块留给关键链，而不是分散在每个任务里",true],["需求只要听起来不错，就应该立刻排期做掉",false],["镀金是指交付方偷工减料、功能做少了",false],["隐藏需求是指\"假装不重要、事后才提\"的需求",true],["女儿国式变更明显是骗局，当时就该一拍两散、翻脸走人",false],["拒绝变更，可以\"不撕破脸、不改目标、给台阶\"",true],["验收时只要封面标了 V1.0，正文空白也可以先收下",false],["\"经不可轻传，不可以空取\"：质量是付费换来的",true],["打回交付物时，先给台阶、再写清\"哪里不行、怎么改、哪天再验\"",true],["打回就是掀桌子骂人，让对方\"知道厉害\"",false],["低概率高影响的风险，登记在册、定期看一眼就够",false],["防是风险管理，救是应急管理；应急要答\"谁顶上、怎么补救、多久恢复\"",true],["核心资源不必留冗余，反正\"唯一会的人\"不会走",false],["一手信息要留通道，重要的事白纸黑字",true]]},{"id":5,"name":"治理篇（L4）","short":"L4 · 治理","theme":["#D32F2F","#8E1B1B"],"desc":"项目总监：会选人 · 会分赏 · 会搭体系 · 会自我批判","single":[["组织要的不是\"救活一个项目\"，而是",["一百个项目同时活","招一百个唐僧","全靠能人撑着","少接项目"],0],["\"管理靠能人，治理靠结构\"，这句话强调的是",["能人比制度更重要","用结构让平凡的人做出不平凡的结果","取消流程效率更高","能人可有可无"],1],["取经项目的发起与组织设计者是",["唐太宗","悟空","如来（发起）与观音（组建、护航、监理）","各国国王"],2],["唐僧不选红孩儿、黑熊怪，反而凑齐\"五个问题员工\"，最核心的考量是",["学历背景","资历深浅","外貌气质","可控性与忠诚度"],3],["\"红孩儿连亲爹都敢烧\"，反映的是选人账里的",["化学","忠诚度","可控性","个人魅力"],2],["两个全能天才放在一起，最容易出现的是",["效率翻倍","内耗","各干各的","互相学习"],1],["\"能力决定下限，忠诚与可控决定上限\"，给选人的启示是",["只选能力最强的","能力永远不重要","只看忠诚即可","能力、可控性、岗位匹配综合考量"],3],["PIP 绩效改进计划的真正用法，是",["给问题员工递辞呈","立即辞退","给想翻盘的人递梯子","冷冻处理"],2],["一份合格的 PIP，需要把三者都明确：一是目标、二是退出、三是",["终局激励","预算额度","考勤制度","汇报频次"],0],["悟空能力再强也不能当项目经理，根本原因是",["性格冲动","缺少正式授权","没有经验","不会写材料"],1],["总监做任命的\"两个规定动作\"是",["口头宣布 + 发个红包","建群通知 + 会上点名","私下打招呼 + 随缘","任命要见文书（发文、公开、写清权限边界）+ 给能人专业高位避免错配"],3],["天庭给悟空封\"弼马温\"，是（ ）的经典案例。",["能人错配","授权有方","激励到位","人岗匹配"],0],["西游里\"有后台的妖怪都被领导接走\"，相关方治理的启示是",["后台不重要","先看后台再动手","一律当场打死","无视后台存在"],1],["唐僧把\"打妖\"外包出去，但（ ）两个字从来没有外包过。",["化缘","赶路","取经","念经"],2],["灵山封赏中，八戒只得了\"净坛使者\"，给出这个安排的理由应当是",["成佛名额不够","领导心情不好","论资排辈","人岗匹配，理由说得出口"],3]],"multi":[["唐僧选人时心里算的\"三笔账\"包括",["可控性——他会不会失控","忠诚度——他为什么跟着干","化学——团队放一起合不合","学历背景——名校毕业优先"],[0,1,2]],["一份合格 PIP 的\"三明确\"包括",["目标明确","退出明确","终局激励明确","惩罚预算充足"],[0,1,2]],["关于任命与授权，正确的做法有",["任命要见文书","发文、公开、写清权限边界","口头交代一下就行","给能人专业序列的高位，避免管理岗错配"],[0,1,3]],["一张合格的相关方地图，要标出",["谁点头","谁摇头","谁能拍板","谁搅局（隐形否决权）"],[0,1,2,3]],["关于自建与外包的判断标准，正确的有",["核心、多变、要快——自建","稳定、标准化、能验收——外包","只要能省钱，取经也能外包","\"取经\"二字从来不能外包"],[0,1,3]],["从灵山封赏中得到的启示有",["分配不可能人人满意，但理由必须说得出口","封赏按\"人岗匹配\"来定","奖励只由领导心情决定，不需要理由","终局激励要跟团队绑定，防止中途散伙"],[0,1,3]],["关于组织容错，正确的观点有",["组织要给犯错设\"止损线\"，而不是\"一票否决线\"","没有容错的组织，人人都学会瞒报","瞒报才是最大的风险登记册","犯错一次，永不录用"],[0,1,2]],["辩论中\"唐僧是合格项目经理\"的正方论据有",["目标如磐","授权清晰","出事领锅","出了事先找背锅的"],[0,1,2]],["辩论中\"唐僧并非合格项目经理\"的反方论据有",["只对上负责","肉眼凡胎独揽验收","沟通方式靠念咒","从不甩锅、勇于担责"],[0,1,2]],["从《黑神话·悟空》项目看到的治理启示有",["7 年周期、140 人团队、核心成员合作超 10 年","一上线就爆款，无需打磨","初心驱动，长期主义配套","总监职责：替组织挡住短期诱惑"],[0,2,3]]],"judge":[["管理靠能人，治理靠结构",true],["多招几个\"唐僧\"式能人，项目体系就不需要了",false],["体系的意义：让平凡的人在结构里做出不平凡的结果",true],["取经项目是由唐太宗亲自组建、亲自护航的",false],["两个全能天才放在一起，效率一定翻倍",false],["\"红孩儿连亲爹都敢烧\"，说明选人不能忽视\"可控性\"",true],["能力决定下限、忠诚与可控决定上限，所以选人只看能力即可",false],["PIP 是给想翻盘的人递梯子，而不是递辞呈",true],["悟空\"判刑五百年+护送取经\"，就是一次绩效改进（PIP）",true],["PIP 里的\"退出明确\"，指的就是让问题员工直接离职",false],["项目经理的合法性，主要来自个人能力与名气",false],["任命口头交代就行，不用发文、不用写清权限边界",false],["悟空不当项目经理，但封\"齐天大圣\"，让能人在专业序列封神",true],["\"弼马温\"事件，是能人错配的经典名场面",true],["有后台的妖怪才是真正的威胁，应当场打死",false],["相关方图要标出谁点头、谁摇头、谁能拍板、谁搅局",true],["只要项目做得出结果，核心环节外包给谁都行",false],["\"取经\"两个字从来没外包过；把\"核\"外包，只剩\"壳\"别人也能干",true],["灵山封赏中八戒得\"净坛使者\"，是人岗匹配的安排",true],["绩效分配只需要拍板决定，给不给解释都无所谓",false]]}];
+const SKEY = n => 'xiyou-quiz-e' + n;
+const PARAM = new URLSearchParams(location.search).get('e');
+let exam = DATA.find(x => x.id == PARAM) || null;
+let ans = {};        // key: s0-14 / m0-9 / j0-19 -> value
+let submitted = false;
+let t0 = 0, tUsed = 0;
+
+/* ---------- 工具 ---------- */
+const $ = s => document.querySelector(s);
+function save(){ try{ localStorage.setItem(SKEY(exam.id), JSON.stringify({ans, submitted, t0, tUsed})); }catch(e){} }
+function load(){ try{ const r = JSON.parse(localStorage.getItem(SKEY(exam.id))); if(r){ ans = r.ans||{}; submitted = !!r.submitted; t0 = r.t0||0; tUsed = r.tUsed||0; } }catch(e){} }
+const letter = i => 'ABCD'[i];
+
+/* ---------- 选择页 ---------- */
+function renderChoose(){
+  document.body.style.background = '#efece3';
+  $('#app').innerHTML = `
+    <div class="hero">
+      <div class="k">取经计划 · 项目管理四级训练营</div>
+      <h1>结业在线测验</h1>
+      <p>五套结业卷 · 单选 / 多选 / 判断 · 自动评分出分</p>
+    </div>
+    <div class="cards">
+      ${DATA.map(e=>`
+        <a class="card" style="--tc:${e.theme[0]}" href="?e=${e.id}">
+          <b><span class="lv" style="background:${e.theme[0]}">${e.short}</span>${e.name}</b>
+          <p>${e.desc}</p>
+          <p style="margin-top:2px">单选15×2分 · 多选10×3分 · 判断20×2分 · 满分100</p>
+          <div class="go">开始答题 →</div>
+        </a>`).join('')}
+    </div>
+    <div style="text-align:center;font-size:12px;color:#9a9384;padding:0 20px 30px;line-height:1.9">答题进度自动保存在本机 · 中途退出可继续<br>取经计划 · 通关文牒结业体系</div>`;
+}
+
+/* ---------- 答题页 ---------- */
+function fmtTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return (m>0? m+'分':'') + s + '秒';
+}
+function qCard(type, i, def){
+  const exam_ = exam;
+  const id = type + i;
+  let inner = '';
+  if(type === 'j'){
+    const v = ans[id];
+    inner = `<div class="judge">
+      <div data-k="1" class="${v===1?'on':''}">正确 √</div>
+      <div data-k="0" class="${v===0?'on':''}">错误 ×</div></div>`;
+  } else {
+    inner = '<div class="opts">' + def[1].map((o,oi)=>`
+      <div class="opt ${ans[id]===oi?'on':''}" data-k="${oi}"><span class="k">${letter(oi)}</span><span>${o}</span></div>`).join('') + '</div>';
+  }
+  const typeName = type==='s' ? '单选' : type==='m' ? '多选' : '判断';
+  const pts = type==='m' ? '3分' : '2分';
+  return `<div class="q" id="q-${id}">
+    <div class="qt"><span class="n" style="color:${exam_.theme[0]}">${i+1}</span>${def[0]}<span class="tag" style="background:${exam_.theme[0]}">${typeName}·${pts}</span></div>
+    ${inner}
+  </div>`;
+}
+function renderQuiz(){
+  document.documentElement.style.setProperty('--tc', exam.theme[0]);
+  document.documentElement.style.setProperty('--tc2', exam.theme[1]);
+  document.documentElement.style.setProperty('--tcBg', exam.theme[0] + '14');
+  const total = 45;
+  const done = Object.keys(ans).length;
+  $('#app').innerHTML = `
+    <div class="bar" style="background:linear-gradient(135deg,${exam.theme[0]},${exam.theme[1]})">
+      <div class="row1"><div class="name"><em>取经计划</em>${exam.name} · 结业测验</div><div class="cnt">${done}/${total}</div></div>
+      <div class="pbar"><i id="pb" style="width:${(done/total*100).toFixed(1)}%"></i></div>
+    </div>
+    <div class="body">
+      <div class="sec"><span class="t">一、单项选择题</span><span class="pts">每题2分</span><span class="l"></span></div>
+      ${exam.single.map((d,i)=>qCard('s',i,d)).join('')}
+      <div class="sec"><span class="t">二、多项选择题</span><span class="pts">每题3分 · 多选少选错选不得分</span><span class="l"></span></div>
+      ${exam.multi.map((d,i)=>qCard('m',i,d)).join('')}
+      <div class="sec"><span class="t">三、判断题</span><span class="pts">每题2分</span><span class="l"></span></div>
+      ${exam.judge.map((d,i)=>qCard('j',i,d)).join('')}
+    </div>
+    <div class="foot"><div class="in">
+      <div class="tip">已答 <b id="fc">${done}</b>/${total} · 进度自动保存，回退不丢答案</div>
+      <button class="btn g" onclick="history.length>1?history.back():location.href='quiz.html'">返回</button>
+      <button class="btn p" onclick="submit()">交 卷</button>
+    </div></div>`;
+  // 绑定事件
+  document.querySelectorAll('.q').forEach(q=>{
+    const id = q.id.slice(2);
+    q.querySelectorAll('.opt').forEach(o=>{
+      o.addEventListener('click', ()=>{
+        const k = +o.dataset.k;
+        if(id[0] === 'm'){ // 多选切换
+          let cur = ans[id] || [];
+          cur = [...cur];
+          const p = cur.indexOf(k);
+          p >= 0 ? cur.splice(p,1) : cur.push(k);
+          cur.length ? ans[id] = cur.sort() : delete ans[id];
+        } else {
+          ans[id] === k ? delete ans[id] : ans[id] = k;
+        }
+        const done = Object.keys(ans).length;
+        q.querySelectorAll('.opt').forEach((x,xi)=>x.classList.toggle('on', ans[id]!==undefined && (id[0]==='m' ? (ans[id]||[]).includes(xi) : ans[id]===xi)));
+        const pb =$('#pb'); if(pb) pb.style.width = (done/45*100)+'%';
+        const fc =$('#fc'); if(fc) fc.textContent = done;
+        const ct =$('.cnt'); if(ct) ct.textContent = done + '/45';
+        save();
+      });
+    });
+    q.querySelectorAll('.judge div').forEach(o=>{
+      o.addEventListener('click', ()=>{
+        const k = +o.dataset.k;
+        ans[id] === k ? delete ans[id] : ans[id] = k;
+        o.parentElement.querySelectorAll('div').forEach(x=>x.classList.remove('on'));
+        if(ans[id] !== undefined) o.classList.add('on');
+        const done = Object.keys(ans).length;
+        const pb=$('#pb'); if(pb) pb.style.width=(done/45*100)+'%';
+        const fc=$('#fc'); if(fc) fc.textContent=done;
+        const ct=$('.cnt'); if(ct) ct.textContent=done+'/45';
+        save();
+      });
+    });
+  });
+  window.scrollTo(0,0);
+}
+
+/* ---------- 评分 ---------- */
+function myAns(type, i, q){
+  const id = type + i;
+  const a = ans[id];
+  if(a === undefined || a === null) return null;
+  if(type === 's') return [a];
+  if(type === 'm') return a;
+  return [a];
+}
+function judgeAll(){
+  const res = {score:0, detail:[], sR:[0,0], mR:[0,0], jR:[0,0], wrong:[]};
+  const secs = [['s', exam.single, 2, res.sR, '单选'], ['m', exam.multi, 3, res.mR, '多选'], ['j', exam.judge, 2, res.jR, '判断']];
+  secs.forEach(([type, list, pt, counter, tname])=>{
+    list.forEach((def, i)=>{
+      const id = type + i;
+      const correct = type === 'j' ? def[1] : def[2];
+      const mine = ans[id];
+      let ok = false, mineTxt, corrTxt;
+      if(type === 'j'){
+        ok = mine !== undefined && !!mine === correct;
+        corrTxt = correct ? '正确 √' : '错误 ×';
+        mineTxt = mine === undefined ? '未作答' : (mine ? '正确 √' : '错误 ×');
+      } else if(type === 's'){
+        ok = mine === correct;
+        corrTxt = letter(correct) + '．' + def[1][correct];
+        mineTxt = mine === undefined ? '未作答' : letter(mine) + '．' + def[1][mine];
+      } else {
+        ok = Array.isArray(mine) && mine.length === correct.length && mine.every((x,xi)=>x===correct[xi]);
+        corrTxt = correct.map(x=>letter(x)).join('') + '．' + correct.map(x=>def[1][x]).join(' / ');
+        mineTxt = Array.isArray(mine) && mine.length ? mine.map(x=>letter(x)).join('') : '未作答';
+      }
+      if(ok){ res.score += pt; counter[0]++; }
+      counter[1]++;
+      if(!ok) res.wrong.push({type, i, def, mineTxt, corrTxt, tname});
+    });
+  });
+  return res;
+}
+function submit(){
+  const done = Object.keys(ans).length;
+  if(done < 45 && !confirm('还有 ' + (45-done) + ' 题未作答，确定交卷吗？')) return;
+  submitted = true;
+  tUsed = t0 ? Math.round((Date.now()-t0)/1000) : 0;
+  save();
+  renderResult(judgeAll(), true);
+}
+function renderResult(r, scroll){
+  document.documentElement.style.setProperty('--tc', exam.theme[0]);
+  document.documentElement.style.setProperty('--tc2', exam.theme[1]);
+  const color = r.score>=90?'#00a06a':(r.score>=60?'#e67e00':'#E53935');
+  const verdict = r.score>=90?'通关在望 · 火眼金睛':(r.score>=60?'历此诸关 · 尚需精进':'八十一难 · 再历一遭');
+  $('#app').innerHTML = `
+    <div class="bar" style="background:linear-gradient(135deg,${exam.theme[0]},${exam.theme[1]})">
+      <div class="row1"><div class="name"><em>取经计划</em>${exam.name} · 成绩单</div></div>
+    </div>
+    <div class="score">
+      <div class="num" style="color:${color}">${r.score}</div>
+      <div class="of">满分 100 分</div>
+      <div class="verdict" style="background:${color}">${verdict}</div>
+      <div class="stats">
+        <div><b>${r.sR[0]}/15</b>单选 · 得${r.sR[0]*2}分</div>
+        <div><b>${r.mR[0]}/10</b>多选 · 得${r.mR[0]*3}分</div>
+        <div><b>${r.jR[0]}/20</b>判断 · 得${r.jR[0]*2}分</div>
+      </div>
+      <div class="meta2">用时 ${fmtTime(tUsed||0)} · 成绩仅保存在本机</div>
+      <div class="acts">
+        <button class="btn p" onclick="retry()">再考一次</button>
+        <a class="btn g" style="text-decoration:none;display:inline-flex;align-items:center" href="quiz.html">换一套卷</a>
+      </div>
+    </div>
+    <div class="wrap2">
+      ${r.wrong.length ? `<div class="wl-t">错题回顾 <span>共 ${r.wrong.length} 题未得分</span></div>
+      <div class="wronglist">
+        ${r.wrong.map(w=>`
+          <div class="q wrong" style="border-color:#E53935">
+            <div class="qt"><span class="n" style="color:#E53935">${w.i+1}</span>${w.def[0]}<span class="tag" style="background:#E53935">${w.tname}题</span></div>
+            ${(()=>{ 
+               if(w.type==='j'){
+                 return `<div class="opts two">
+                   <div class="opt ${w.def[1]?'on':''}" style="${w.def[1]?'border-color:#00a06a;--tc:#00a06a':''}"><span class="k"></span><span>正确 √</span></div>
+                   <div class="opt ${!w.def[1]?'on':''}" style="${!w.def[1]?'border-color:#00a06a;--tc:#00a06a':''}"><span class="k"></span><span>错误 ×</span></div>
+                 </div>`;
+               }
+               const correctArr = w.type==='s' ? [w.def[2]] : w.def[2];
+               return '<div class="opts">'+w.def[1].map((o,oi)=>`
+                 <div class="opt ${correctArr.includes(oi)?'on':''}" style="${correctArr.includes(oi)?'border-color:#00a06a;--tc:#00a06a':''}">
+                   <span class="k">${letter(oi)}</span><span>${o}</span>
+                 </div>`).join('')+'</div>';
+             })()}
+            <div class="fb">你的答案：<b class="bad">${w.mineTxt}</b> ｜ 正确答案：<b class="ok">${w.corrTxt}</b></div>
+          </div>`).join('')}
+      </div>` : '<div class="allright">满分通关 · 无错题，历此诸关俱各合格，加盖通关印！</div>'}
+    </div>`;
+  if(scroll) window.scrollTo(0,0);
+}
+function retry(){
+  if(!confirm('清空本题答案，重新作答？')) return;
+  ans = {}; submitted = false; t0 = Date.now(); tUsed = 0; save();
+  renderQuiz();
+}
+
+/* ---------- 启动 ---------- */
+if(!exam){ renderChoose(); }
+else{
+  load();
+  if(!t0) { t0 = Date.now(); }
+  if(submitted){ renderResult(judgeAll(), false); }
+  else { save(); renderQuiz(); }
+}
+</script>
+</body>
+</html>
