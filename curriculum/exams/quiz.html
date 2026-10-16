@@ -75,7 +75,7 @@
   .wronglist{margin-top:18px;display:flex;flex-direction:column;gap:14px}
   .wl-t{font-size:14px;font-weight:800;color:var(--ink)}
   .wl-t span{font-weight:400;color:var(--sub);font-size:12px}
-  .allright{text-align:center;font-size:14.5px;font-weight:700;color:#00a06a;background:#fff;border-radius:12px;padding:22px;margin-top:14px}
+  .allright{text-align:center;font-size:14.5px;font-weight:700;color:#00a06a;background:#fff;border-radius:12px;padding:22px;margin-top:14px;line-height:1.9}
   /* 成绩上报 */
   .report{background:#fff;border-radius:12px;padding:16px;margin-top:18px;box-shadow:0 3px 12px rgba(0,0,0,.05);border:1px solid var(--line)}
   .report .rt{font-size:14.5px;font-weight:800;color:var(--tc)}
@@ -335,7 +335,7 @@ function renderResult(r, scroll){
              })()}
             <div class="fb">你的答案：<b class="bad">${w.mineTxt}</b> ｜ 正确答案：<b class="ok">${w.corrTxt}</b></div>
           </div>`).join('')}
-      </div>` : '<div class="allright">满分通关 · 无错题，历此诸关俱各合格，加盖通关印！</div>'}
+      </div>` : '<div class="allright">满分通关 · 无错题，<br>历此诸关俱各合格，加盖通关印！</div>'}
     </div>`;
   if(scroll) window.scrollTo(0,0);
 }
