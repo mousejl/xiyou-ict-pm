@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成绩查询 · 取经计划</title>
+<style>
+:root{
+  --l1:#0066CC; --l1d:#004080;
+  --l2:#00a97f; --l2d:#00795c;
+  --l3:#e65c00; --l3d:#b34700;
+  --l4:#c62828; --l4d:#8f1d1d;
+  --bg:#f7f4ec; --card:#ffffff; --ink:#2b2b33; --sub:#6a6a76; --line:#e5ded0;
+  --gold:#b8912f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;}
+.hero{background:linear-gradient(135deg,#1a2436 0%,#2c3e5c 55%,#3d5a80 100%);color:#fff;padding:44px 24px 50px;position:relative;overflow:hidden;}
+.hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--l1) 0%,var(--l1) 25%,var(--l2) 25%,var(--l2) 50%,var(--l3) 50%,var(--l3) 75%,var(--l4) 75%,var(--l4) 100%);}
+.hero .inner{max-width:860px;margin:0 auto;}
+.hero h1{font-size:28px;font-weight:800;letter-spacing:2px;margin-bottom:8px;}
+.hero h1 .accent{color:#f5c658;}
+.hero .sub{font-size:14px;opacity:.85;max-width:600px;}
+.hero .meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;opacity:.75;}
+.container{max-width:860px;margin:0 auto;padding:30px 18px 60px;}
+.tabs{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+.tab{flex:1;min-width:200px;padding:16px 18px;background:var(--card);border-radius:12px;border:2px solid var(--line);cursor:pointer;text-align:center;transition:all .15s;}
+.tab b{display:block;font-size:16px;color:var(--ink);}
+.tab span{font-size:12px;color:var(--sub);}
+.tab.on{border-color:var(--gold);background:#fdf8ec;box-shadow:0 3px 14px rgba(184,145,47,.18);}
+.tab.on b{color:var(--gold);}
+.panel{background:var(--card);border-radius:14px;box-shadow:0 3px 14px rgba(26,36,54,.08);padding:24px;}
+.query-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.inp{flex:1;min-width:220px;max-width:340px;padding:10px 14px;border:1.5px solid #d5cfc0;border-radius:10px;font-size:15px;}
+.inp:focus{outline:none;border-color:var(--gold);}
+.btn{background:var(--gold);color:#fff;border:none;border-radius:10px;padding:10px 26px;font-size:15px;font-weight:700;cursor:pointer;}
+.btn.g{background:#00a05a;text-decoration:none;display:inline-block;}
+.msg{font-size:13.5px;margin:12px 0 4px;min-height:20px;color:#c62828;}
+.msg.ok{color:#00875a;}
+.user-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0 16px;padding:12px 16px;background:#fdf8ec;border-radius:10px;border:1px solid #ecd9a8;}
+.user-head b{font-size:17px;color:var(--ink);}
+.user-head .dept{font-size:13px;color:var(--sub);}
+.user-head .pno{margin-left:auto;font-size:13px;color:var(--gold);font-weight:700;}
+.score-card{border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:10px;padding:14px 18px;margin-bottom:12px;background:#fffdf7;}
+.score-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.score-top .exam{font-size:15.5px;font-weight:700;}
+.score-top .pts{font-size:26px;font-weight:800;color:var(--gold);}
+.score-top .pts.pass{color:#00875a;}
+.score-top .pts.fail{color:#c62828;}
+.tag{font-size:11.5px;padding:2px 10px;border-radius:99px;font-weight:700;}
+.tag.ok{background:#e7f6ef;color:#00a05a;}
+.tag.no{background:#fdecec;color:#E53935;}
+.score-detail{font-size:12.5px;color:var(--sub);margin-top:6px;}
+.score-act{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.score-act .pno{font-size:12.5px;color:var(--sub);}
+.score-act .dl{background:var(--l1);color:#fff;text-decoration:none;font-size:13px;padding:7px 18px;border-radius:8px;font-weight:700;}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
+.stats div{flex:1;min-width:120px;background:#f5f8fc;border-top:3px solid var(--l1);border-radius:8px;padding:9px 12px;font-size:12px;color:#6a6353;}
+.stats b{display:block;font-size:20px;color:var(--ink);}
+.scr{overflow:auto;margin-top:8px;}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:640px;}
+th{background:#f4f7fb;color:#3a4456;padding:8px 10px;border-bottom:2px solid #dde6f0;text-align:left;white-space:nowrap;}
+td{padding:7px 10px;border-bottom:1px solid #e6ecf3;text-align:left;white-space:nowrap;}
+tr:hover td{background:#f7fafd;}
+td b{color:var(--l1);}
+.tip{font-size:12px;color:var(--sub);margin-top:16px;line-height:1.9;}
+.tip a{color:var(--gold);}
+.hidden{display:none;}
+@media(max-width:640px){.hero h1{font-size:22px}.panel{padding:16px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <h1>成绩查询 · <span class="accent">取经计划</span></h1>
+    <p class="sub">结业考试成绩与通关文牒在线查询——学员凭本人手机号查询成绩，主讲老师凭登记手机号查看全班成绩。</p>
+    <div class="meta">
+      <span>🔍 学员查本人成绩</span>
+      <span>👨‍🏫 老师查全班成绩</span>
+      <span>📜 合格可下载通关文牒 PDF</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tabs">
+    <div class="tab on" id="tab-s" onclick="switchTab('s')"><b>🔍 学员查询</b><span>凭本人手机号 · 查本人成绩</span></div>
+    <div class="tab" id="tab-t" onclick="switchTab('t')"><b>👨‍🏫 老师查询</b><span>凭主讲老师登记手机号 · 查全班成绩</span></div>
+  </div>
+
+  <!-- 学员查询 -->
+  <div class="panel" id="panel-s">
+    <div class="query-row">
+      <input class="inp" id="phone-s" type="tel" inputmode="numeric" maxlength="11" placeholder="请输入交卷时填写的手机号">
+      <button class="btn" onclick="queryStudent()">查 询</button>
+    </div>
+    <div class="msg" id="msg-s"></div>
+    <div id="result-s"></div>
+  </div>
+
+  <!-- 老师查询 -->
+  <div class="panel hidden" id="panel-t">
+    <div class="query-row">
+      <input class="inp" id="phone-t" type="tel" inputmode="numeric" maxlength="11" placeholder="请输入主讲老师手机号">
+      <a class="btn g hidden" id="dl" href="#">导出 CSV</a>
+      <button class="btn" onclick="queryTeacher()">查 看</button>
+    </div>
+    <div class="msg" id="msg-t"></div>
+    <div id="result-t"></div>
+  </div>
+
+  <div class="tip">
+    <b>查询说明：</b><br>
+    · 学员查询使用交卷时填写的手机号，仅返回本人成绩，合格记录可直接下载《通关文牒》PDF；<br>
+    · 老师查询仅限在课程统一入口"主讲老师登记"过手机号的主讲老师，可查看全班成绩明细并导出 CSV；<br>
+    · 结业考试由讲师课堂统一组织（试卷页扫码开考），如需补考请联系主讲老师安排。
+  </div>
+</div>
+
+<script>
+const API = 'https://exam-report.mousejl.top';
+
+function switchTab(t){
+  document.getElementById('tab-s').classList.toggle('on', t==='s');
+  document.getElementById('tab-t').classList.toggle('on', t==='t');
+  document.getElementById('panel-s').classList.toggle('hidden', t!=='s');
+  document.getElementById('panel-t').classList.toggle('hidden', t!=='t');
+}
+function setMsg(id, text, ok){
+  const el = document.getElementById(id);
+  el.textContent = text || '';
+  el.classList.toggle('ok', !!ok);
+}
+function fmtT(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return (m>0 ? m+'分'+s+'秒' : s+'秒');
+}
+
+/* ---------- 学员查询 ---------- */
+function queryStudent(){
+  const p = document.getElementById('phone-s').value.trim();
+  const m = setMsg.bind(null, 'msg-s');
+  if(!/^1\d{10}$/.test(p)){ m('手机号格式不正确（11位）', false); return; }
+  m('查询中…', true);
+  fetch(API + '/api/my-scores?phone=' + encodeURIComponent(p))
+    .then(r => r.json()).then(j => {
+      if(!j.ok){ m(j.msg || '查询失败', false); document.getElementById('result-s').innerHTML=''; return; }
+      m('已为 ' + j.name + ' 查到 ' + j.scores.length + ' 条结业成绩', true);
+      const head = `
+        <div class="user-head"><b>${j.name}</b><span class="dept">${j.dept||''}</span>
+        ${j.passport ? `<span class="pno">📜 ${j.passport.pass_no}</span>` : ''}</div>`;
+      const cards = j.scores.map(r => `
+        <div class="score-card">
+          <div class="score-top">
+            <span class="exam">${r.exam_name}</span>
+            <span class="pts ${r.passed?'pass':'fail'}">${r.score} 分</span>
+            ${r.passed ? '<span class="tag ok">合格 ≥95 · 已发牒</span>' : '<span class="tag no">未达 95 分</span>'}
+          </div>
+          <div class="score-detail">单选 ${r.s} 分 · 多选 ${r.m} 分 · 判断 ${r.j} 分 ｜ 用时 ${fmtT(r.seconds)} ｜ ${r.created_at}</div>
+          ${r.passed ? `<div class="score-act"><span class="pno">${r.pass_no||''}</span><a class="dl" href="${r.pdf}">📄 下载通关文牒 PDF</a></div>` : ''}
+        </div>`).join('');
+      document.getElementById('result-s').innerHTML = head + cards;
+    }).catch(() => m('网络异常，请稍后再试', false));
+}
+
+/* ---------- 老师查询 ---------- */
+function queryTeacher(){
+  const t = document.getElementById('phone-t').value.trim();
+  const m = setMsg.bind(null, 'msg-t');
+  if(!/^1\d{10}$/.test(t)){ m('手机号格式不正确（11位）', false); return; }
+  m('查询中…', true);
+  fetch(API + '/api/results?token=' + encodeURIComponent(t))
+    .then(r => r.json()).then(j => {
+      const dl = document.getElementById('dl');
+      if(!j.ok){ m(j.msg || '查询失败', false); document.getElementById('result-t').innerHTML=''; dl.classList.add('hidden'); return; }
+      m('已登录 · 主讲老师：' + j.teacher + ' ｜ 共 ' + j.count + ' 条成绩', true);
+      dl.classList.remove('hidden');
+      dl.href = API + '/api/export.csv?token=' + encodeURIComponent(t);
+      const rows = j.rows;
+      const st = {}; let sum = 0, pass = 0;
+      rows.forEach(r => { st[r.exam_name]=(st[r.exam_name]||0)+1; sum += r.score; if(r.issued) pass++; });
+      const arr = [['成绩条数', rows.length], ['平均分', rows.length ? (sum/rows.length).toFixed(1) : '—'], ['已发牒(≥95)', pass]];
+      Object.keys(st).forEach(k => arr.push([k+' 参考', st[k]]));
+      const stats = '<div class="stats">' + arr.map(x => `<div><b>${x[1]}</b>${x[0]}</div>`).join('') + '</div>';
+      const head = '<tr><th>#</th><th>上报时间</th><th>姓名</th><th>单位</th><th>部门岗位</th><th>手机号</th><th>套卷</th><th>总分</th><th>单选</th><th>多选</th><th>判断</th><th>用时</th><th>文牒</th></tr>';
+      const body = rows.map((r,i) => `<tr>
+        <td>${i+1}</td><td>${r.created_at}</td><td>${r.name}</td><td>${r.company}</td><td>${r.dept}</td><td>${r.phone}</td>
+        <td>${r.exam_name}</td><td><b>${r.score}</b></td><td>${r.s_score}</td><td>${r.m_score}</td><td>${r.j_score}</td><td>${r.seconds}秒</td>
+        <td>${r.issued ? '<span class="tag ok">'+r.pass_no+'</span>' : '<span class="tag no">未合格</span>'}</td></tr>`).join('');
+      document.getElementById('result-t').innerHTML =
+        stats + '<div class="scr"><table>' + head + body + '</table></div>';
+    }).catch(() => m('网络异常，请稍后再试', false));
+}
+</script>
+</body>
+</html>

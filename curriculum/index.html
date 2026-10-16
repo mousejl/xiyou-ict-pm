@@ -199,11 +199,28 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
   <div class="section-t"><h2>配套资源</h2><div class="en">Companion Tools</div></div>
   <div class="extra">
     <a href="test.html" style="display:flex;align-items:center;gap:14px"><span style="flex:0 0 58px;height:58px;background:#fff;border-radius:8px;padding:5px"><img src="images-qr-test.svg" style="width:100%;display:block" alt="自测二维码"></span><span style="flex:1"><b>角色自测 H5</b><span>10 道情境题 · 测你是师徒五人中的谁</span></span></a>
-    <a href="../course/index.html"><span class="ico">📜</span><b>经典版 · 25 页全集</b><span>旧版全景课件（保留存档 · 供对照旧风格）</span></a>
+    <a href="score.html"><span class="ico">📈</span><b>成绩查询</b><span>学员凭手机号查本人成绩与文牒 ｜ 老师凭登记手机号查全班成绩、导出CSV</span></a>
     <a href="templates.html">
       <span class="ico">🧾</span><b>模板教具包</b>
       <span>八份随堂教具 · 通关文牒 / 登记册 / 纪要 / 三栏清单 / 变更批复 / 打回清单 / 复盘框架 / 封赏方案 ｜ 支持打印</span>
     </a>
+  </div>
+
+  <div class="section-t"><h2>主讲老师登记</h2><div class="en">Instructor Registration</div></div>
+  <div class="panel">
+    <p style="font-size:13.5px;color:var(--sub);margin-bottom:14px">登记主讲老师信息（姓名 / 单位 / 部门 / 手机 / 邮箱），登记后的<b>手机号将作为老师端成绩查询登录凭证</b>——凭它可在成绩查询页与成绩总表查看全班成绩并导出 CSV。同手机号重复登记将覆盖更新。</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+      <input id="t-name" placeholder="姓名 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+      <input id="t-company" placeholder="单位 *（如：省公司）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+      <input id="t-dept" placeholder="部门 / 岗位 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+      <input id="t-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="手机号 *（登录凭证）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+      <input id="t-email" type="email" placeholder="邮箱 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+      <input id="t-key" type="password" placeholder="登记口令 *（向课程管理员获取）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+    </div>
+    <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <button id="t-btn" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:10px 30px;font-size:14.5px;font-weight:700;cursor:pointer">提交登记</button>
+      <span id="t-msg" style="font-size:13px;color:var(--sub)"></span>
+    </div>
   </div>
 
   <div class="section-t"><h2>通关文牒 · 结业体系</h2><div class="en">Passport System</div></div>
@@ -218,7 +235,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
       <div style="text-align:center"><img src="seal/seal-l4.svg" alt="治理印" style="width:92px;height:92px"><div style="font-size:11px;color:var(--sub);margin-top:5px">治理印 · 八戒 · L4</div></div>
     </div>
     <p style="font-size:13px;color:var(--sub);margin-top:12px"><b style="color:var(--gold-d)">印中师徒：</b>五级印章由师徒五人坐镇八卦炉——“八卦炉里炼真身，西行路上修真经”：<b>唐僧</b>掌全景方向（L+ 通识）· <b>白龙马</b>化形上路先认清自己（L1 认知）· <b>沙僧</b>宝杖在手把活干实（L2 工具）· <b>悟空</b>降妖除魔真刀真枪（L3 实战）· <b>八戒</b>以“八戒”律己、统筹各方（L4 治理）。你修到哪一关，就炼哪一位的真身。</p>
-    <p style="font-size:13px;color:var(--sub);margin-top:12px;padding-top:12px;border-top:1px dashed rgba(184,145,47,.35)"><b style="color:var(--gold-d)">电子结业凭证：</b>结业考试合格（≥95分）即自动登记并生成干支纪年文牒编号（如“丙午年 第五千零一号”），学员在成绩页一键下载专属《通关文牒》PDF；文牒由考试系统统一发放，不支持人工登记。</p>
+    <p style="font-size:13px;color:var(--sub);margin-top:12px;padding-top:12px;border-top:1px dashed rgba(184,145,47,.35)"><b style="color:var(--gold-d)">电子结业凭证：</b>结业考试合格（≥95分）即自动登记并生成干支纪年文牒编号（如“丙午年 第五千零一号”），学员在成绩页或<a href="score.html" style="color:var(--gold-d)">成绩查询页</a>凭手机号下载专属《通关文牒》PDF；文牒由考试系统统一发放，不支持人工登记。</p>
     <p style="font-size:13px;color:var(--sub);margin-top:12px;padding-top:12px;border-top:1px dashed rgba(184,145,47,.35)"><b style="color:var(--gold-d)">在线答题（仅课堂扫码）：</b>结业考试卷为教师用资料，本页不提供试卷入口，学员无法从课程门户进入考试——开考时由讲师打开试卷页投影答题二维码，学生扫码即进入本人随机试卷（题序/选项双乱序，人手一份不重复），交卷由服务器自动评分出分并即时回顾错题。老师查看全班成绩请访问 <a href="https://exam-report.mousejl.top" target="_blank" rel="noopener" style="color:var(--gold-d)">成绩总表（老师端）</a>。</p>
   </div>
   <div class="quote"><b>设计原则：</b>由浅入深（认知→工具→执行→治理）；一套IP四层复用（81难在四级分别讲"里程碑/台账/分级应对/容错治理"）；成长路径即招生路径——L1 的学员知道 L3 在等他。</div>
@@ -226,5 +243,30 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 </div>
 
 <div class="foot">取经计划 · 项目管理四级训练营 ｜ 基于对标研究全面升级 · 与《西游记·ICT项目管理》经典课程并存 ｜ 2026</div>
+<script>
+document.getElementById('t-btn').addEventListener('click', function(){
+  const v = id => document.getElementById(id).value.trim();
+  const m = document.getElementById('t-msg');
+  const data = {name:v('t-name'), company:v('t-company'), dept:v('t-dept'), phone:v('t-phone'), email:v('t-email'), key:v('t-key')};
+  if(!data.name || !data.company || !data.dept || !data.email || !data.key || !data.phone){
+    m.textContent = '请填写完整（各项均必填）'; m.style.color = '#c62828'; return;
+  }
+  if(!/^1\d{10}$/.test(data.phone)){
+    m.textContent = '手机号格式不正确（11位）'; m.style.color = '#c62828'; return;
+  }
+  m.textContent = '提交中…'; m.style.color = 'var(--sub)';
+  fetch('https://exam-report.mousejl.top/api/teacher/register', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(r => r.json()).then(j => {
+    if(j.ok){
+      m.textContent = '✓ ' + j.msg; m.style.color = '#00875a';
+      ['t-name','t-company','t-dept','t-phone','t-email','t-key'].forEach(i => document.getElementById(i).value = '');
+    } else {
+      m.textContent = j.msg || '提交失败，请稍后再试'; m.style.color = '#c62828';
+    }
+  }).catch(() => { m.textContent = '网络异常，请稍后再试'; m.style.color = '#c62828'; });
+});
+</script>
 </body>
 </html>
