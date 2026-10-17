@@ -67,6 +67,14 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 .extra b{font-size:14.5px;display:block;color:#1a2436;}
 .extra span{font-size:12px;color:var(--sub);}
 .foot{text-align:center;font-size:12px;color:var(--sub);padding:30px 16px 40px;border-top:1px solid var(--line);margin-top:26px;}
+@media(max-width:860px){
+  .ink-title{font-size:22px !important}
+  #ov-screen{padding:70px 12px 24px !important}
+  #ov-card{padding:24px 16px 20px !important}
+  .ink-row{flex-direction:column !important;gap:16px !important;text-align:center !important}
+  .ink-qrwrap>div{width:74vw !important;height:74vw !important;padding:10px !important}
+  .ink-row .ink-sign{margin:0 auto}
+}
 @media(max-width:860px){.ladder{grid-template-columns:1fr 1fr;gap:12px;}.extra{grid-template-columns:1fr;}.hero .stamp{display:none;}.role-card{flex-direction:column;text-align:center;gap:14px;}.role-card span,.role-card b{text-align:center!important;}
 .hero .kicker{font-size:10px;letter-spacing:.12em;}
 .ladder .course-card{min-width:0;}.ladder .course-card .cc-body li{font-size:11.8px;}
@@ -279,28 +287,66 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
     <div id="ov-welcome" style="color:#d8c48a;font-size:13px;margin-bottom:20px"></div>
     <div id="ov-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px"></div>
   </div>
-  <!-- 开考大屏 -->
-  <div id="ov-screen" style="display:none;max-width:1000px;margin:2vh auto;text-align:center;color:var(--ink);padding:10px 0 30px">
-    <div id="ov-title" style="color:#fff;font-size:26px;font-weight:800;letter-spacing:3px;margin-bottom:4px"></div>
-    <div style="color:#f5c658;font-size:14px;letter-spacing:1px;margin-bottom:22px">结业考试进行中 · 建议全屏投影（F11）· 学生扫码即考</div>
-    <div id="ov-card" style="background:#fff;border-radius:20px;padding:30px 28px 24px;box-shadow:0 10px 40px rgba(0,0,0,.4);border-top:6px solid #0066CC;text-align:center">
-      <div style="width:min(44vh,400px);height:min(44vh,400px);margin:0 auto 16px;background:#fff;border:2px solid #e8e4d8;border-radius:16px;padding:16px">
-        <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
-      </div>
-      <div style="font-size:16.5px;color:#1a2436;font-weight:700;margin-bottom:6px">学生用手机扫上方二维码 → 自动领取本人随机试卷</div>
-      <div style="font-size:13.5px;color:#7a8699;margin-top:4px">单选 <b>15题×2分</b> · 多选 <b>10题×3分</b> · 判断 <b>20题×2分</b> · 满分 <b>100分</b> · 建议限时60分钟</div>
-      <div style="font-size:13.5px;color:#7a8699;margin-top:4px">每人随机组卷（题序/选项双乱序）· 支持断点续答 · ≥95分自动发放《通关文牒》PDF</div>
-      <div style="display:inline-block;margin-top:12px;background:#f0f7ee;color:#1e7b34;font-size:14.5px;font-weight:700;border:1.5px solid #bfe3c6;border-radius:99px;padding:6px 20px">已交卷 <span id="ov-count">…</span> 人（30秒自动刷新）</div>
-      <div style="margin-top:14px;font-size:12.5px;color:#a08a4a;background:#faf6e8;border:1px dashed #e3d5a8;border-radius:10px;padding:9px 14px;line-height:1.9">考前提醒：手机静音、独立完成 · 中途断网或退出，重新扫码可续答 · 交卷即出分，可即时查看错题</div>
-      <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
-        <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;background:#f5c658;color:#5a4008">📋 分享考试链接</button>
-        <button onclick="ovBack()" style="border:none;border-radius:99px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2">← 更换考试科目</button>
-        <button onclick="ovClose()" style="border:none;border-radius:99px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;background:#8a97ad;color:#fff">结束收卷</button>
-      </div>
-    </div>
-    <div style="color:#8a99b5;font-size:12px;margin-top:18px;line-height:1.9">链接分享给学生后，学生点开等同扫码（每人独立随机卷）· 成绩总表：<a href="https://exam-report.mousejl.top" target="_blank" rel="noopener" style="color:#c9d84a">exam-report.mousejl.top</a><br>考试纪律与时间安排由主讲老师现场把控</div>
-  </div>
 </div>
+
+
+
+  <!-- 开考大屏（课件同款 · 暗色水墨风） -->
+  <div id="ov-screen" style="display:none;position:fixed;inset:0;z-index:110;overflow:auto;background:radial-gradient(120% 120% at 20% 10%,#171a20 0%,#0b0e11 58%);color:#efece3;font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;padding:0 0 30px">
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 52px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(201,166,74,.75)">
+      <span>取经计划 · 结业考试 · 大闹考场</span><span id="ov-chrome-r">EXAM IN SESSION</span>
+    </div>
+    <div style="max-width:980px;margin:0 auto;padding:88px 24px 0;text-align:center">
+      <div id="ov-kicker" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.32em;color:#d8b45f;margin-bottom:10px"></div>
+      <div id="ov-title" class="ink-title" style="font-weight:700;font-size:min(4.4vw,54px);line-height:1.12;letter-spacing:.02em"></div>
+      <div style="color:#c9a64a;font-size:15px;letter-spacing:.18em;margin-top:8px">八百里取经路上 · 此一关 · 诸位列位 · 各凭本事</div>
+
+      <div id="ov-card" style="position:relative;margin:30px auto 0;max-width:760px;background:linear-gradient(160deg,#efece3,#e4e0d3);border-radius:8px;padding:34px 36px 28px;box-shadow:0 18px 60px rgba(0,0,0,.55);border:1px solid rgba(201,166,74,.5)">
+        <!-- 卷轴头尾 -->
+        <div style="position:absolute;top:-14px;left:24px;right:24px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
+        <div style="position:absolute;bottom:-14px;left:24px;right:24px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
+        <div class="ink-row" style="display:flex;gap:26px;align-items:center;text-align:left">
+          <div class="ink-sign" style="flex:0 0 auto;text-align:center">
+            <div id="ov-sealbox" style="width:104px;margin:0 auto;background:#fff;border-radius:10px;padding:10px;box-shadow:0 4px 14px rgba(0,0,0,.14)">
+              <img id="ov-seal" alt="本关通关印" style="width:100%;display:block">
+              <div id="ov-sealname" style="font-size:11px;color:#8a7434;margin-top:5px;letter-spacing:.08em;font-family:'PingFang SC','Microsoft YaHei',sans-serif"></div>
+            </div>
+            <div style="font-size:10.5px;color:#9a8a58;margin-top:8px;letter-spacing:.14em;font-family:ui-monospace,Menlo,monospace">达95分 · 此印自落</div>
+          </div>
+          <div class="ink-qrwrap" style="flex:0 0 auto">
+            <div style="width:min(40vh,360px);height:min(40vh,360px);background:#fff;border:2px solid #c9a64a;border-radius:12px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
+              <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
+            </div>
+            <div style="text-align:center;font-size:13px;color:#3d3423;margin-top:8px;letter-spacing:.1em;font-weight:700;font-family:'PingFang SC','Microsoft YaHei',sans-serif">扫码即入 · 各自领取随机试卷</div>
+          </div>
+          <div style="flex:1;min-width:0;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
+            <div style="display:flex;gap:10px;align-items:stretch">
+              <div style="writing-mode:vertical-rl;font-family:'Noto Serif SC','Songti SC',serif;font-size:14px;font-weight:700;color:#8a6a2b;background:rgba(201,166,74,.16);border:1px solid rgba(201,166,74,.45);border-radius:6px;padding:10px 6px;letter-spacing:.3em">本关考制</div>
+              <div style="flex:1;border-left:3px solid #d8b45f;padding:10px 14px;background:rgba(201,166,74,.1);border-radius:0 8px 8px 0;font-size:13.5px;color:#3d3423;line-height:1.9">
+                单选十五 · 二分一题<br>多选十题 · 三分一题<br>判断廿题 · 二分一题<br>满分一百 · 建议限时一炷香
+              </div>
+            </div>
+            <div style="margin-top:12px;display:flex;gap:10px;align-items:stretch">
+              <div style="writing-mode:vertical-rl;font-family:'Noto Serif SC','Songti SC',serif;font-size:13px;font-weight:700;color:#a04830;background:rgba(176,85,58,.1);border:1px solid rgba(176,85,58,.4);border-radius:6px;padding:8px 6px;letter-spacing:.25em">考前敕令</div>
+              <div style="flex:1;border-left:3px solid #b0553a;padding:10px 14px;background:rgba(176,85,58,.08);border-radius:0 8px 8px 0;font-size:12.5px;color:#3d3423;line-height:1.85">
+                手机静音 · 独立作答<br>中途断网 · 重扫可续<br>交卷即出分 · 可阅错题
+              </div>
+            </div>
+            <div style="display:inline-block;margin-top:14px;background:#f0ede2;border:1.5px dashed #c9a64a;border-radius:99px;padding:6px 18px;font-size:13px;color:#5a4a20;font-weight:700">
+              已交卷 <span id="ov-count" style="font-size:18px;color:#1e7b34">…</span> 人 · 妙笔生花中
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap">
+        <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 16px rgba(201,166,74,.35);font-family:'PingFang SC','Microsoft YaHei',sans-serif">📣 敕发考卷链接</button>
+        <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">← 另择一关</button>
+        <button onclick="ovClose()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif">鸣金收卷</button>
+      </div>
+      <div style="color:rgba(239,236,227,.4);font-size:12px;margin:22px 0 0;line-height:1.9;font-family:ui-monospace,Menlo,monospace">链接发至微信群 · 徒儿点开即入考（各卷独立随机）· 成绩总表 exam-report.mousejl.top<br>凡心于此炼 · 打铁趁热 · 纪律与时长 · 由主讲长老执掌</div>
+    </div>
+  
 
 <script>
 document.getElementById('t-btn').addEventListener('click', function(){
@@ -331,11 +377,11 @@ document.getElementById('t-btn').addEventListener('click', function(){
 const OV_API = 'https://exam-report.mousejl.top';
 const OV_QR = 'https://mousejl.github.io/xiyou-ict-pm/curriculum/exams';
 const OV_EXAMS = [
-  {id:1, no:'试卷一', name:'通识全景课 L+', color:'#0066CC', target:'全员必修 · 项目定义/西游对照/十大知识域'},
-  {id:2, no:'试卷二', name:'认知篇 L1',     color:'#0066CC', target:'新入职员工 · 听懂语言/认识角色/找到位置'},
-  {id:3, no:'试卷三', name:'基础篇 L2',     color:'#00A87E', target:'项目助理/专员 · 会做纪要/会记台账/会跟催/会汇报'},
-  {id:4, no:'试卷四', name:'实战篇 L3',     color:'#E65C00', target:'项目经理 · 敢说不/会留缓冲/敢打回/管住蔓延'},
-  {id:5, no:'试卷五', name:'治理篇 L4',     color:'#D32F2F', target:'项目总监 · 会选人/会分赏/会搭体系/会自我批判'}
+  {id:1, no:'第一关', name:'通识全景课 · 结业考试', kick:'LEVEL+ · 通识全景 · 唐僧执印', seal:'seal/seal-exam-l0.svg', sealname:'通识印 · 唐僧', color:'#0066CC', target:'全员必修 · 项目定义/西游对照/十大知识域'},
+  {id:2, no:'第二关', name:'认知篇 · 结业考试',     kick:'LEVEL 1 · 认知入门 · 白龙马执印', seal:'seal/seal-exam-l1.svg', sealname:'认知印 · 白龙马', color:'#1E6FB8', target:'新入职员工 · 听懂语言/认识角色/找到位置'},
+  {id:3, no:'第三关', name:'基础篇 · 结业考试',     kick:'LEVEL 2 · 工具基石 · 沙僧执印', seal:'seal/seal-exam-l2.svg', sealname:'工具印 · 沙僧', color:'#00A87E', target:'项目助理/专员 · 会做纪要/会记台账/会跟催/会汇报'},
+  {id:4, no:'第四关', name:'实战篇 · 结业考试',     kick:'LEVEL 3 · 实战降魔 · 悟空执印', seal:'seal/seal-exam-l3.svg', sealname:'实战印 · 悟空', color:'#E65C00', target:'项目经理 · 敢说不/会留缓冲/敢打回/管住蔓延'},
+  {id:5, no:'第五关', name:'治理篇 · 结业考试',     kick:'LEVEL 4 · 治理统御 · 八戒执印', seal:'seal/seal-exam-l4.svg', sealname:'治理印 · 八戒', color:'#D32F2F', target:'项目总监 · 会选人/会分赏/会搭体系/会自我批判'}
 ];
 let ovToken = '', ovTeacher = '', ovCur = null, ovTimer = null;
 
@@ -375,11 +421,14 @@ function ovShowChoose(){
 
 function ovOpen(id){
   ovCur = OV_EXAMS.find(e => e.id === id);
-  document.getElementById('ov-title').textContent = ovCur.no + ' · ' + ovCur.name + ' · 结业考试';
-  document.getElementById('ov-card').style.borderTopColor = ovCur.color;
+  document.getElementById('ov-kicker').textContent = ovCur.kick;
+  document.getElementById('ov-title').textContent = ovCur.no + ' · ' + ovCur.name;
+  document.getElementById('ov-seal').src = ovCur.seal;
+  document.getElementById('ov-sealname').textContent = ovCur.sealname + ' · 达95分自落';
   document.getElementById('ov-qr').src = OV_QR + '/start-qr-' + id + '.svg';
   ovShareReset();
   document.getElementById('ov-choose').style.display = 'none';
+  document.getElementById('exam-overlay').style.display = 'none';
   document.getElementById('ov-screen').style.display = 'block';
   ovPoll();
   ovTimer = setInterval(ovPoll, 30000);
@@ -406,8 +455,12 @@ function ovFallbackCopy(url, done){
   try{ document.execCommand('copy'); done(); }catch(e){ prompt('请手动复制考试链接：', url); }
   document.body.removeChild(ta);
 }
-function ovShareReset(){ const b = document.getElementById('ov-share'); b.textContent = '📋 分享考试链接'; b.style.background = '#f5c658'; b.style.color = '#5a4008'; }
-function ovBack(){ ovShowChoose(); }
+function ovShareReset(){ const b = document.getElementById('ov-share'); b.textContent = '📣 敕发考卷链接'; b.style.background = 'linear-gradient(135deg,#e4c96f,#c9a64a)'; b.style.color = '#3d2f0e'; }
+function ovBack(){
+  document.getElementById('ov-screen').style.display = 'none';
+  if(ovTimer){ clearInterval(ovTimer); ovTimer = null; }
+  ovShowChoose();
+}
 function ovClose(){
   const ov = document.getElementById('exam-overlay');
   ov.style.display = 'none';
