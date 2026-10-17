@@ -78,12 +78,20 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
   #ov-screen > div[style*="flex;gap:56px"]{flex-direction:column !important;gap:22px !important;padding:80px 16px 0 !important}
   #ov-screen > div[style*="flex;gap:56px"] > div:first-child{flex:0 0 auto !important;text-align:center !important}
   #ov-title{font-size:30px !important}
-  .ov-clock #ov-timer{font-size:20px !important}
-  .ov-clock svg{width:36px !important;height:36px !important}
-  #ov-card{padding:24px 14px 20px !important}
-  .ink-qrwrap>div:first-child{width:250px !important;height:250px !important}
+  .ov-clock > div:first-child{width:140px !important;height:140px !important}
+  .ov-clock svg{width:140px !important;height:140px !important}
+  .ov-clock #ov-timer{font-size:26px !important}
+  #ov-card{padding:22px 12px 18px !important}
+  .ink-qrwrap>div:first-child{width:240px !important;height:240px !important}
+  .ink-row{gap:18px !important}
+  #ov-sealbox{width:96px !important;right:-6px !important;bottom:-10px !important}
   #ov-sealbox{width:104px !important;right:-8px !important;bottom:-16px !important}
   .ink-qrwrap>div[style*="margin-top:22px"]{margin-top:26px !important}
+}
+@media(max-width:960px){
+  #ov-drawer{transform:translate(176px,-50%) !important}
+  #ov-drawer[data-open="1"]{transform:translateY(-50%) !important}
+  #ov-drawer-toggle{width:34px !important;font-size:13px !important}
 }
 @media(max-width:860px){
   .ink-title{font-size:22px !important}
@@ -362,17 +370,9 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
       <rect width="1440" height="900" fill="url(#veil2)"/>
     </svg>
 
-    <!-- ============ 顶栏（左题名 · 右计时器） ============ -->
-    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;font-family:ui-monospace,'SF Mono',Menlo,monospace">
-      <span style="font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(228,197,111,.85)">取经计划 · 结业考试</span>
-      <div class="ov-clock" style="display:flex;align-items:center;gap:12px">
-        <span style="font-size:11px;letter-spacing:.24em;color:rgba(228,197,111,.85)">剩余时间</span>
-        <span id="ov-timer" style="font-size:27px;font-weight:700;letter-spacing:.04em;color:#f7ebc8">60:00</span>
-        <svg viewBox="0 0 120 120" style="width:52px;height:52px;transform:rotate(-90deg)">
-          <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(201,166,74,.3)" stroke-width="12"/>
-          <circle id="ov-ring" cx="60" cy="60" r="52" fill="none" stroke="#d8b45f" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
-        </svg>
-      </div>
+    <!-- ============ 顶栏 ============ -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(228,197,111,.85)">
+      <span>取经计划 · 结业考试</span><span>EXAM IN SESSION · 时长 60 分钟</span>
     </div>
 
     <!-- ============ 主体（顺向动线：题名 → 卷轴 → 状态行） ============ -->
@@ -391,21 +391,37 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
         <span style="background:rgba(216,180,95,.13);border:1.5px solid rgba(216,180,95,.5);border-radius:99px;padding:9px 26px;font-size:15.5px;color:#efdfae;font-weight:700">满分 100 · 时长 60 分钟</span>
       </div>
 
-      <!-- ③ 卷轴卡（码印合一：中央大码 + 印章压角） -->
-      <div id="ov-card" style="position:relative;margin:40px auto 0;max-width:620px;background:linear-gradient(160deg,#efece3,#e4e0d3);border-radius:10px;padding:36px 46px 30px;box-shadow:0 24px 70px rgba(0,0,0,.75),0 0 0 1px rgba(201,166,74,.45),0 0 90px rgba(201,166,74,.14)">
+      <!-- ③ 卷轴卡（左倒计时 · 右码印合一） -->
+      <div id="ov-card" style="position:relative;margin:40px auto 0;max-width:760px;background:linear-gradient(160deg,#efece3,#e4e0d3);border-radius:10px;padding:36px 46px 32px;box-shadow:0 24px 70px rgba(0,0,0,.75),0 0 0 1px rgba(201,166,74,.45),0 0 90px rgba(201,166,74,.14)">
         <div style="position:absolute;top:-14px;left:34px;right:34px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
         <div style="position:absolute;bottom:-14px;left:34px;right:34px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
-        <div class="ink-row" style="display:flex;align-items:center;justify-content:center;text-align:center">
+        <div class="ink-row" style="display:flex;gap:44px;align-items:center;justify-content:center;text-align:center">
+          <!-- 左：一炷香倒计时 -->
+          <div class="ov-clock" style="flex:0 0 auto;text-align:center">
+            <div style="position:relative;width:190px;height:190px;margin:0 auto">
+              <svg viewBox="0 0 120 120" style="width:190px;height:190px;transform:rotate(-90deg)">
+                <circle cx="60" cy="60" r="53" fill="#f7f2e2" stroke="rgba(201,166,74,.35)" stroke-width="1.5"/>
+                <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(201,166,74,.22)" stroke-width="7"/>
+                <circle id="ov-ring" cx="60" cy="60" r="53" fill="none" stroke="#c9a64a" stroke-width="7" stroke-linecap="round" stroke-dasharray="333" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <span id="ov-timer" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:38px;font-weight:800;letter-spacing:.02em;color:#2e261a;line-height:1">60:00</span>
+                <span style="font-size:12px;color:#8a7a4e;letter-spacing:.3em;margin-top:8px">剩余时间</span>
+              </div>
+            </div>
+            <div style="margin-top:14px;font-family:'Noto Serif SC','Songti SC',serif;font-size:14.5px;color:#8a6a2b;font-weight:700;letter-spacing:.14em">一炷香 · 铃响收卷</div>
+            <div style="margin-top:5px;font-size:11.5px;color:#9a8a5e;font-family:'PingFang SC','Microsoft YaHei',sans-serif;letter-spacing:.04em">剩10分钟语音提醒 · 归零自动收卷</div>
+          </div>
+          <!-- 右：码印合一 -->
           <div class="ink-qrwrap" style="flex:0 0 auto">
-            <div style="position:relative;width:340px;height:340px;background:#fff;border:2px solid #c9a64a;border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
+            <div style="position:relative;width:300px;height:300px;background:#fff;border:2px solid #c9a64a;border-radius:14px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
               <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
-              <!-- 通关印压角盖印（纯印章图，无文字说明） -->
-              <div id="ov-sealbox" style="position:absolute;right:-26px;bottom:-22px;width:132px;transform:rotate(8deg)">
+              <div id="ov-sealbox" style="position:absolute;right:-24px;bottom:-20px;width:120px;transform:rotate(8deg)">
                 <img id="ov-seal" alt="本关通关印" style="width:100%;display:block">
               </div>
             </div>
-            <div style="font-size:17px;color:#4a3a14;margin-top:22px;letter-spacing:.12em;font-weight:800;font-family:'PingFang SC','Microsoft YaHei',sans-serif">手机扫二维码 · 进入考试</div>
-            <div style="font-size:14px;color:#6a5a35;margin-top:6px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">每人随机试卷 · 支持断点续答 ｜ 合格线 95 分 · 达标自动盖此印</div>
+            <div style="font-size:16px;color:#4a3a14;margin-top:22px;letter-spacing:.12em;font-weight:800;font-family:'PingFang SC','Microsoft YaHei',sans-serif">手机扫二维码 · 进入考试</div>
+            <div style="font-size:13.5px;color:#6a5a35;margin-top:6px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">每人随机试卷 · 断点续答 ｜ 合格 95 分自动盖印</div>
           </div>
         </div>
       </div>
@@ -525,7 +541,19 @@ function ovLightNode(id){
   flag.setAttribute('x', pos[0]); flag.setAttribute('y', pos[1] - 22);
   flag.style.display = '';
 }
+let ovDrawerInit = false;
+function ovDrawerSmallHide(){
+  if(!ovDrawerInit && window.innerWidth <= 960){
+    const d = document.getElementById('ov-drawer');
+    const panel = document.getElementById('ov-drawer-panel');
+    d.dataset.open = '0';
+    d.style.transform = 'translate(' + panel.getBoundingClientRect().width + 'px, -50%)';
+    document.getElementById('ov-drawer-toggle').textContent = '▴ 考官操作';
+  }
+  ovDrawerInit = true;
+}
 function ovOpen(id){
+  ovDrawerSmallHide();
   ovCur = OV_EXAMS.find(e => e.id === id);
   document.getElementById('ov-kicker').textContent = ovCur.kick;
   document.getElementById('ov-title').textContent = ovCur.no + ' · ' + ovCur.name;
@@ -576,7 +604,7 @@ function ovRender(){
   el.textContent = ovFmt(ovLeft);
   // 进度环：326.7 = 2πr
   const pct = ovLeft / OV_TOTAL;
-  ring.style.strokeDashoffset = String(326.7 * (1 - pct));
+  ring.style.strokeDashoffset = String(333 * (1 - pct));
   // 颜色分级：充足金 / 少于10分钟橙红 / 少于5分钟红并闪烁
   ring.style.stroke = ovLeft <= 300 ? '#e5533d' : (ovLeft <= 600 ? '#e6862e' : '#d8b45f');
   el.style.color = ovLeft <= 300 ? '#ffb4a2' : '#f0e6c8';
