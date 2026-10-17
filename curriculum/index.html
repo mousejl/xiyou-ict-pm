@@ -6,10 +6,79 @@
 <title>取经计划 · 项目管理四级训练营</title>
 <style>
 @keyframes ovBlink{0%{opacity:1}50%{opacity:.35}100%{opacity:1}}
-@media(max-width:860px){
-  #ov-timer{font-size:20px !important}
-  .ov-clock{top:66px !important;right:14px !important;width:92px !important}
-  .ov-clock svg{width:92px !important;height:92px !important}
+
+/* ================= 开考大屏 · 通关文牒版 ================= */
+#ov-screen{--zsilk:#9e2f22;--zsilk2:#a04330;--inkbrown:#2e2a22;--golddeep:#8a6d1f;--paperdim:#6b5636;}
+.ov-creed{position:relative;max-width:1280px;margin:4px auto 12px;padding:7px;border:3px solid var(--zsilk);border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 66px rgba(158,47,34,.16);
+  background:
+   radial-gradient(ellipse at 28% 16%,rgba(255,250,233,.5),transparent 58%),
+   radial-gradient(ellipse at 78% 90%,rgba(181,156,104,.38),transparent 56%),
+   repeating-linear-gradient(93deg,rgba(139,115,68,.045) 0 2px,transparent 2px 6px),
+   repeating-linear-gradient(3deg,rgba(139,115,68,.03) 0 2px,transparent 2px 7px),
+   linear-gradient(163deg,#eee0bd,#e4d3aa 55%,#d9c698);}
+.ov-corner{position:absolute;width:22px;height:22px;border:0 solid var(--zsilk)}
+.ov-corner.tl{top:5px;left:5px;border-top-width:3px;border-left-width:3px}
+.ov-corner.tr{top:5px;right:5px;border-bottom-width:0;border-top-width:3px;border-right-width:3px}
+.ov-corner.bl{bottom:5px;left:5px;border-bottom-width:3px;border-left-width:3px}
+.ov-corner.br{bottom:5px;right:5px;border-bottom-width:3px;border-right-width:3px}
+.ov-creed-inner{border:1px solid rgba(158,47,34,.55);padding:16px 24px 14px;position:relative}
+.ov-head{text-align:center;padding:2px 0 13px;border-bottom:1.5px solid rgba(158,47,34,.4)}
+.ov-kicker{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12.5px;letter-spacing:.3em;color:var(--zsilk2);margin-bottom:9px}
+.ov-title{font-family:'KaiTi','STKaiti','Noto Serif SC','Songti SC',serif;font-weight:900;font-size:38px;color:var(--inkbrown);margin:0;letter-spacing:.05em;line-height:1.25}
+.ov-sub{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:15px;color:var(--zsilk2);letter-spacing:.16em;margin-top:8px}
+.ov-pills{display:flex;justify-content:center;gap:11px;flex-wrap:wrap;margin-top:14px;font-family:'PingFang SC','Microsoft YaHei',sans-serif}
+.ov-pills span{border:1.5px solid rgba(158,47,34,.55);background:rgba(158,47,34,.06);color:var(--zsilk2);border-radius:2px;padding:6px 18px;font-size:14px;font-weight:700}
+.ov-body{display:flex;gap:17px;margin-top:15px;align-items:stretch}
+.ov-map{position:relative;flex:0 0 47%;min-height:430px;margin:0;border:1.5px solid rgba(158,47,34,.8);background:#0a0a09;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(212,175,55,.14)}
+.ov-map>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
+.ov-right{flex:1;display:flex;flex-direction:column;gap:13px;min-width:0;justify-content:stretch}
+.ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:13px 18px;flex:0 0 auto}
+.ov-clock{display:flex;align-items:center;gap:22px;justify-content:center}
+.ov-clock-ring{position:relative;width:150px;height:150px;flex:0 0 auto}
+.ov-clock-ring svg{width:150px;height:150px;transform:rotate(-90deg);display:block}
+.ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:33px;font-weight:800;color:var(--inkbrown);letter-spacing:.02em;line-height:1}
+.ov-clock-num i{font-style:normal;font-size:11px;color:var(--golddeep);letter-spacing:.34em;margin-top:7px}
+.ov-clock-meta{display:flex;flex-direction:column;gap:9px;text-align:left;font-family:'PingFang SC','Microsoft YaHei',sans-serif}
+.ov-clock-meta b{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:19px;color:var(--zsilk2);letter-spacing:.14em;font-weight:900}
+.ov-clock-meta span{font-size:12.5px;color:var(--paperdim);letter-spacing:.03em}
+.ov-turnedin{border:1.5px solid rgba(158,47,34,.5);background:rgba(158,47,34,.07);border-radius:2px;padding:5px 14px;align-self:flex-start;font-size:13.5px !important;color:var(--inkbrown) !important;font-weight:700}
+.ov-turnedin em{font-style:normal;font-size:21px;font-weight:800;color:var(--zsilk2);margin:0 3px;font-family:ui-monospace,Menlo,monospace}
+.ov-qrcard{display:flex;gap:20px;align-items:center;border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:16px 20px;flex:1;min-height:0}
+.ov-qrbox{position:relative;width:248px;height:248px;flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:10px;border-radius:2px}
+#ov-qr{width:100%;height:100%;display:block}
+#ov-sealbox{position:absolute;right:-24px;bottom:-20px;width:108px;transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
+#ov-seal{width:100%;display:block}
+.ov-qrsign{writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:27px;font-weight:900;color:var(--zsilk2);letter-spacing:.26em;flex:0 0 auto;max-height:252px;line-height:1.35}
+.ov-qrinfo{font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:13.5px;color:#4a4032;line-height:2.05;text-align:left;flex:1;min-width:0}
+.ov-qrinfo b{color:var(--zsilk2)}
+.ov-foot{margin-top:15px;padding-top:11px;border-top:1.5px solid rgba(158,47,34,.4);text-align:center;font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:13.5px;color:var(--paperdim);letter-spacing:.05em}
+@media(max-width:960px){
+  #ov-screen{padding:54px 12px 20px !important}
+  .ov-creed{max-width:100%;padding:5px}
+  .ov-creed-inner{padding:12px 12px 10px}
+  .ov-title{font-size:26px}
+  .ov-sub{font-size:12.5px;letter-spacing:.08em}
+  .ov-kicker{font-size:10.5px;letter-spacing:.2em;margin-bottom:6px}
+  .ov-pills{gap:8px;margin-top:10px}
+  .ov-pills span{font-size:12px;padding:4px 11px}
+  .ov-body{flex-direction:column;gap:12px}
+  .ov-map{flex:none;min-height:0;aspect-ratio:2728/2048}
+  .ov-mapcap{display:none}
+  .ov-clock{flex-wrap:wrap;gap:12px}
+  .ov-clock-ring{width:118px;height:118px}
+  .ov-clock-ring svg{width:118px;height:118px}
+  #ov-timer{font-size:25px}
+  .ov-clock-meta{align-items:center;text-align:center}
+  .ov-clock-meta b{font-size:16.5px}
+  .ov-turnedin{align-self:center}
+  .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:14px 12px}
+  .ov-qrbox{width:212px;height:212px}
+  #ov-sealbox{width:88px;right:-12px;bottom:-14px}
+  .ov-qrsign{writing-mode:horizontal-tb;max-height:none;font-size:19px;letter-spacing:.18em}
+  .ov-qrinfo{text-align:center}
+  .ov-foot{font-size:12px;line-height:1.9}
 }
 
 :root{
@@ -75,38 +144,11 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 .extra span{font-size:12px;color:var(--sub);}
 .foot{text-align:center;font-size:12px;color:var(--sub);padding:30px 16px 40px;border-top:1px solid var(--line);margin-top:26px;}
 @media(max-width:960px){
-  #ov-screen > div[style*="flex;gap:56px"]{flex-direction:column !important;gap:22px !important;padding:80px 16px 0 !important}
-  #ov-screen > div[style*="flex;gap:56px"] > div:first-child{flex:0 0 auto !important;text-align:center !important}
-  #ov-title{font-size:30px !important}
-  .ov-clock > div:first-child{width:140px !important;height:140px !important}
-  .ov-clock svg{width:140px !important;height:140px !important}
-  .ov-clock #ov-timer{font-size:26px !important}
-  #ov-card{padding:22px 12px 18px !important}
-  .ink-qrwrap>div:first-child{width:240px !important;height:240px !important}
-  .ink-row{gap:18px !important}
-  #ov-sealbox{width:96px !important;right:-6px !important;bottom:-10px !important}
-  #ov-sealbox{width:104px !important;right:-8px !important;bottom:-16px !important}
-  .ink-qrwrap>div[style*="margin-top:22px"]{margin-top:26px !important}
-}
-@media(max-width:960px){
-  #ov-drawer{transform:translate(176px,-50%) !important}
-  #ov-drawer[data-open="1"]{transform:translateY(-50%) !important}
+  /* 抽屉收合由 JS 按面板实测宽度内联控制（ovDrawerSmallHide/ovDrawerToggle），此处仅管拉手尺寸 */
   #ov-drawer-toggle{width:34px !important;font-size:13px !important}
 }
 @media(max-width:860px){
-  .ink-title{font-size:22px !important}
-  #ov-screen{padding:70px 12px 24px !important}
-  #ov-card{padding:24px 16px 20px !important}
-  .ink-row{flex-direction:column !important;gap:16px !important;text-align:center !important}
-  .ink-qrwrap>div{width:74vw !important;height:74vw !important;padding:10px !important}
-  .ink-row .ink-sign{margin:0 auto}
-  #ov-card *{max-width:100% !important}
-  .ink-qrwrap>div:last-child{white-space:normal !important}
-  .ink-row > div[style*="min-width:320px"]{min-width:0 !important}
-  .ink-row > div > div[style*="display:flex;gap:10px"]{flex-direction:column !important;gap:6px !important}
-  #ov-sealbox{width:150px !important;padding:12px !important}
-  .ink-info{padding:10px 12px !important;font-size:12.5px !important;white-space:normal !important}
-}
+  .foot{padding:22px 24px;line-height:2;font-size:11px;}
 @media(max-width:860px){.ladder{grid-template-columns:1fr 1fr;gap:12px;}.extra{grid-template-columns:1fr;}.hero .stamp{display:none;}.role-card{flex-direction:column;text-align:center;gap:14px;}.role-card span,.role-card b{text-align:center!important;}
 .hero .kicker{font-size:10px;letter-spacing:.12em;}
 .ladder .course-card{min-width:0;}.ladder .course-card .cc-body li{font-size:11.8px;}
@@ -323,133 +365,114 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
 
 
-  <!-- 开考大屏（黑金山水 · 32站取经路 · 行进光点背景版） -->
-  <div id="ov-screen" style="display:none;position:fixed;inset:0;z-index:110;overflow:auto;background:#05070a;color:#efece3;font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;padding:0 40px 36px">
-    <!-- ============ 背景路线图（黑金山水底图 · 平滑金线 · 32站点 · 行进光点） ============ -->
-    <svg viewBox="0 0 2728 2048" preserveAspectRatio="xMidYMid slice" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none">
-      <defs>
-        <filter id="ov-glow">
-          <feGaussianBlur stdDeviation="12" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="ov-dotGlow">
-          <feGaussianBlur stdDeviation="6" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
-
-      <!-- 背景图：黑金山水装饰底图 -->
-      <image href="route-bg.jpg" x="0" y="0" width="2728" height="2048" preserveAspectRatio="xMidYMid slice"/>
-      <!-- 暗化遮罩（保底平铺 + 中央加强径向，保前景可读） -->
-      <defs>
-        <radialGradient id="ov-center-dim" cx="50%" cy="44%" r="62%">
-          <stop offset="0%" stop-color="#05070a" stop-opacity="0.55"/>
-          <stop offset="45%" stop-color="#05070a" stop-opacity="0.42"/>
-          <stop offset="78%" stop-color="#05070a" stop-opacity="0.12"/>
-          <stop offset="100%" stop-color="#05070a" stop-opacity="0"/>
-        </radialGradient>
-      </defs>
-      <rect x="0" y="0" width="2728" height="2048" fill="#05070a" opacity="0.42"/>
-      <rect x="0" y="0" width="2728" height="2048" fill="url(#ov-center-dim)"/>
-
-      <!-- 完整路线（底图：暗棕虚线） -->
-      <path id="ov-route-base" d="" fill="none" stroke="#8b7355" stroke-width="4"
-            stroke-dasharray="16,10" stroke-linecap="round" opacity="0.6"/>
-      <!-- 已走过的路线（高亮金色） -->
-      <path id="ov-route-traveled" d="" fill="none" stroke="#d4af37" stroke-width="5"
-            stroke-linecap="round" stroke-linejoin="round"
-            style="filter: drop-shadow(0 0 6px rgba(212,175,55,0.6));"/>
-
-      <!-- 地点标记组 -->
-      <g id="ov-locations"></g>
-
-      <!-- 移动光点 -->
-      <g id="ov-traveler">
-        <circle cx="0" cy="0" r="30" fill="#d4af37" opacity="0.3" filter="url(#ov-glow)"/>
-        <circle cx="0" cy="0" r="15" fill="#ffd700" filter="url(#ov-dotGlow)"/>
-        <circle cx="0" cy="0" r="7" fill="#fff8dc"/>
-      </g>
-
-      <!-- 中央径向暗化层（保护前景标题/药丸/卷轴卡可读性，路线与地名适度沉底） -->
-      <rect x="0" y="0" width="2728" height="2048" fill="url(#ov-center-dim)" opacity="0.85"/>
-
-      <!-- 当前关高亮标记组（位于暗化层之上，JS 填充：大金点+脉冲亮环） -->
-      <g id="ov-gate-mark"></g>
-
-      <!-- 当前关旗标（JS 定位，位于暗化层之上） -->
-      <text id="ov-nodeflag" x="0" y="0" text-anchor="middle" font-size="52" font-weight="700"
-            font-family="'KaiTi','STKaiti','Noto Serif SC','Songti SC',serif"
-            fill="#ffe9a8" letter-spacing="6"
-            style="display:none;filter:drop-shadow(0 0 10px rgba(245,223,154,.9))">▸ 本关 ◂</text>
-    </svg>
-
-    <!-- ============ 顶栏 ============ -->
-    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(228,197,111,.85)">
+  <!-- 开考大屏（通关文牒版：左路线图折页 · 右上计时 · 右下金码官印） -->
+  <div id="ov-screen" style="display:none;position:fixed;inset:0;z-index:110;overflow:auto;background:radial-gradient(ellipse at 50% 28%,#171310,#0b0908 72%);color:#2e2a22;font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;padding:50px 28px 26px">
+    <!-- 顶栏（深色舞台上的金字） -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:15px 42px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(226,199,130,.85)">
       <span>取经计划 · 结业考试</span><span>EXAM IN SESSION · 时长 60 分钟</span>
     </div>
 
-    <!-- ============ 主体（顺向动线：题名 → 卷轴 → 状态行） ============ -->
-    <div style="position:relative;max-width:1180px;margin:0 auto;padding-top:74px;text-align:center">
+    <!-- ============ 通关文牒主体 ============ -->
+    <div class="ov-creed">
+      <i class="ov-corner tl"></i><i class="ov-corner tr"></i><i class="ov-corner bl"></i><i class="ov-corner br"></i>
+      <div class="ov-creed-inner">
 
-      <!-- ① 题名区（居中） -->
-      <div id="ov-kicker" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:14px;letter-spacing:.32em;color:#e8cd7d;margin-bottom:16px"></div>
-      <div id="ov-title" class="ink-title" style="font-weight:700;font-size:46px;line-height:1.2;letter-spacing:.02em;color:#f5efdc;text-shadow:0 2px 28px rgba(201,166,74,.3)"></div>
-      <div id="ov-sub" style="color:#e0c37a;font-size:16px;letter-spacing:.2em;margin-top:14px"></div>
-
-      <!-- ② 关键考制（一行横排大字，直白表述） -->
-      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:26px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-        <span style="background:rgba(216,180,95,.13);border:1.5px solid rgba(216,180,95,.5);border-radius:99px;padding:9px 26px;font-size:15.5px;color:#efdfae;font-weight:700">单选 15 题 × 2 分</span>
-        <span style="background:rgba(216,180,95,.13);border:1.5px solid rgba(216,180,95,.5);border-radius:99px;padding:9px 26px;font-size:15.5px;color:#efdfae;font-weight:700">多选 10 题 × 3 分</span>
-        <span style="background:rgba(216,180,95,.13);border:1.5px solid rgba(216,180,95,.5);border-radius:99px;padding:9px 26px;font-size:15.5px;color:#efdfae;font-weight:700">判断 20 题 × 2 分</span>
-        <span style="background:rgba(216,180,95,.13);border:1.5px solid rgba(216,180,95,.5);border-radius:99px;padding:9px 26px;font-size:15.5px;color:#efdfae;font-weight:700">满分 100 · 时长 60 分钟</span>
-      </div>
-
-      <!-- ③ 卷轴卡（左倒计时 · 右码印合一） -->
-      <div id="ov-card" style="position:relative;margin:40px auto 0;max-width:760px;background:linear-gradient(160deg,#efece3,#e4e0d3);border-radius:10px;padding:36px 46px 32px;box-shadow:0 24px 70px rgba(0,0,0,.75),0 0 0 1px rgba(201,166,74,.45),0 0 90px rgba(201,166,74,.14)">
-        <div style="position:absolute;top:-14px;left:34px;right:34px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
-        <div style="position:absolute;bottom:-14px;left:34px;right:34px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
-        <div class="ink-row" style="display:flex;gap:44px;align-items:center;justify-content:center;text-align:center">
-          <!-- 左：一炷香倒计时 -->
-          <div class="ov-clock" style="flex:0 0 auto;text-align:center">
-            <div style="position:relative;width:190px;height:190px;margin:0 auto">
-              <svg viewBox="0 0 120 120" style="width:190px;height:190px;transform:rotate(-90deg)">
-                <circle cx="60" cy="60" r="53" fill="#f7f2e2" stroke="rgba(201,166,74,.35)" stroke-width="1.5"/>
-                <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(201,166,74,.22)" stroke-width="7"/>
-                <circle id="ov-ring" cx="60" cy="60" r="53" fill="none" stroke="#c9a64a" stroke-width="7" stroke-linecap="round" stroke-dasharray="333" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
-              </svg>
-              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
-                <span id="ov-timer" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:38px;font-weight:800;letter-spacing:.02em;color:#2e261a;line-height:1">60:00</span>
-                <span style="font-size:12px;color:#8a7a4e;letter-spacing:.3em;margin-top:8px">剩余时间</span>
-              </div>
-            </div>
-            <div style="margin-top:14px;font-family:'Noto Serif SC','Songti SC',serif;font-size:14.5px;color:#8a6a2b;font-weight:700;letter-spacing:.14em">一炷香 · 铃响收卷</div>
-            <div style="margin-top:5px;font-size:11.5px;color:#9a8a5e;font-family:'PingFang SC','Microsoft YaHei',sans-serif;letter-spacing:.04em">剩10分钟语音提醒 · 归零自动收卷</div>
+        <!-- 牒头：题名 + 考制 -->
+        <header class="ov-head">
+          <div id="ov-kicker" class="ov-kicker"></div>
+          <h2 id="ov-title" class="ov-title"></h2>
+          <div id="ov-sub" class="ov-sub"></div>
+          <div class="ov-pills">
+            <span>单选 15 题 × 2 分</span><span>多选 10 题 × 3 分</span><span>判断 20 题 × 2 分</span><span>满分 100 · 时长 60 分钟</span>
           </div>
-          <!-- 右：码印合一 -->
-          <div class="ink-qrwrap" style="flex:0 0 auto">
-            <div style="position:relative;width:300px;height:300px;background:#fff;border:2px solid #c9a64a;border-radius:14px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
-              <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
-              <div id="ov-sealbox" style="position:absolute;right:-24px;bottom:-20px;width:120px;transform:rotate(8deg)">
-                <img id="ov-seal" alt="本关通关印" style="width:100%;display:block">
+        </header>
+
+        <!-- 牒身：左折（黑金路线图）+ 右折（计时 / 码印） -->
+        <div class="ov-body">
+          <!-- 左折：带背景的取经路线图 -->
+          <figure class="ov-map">
+            <svg viewBox="0 0 2728 2048" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <filter id="ov-glow">
+                  <feGaussianBlur stdDeviation="24" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="ov-dotGlow">
+                  <feGaussianBlur stdDeviation="12" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <!-- 黑金山水底图 -->
+              <image href="route-bg.jpg" x="0" y="0" width="2728" height="2048" preserveAspectRatio="xMidYMid slice"/>
+              <!-- 全程路线（暗棕虚线） -->
+              <path id="ov-route-base" d="" fill="none" stroke="#8b7355" stroke-width="8"
+                    stroke-dasharray="26,16" stroke-linecap="round" opacity="0.55"/>
+              <!-- 已走金线 -->
+              <path id="ov-route-traveled" d="" fill="none" stroke="#d4af37" stroke-width="10"
+                    stroke-linecap="round" stroke-linejoin="round"
+                    style="filter: drop-shadow(0 0 10px rgba(212,175,55,0.55));"/>
+              <!-- 站点 -->
+              <g id="ov-locations"></g>
+              <!-- 行进光点 -->
+              <g id="ov-traveler">
+                <circle cx="0" cy="0" r="62" fill="#d4af37" opacity="0.3" filter="url(#ov-glow)"/>
+                <circle cx="0" cy="0" r="31" fill="#ffd700" filter="url(#ov-dotGlow)"/>
+                <circle cx="0" cy="0" r="14" fill="#fff8dc"/>
+              </g>
+              <!-- 当前关高亮标记（JS 填充） -->
+              <g id="ov-gate-mark"></g>
+              <text id="ov-nodeflag" x="0" y="0" text-anchor="middle" font-size="104" font-weight="700"
+                    font-family="'KaiTi','STKaiti','Noto Serif SC','Songti SC',serif"
+                    fill="#ffe9a8" letter-spacing="12"
+                    style="display:none;filter:drop-shadow(0 0 18px rgba(245,223,154,.95))">▸ 本关 ◂</text>
+            </svg>
+            <figcaption class="ov-mapcap">取经之路 · 五万四千里 · 始于长安 · 终于灵山</figcaption>
+          </figure>
+
+          <!-- 右折 -->
+          <div class="ov-right">
+            <!-- 右上：一炷香计时 -->
+            <section class="ov-clockcard">
+              <div class="ov-clock">
+                <div class="ov-clock-ring">
+                  <svg viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="53" fill="rgba(255,250,236,.75)"/>
+                    <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(158,47,34,.16)" stroke-width="8"/>
+                    <circle id="ov-ring" cx="60" cy="60" r="53" fill="none" stroke="#b8860b" stroke-width="8" stroke-linecap="round" stroke-dasharray="333" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
+                  </svg>
+                  <div class="ov-clock-num">
+                    <span id="ov-timer">60:00</span>
+                    <i>剩余时间</i>
+                  </div>
+                </div>
+                <div class="ov-clock-meta">
+                  <b>一炷香 · 铃响收卷</b>
+                  <span>剩 10 分钟语音提醒 · 归零自动收卷</span>
+                  <span class="ov-turnedin">本场已交卷 <em id="ov-count">…</em> 人 · 每 30 秒自动刷新</span>
+                </div>
               </div>
-            </div>
-            <div style="font-size:16px;color:#4a3a14;margin-top:22px;letter-spacing:.12em;font-weight:800;font-family:'PingFang SC','Microsoft YaHei',sans-serif">手机扫二维码 · 进入考试</div>
-            <div style="font-size:13.5px;color:#6a5a35;margin-top:6px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">每人随机试卷 · 断点续答 ｜ 合格 95 分自动盖印</div>
+            </section>
+
+            <!-- 右下：金色二维码 · 官印 -->
+            <section class="ov-qrcard">
+              <div class="ov-qrbox">
+                <img id="ov-qr" alt="答题二维码">
+                <div id="ov-sealbox"><img id="ov-seal" alt="本关通关印"></div>
+              </div>
+              <div class="ov-qrsign">扫码 · 进入考试</div>
+              <div class="ov-qrinfo">
+                <b>每人随机试卷 · 断点续答</b><br>
+                合格 <b>95 分</b> 自动盖本关通关印<br>
+                交卷即出分 · 可查看错题
+              </div>
+            </section>
           </div>
         </div>
-      </div>
 
-      <!-- ④ 考场纪律（直白 · 横排） -->
-      <div style="margin-top:30px;font-family:'PingFang SC','Microsoft YaHei',sans-serif;color:#cfb878;font-size:14px;letter-spacing:.06em;line-height:2">
-        考场纪律：手机静音 · 独立作答 ｜ 中途断网可重新扫码续答 ｜ 交卷即出分 · 可查看错题
-      </div>
-
-      <!-- ⑤ 状态行（已交卷 + 副提示） -->
-      <div style="margin-top:16px;display:flex;justify-content:center;gap:16px;align-items:center;flex-wrap:wrap">
-        <span style="background:rgba(216,180,95,.16);border:1.5px solid rgba(216,180,95,.65);border-radius:99px;padding:9px 30px;font-size:16.5px;color:#f2e3b3;font-weight:800;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-          已交卷 <span id="ov-count" style="font-size:24px;color:#a8e8ba">…</span> 人
-        </span>
-        <span style="font-size:12.5px;color:rgba(216,180,95,.6);font-family:ui-monospace,Menlo,monospace;letter-spacing:.1em">每 30 秒自动刷新</span>
+        <!-- 牒尾：考场纪律 -->
+        <footer class="ov-foot">
+          考场纪律：手机静音 · 独立作答 ｜ 中途断网可重新扫码续答 ｜ 未交卷离场视为弃考
+        </footer>
       </div>
     </div>
 
@@ -610,31 +633,32 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
   travPath.setAttribute('d', pathD);
   const g = document.getElementById('ov-locations');
   const NS = 'http://www.w3.org/2000/svg';
+  const S = 1.65;   // 卡片视图缩放补偿（原全屏版尺寸×坐标系的等效放大）
   OV_LOCS.forEach((loc, i) => {
     const circle = document.createElementNS(NS, 'circle');
     circle.setAttribute('cx', loc.x); circle.setAttribute('cy', loc.y);
-    circle.setAttribute('r', '14'); circle.setAttribute('fill', '#d4af37');
+    circle.setAttribute('r', 24); circle.setAttribute('fill', '#d4af37');
     circle.setAttribute('class', 'ov-dot'); circle.setAttribute('data-idx', i);
     g.appendChild(circle);
     const outer = document.createElementNS(NS, 'circle');
     outer.setAttribute('cx', loc.x); outer.setAttribute('cy', loc.y);
-    outer.setAttribute('r', '20'); outer.setAttribute('fill', 'none');
-    outer.setAttribute('stroke', '#d4af37'); outer.setAttribute('stroke-width', '1.5');
+    outer.setAttribute('r', 33); outer.setAttribute('fill', 'none');
+    outer.setAttribute('stroke', '#d4af37'); outer.setAttribute('stroke-width', '2.5');
     outer.setAttribute('opacity', '0.4'); outer.setAttribute('class', 'ov-ring'); outer.setAttribute('data-idx', i);
     g.appendChild(outer);
     const bg = document.createElementNS(NS, 'ellipse');
-    bg.setAttribute('cx', loc.x + (loc.labelDx || 0));
-    bg.setAttribute('cy', loc.y - 55 + (loc.labelDy || 0));
-    bg.setAttribute('rx', loc.name.length * 20 + 25); bg.setAttribute('ry', '32');
-    bg.setAttribute('fill', '#0a0a0a'); bg.setAttribute('opacity', '0.4');
+    bg.setAttribute('cx', loc.x + (loc.labelDx || 0) * S);
+    bg.setAttribute('cy', loc.y - 90 + (loc.labelDy || 0) * S);
+    bg.setAttribute('rx', loc.name.length * 33 + 42); bg.setAttribute('ry', 54);
+    bg.setAttribute('fill', '#0a0a0a'); bg.setAttribute('opacity', '0.45');
     g.appendChild(bg);
     const text = document.createElementNS(NS, 'text');
-    text.setAttribute('x', loc.x + (loc.labelDx || 0));
-    text.setAttribute('y', loc.y - 46 + (loc.labelDy || 0));
-    text.setAttribute('text-anchor', 'middle'); text.setAttribute('font-size', '40');
+    text.setAttribute('x', loc.x + (loc.labelDx || 0) * S);
+    text.setAttribute('y', loc.y - 76 + (loc.labelDy || 0) * S);
+    text.setAttribute('text-anchor', 'middle'); text.setAttribute('font-size', '62');
     text.setAttribute('font-family', 'KaiTi, STKaiti, Noto Serif SC, Songti SC, serif');
     text.setAttribute('fill', '#e6c147');
-    text.setAttribute('style', 'text-shadow: 0 0 10px rgba(230,193,71,0.5);');
+    text.setAttribute('style', 'text-shadow: 0 0 16px rgba(230,193,71,0.5);');
     text.textContent = loc.name;
     g.appendChild(text);
   });
@@ -646,7 +670,7 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
   function ovResetDots(){
     document.querySelectorAll('#ov-locations circle.ov-dot').forEach(el => {
       if (+el.dataset.idx === ovGateIdx) return;               // 当前关保持高亮
-      el.setAttribute('r', '14'); el.setAttribute('fill', '#d4af37');
+      el.setAttribute('r', '24'); el.setAttribute('fill', '#d4af37');
     });
   }
   function ovAnimate(now){
@@ -665,10 +689,10 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
     OV_LOCS.forEach((loc, i) => {
       if (i === ovGateIdx) return;                            // 当前关样式由 ovLightNode 主管
       const dist = Math.hypot(point.x - loc.x, point.y - loc.y);
-      if (dist < 30 && i >= reachedCount) {
+      if (dist < 42 && i >= reachedCount) {
         reachedCount = i + 1;
         const dot = document.querySelector('#ov-locations circle.ov-dot[data-idx="' + i + '"]');
-        if (dot) { dot.setAttribute('r', '18'); dot.setAttribute('fill', '#ffd700'); }
+        if (dot) { dot.setAttribute('r', '38'); dot.setAttribute('fill', '#ffd700'); }
       }
     });
     requestAnimationFrame(ovAnimate);
@@ -677,7 +701,6 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
 })();
 function ovLightNode(id){
   // 节点序映射（黑金山水路线32站：1五行山（两界山）2鹰愁涧 3流沙河 4火焰山 5盘丝洞）
-  // 高亮标记渲染在暗化层之上的 #ov-gate-mark，不随背景压暗
   const map = {1:1, 2:2, 3:4, 4:16, 5:20};
   const mark = document.getElementById('ov-gate-mark');
   mark.innerHTML = '';
@@ -688,33 +711,51 @@ function ovLightNode(id){
   const NS = 'http://www.w3.org/2000/svg';
   const dot = document.createElementNS(NS, 'circle');
   dot.setAttribute('cx', loc.x); dot.setAttribute('cy', loc.y);
-  dot.setAttribute('r', '24'); dot.setAttribute('fill', '#ffd700');
-  dot.setAttribute('style', 'filter: drop-shadow(0 0 14px #ffd700);');
+  dot.setAttribute('r', '46'); dot.setAttribute('fill', '#ffd700');
+  dot.setAttribute('style', 'filter: drop-shadow(0 0 22px #ffd700);');
   mark.appendChild(dot);
   const ring = document.createElementNS(NS, 'circle');
   ring.setAttribute('cx', loc.x); ring.setAttribute('cy', loc.y);
-  ring.setAttribute('r', '36'); ring.setAttribute('fill', 'none');
-  ring.setAttribute('stroke', '#ffe9a8'); ring.setAttribute('stroke-width', '3.5');
+  ring.setAttribute('r', '62'); ring.setAttribute('fill', 'none');
+  ring.setAttribute('stroke', '#ffe9a8'); ring.setAttribute('stroke-width', '6');
   ring.setAttribute('opacity', '0.95');
-  ring.setAttribute('style', 'filter: drop-shadow(0 0 8px rgba(255,233,168,.9));');
+  ring.setAttribute('style', 'filter: drop-shadow(0 0 14px rgba(255,233,168,.9));');
   const anim = document.createElementNS(NS, 'animate');
   anim.setAttribute('attributeName', 'r');
-  anim.setAttribute('values', '36;46;36');
+  anim.setAttribute('values', '62;84;62');
   anim.setAttribute('dur', '2.2s');
   anim.setAttribute('repeatCount', 'indefinite');
   ring.appendChild(anim);
   mark.appendChild(ring);
-  flag.setAttribute('x', loc.x + (loc.labelDx || 0));
-  flag.setAttribute('y', loc.y - 126 + (loc.labelDy || 0));
+  flag.setAttribute('x', loc.x + (loc.labelDx || 0) * 1.65);
+  flag.setAttribute('y', loc.y - 210 + (loc.labelDy || 0) * 1.65);
   flag.style.display = '';
+}
+/* 金色二维码：拉取 SVG → 深底染金（金色码对比度需保证可扫，暖金 #e8c766 / 墨底 #16110a） */
+function ovLoadQR(id){
+  const url = OV_QR + '/start-qr-' + id + '.svg';
+  const img = document.getElementById('ov-qr');
+  fetch(url).then(r => { if(!r.ok) throw 0; return r.text(); }).then(t => {
+    t = t.replace(/#1a1a24/g, '#e8c766').replace(/#ffffff/g, '#16110a');
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(t);
+  }).catch(() => { img.src = url; });
+}
+/* 抽屉收起位移：面板静止左缘推到视口右缘之外（基于不受 transform 影响的 offset 布局值精确计算） */
+function ovDrawerHideShift(){
+  const d = document.getElementById('ov-drawer');
+  const panel = document.getElementById('ov-drawer-panel');
+  // 用 clientWidth（布局视口，不含滚动条）：scrollbar 占位与 overlay 两类设备下均精确
+  const vw = document.documentElement.clientWidth;
+  const staticLeft = vw - d.offsetWidth;   // right:0 容器静止左缘
+  const panelStaticLeft = staticLeft + panel.offsetLeft;
+  return Math.max(vw - panelStaticLeft + 2, 0);
 }
 let ovDrawerInit = false;
 function ovDrawerSmallHide(){
   if(!ovDrawerInit && window.innerWidth <= 960){
     const d = document.getElementById('ov-drawer');
-    const panel = document.getElementById('ov-drawer-panel');
     d.dataset.open = '0';
-    d.style.transform = 'translate(' + panel.getBoundingClientRect().width + 'px, -50%)';
+    d.style.transform = 'translate(' + ovDrawerHideShift() + 'px, -50%)';
     document.getElementById('ov-drawer-toggle').textContent = '▴ 考官操作';
   }
   ovDrawerInit = true;
@@ -726,7 +767,7 @@ function ovOpen(id){
   document.getElementById('ov-sub').textContent = '十万八千里 · 行至' + ovCur.no + ' · 诸位列位 · 各凭本事';
   ovLightNode(id);
   document.getElementById('ov-seal').src = ovCur.seal;
-  document.getElementById('ov-qr').src = OV_QR + '/start-qr-' + id + '.svg';
+  ovLoadQR(id);
   ovShareReset();
   document.getElementById('ov-choose').style.display = 'none';
   document.getElementById('exam-overlay').style.display = 'none';
@@ -769,13 +810,12 @@ function ovRender(){
   const el = document.getElementById('ov-timer');
   const ring = document.getElementById('ov-ring');
   el.textContent = ovFmt(ovLeft);
-  // 进度环：326.7 = 2πr
+  // 进度环：333 = 2πr（r53）
   const pct = ovLeft / OV_TOTAL;
   ring.style.strokeDashoffset = String(333 * (1 - pct));
-  // 颜色分级：充足金 / 少于10分钟橙红 / 少于5分钟红并闪烁
-  ring.style.stroke = ovLeft <= 300 ? '#e5533d' : (ovLeft <= 600 ? '#e6862e' : '#d8b45f');
-  el.style.color = '#2e261a';
-  el.style.color = ovLeft <= 300 ? '#c0392b' : '#2e261a';
+  // 颜色分级（米黄宣纸底）：充足金棕 / 少于10分钟橙 / 少于5分钟朱红闪烁
+  ring.style.stroke = ovLeft <= 300 ? '#c0392b' : (ovLeft <= 600 ? '#d35400' : '#b8860b');
+  el.style.color = ovLeft <= 300 ? '#c0392b' : '#2e2a22';
   el.style.animation = ovLeft <= 300 ? 'ovBlink 1s steps(2) infinite' : 'none';
 }
 function ovStartTimer(reset){
@@ -813,10 +853,9 @@ function ovDrawerToggle(){
   const d = document.getElementById('ov-drawer');
   const t = document.getElementById('ov-drawer-toggle');
   const open = d.dataset.open !== '0';
-  const panel = document.getElementById('ov-drawer-panel');
   if(open){
     d.dataset.open = '0';
-    d.style.transform = 'translate(' + panel.getBoundingClientRect().width + 'px, -50%)';
+    d.style.transform = 'translate(' + ovDrawerHideShift() + 'px, -50%)';
     t.textContent = '▴ 考官操作';
   }else{
     d.dataset.open = '1';
