@@ -398,7 +398,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
               </g>
               <!-- 当前关高亮标记（JS 填充） -->
               <g id="ov-gate-mark"></g>
-              <text id="ov-nodeflag" x="0" y="0" text-anchor="middle" font-size="104" font-weight="700"
+              <text id="ov-nodeflag" x="0" y="0" text-anchor="middle" font-size="84" font-weight="700"
                     font-family="'KaiTi','STKaiti','Noto Serif SC','Songti SC',serif"
                     fill="#ffe9a8" letter-spacing="12"
                     style="display:none;filter:drop-shadow(0 0 18px rgba(245,223,154,.95))">▸ 本关 ◂</text>
@@ -610,25 +610,19 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
   OV_LOCS.forEach((loc, i) => {
     const circle = document.createElementNS(NS, 'circle');
     circle.setAttribute('cx', loc.x); circle.setAttribute('cy', loc.y);
-    circle.setAttribute('r', 24); circle.setAttribute('fill', '#d4af37');
+    circle.setAttribute('r', 16); circle.setAttribute('fill', '#d4af37');
     circle.setAttribute('class', 'ov-dot'); circle.setAttribute('data-idx', i);
     g.appendChild(circle);
     const outer = document.createElementNS(NS, 'circle');
     outer.setAttribute('cx', loc.x); outer.setAttribute('cy', loc.y);
-    outer.setAttribute('r', 33); outer.setAttribute('fill', 'none');
-    outer.setAttribute('stroke', '#d4af37'); outer.setAttribute('stroke-width', '2.5');
+    outer.setAttribute('r', 22); outer.setAttribute('fill', 'none');
+    outer.setAttribute('stroke', '#d4af37'); outer.setAttribute('stroke-width', '2');
     outer.setAttribute('opacity', '0.4'); outer.setAttribute('class', 'ov-ring'); outer.setAttribute('data-idx', i);
     g.appendChild(outer);
-    const bg = document.createElementNS(NS, 'ellipse');
-    bg.setAttribute('cx', loc.x + (loc.labelDx || 0) * S);
-    bg.setAttribute('cy', loc.y - 90 + (loc.labelDy || 0) * S);
-    bg.setAttribute('rx', loc.name.length * 33 + 42); bg.setAttribute('ry', 54);
-    bg.setAttribute('fill', '#0a0a0a'); bg.setAttribute('opacity', '0.45');
-    g.appendChild(bg);
     const text = document.createElementNS(NS, 'text');
     text.setAttribute('x', loc.x + (loc.labelDx || 0) * S);
-    text.setAttribute('y', loc.y - 76 + (loc.labelDy || 0) * S);
-    text.setAttribute('text-anchor', 'middle'); text.setAttribute('font-size', '62');
+    text.setAttribute('y', loc.y - 56 + (loc.labelDy || 0) * S);
+    text.setAttribute('text-anchor', 'middle'); text.setAttribute('font-size', '50');
     text.setAttribute('font-family', 'KaiTi, STKaiti, Noto Serif SC, Songti SC, serif');
     text.setAttribute('fill', '#e6c147');
     text.setAttribute('style', 'text-shadow: 0 0 16px rgba(230,193,71,0.5);');
@@ -643,7 +637,7 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
   function ovResetDots(){
     document.querySelectorAll('#ov-locations circle.ov-dot').forEach(el => {
       if (+el.dataset.idx === ovGateIdx) return;               // 当前关保持高亮
-      el.setAttribute('r', '24'); el.setAttribute('fill', '#d4af37');
+      el.setAttribute('r', '16'); el.setAttribute('fill', '#d4af37');
     });
   }
   function ovAnimate(now){
@@ -665,7 +659,7 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
       if (dist < 42 && i >= reachedCount) {
         reachedCount = i + 1;
         const dot = document.querySelector('#ov-locations circle.ov-dot[data-idx="' + i + '"]');
-        if (dot) { dot.setAttribute('r', '38'); dot.setAttribute('fill', '#ffd700'); }
+        if (dot) { dot.setAttribute('r', '26'); dot.setAttribute('fill', '#ffd700'); }
       }
     });
     requestAnimationFrame(ovAnimate);
@@ -684,24 +678,24 @@ function ovLightNode(id){
   const NS = 'http://www.w3.org/2000/svg';
   const dot = document.createElementNS(NS, 'circle');
   dot.setAttribute('cx', loc.x); dot.setAttribute('cy', loc.y);
-  dot.setAttribute('r', '46'); dot.setAttribute('fill', '#ffd700');
-  dot.setAttribute('style', 'filter: drop-shadow(0 0 22px #ffd700);');
+  dot.setAttribute('r', '34'); dot.setAttribute('fill', '#ffd700');
+  dot.setAttribute('style', 'filter: drop-shadow(0 0 20px #ffd700);');
   mark.appendChild(dot);
   const ring = document.createElementNS(NS, 'circle');
   ring.setAttribute('cx', loc.x); ring.setAttribute('cy', loc.y);
-  ring.setAttribute('r', '62'); ring.setAttribute('fill', 'none');
-  ring.setAttribute('stroke', '#ffe9a8'); ring.setAttribute('stroke-width', '6');
+  ring.setAttribute('r', '48'); ring.setAttribute('fill', 'none');
+  ring.setAttribute('stroke', '#ffe9a8'); ring.setAttribute('stroke-width', '5');
   ring.setAttribute('opacity', '0.95');
   ring.setAttribute('style', 'filter: drop-shadow(0 0 14px rgba(255,233,168,.9));');
   const anim = document.createElementNS(NS, 'animate');
   anim.setAttribute('attributeName', 'r');
-  anim.setAttribute('values', '62;84;62');
+  anim.setAttribute('values', '48;64;48');
   anim.setAttribute('dur', '2.2s');
   anim.setAttribute('repeatCount', 'indefinite');
   ring.appendChild(anim);
   mark.appendChild(ring);
   flag.setAttribute('x', loc.x + (loc.labelDx || 0) * 1.65);
-  flag.setAttribute('y', loc.y - 210 + (loc.labelDy || 0) * 1.65);
+  flag.setAttribute('y', loc.y - 160 + (loc.labelDy || 0) * 1.65);
   flag.style.display = '';
 }
 /* 金色二维码：拉取 SVG → 深底染金（金色码对比度需保证可扫，暖金 #e8c766 / 墨底 #16110a） */
