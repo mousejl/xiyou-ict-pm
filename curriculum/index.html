@@ -446,12 +446,18 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
       </div>
     </div>
 
-    <!-- ============ 底部按钮带 ============ -->
-    <div style="position:relative;max-width:1400px;margin:34px auto 0;padding:0 48px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 16px rgba(201,166,74,.35);font-family:'PingFang SC','Microsoft YaHei',sans-serif">📣 敕发考卷链接</button>
-      <button onclick="ovResetTimer()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:rgba(11,14,17,.55);color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">↺ 重计一炷香</button>
-      <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:rgba(11,14,17,.55);color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">← 另择一关</button>
-      <button onclick="ovClose()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif">鸣金收卷</button>
+    <!-- ============ 右侧操作抽屉（可收起） ============ -->
+    <div id="ov-drawer" style="position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:120;display:flex;align-items:center;transition:transform .3s ease">
+      <!-- 拉手 -->
+      <button id="ov-drawer-toggle" onclick="ovDrawerToggle()" title="收起/展开操作" style="flex:0 0 auto;width:34px;padding:18px 6px;border:1.5px solid rgba(201,166,74,.55);border-right:none;border-radius:12px 0 0 12px;background:rgba(26,21,11,.9);color:#d8b45f;font-size:14px;cursor:pointer;backdrop-filter:blur(4px);letter-spacing:.1em;writing-mode:vertical-rl;font-family:'PingFang SC','Microsoft YaHei',sans-serif">▾ 考官操作</button>
+      <!-- 抽屉面板 -->
+      <div id="ov-drawer-panel" style="display:flex;flex-direction:column;gap:11px;padding:16px 14px;border:1.5px solid rgba(201,166,74,.45);border-right:none;border-radius:14px 0 0 14px;background:rgba(16,19,25,.92);backdrop-filter:blur(6px);box-shadow:-8px 0 30px rgba(0,0,0,.5)">
+        <div style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.3em;color:rgba(201,166,74,.7);text-align:center;margin-bottom:2px">考官操作</div>
+        <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 14px rgba(201,166,74,.3);font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">📣 敕发考卷链接</button>
+        <button onclick="ovResetTimer()" style="border:1.5px solid rgba(201,166,74,.5);border-radius:99px;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">↺ 重计一炷香</button>
+        <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.5);border-radius:99px;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">← 另择一关</button>
+        <button onclick="ovClose()" style="border:none;border-radius:99px;padding:11px 22px;font-size:13.5px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">鸣金收卷</button>
+      </div>
     </div>
   </div>
 
@@ -616,6 +622,21 @@ function ovAutoClose(){
   if(t) t.style.animation = 'none';
   ovClose();
   alert('⏰ 时间到 · 已自动鸣金收卷\n\n本场结业考试已结束，请学员立即停笔。\n未交卷的学员视为弃考，可联系主讲老师安排补考。');
+}
+function ovDrawerToggle(){
+  const d = document.getElementById('ov-drawer');
+  const t = document.getElementById('ov-drawer-toggle');
+  const open = d.dataset.open !== '0';
+  const panel = document.getElementById('ov-drawer-panel');
+  if(open){
+    d.dataset.open = '0';
+    d.style.transform = 'translate(' + panel.getBoundingClientRect().width + 'px, -50%)';
+    t.textContent = '▴ 考官操作';
+  }else{
+    d.dataset.open = '1';
+    d.style.transform = 'translateY(-50%)';
+    t.textContent = '▾ 考官操作';
+  }
 }
 function ovSpeak(text){
   // Web Speech 语音播报（无音频文件依赖；首次需用户已与页面交互过）
