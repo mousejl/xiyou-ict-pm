@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>取经计划 · 项目管理四级训练营</title>
 <style>
+@keyframes ovBlink{0%{opacity:1}50%{opacity:.35}100%{opacity:1}}
+@media(max-width:860px){
+  #ov-timer{font-size:20px !important}
+  .ov-clock{top:66px !important;right:14px !important;width:92px !important}
+  .ov-clock svg{width:92px !important;height:92px !important}
+}
+
 :root{
   --l1:#0066CC; --l1d:#004080;
   --l2:#00a97f; --l2d:#00795c;
@@ -303,6 +310,14 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
     <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 52px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(201,166,74,.75)">
       <span>取经计划 · 结业考试 · 大闹考场</span><span id="ov-chrome-r">EXAM IN SESSION</span>
     </div>
+    <div class="ov-clock" style="position:absolute;top:58px;right:52px;width:118px;text-align:center">
+      <svg viewBox="0 0 120 120" style="width:118px;height:118px;transform:rotate(-90deg)">
+        <circle cx="60" cy="60" r="52" fill="rgba(11,14,17,.72)" stroke="rgba(201,166,74,.28)" stroke-width="2"/>
+        <circle id="ov-ring" cx="60" cy="60" r="52" fill="none" stroke="#d8b45f" stroke-width="5" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
+      </svg>
+      <div id="ov-timer" style="margin-top:-90px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:26px;font-weight:700;letter-spacing:.06em;color:#f0e6c8">60:00</div>
+      <div style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.28em;color:rgba(201,166,74,.8);margin-top:60px">剩余钟响</div>
+    </div>
     <div style="max-width:1150px;margin:0 auto;padding:88px 24px 0;text-align:center">
       <div id="ov-kicker" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.32em;color:#d8b45f;margin-bottom:10px"></div>
       <div id="ov-title" class="ink-title" style="font-weight:700;font-size:min(4.4vw,54px);line-height:1.12;letter-spacing:.02em"></div>
@@ -348,6 +363,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
       <div style="display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap">
         <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 16px rgba(201,166,74,.35);font-family:'PingFang SC','Microsoft YaHei',sans-serif">📣 敕发考卷链接</button>
+        <button onclick="ovResetTimer()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">↺ 重计一炷香</button>
         <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">← 另择一关</button>
         <button onclick="ovClose()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif">鸣金收卷</button>
       </div>
@@ -390,6 +406,8 @@ const OV_EXAMS = [
   {id:5, no:'第五关', name:'治理篇 · 结业考试',     kick:'LEVEL 4 · 治理统御 · 八戒执印', seal:'seal/seal-exam-l4.svg', sealname:'治理印 · 八戒', color:'#D32F2F', target:'项目总监 · 会选人/会分赏/会搭体系/会自我批判'}
 ];
 let ovToken = '', ovTeacher = '', ovCur = null, ovTimer = null;
+let ovClock = null, ovLeft = 0, ovWarned10 = false, ovVoiced = true;   // 倒计时状态
+const OV_TOTAL = 60 * 60;   // 一炷香 60 分钟
 
 document.getElementById('k-btn').addEventListener('click', ovLogin);
 document.getElementById('k-phone').addEventListener('keydown', e => { if(e.key === 'Enter') ovLogin(); });
@@ -438,6 +456,7 @@ function ovOpen(id){
   document.getElementById('ov-screen').style.display = 'block';
   ovPoll();
   ovTimer = setInterval(ovPoll, 30000);
+  ovStartTimer();
 }
 
 function ovPoll(){
@@ -462,9 +481,77 @@ function ovFallbackCopy(url, done){
   document.body.removeChild(ta);
 }
 function ovShareReset(){ const b = document.getElementById('ov-share'); b.textContent = '📣 敕发考卷链接'; b.style.background = 'linear-gradient(135deg,#e4c96f,#c9a64a)'; b.style.color = '#3d2f0e'; }
+
+/* ================= 一炷香倒计时（60分钟 · 剩10分钟语音提醒 · 归零自动收卷） ================= */
+function ovFmt(sec){
+  const m = Math.floor(sec / 60), s = sec % 60;
+  return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+}
+function ovRender(){
+  const el = document.getElementById('ov-timer');
+  const ring = document.getElementById('ov-ring');
+  el.textContent = ovFmt(ovLeft);
+  // 进度环：326.7 = 2πr
+  const pct = ovLeft / OV_TOTAL;
+  ring.style.strokeDashoffset = String(326.7 * (1 - pct));
+  // 颜色分级：充足金 / 少于10分钟橙红 / 少于5分钟红并闪烁
+  ring.style.stroke = ovLeft <= 300 ? '#e5533d' : (ovLeft <= 600 ? '#e6862e' : '#d8b45f');
+  el.style.color = ovLeft <= 300 ? '#ffb4a2' : '#f0e6c8';
+  el.style.animation = ovLeft <= 300 ? 'ovBlink 1s steps(2) infinite' : 'none';
+}
+function ovStartTimer(reset){
+  ovStopTimer();
+  if(reset){ ovLeft = OV_TOTAL; ovWarned10 = false; }
+  if(ovLeft <= 0){ ovLeft = OV_TOTAL; ovWarned10 = false; }
+  ovRender();
+  ovClock = setInterval(() => {
+    ovLeft--;
+    if(ovLeft < 0) ovLeft = 0;
+    ovRender();
+    // 剩10分钟：语音+视觉提醒（一次性）
+    if(ovLeft === 600 && !ovWarned10){
+      ovWarned10 = true;
+      ovSpeak('各位考生请注意，距离考试结束还有十分钟，请抓紧时间作答。');
+    }
+    // 归零：自动鸣金收卷
+    if(ovLeft === 0){
+      ovSpeak('时间到，考试结束。');
+      setTimeout(() => { ovAutoClose(); }, 800);
+    }
+  }, 1000);
+}
+function ovStopTimer(){
+  if(ovClock){ clearInterval(ovClock); ovClock = null; }
+}
+function ovResetTimer(){ ovStartTimer(true); }
+function ovAutoClose(){
+  const t = document.getElementById('ov-timer');
+  if(t) t.style.animation = 'none';
+  ovClose();
+  alert('⏰ 时间到 · 已自动鸣金收卷\n\n本场结业考试已结束，请学员立即停笔。\n未交卷的学员视为弃考，可联系主讲老师安排补考。');
+}
+function ovSpeak(text){
+  // Web Speech 语音播报（无音频文件依赖；首次需用户已与页面交互过）
+  try{
+    if(!ovVoiced) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'zh-CN'; u.rate = 0.95;
+    const vs = speechSynthesis.getVoices().filter(v => v.lang && v.lang.indexOf('zh') === 0);
+    if(vs.length) u.voice = vs[0];
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+/* 语音预热：页面加载即枚举中文音色，确保开考后可用 */
+try{
+  if('speechSynthesis' in window){
+    speechSynthesis.getVoices();
+    speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+  }else{ ovVoiced = false; }
+}catch(e){ ovVoiced = false; }
 function ovBack(){
   document.getElementById('ov-screen').style.display = 'none';
   if(ovTimer){ clearInterval(ovTimer); ovTimer = null; }
+  ovStopTimer();
   ovShowChoose();
 }
 function ovClose(){
@@ -474,6 +561,7 @@ function ovClose(){
   document.getElementById('ov-screen').style.display = 'none';
   document.body.style.overflow = '';
   if(ovTimer){ clearInterval(ovTimer); ovTimer = null; }
+  ovStopTimer();
 }
 document.getElementById('exam-overlay').addEventListener('click', e => { if(e.target.id === 'exam-overlay' && document.getElementById('ov-screen').style.display === 'none') ovClose(); });
 
