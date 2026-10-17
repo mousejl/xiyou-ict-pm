@@ -399,10 +399,9 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
           <div class="ink-qrwrap" style="flex:0 0 auto">
             <div style="position:relative;width:340px;height:340px;background:#fff;border:2px solid #c9a64a;border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
               <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
-              <!-- 通关印压角盖印 -->
-              <div id="ov-sealbox" style="position:absolute;right:-34px;bottom:-30px;width:148px;background:rgba(255,252,244,.92);border-radius:12px;padding:8px;box-shadow:0 6px 20px rgba(0,0,0,.3);transform:rotate(8deg)">
+              <!-- 通关印压角盖印（纯印章图，无文字说明） -->
+              <div id="ov-sealbox" style="position:absolute;right:-26px;bottom:-22px;width:132px;transform:rotate(8deg)">
                 <img id="ov-seal" alt="本关通关印" style="width:100%;display:block">
-                <div id="ov-sealname" style="font-size:11px;color:#8a7434;margin-top:4px;letter-spacing:.06em;font-family:'PingFang SC','Microsoft YaHei',sans-serif"></div>
               </div>
             </div>
             <div style="font-size:17px;color:#4a3a14;margin-top:22px;letter-spacing:.12em;font-weight:800;font-family:'PingFang SC','Microsoft YaHei',sans-serif">手机扫二维码 · 进入考试</div>
@@ -533,7 +532,6 @@ function ovOpen(id){
   document.getElementById('ov-sub').textContent = '十万八千里 · 行至' + ovCur.no + ' · 诸位列位 · 各凭本事';
   ovLightNode(id);
   document.getElementById('ov-seal').src = ovCur.seal;
-  document.getElementById('ov-sealname').textContent = ovCur.sealname + ' · 达95分自落';
   document.getElementById('ov-qr').src = OV_QR + '/start-qr-' + id + '.svg';
   ovShareReset();
   document.getElementById('ov-choose').style.display = 'none';
