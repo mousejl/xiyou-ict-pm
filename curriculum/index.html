@@ -67,7 +67,12 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 .extra b{font-size:14.5px;display:block;color:#1a2436;}
 .extra span{font-size:12px;color:var(--sub);}
 .foot{text-align:center;font-size:12px;color:var(--sub);padding:30px 16px 40px;border-top:1px solid var(--line);margin-top:26px;}
-@media(max-width:860px){.ladder{grid-template-columns:1fr 1fr;}.extra{grid-template-columns:1fr;}.hero .stamp{display:none;}.role-card{flex-direction:column;text-align:center;gap:14px;}.role-card span,.role-card b{text-align:center!important;}}
+@media(max-width:860px){.ladder{grid-template-columns:1fr 1fr;gap:12px;}.extra{grid-template-columns:1fr;}.hero .stamp{display:none;}.role-card{flex-direction:column;text-align:center;gap:14px;}.role-card span,.role-card b{text-align:center!important;}
+.hero .kicker{font-size:10px;letter-spacing:.12em;}
+.ladder .course-card{min-width:0;}.ladder .course-card .cc-body li{font-size:11.8px;}
+.reg-grid{grid-template-columns:1fr !important;}
+.foot{padding:22px 24px;line-height:2;font-size:11px;}
+.seal-row{gap:8px !important;}.seal-row>div img{width:68px !important;height:68px !important;}.seal-row>div div{font-size:10px !important;white-space:nowrap;}}
 </style>
 </head>
 <body>
@@ -216,13 +221,13 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
   <div class="section-t"><h2>主讲老师登记</h2><div class="en">Instructor Registration</div></div>
   <div class="panel">
     <p style="font-size:13.5px;color:var(--sub);margin-bottom:14px">登记主讲老师信息（姓名 / 单位 / 部门 / 手机 / 邮箱），登记后的<b>手机号将作为老师端成绩查询登录凭证</b>——凭它可在成绩查询页与成绩总表查看全班成绩并导出 CSV。同手机号重复登记将覆盖更新。</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+    <div class="reg-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
       <input id="t-name" placeholder="姓名 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
       <input id="t-company" placeholder="单位 *（如：省公司）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
       <input id="t-dept" placeholder="部门 / 岗位 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
       <input id="t-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="手机号 *（登录凭证）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
       <input id="t-email" type="email" placeholder="邮箱 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
-      <input id="t-key" type="password" placeholder="登记口令 *（向课程管理员获取）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+      <input id="t-key" type="password" placeholder="登记口令 *（管理员提供）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
     </div>
     <div style="margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
       <button id="t-btn" style="background:var(--gold);color:#fff;border:none;border-radius:8px;padding:10px 30px;font-size:14.5px;font-weight:700;cursor:pointer">提交登记</button>
@@ -234,7 +239,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
   <div class="panel">
     <h3>📜 每过一级，加盖一印</h3>
     <p>呼应西游"每过一国、加盖一印"的叙事：每级课程<b>结业在线考试达 95 分</b>，系统即在你的《通关文牒》上自动加盖对应等级"通关印"。四级集齐，授予<b>"取经人"结业认证</b>，可纳入人才画像标签，并优先进入下一角色培养池。</p>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;align-items:flex-start">
+    <div class="seal-row" style="display:flex;gap:16px;flex-wrap:wrap;margin-top:18px;align-items:flex-start">
       <div style="text-align:center"><img src="seal/seal-l0.svg" alt="通识印" style="width:92px;height:92px"><div style="font-size:11px;color:var(--sub);margin-top:5px">通识印 · 唐僧 · L+</div></div>
       <div style="text-align:center"><img src="seal/seal-l1.svg" alt="认知印" style="width:92px;height:92px"><div style="font-size:11px;color:var(--sub);margin-top:5px">认知印 · 白龙马 · L1</div></div>
       <div style="text-align:center"><img src="seal/seal-l2.svg" alt="工具印" style="width:92px;height:92px"><div style="font-size:11px;color:var(--sub);margin-top:5px">工具印 · 沙僧 · L2</div></div>

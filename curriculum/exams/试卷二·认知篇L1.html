@@ -35,10 +35,21 @@
   .answers .ansbox .n{color:var(--sub);min-width:22px}
   .foot{text-align:center;font-size:12px;color:#9aa4b2;padding:14px;border-top:1px solid #eef1f5}
   .quiz-entry{display:flex;gap:14px;align-items:center;margin:14px 30px 0;padding:12px 14px;background:#faf5e8;border:1px solid #e4d9bc;border-radius:10px}
-  .quiz-entry img{width:74px;height:74px;background:#fff;border-radius:8px;padding:5px;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer}
+  .quiz-entry img{width:110px;height:110px;min-width:110px;background:#fff;border-radius:8px;padding:5px;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer}
   .quiz-entry .qi-txt b{display:block;font-size:14px;color:#5a4a12}
   .quiz-entry .qi-txt span{display:block;font-size:12px;color:#8a7c58;margin-top:2px}
   .quiz-entry .qi-txt a{display:inline-block;font-size:12.5px;font-weight:700;color:var(--primary);margin-top:4px;text-decoration:none}
+  @media(max-width:640px){
+    .head h1{font-size:20px;word-break:keep-all;line-height:1.5}
+    .head .sub{word-break:keep-all}
+    .head .lvl::after{content:none}
+    .sec-t{flex-wrap:wrap;gap:6px 10px}
+    .sec-t .pts{margin-left:0;width:100%;padding-left:2px}
+    .quiz-entry{flex-direction:column;text-align:center}
+    .quiz-entry img{width:150px;height:150px;min-width:150px}
+    .quiz-entry .qi-txt{text-align:center}
+    .quiz-entry .qi-txt span{display:block}
+  }
   @media print{
     .quiz-entry{display:none}
     @page{size:A4;margin:12mm 11mm}
