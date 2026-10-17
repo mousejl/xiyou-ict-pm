@@ -74,6 +74,13 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 .extra b{font-size:14.5px;display:block;color:#1a2436;}
 .extra span{font-size:12px;color:var(--sub);}
 .foot{text-align:center;font-size:12px;color:var(--sub);padding:30px 16px 40px;border-top:1px solid var(--line);margin-top:26px;}
+@media(max-width:960px){
+  #ov-screen > div[style*="flex;gap:56px"]{flex-direction:column !important;gap:22px !important;padding:80px 16px 0 !important}
+  #ov-screen > div[style*="flex;gap:56px"] > div:first-child{flex:0 0 auto !important;text-align:center !important}
+  #ov-title{font-size:30px !important}
+  .ov-clock{top:60px !important;right:12px !important;width:92px !important}
+  .ov-clock svg{width:92px !important;height:92px !important}
+}
 @media(max-width:860px){
   .ink-title{font-size:22px !important}
   #ov-screen{padding:70px 12px 24px !important}
@@ -305,70 +312,148 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
 
 
-  <!-- 开考大屏（课件同款 · 暗色水墨风） -->
-  <div id="ov-screen" style="display:none;position:fixed;inset:0;z-index:110;overflow:auto;background:radial-gradient(120% 120% at 20% 10%,#171a20 0%,#0b0e11 58%);color:#efece3;font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;padding:0 0 30px">
-    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:24px 52px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(201,166,74,.75)">
-      <span>取经计划 · 结业考试 · 大闹考场</span><span id="ov-chrome-r">EXAM IN SESSION</span>
+  <!-- 开考大屏（暗夜取经路 · 金线路线图背景） -->
+  <div id="ov-screen" style="display:none;position:fixed;inset:0;z-index:110;overflow:auto;background:#0b0e11;color:#efece3;font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;padding:0 0 30px">
+    <!-- ============ 取经路线图背景（金线 · 蜿蜒全图） ============ -->
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style="position:fixed;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none">
+      <defs>
+        <linearGradient id="goldline" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#8a6a2b"/><stop offset=".5" stop-color="#d8b45f"/><stop offset="1" stop-color="#8a6a2b"/>
+        </linearGradient>
+      </defs>
+      <!-- 主路线：长安→两界山→高老庄→流沙河→火焰山→女儿国→盘丝洞→通天河→雷音寺（S形盘绕） -->
+      <path id="ov-route" d="M 60,780
+        C 180,770 240,700 280,660
+        C 330,610 300,560 360,540
+        C 440,515 470,580 540,600
+        C 620,624 660,690 740,700
+        C 830,712 860,640 930,600
+        C 1010,556 1060,620 1130,580
+        C 1200,540 1210,470 1160,420
+        C 1110,370 1020,380 980,320
+        C 940,260 1000,200 1080,190
+        C 1180,178 1280,210 1360,140"
+        fill="none" stroke="url(#goldline)" stroke-width="2.2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".9"/>
+      <!-- 行进光点（沿主路线流动的金光） -->
+      <circle id="ov-dot-halo" r="11" fill="rgba(245,223,154,.25)"><animateMotion dur="26s" repeatCount="indefinite"><mpath href="#ov-route"/></animateMotion></circle>
+      <circle id="ov-dot" r="4.5" fill="#f5df9a" opacity=".98" filter="drop-shadow(0 0 4px #e8cd7d)">
+        <animateMotion dur="26s" repeatCount="indefinite"><mpath href="#ov-route"/></animateMotion>
+      </circle>
+      <!-- 关隘节点：站点圆点 + 竖排地名 -->
+      <g font-family="'Noto Serif SC','Songti SC',serif">
+        <circle cx="60" cy="780" r="5" fill="#d8b45f"/><circle cx="60" cy="780" r="9" fill="none" stroke="#d8b45f" stroke-width="1" opacity=".5"/>
+        <text x="60" y="812" text-anchor="middle" font-size="15" fill="#c9a64a" letter-spacing="2">长安</text>
+        <text x="68" y="832" text-anchor="middle" font-size="9" fill="rgba(201,166,74,.55)" letter-spacing="3">出发</text>
+
+        <circle cx="280" cy="660" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="280" y="692" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">两界山</text>
+
+        <circle cx="470" cy="573" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="470" y="605" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">高老庄</text>
+
+        <circle cx="700" cy="703" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="700" y="735" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">流沙河</text>
+
+        <circle cx="912" cy="622" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="912" y="654" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">火焰山</text>
+        <text x="912" y="672" text-anchor="middle" font-size="9" fill="rgba(201,166,74,.5)" letter-spacing="2">八百里火</text>
+
+        <circle cx="1090" cy="566" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="1090" y="598" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">女儿国</text>
+
+        <circle cx="1136" cy="402" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="1136" y="428" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">盘丝洞</text>
+
+        <circle cx="965" cy="272" r="4" fill="rgba(216,180,95,.85)"/>
+        <text x="965" y="248" text-anchor="middle" font-size="14" fill="rgba(201,166,74,.85)">通天河</text>
+
+        <circle cx="1360" cy="140" r="5.5" fill="#e8cd7d"/>
+        <circle cx="1360" cy="140" r="11" fill="none" stroke="#e8cd7d" stroke-width="1.2" opacity=".7"/>
+        <circle cx="1360" cy="140" r="17" fill="none" stroke="#e8cd7d" stroke-width=".8" opacity=".4"/>
+        <text x="1360" y="96" text-anchor="middle" font-size="17" font-weight="700" fill="#e8cd7d" letter-spacing="3">灵山</text>
+        <text x="1360" y="116" text-anchor="middle" font-size="9.5" fill="rgba(232,205,125,.6)" letter-spacing="2">雷音寺 · 取得真经</text>
+      </g>
+      <!-- 远山剪影（淡金勾勒，右下角） -->
+      <path d="M 980,900 L 1120,790 L 1260,900 M 1180,900 L 1330,760 L 1490,900" fill="none" stroke="rgba(201,166,74,.22)" stroke-width="1.5"/>
+      <path d="M 0,900 L 130,820 L 300,900 M 40,900 L 200,840 L 380,900" fill="none" stroke="rgba(201,166,74,.16)" stroke-width="1.2"/>
+      <!-- 底部暗角过渡 -->
+      <radialGradient id="veil" cx=".5" cy=".5" r=".75">
+        <stop offset=".55" stop-color="#0b0e11" stop-opacity="0"/>
+        <stop offset="1" stop-color="#0b0e11" stop-opacity=".85"/>
+      </radialGradient>
+      <rect width="1440" height="900" fill="url(#veil)"/>
+    </svg>
+
+    <!-- ============ 顶栏（页眉 + 计时器） ============ -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:22px 48px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:rgba(201,166,74,.8)">
+      <span>取经计划 · 结业考试 · 西行十万八千里</span><span id="ov-chrome-r">EXAM IN SESSION</span>
     </div>
-    <div class="ov-clock" style="position:absolute;top:58px;right:52px;width:118px;text-align:center">
+    <div class="ov-clock" style="position:absolute;top:52px;right:48px;width:118px;text-align:center">
       <svg viewBox="0 0 120 120" style="width:118px;height:118px;transform:rotate(-90deg)">
-        <circle cx="60" cy="60" r="52" fill="rgba(11,14,17,.72)" stroke="rgba(201,166,74,.28)" stroke-width="2"/>
+        <circle cx="60" cy="60" r="52" fill="rgba(11,14,17,.82)" stroke="rgba(201,166,74,.3)" stroke-width="2"/>
         <circle id="ov-ring" cx="60" cy="60" r="52" fill="none" stroke="#d8b45f" stroke-width="5" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
       </svg>
       <div id="ov-timer" style="margin-top:-90px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:26px;font-weight:700;letter-spacing:.06em;color:#f0e6c8">60:00</div>
-      <div style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.28em;color:rgba(201,166,74,.8);margin-top:60px">剩余钟响</div>
+      <div style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.28em;color:rgba(201,166,74,.85);margin-top:60px">剩余钟响</div>
     </div>
-    <div style="max-width:1150px;margin:0 auto;padding:88px 24px 0;text-align:center">
-      <div id="ov-kicker" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.32em;color:#d8b45f;margin-bottom:10px"></div>
-      <div id="ov-title" class="ink-title" style="font-weight:700;font-size:min(4.4vw,54px);line-height:1.12;letter-spacing:.02em"></div>
-      <div style="color:#c9a64a;font-size:15px;letter-spacing:.18em;margin-top:8px">八百里取经路上 · 此一关 · 诸位列位 · 各凭本事</div>
 
-      <div id="ov-card" style="position:relative;margin:30px auto 0;max-width:1150px;background:linear-gradient(160deg,#efece3,#e4e0d3);border-radius:8px;padding:32px 32px 26px;box-shadow:0 18px 60px rgba(0,0,0,.55);border:1px solid rgba(201,166,74,.5)">
-        <!-- 卷轴头尾 -->
-        <div style="position:absolute;top:-14px;left:24px;right:24px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
-        <div style="position:absolute;bottom:-14px;left:24px;right:24px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
-        <div class="ink-row" style="display:flex;gap:42px;align-items:center;text-align:left">
-          <div class="ink-sign" style="flex:0 0 auto;text-align:center">
-            <div id="ov-sealbox" style="width:252px;margin:0 auto;background:#fff;border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.14)">
-              <img id="ov-seal" alt="本关通关印" style="width:100%;display:block">
-              <div id="ov-sealname" style="font-size:13px;color:#8a7434;margin-top:8px;letter-spacing:.08em;font-family:'PingFang SC','Microsoft YaHei',sans-serif"></div>
-            </div>
-            <div style="font-size:11px;color:#9a8a58;margin-top:10px;letter-spacing:.14em;font-family:ui-monospace,Menlo,monospace">达95分 · 此印自落</div>
+    <!-- ============ 主体：左标题区 + 右卷轴 ============ -->
+    <div style="position:relative;max-width:1400px;margin:0 auto;padding:96px 48px 0;display:flex;gap:56px;align-items:flex-start">
+      <!-- 左：题名与关衔 -->
+      <div style="flex:0 0 380px;text-align:left;padding-top:16px">
+        <div id="ov-kicker" style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.32em;color:#d8b45f;margin-bottom:14px"></div>
+        <div id="ov-title" class="ink-title" style="font-weight:700;font-size:46px;line-height:1.18;letter-spacing:.02em;text-shadow:0 2px 24px rgba(201,166,74,.25)"></div>
+        <div style="color:#c9a64a;font-size:15px;letter-spacing:.2em;margin-top:14px">十万八千里 · 行至第X关</div>
+        <div style="width:120px;height:1.5px;background:linear-gradient(90deg,#d8b45f,transparent);margin:26px 0"></div>
+        <div style="display:flex;gap:12px;align-items:stretch;max-width:340px">
+          <div class="ink-vtag" style="writing-mode:vertical-rl;font-size:14px;font-weight:700;color:#e8cd7d;border:1px solid rgba(216,180,95,.5);border-radius:6px;padding:10px 6px;letter-spacing:.3em;background:rgba(11,14,17,.55)">本关考制</div>
+          <div class="ink-info" style="flex:1;border-left:3px solid #d8b45f;padding:12px 16px;background:rgba(11,14,17,.66);border-radius:0 8px 8px 0;font-size:14px;color:#e8dfc2;line-height:2;white-space:nowrap;backdrop-filter:blur(3px)">
+            单选十五 · 二分一题<br>多选十题 · 三分一题<br>判断廿题 · 二分一题<br>满分一百 · 限时一炷香
           </div>
-          <div class="ink-qrwrap" style="flex:0 0 auto">
-            <div style="width:min(42vh,330px);height:min(42vh,330px);background:#fff;border:2px solid #c9a64a;border-radius:12px;padding:14px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
-              <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
-            </div>
-            <div style="text-align:center;font-size:13px;color:#3d3423;margin-top:8px;letter-spacing:.1em;font-weight:700;font-family:'PingFang SC','Microsoft YaHei',sans-serif">扫码即入 · 各自领取随机试卷</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:stretch;max-width:340px;margin-top:12px">
+          <div class="ink-vtag" style="writing-mode:vertical-rl;font-size:13px;font-weight:700;color:#ff9d85;border:1px solid rgba(229,83,61,.5);border-radius:6px;padding:8px 6px;letter-spacing:.25em;background:rgba(11,14,17,.55)">考前敕令</div>
+          <div class="ink-info" style="flex:1;border-left:3px solid #e5533d;padding:12px 16px;background:rgba(11,14,17,.66);border-radius:0 8px 8px 0;font-size:13px;color:#e8dfc2;line-height:2;white-space:nowrap;backdrop-filter:blur(3px)">
+            手机静音 · 独立作答<br>中途断网 · 重扫可续<br>交卷即出分 · 可阅错题
           </div>
-          <div style="flex:1;min-width:320px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
-            <div style="display:flex;gap:10px;align-items:stretch">
-              <div class="ink-vtag" style="writing-mode:vertical-rl;font-family:'Noto Serif SC','Songti SC',serif;font-size:14px;font-weight:700;color:#8a6a2b;background:rgba(201,166,74,.16);border:1px solid rgba(201,166,74,.45);border-radius:6px;padding:10px 6px;letter-spacing:.3em">本关考制</div>
-              <div class="ink-info" style="flex:1;border-left:3px solid #d8b45f;padding:12px 18px;background:rgba(201,166,74,.1);border-radius:0 8px 8px 0;font-size:14.5px;color:#3d3423;line-height:1.9;white-space:nowrap">
-                单选十五 · 二分一题　　多选十题 · 三分一题<br>判断廿题 · 二分一题　　满分一百 · 限时一炷香
+        </div>
+        <div style="display:inline-block;margin-top:22px;background:rgba(201,166,74,.14);border:1.5px dashed rgba(216,180,95,.6);border-radius:99px;padding:8px 24px;font-size:14.5px;color:#d8c48a;font-weight:700;letter-spacing:.06em">
+          已交卷 <span id="ov-count" style="font-size:20px;color:#8fe8a2">…</span> 人 · 妙笔生花中
+        </div>
+      </div>
+
+      <!-- 右：卷轴（居线路中央） -->
+      <div style="flex:1;min-width:0">
+        <div id="ov-card" style="position:relative;margin:0 auto;max-width:760px;background:linear-gradient(160deg,#efece3,#e4e0d3);border-radius:10px;padding:30px 34px 26px;box-shadow:0 24px 70px rgba(0,0,0,.75),0 0 0 1px rgba(201,166,74,.45),0 0 90px rgba(201,166,74,.14)">
+          <div style="position:absolute;top:-14px;left:30px;right:30px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
+          <div style="position:absolute;bottom:-14px;left:30px;right:30px;height:10px;background:linear-gradient(90deg,#8a6a2b,#c9a64a 50%,#8a6a2b);border-radius:5px;box-shadow:0 3px 10px rgba(0,0,0,.4)"></div>
+          <div class="ink-row" style="display:flex;gap:38px;align-items:center;text-align:left">
+            <div class="ink-sign" style="flex:0 0 auto;text-align:center">
+              <div id="ov-sealbox" style="width:230px;margin:0 auto;background:#fff;border-radius:14px;padding:15px;box-shadow:0 4px 14px rgba(0,0,0,.14)">
+                <img id="ov-seal" alt="本关通关印" style="width:100%;display:block">
+                <div id="ov-sealname" style="font-size:13px;color:#8a7434;margin-top:8px;letter-spacing:.08em;font-family:'PingFang SC','Microsoft YaHei',sans-serif"></div>
               </div>
+              <div style="font-size:11px;color:#9a8a58;margin-top:9px;letter-spacing:.14em;font-family:ui-monospace,Menlo,monospace">达95分 · 此印自落</div>
             </div>
-            <div style="margin-top:12px;display:flex;gap:10px;align-items:stretch">
-              <div class="ink-vtag" style="writing-mode:vertical-rl;font-family:'Noto Serif SC','Songti SC',serif;font-size:13px;font-weight:700;color:#a04830;background:rgba(176,85,58,.1);border:1px solid rgba(176,85,58,.4);border-radius:6px;padding:8px 6px;letter-spacing:.25em">考前敕令</div>
-              <div class="ink-info" style="flex:1;border-left:3px solid #b0553a;padding:12px 18px;background:rgba(176,85,58,.08);border-radius:0 8px 8px 0;font-size:13.5px;color:#3d3423;line-height:1.85;white-space:nowrap">
-                手机静音 · 独立作答　　中途断网 · 重扫可续<br>交卷即出分 · 可阅错题
+            <div class="ink-qrwrap" style="flex:1;min-width:0">
+              <div style="width:min(40vh,320px);height:min(40vh,320px);background:#fff;border:2px solid #c9a64a;border-radius:12px;padding:13px;box-shadow:0 4px 14px rgba(0,0,0,.12)">
+                <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
               </div>
-            </div>
-            <div style="display:inline-block;margin-top:16px;background:#f0ede2;border:1.5px dashed #c9a64a;border-radius:99px;padding:7px 22px;font-size:14px;color:#5a4a20;font-weight:700">
-              已交卷 <span id="ov-count" style="font-size:20px;color:#1e7b34">…</span> 人 · 妙笔生花中
+              <div style="font-size:13px;color:#3d3423;margin-top:9px;letter-spacing:.12em;font-weight:700;font-family:'PingFang SC','Microsoft YaHei',sans-serif">扫此金码 · 各自领取随机试卷</div>
             </div>
           </div>
         </div>
       </div>
-
-      <div style="display:flex;gap:14px;justify-content:center;margin-top:26px;flex-wrap:wrap">
-        <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 16px rgba(201,166,74,.35);font-family:'PingFang SC','Microsoft YaHei',sans-serif">📣 敕发考卷链接</button>
-        <button onclick="ovResetTimer()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">↺ 重计一炷香</button>
-        <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:transparent;color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">← 另择一关</button>
-        <button onclick="ovClose()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif">鸣金收卷</button>
-      </div>
     </div>
-  
+
+    <!-- ============ 底部按钮带 ============ -->
+    <div style="position:relative;max-width:1400px;margin:34px auto 0;padding:0 48px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 16px rgba(201,166,74,.35);font-family:'PingFang SC','Microsoft YaHei',sans-serif">📣 敕发考卷链接</button>
+      <button onclick="ovResetTimer()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:rgba(11,14,17,.55);color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">↺ 重计一炷香</button>
+      <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.55);border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:rgba(11,14,17,.55);color:#d8b45f;font-family:'PingFang SC','Microsoft YaHei',sans-serif">← 另择一关</button>
+      <button onclick="ovClose()" style="border:none;border-radius:99px;padding:12px 30px;font-size:14.5px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif">鸣金收卷</button>
+    </div>
+  </div>
 
 <script>
 document.getElementById('t-btn').addEventListener('click', function(){
@@ -447,6 +532,8 @@ function ovOpen(id){
   ovCur = OV_EXAMS.find(e => e.id === id);
   document.getElementById('ov-kicker').textContent = ovCur.kick;
   document.getElementById('ov-title').textContent = ovCur.no + ' · ' + ovCur.name;
+  const sub = document.getElementById('ov-title').nextElementSibling;
+  if(sub && sub.tagName === 'DIV') sub.textContent = '十万八千里 · 行至' + ovCur.no + ' · 诸位列位 · 各凭本事';
   document.getElementById('ov-seal').src = ovCur.seal;
   document.getElementById('ov-sealname').textContent = ovCur.sealname + ' · 达95分自落';
   document.getElementById('ov-qr').src = OV_QR + '/start-qr-' + id + '.svg';
