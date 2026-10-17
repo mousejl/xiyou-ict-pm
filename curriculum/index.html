@@ -38,22 +38,13 @@
 .ov-clock{display:flex;align-items:center;gap:22px;justify-content:center}
 .ov-clock-ring{position:relative;width:clamp(140px,19vh,210px);height:clamp(140px,19vh,210px);flex:0 0 auto}
 .ov-clock-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block}
-.ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(28px,4.4vh,46px);font-weight:800;color:var(--inkbrown);letter-spacing:.02em;line-height:1}
-.ov-clock-num i{font-style:normal;font-size:11px;color:var(--golddeep);letter-spacing:.34em;margin-top:7px}
-.ov-clock-meta{display:flex;flex-direction:column;gap:9px;text-align:left;font-family:'PingFang SC','Microsoft YaHei',sans-serif}
-.ov-clock-meta b{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:19px;color:var(--zsilk2);letter-spacing:.14em;font-weight:900}
-.ov-clock-meta span{font-size:12.5px;color:var(--paperdim);letter-spacing:.03em}
-.ov-turnedin{border:1.5px solid rgba(158,47,34,.5);background:rgba(158,47,34,.07);border-radius:2px;padding:5px 14px;align-self:flex-start;font-size:13.5px !important;color:var(--inkbrown) !important;font-weight:700}
-.ov-turnedin em{font-style:normal;font-size:21px;font-weight:800;color:var(--zsilk2);margin:0 3px;font-family:ui-monospace,Menlo,monospace}
-.ov-qrcard{display:flex;gap:20px;align-items:center;border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:16px 20px;flex:1;min-height:0}
+.ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
+#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;letter-spacing:.02em;line-height:1}
+.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:16px 20px;flex:1;min-height:0}
 .ov-qrbox{position:relative;width:clamp(230px,32vh,350px);height:clamp(230px,32vh,350px);flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:10px;border-radius:2px}
 #ov-qr{width:100%;height:100%;display:block}
 #ov-sealbox{position:absolute;right:-24px;bottom:-20px;width:clamp(88px,13vh,150px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
 #ov-seal{width:100%;display:block}
-.ov-qrsign{writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:clamp(24px,3.6vh,36px);font-weight:900;color:var(--zsilk2);letter-spacing:.26em;flex:0 0 auto;max-height:36vh;line-height:1.35}
-.ov-qrinfo{font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:13.5px;color:#4a4032;line-height:2.05;text-align:left;flex:1;min-width:0}
-.ov-qrinfo b{color:var(--zsilk2)}
 .ov-foot{flex:0 0 auto;margin-top:15px;padding-top:11px;border-top:1.5px solid rgba(158,47,34,.4);text-align:center;font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:13.5px;color:var(--paperdim);letter-spacing:.05em}
 @media(max-width:960px){
   #ov-screen{padding:54px 12px 20px !important}
@@ -66,22 +57,11 @@
   .ov-map{flex:none;min-height:0;aspect-ratio:2728/2048}
   .ov-mapcap{display:none}
   .ov-clock{flex-wrap:wrap;gap:12px}
-  .ov-clock-ring{width:118px;height:118px}
-  .ov-clock-ring svg{width:118px;height:118px}
-  #ov-timer{font-size:25px}
-  .ov-clock-meta{align-items:center;text-align:center}
-  .ov-clock-meta b{font-size:16.5px}
-  .ov-turnedin{align-self:center}
   .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:14px 12px}
-  .ov-qrbox{width:212px;height:212px}
+  .ov-qrbox{width:212px !important;height:212px !important}
   #ov-sealbox{width:88px;right:-12px;bottom:-14px}
-  .ov-qrsign{writing-mode:horizontal-tb;max-height:none;font-size:19px;letter-spacing:.18em}
-  .ov-qrinfo{text-align:center}
   .ov-foot{font-size:12px;line-height:1.9}
   .ov-clock-ring{width:118px !important;height:118px !important}
-  .ov-qrbox{width:212px !important;height:212px !important}
-  #ov-sealbox{width:88px !important}
-  #ov-timer{font-size:25px !important}
 }
 
 :root{
@@ -441,30 +421,19 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
                     <circle id="ov-ring" cx="60" cy="60" r="53" fill="none" stroke="#b8860b" stroke-width="8" stroke-linecap="round" stroke-dasharray="333" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
                   </svg>
                   <div class="ov-clock-num">
-                    <span id="ov-timer">60:00</span>
-                    <i>剩余时间</i>
+                    <span id="ov-timer" style="display:none"></span>
                   </div>
-                </div>
-                <div class="ov-clock-meta">
-                  <b>一炷香 · 铃响收卷</b>
-                  <span>剩 10 分钟语音提醒 · 归零自动收卷</span>
-                  <span class="ov-turnedin">本场已交卷 <em id="ov-count">…</em> 人 · 每 30 秒自动刷新</span>
                 </div>
               </div>
             </section>
 
             <!-- 右下：金色二维码 · 官印 -->
-            <section class="ov-qrcard">
+            <section class="ov-qrcard" style="justify-content:center">
               <div class="ov-qrbox">
                 <img id="ov-qr" alt="答题二维码">
                 <div id="ov-sealbox"><img id="ov-seal" alt="本关通关印"></div>
               </div>
-              <div class="ov-qrsign">扫码 · 进入考试</div>
-              <div class="ov-qrinfo">
-                <b>每人随机试卷 · 断点续答</b><br>
-                合格 <b>95 分</b> 自动盖本关通关印<br>
-                交卷即出分 · 可查看错题
-              </div>
+              <span id="ov-count" style="display:none"></span>
             </section>
           </div>
         </div>
