@@ -325,49 +325,103 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
   <!-- 开考大屏（暗夜取经路 · 金线路线图背景 · 顺向动线版） -->
   <div id="ov-screen" style="display:none;position:fixed;inset:0;z-index:110;overflow:auto;background:#0b0e11;color:#efece3;font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;padding:0 40px 36px">
-    <!-- ============ 背景路线图（弱化 · 金线） ============ -->
-    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style="position:fixed;inset:0;width:100%;height:100%;opacity:.42;pointer-events:none">
+    <!-- ============ 背景路线图（参考图样式：倒U手绘长卷 · 30站点） ============ -->
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none">
       <defs>
         <linearGradient id="goldline" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#8a6a2b"/><stop offset=".5" stop-color="#d8b45f"/><stop offset="1" stop-color="#8a6a2b"/>
+          <stop offset="0" stop-color="#7d6228"/><stop offset=".5" stop-color="#d8b45f"/><stop offset="1" stop-color="#7d6228"/>
         </linearGradient>
+        <filter id="handdrawn"><feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
+        <g id="ov-nodes-g"></g>
       </defs>
-      <!-- 主路线 -->
-      <path id="ov-route" d="M 60,780 C 180,770 240,700 280,660 C 330,610 300,560 360,540 C 440,515 470,580 540,600 C 620,624 660,690 740,700 C 830,712 860,640 930,600 C 1010,556 1060,620 1130,580 C 1200,540 1210,470 1160,420 C 1110,370 1020,380 980,320 C 940,260 1000,200 1080,190 C 1180,178 1280,210 1360,140"
-        fill="none" stroke="url(#goldline)" stroke-width="2.2" stroke-dasharray="1 7" stroke-linecap="round" opacity=".9"/>
+      <!-- 手绘感主路线（倒U：长安右下 → 北上 → 西行 → 南下 → 灵山左下） -->
+      <path id="ov-route" filter="url(#handdrawn)"
+        d="M 1330,790
+        C 1362,700 1352,560 1348,470
+        C 1344,320 1310,268 1240,258
+        C 1120,238 1060,288 950,252
+        C 860,237 830,192 740,186
+        C 655,182 630,234 545,230
+        C 460,234 420,186 335,190
+        C 250,194 200,224 150,262
+        C 105,294 92,420 100,560
+        C 107,660 118,746 130,812"
+        fill="none" stroke="url(#goldline)" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
       <!-- 流动金光 -->
-      <circle r="11" fill="rgba(245,223,154,.22)"><animateMotion dur="26s" repeatCount="indefinite"><mpath href="#ov-route"/></animateMotion></circle>
-      <circle r="4.5" fill="#f5df9a" opacity=".95" filter="drop-shadow(0 0 4px #e8cd7d)"><animateMotion dur="26s" repeatCount="indefinite"><mpath href="#ov-route"/></animateMotion></circle>
-      <!-- 关隘节点（统一小点；文字统一圆点正下方；当前关由JS点亮） -->
-      <g font-family="'Noto Serif SC','Songti SC',serif">
-        <text x="60" y="812" text-anchor="middle" font-size="14" fill="rgba(216,180,95,.9)" letter-spacing="2">长安</text>
-        <text x="280" y="692" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">两界山</text>
-        <text x="470" y="605" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">高老庄</text>
-        <text x="700" y="735" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">流沙河</text>
-        <text x="912" y="654" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">火焰山</text>
-        <text x="1090" y="598" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">女儿国</text>
-        <text x="1136" y="428" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">盘丝洞</text>
-        <text x="965" y="248" text-anchor="middle" font-size="13" fill="rgba(216,180,95,.65)">通天河</text>
-        <text x="1360" y="96" text-anchor="middle" font-size="15" font-weight="700" fill="#e8cd7d" letter-spacing="3">灵山</text>
-        <text x="1360" y="116" text-anchor="middle" font-size="9.5" fill="rgba(232,205,125,.6)" letter-spacing="2">雷音寺</text>
-        <!-- 节点圆点层（JS 控制状态） -->
-        <g id="ov-nodes">
-          <circle data-node="0" cx="60" cy="780" r="5" fill="#d8b45f"/><circle data-node="0b" cx="60" cy="780" r="9" fill="none" stroke="#d8b45f" stroke-width="1" opacity=".5"/>
-          <circle data-node="1" cx="280" cy="660" r="3.5" fill="rgba(216,180,95,.6)"/>
-          <circle data-node="2" cx="470" cy="573" r="3.5" fill="rgba(216,180,95,.6)"/>
-          <circle data-node="3" cx="700" cy="703" r="3.5" fill="rgba(216,180,95,.6)"/>
-          <circle data-node="4" cx="912" cy="622" r="3.5" fill="rgba(216,180,95,.6)"/>
-          <circle data-node="5" cx="1090" cy="566" r="3.5" fill="rgba(216,180,95,.6)"/>
-          <circle data-node="0c" cx="1360" cy="140" r="5.5" fill="#e8cd7d"/><circle data-node="0d" cx="1360" cy="140" r="11" fill="none" stroke="#e8cd7d" stroke-width="1.2" opacity=".7"/>
+      <circle r="10" fill="rgba(245,223,154,.2)"><animateMotion dur="30s" repeatCount="indefinite"><mpath href="#ov-route"/></animateMotion></circle>
+      <circle r="4" fill="#f5df9a" opacity=".95" filter="drop-shadow(0 0 4px #e8cd7d)"><animateMotion dur="30s" repeatCount="indefinite"><mpath href="#ov-route"/></animateMotion></circle>
+
+      <!-- 站点与标注层（手绘风：实心点+外侧文字+装饰小画） -->
+      <g id="ov-stations" font-family="'Noto Serif SC','Songti SC',serif" fill="#d8b45f">
+        <!-- —— 右翼（长安起，北上）—— -->
+        <circle data-node="0" cx="1330" cy="790" r="5" fill="#e8cd7d"/>
+        <!-- 长安城楼（手绘三层塔） -->
+        <g stroke="#c9a64a" stroke-width="1.6" fill="none" opacity=".8" transform="translate(1330,790)">
+          <path d="M-30,26 L-30,10 M30,26 L30,10 M-36,10 L36,10 M-22,10 L-22,-2 M22,10 L22,-2 M-28,-2 L28,-2 M-14,-2 L14,-14 M14,-2 L14,-14 M-20,-14 L20,-14 M-8,-14 L-8,-24 M8,-14 L-8,-24 M-14,-24 L14,-24 M0,-24 L0,-34"/>
+          <path d="M-24,22 L24,22 M-17,4 L17,4 M-10,-8 L10,-8"/>
         </g>
-        <!-- 当前关指示（JS 定位） -->
+        <text x="1330" y="846" text-anchor="middle" font-size="15" font-weight="700" fill="#e8cd7d" letter-spacing="2">长安</text>
+        <text x="1330" y="864" text-anchor="middle" font-size="9" fill="rgba(216,180,95,.55)" letter-spacing="2">贞观出发</text>
+
+        <circle data-node="1" cx="1348" cy="470" r="3.5" fill="rgba(216,180,95,.65)"/><text x="1322" y="474" text-anchor="end" font-size="12" fill="rgba(216,180,95,.7)">两界山</text>
+        <circle data-node="2" cx="1300" cy="330" r="3.5" fill="rgba(216,180,95,.65)"/><text x="1310" y="316" text-anchor="start" font-size="12" fill="rgba(216,180,95,.7)">鹰愁涧</text>
+
+        <!-- —— 上翼（西行主要站点）—— -->
+        <circle data-node="4" cx="1240" cy="258" r="3.5" fill="rgba(216,180,95,.65)"/><text x="1248" y="244" text-anchor="start" font-size="12" fill="rgba(216,180,95,.7)">高老庄</text>
+        <!-- 流沙河（竖线水纹） -->
+        <g stroke="#c9a64a" stroke-width="1.2" opacity=".55">
+          <path d="M1146,250 l0,16 M1152,254 l0,12 M1158,250 l0,16 M1164,252 l0,12"/>
+        </g>
+        <circle data-node="5" cx="1122" cy="254" r="3.5" fill="rgba(216,180,95,.65)"/><text x="1122" y="292" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">流沙河</text>
+
+        <circle data-node="x1" cx="1000" cy="258" r="3.5" fill="rgba(216,180,95,.65)"/><text x="1000" y="296" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">五庄观</text>
+        <!-- 人参果圆标 -->
+        <circle cx="1032" cy="252" r="6" stroke="#c9a64a" stroke-width="1.3" fill="none" opacity=".6"/><path d="M1032,246 a3,3 0 1,1 -0.1,0" stroke="#c9a64a" stroke-width="1.2" fill="none" opacity=".6"/>
+
+        <circle data-node="x2" cx="880" cy="220" r="3.5" fill="rgba(216,180,95,.65)"/><text x="880" y="208" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">白虎岭</text>
+        <circle data-node="x3" cx="762" cy="186" r="3.5" fill="rgba(216,180,95,.65)"/><text x="762" y="174" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">平顶山</text>
+        <circle data-node="x4" cx="652" cy="184" r="3.5" fill="rgba(216,180,95,.65)"/><text x="652" y="172" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">乌鸡国</text>
+        <!-- 黑水河（波浪） -->
+        <g stroke="#c9a64a" stroke-width="1.2" fill="none" opacity=".5">
+          <path d="M568,208 q6,-5 12,0 t12,0 t12,0 M568,216 q6,-5 12,0 t12,0 t12,0"/>
+        </g>
+        <circle data-node="x5" cx="600" cy="200" r="3.5" fill="rgba(216,180,95,.65)"/><text x="600" y="246" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">黑水河</text>
+
+        <circle data-node="x6" cx="486" cy="210" r="3.5" fill="rgba(216,180,95,.65)"/><text x="486" y="252" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">车迟国</text>
+        <!-- 通天河（横线水纹+斜线影） -->
+        <g stroke="#c9a64a" stroke-width="1.2" fill="none" opacity=".5">
+          <path d="M360,216 q10,-6 20,0 t20,0 t20,0 M360,226 q10,-6 20,0 t20,0 t20,0 M368,236 l38,8"/>
+        </g>
+        <circle data-node="x7" cx="410" cy="202" r="3.5" fill="rgba(216,180,95,.65)"/><text x="410" y="266" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">通天河</text>
+        <circle data-node="x8" cx="308" cy="206" r="3.5" fill="rgba(216,180,95,.65)"/><text x="308" y="262" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">金兜山</text>
+        <circle data-node="x9" cx="225" cy="218" r="3.5" fill="rgba(216,180,95,.65)"/><text x="225" y="206" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">女儿国</text>
+        <circle data-node="x10" cx="163" cy="258" r="3.5" fill="rgba(216,180,95,.65)"/><text x="163" y="246" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">火焰山</text>
+
+        <!-- —— 左翼（南下） —— -->
+        <circle data-node="x11" cx="128" cy="380" r="3.5" fill="rgba(216,180,95,.65)"/><text x="152" y="384" font-size="12" fill="rgba(216,180,95,.7)">比丘国</text>
+        <!-- 盘丝洞（蜘蛛手绘） -->
+        <g stroke="#c9a64a" stroke-width="1.2" fill="none" opacity=".55" transform="translate(112,534)">
+          <circle cx="0" cy="0" r="5" fill="none"/>
+          <path d="M-4,-4 L-12,-12 M4,-4 L12,-12 M-5,0 L-14,0 M5,0 L14,0 M-4,4 L-11,11 M4,4 L11,11 M0,-5 L0,-10 M0,5 L0,10" stroke-linecap="round"/>
+        </g>
+        <circle data-node="6" cx="118" cy="560" r="3.5" fill="rgba(216,180,95,.65)"/><text x="118" y="596" text-anchor="middle" font-size="12" fill="rgba(216,180,95,.7)">盘丝洞</text>
+
+        <!-- 玉华州（华表/金箍棒） -->
+        <g stroke="#c9a64a" stroke-width="1.4" fill="none" opacity=".55" transform="translate(118,648)">
+          <path d="M0,26 L0,-20 M-7,24 L7,24 M-5,20 L5,20 M-3,-22 L3,-22 M-4,-18 L4,-18 M-2,-26 L2,-26"/>
+        </g>
+        <circle data-node="x12" cx="118" cy="676" r="3.5" fill="rgba(216,180,95,.65)"/><text x="146" y="680" font-size="12" fill="rgba(216,180,95,.7)">玉华州</text>
+        <circle data-node="x13" cx="122" cy="736" r="3.5" fill="rgba(216,180,95,.65)"/><text x="150" y="740" font-size="12" fill="rgba(216,180,95,.7)">天竺国</text>
+
+        <!-- 终点灵山（光圈加强） -->
+        <circle data-node="0c" cx="128" cy="800" r="5.5" fill="#e8cd7d"/>
+        <circle data-node="0d" cx="128" cy="800" r="11" fill="none" stroke="#e8cd7d" stroke-width="1.2" opacity=".7"/>
+        <circle data-node="0e" cx="128" cy="800" r="17" fill="none" stroke="#e8cd7d" stroke-width=".8" opacity=".4"/>
+        <text x="128" y="846" text-anchor="middle" font-size="16" font-weight="700" fill="#e8cd7d" letter-spacing="3">灵山</text>
+        <text x="128" y="864" text-anchor="middle" font-size="9.5" fill="rgba(232,205,125,.6)" letter-spacing="2">雷音寺 · 取得真经</text>
+        <!-- 当前关旗标（JS定位） -->
         <text id="ov-nodeflag" x="0" y="0" text-anchor="middle" font-size="13" font-weight="700" fill="#ffe9a8" letter-spacing="2" style="display:none">▸ 本关 ◂</text>
       </g>
-      <!-- 远山剪影 -->
-      <path d="M 980,900 L 1120,790 L 1260,900 M 1180,900 L 1330,760 L 1490,900" fill="none" stroke="rgba(201,166,74,.18)" stroke-width="1.5"/>
-      <path d="M 0,900 L 130,820 L 300,900 M 40,900 L 200,840 L 380,900" fill="none" stroke="rgba(201,166,74,.14)" stroke-width="1.2"/>
-      <radialGradient id="veil2" cx=".5" cy=".42" r=".72"><stop offset=".5" stop-color="#0b0e11" stop-opacity="0"/><stop offset="1" stop-color="#0b0e11" stop-opacity=".9"/></radialGradient>
-      <rect width="1440" height="900" fill="url(#veil2)"/>
     </svg>
 
     <!-- ============ 顶栏 ============ -->
@@ -527,15 +581,16 @@ function ovShowChoose(){
 }
 
 function ovLightNode(id){
-  // 节点序映射（1..5 → 两界山..盘丝洞 附近节点；长安=0 灵山=终点）
-  const map = {1:[280,660],2:[470,573],3:[700,703],4:[912,622],5:[1090,566]};
-  document.querySelectorAll('#ov-nodes circle[data-node]').forEach(el => {
+  // 节点序映射（新版倒U路线：1两界山 2鹰愁涧 3流沙河 4火焰山 5盘丝洞）
+  const map = {1:[1348,470],2:[1300,330],3:[1122,254],4:[163,258],5:[118,560]};
+  const sel = {1:'"1"',2:'"2"',3:'"5"',4:'"x10"',5:'"6"'};
+  document.querySelectorAll('#ov-stations circle[data-node]').forEach(el => {
     el.setAttribute('fill', 'rgba(216,180,95,.6)');
     el.setAttribute('r', '3.5');
     el.style.filter = '';
   });
   const pos = map[id]; if(!pos) return;
-  const node = document.querySelector('#ov-nodes circle[data-node="' + id + '"]');
+  const node = document.querySelector('#ov-stations circle[data-node=' + sel[id] + ']');
   if(node){ node.setAttribute('fill', '#ffe9a8'); node.setAttribute('r', '6'); node.style.filter = 'drop-shadow(0 0 6px #f5df9a)'; }
   const flag = document.getElementById('ov-nodeflag');
   flag.setAttribute('x', pos[0]); flag.setAttribute('y', pos[1] - 22);
@@ -607,7 +662,8 @@ function ovRender(){
   ring.style.strokeDashoffset = String(333 * (1 - pct));
   // 颜色分级：充足金 / 少于10分钟橙红 / 少于5分钟红并闪烁
   ring.style.stroke = ovLeft <= 300 ? '#e5533d' : (ovLeft <= 600 ? '#e6862e' : '#d8b45f');
-  el.style.color = ovLeft <= 300 ? '#ffb4a2' : '#f0e6c8';
+  el.style.color = '#2e261a';
+  el.style.color = ovLeft <= 300 ? '#c0392b' : '#2e261a';
   el.style.animation = ovLeft <= 300 ? 'ovBlink 1s steps(2) infinite' : 'none';
 }
 function ovStartTimer(reset){
