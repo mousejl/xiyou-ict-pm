@@ -11,7 +11,7 @@
 #ov-screen{--zsilk:#9e2f22;--zsilk2:#a04330;--inkbrown:#2e2a22;--golddeep:#8a6d1f;--paperdim:#6b5636;}
 #ov-screen{display:flex;flex-direction:column;padding:46px 22px 18px}
 #ov-screen>.ov-creed{flex:1 1 auto;min-height:0}
-.ov-creed{position:relative;width:100%;max-width:none;margin:0;padding:8px;border:3px solid var(--zsilk);border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 66px rgba(158,47,34,.16);
+.ov-creed{position:relative;display:flex;flex-direction:column;width:100%;max-width:none;margin:0;padding:8px;border:3px solid var(--zsilk);border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.6),0 0 66px rgba(158,47,34,.16);
   background:
    radial-gradient(ellipse at 28% 16%,rgba(255,250,233,.5),transparent 58%),
    radial-gradient(ellipse at 78% 90%,rgba(181,156,104,.38),transparent 56%),
@@ -30,32 +30,28 @@
 .ov-title{font-family:'KaiTi','STKaiti','Noto Serif SC','Songti SC',serif;font-weight:900;font-size:clamp(34px,5.6vh,54px);color:var(--inkbrown);margin:0;letter-spacing:.05em;line-height:1.25}
 .ov-sub{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:15px;color:var(--zsilk2);letter-spacing:.16em;margin-top:8px}
 .ov-body{display:flex;gap:16px;margin-top:13px;align-items:stretch;flex:1 1 auto;min-height:0}
-.ov-map{position:relative;flex:1 1 calc(100% - 560px);min-width:0;min-height:0;margin:0;border:1.5px solid rgba(158,47,34,.8);background:#0a0a09;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(212,175,55,.14)}
+.ov-map{position:relative;flex:1 1 calc(100% - 520px);min-width:0;min-height:0;margin:0;border:1.5px solid rgba(158,47,34,.8);background:#0a0a09;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(212,175,55,.14)}
 .ov-map>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ov-map-sizer{display:none}
 .ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
-.ov-right{flex:0 0 560px;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
-.ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#2a3a31,#20302a 60%,#1c2a25);padding:13px 18px;flex:0 0 auto;box-shadow:inset 0 0 22px rgba(0,0,0,.35)}
+.ov-right{flex:1 1 auto;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
+.ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#16130e,#0f0d09 60%,#0a0a09);padding:10px 16px;flex:0 0 auto;box-shadow:inset 0 0 22px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
 .ov-clock{display:flex;align-items:center;gap:22px;justify-content:center}
-.ov-clock-ring{position:relative;width:clamp(170px,26vh,290px);height:clamp(170px,26vh,290px);flex:0 0 auto}
+.ov-clock-ring{position:relative;width:clamp(150px,21vh,250px);height:clamp(150px,21vh,250px);flex:0 0 auto}
 .ov-clock-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,.35))}
 .ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
-#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(38px,6.2vh,68px);font-weight:800;color:#f2e5bf;letter-spacing:.02em;line-height:1;text-shadow:0 0 18px rgba(230,193,71,.4)}
-.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#2a3a31,#20302a 60%,#1c2a25);padding:16px 20px;flex:1;min-height:0;box-shadow:inset 0 0 22px rgba(0,0,0,.35)}
-.ov-qrbox{position:relative;width:clamp(190px,22vh,260px);height:clamp(190px,22vh,260px);flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:10px;border-radius:2px}
+#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(34px,5.4vh,58px);font-weight:800;color:#f2e5bf;letter-spacing:.02em;line-height:1;text-shadow:0 0 18px rgba(230,193,71,.4)}
+.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#16130e,#0f0d09 60%,#0a0a09);padding:16px 20px;flex:1;min-height:0;box-shadow:inset 0 0 22px rgba(0,0,0,.5)}
+.ov-qrbox{position:relative;width:clamp(170px,19vh,230px);height:clamp(170px,19vh,230px);flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:9px;border-radius:2px}
 #ov-qr{width:100%;height:100%;display:block}
-#ov-sealbox{position:absolute;right:-24px;bottom:-20px;width:clamp(72px,10vh,120px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
+#ov-sealbox{position:absolute;right:-20px;bottom:-16px;width:clamp(64px,9vh,104px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
 #ov-seal{width:100%;display:block}
 .ov-foot{flex:0 0 auto;margin-top:15px;padding-top:11px;border-top:1.5px solid rgba(158,47,34,.4);text-align:center;font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:13.5px;color:var(--paperdim);letter-spacing:.05em}
 @media(max-width:960px){
-  #ov-screen{padding:54px 12px 20px !important}
-  .ov-creed{flex:none !important;max-width:100%;padding:5px}
-  .ov-creed-inner{padding:12px 12px 10px}
-  .ov-title{font-size:26px}
-  .ov-sub{font-size:12.5px;letter-spacing:.08em}
-  .ov-kicker{font-size:10.5px;letter-spacing:.2em;margin-bottom:6px}
+  /* 手机端：ovFitMap 不适用，地图恢复全宽自然比例，右栏纵堆叠 */
   .ov-body{flex:none;flex-direction:column;gap:12px}
-  .ov-map{flex:none;min-height:0;aspect-ratio:2728/2048}
-  .ov-right{flex:none;width:100%}
+  .ov-map{flex:none !important;width:100% !important;height:auto !important;aspect-ratio:2361/1676}
+  .ov-right{flex:none !important;width:100% !important;min-width:0 !important}
   .ov-mapcap{display:none}
   .ov-clock{flex-wrap:wrap;gap:12px}
   .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:14px 12px}
@@ -372,7 +368,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
         <div class="ov-body">
           <!-- 左折：带背景的取经路线图 -->
           <figure class="ov-map">
-            <svg viewBox="0 0 2728 2048" preserveAspectRatio="xMidYMid slice">
+            <svg viewBox="0 0 2361 1676" preserveAspectRatio="xMidYMid meet" style="position:absolute;inset:0;width:100%;height:100%">
               <defs>
                 <filter id="ov-glow">
                   <feGaussianBlur stdDeviation="24" result="blur"/>
@@ -384,12 +380,12 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
                 </filter>
               </defs>
               <!-- 黑金山水底图 -->
-              <image href="route-bg.jpg" x="0" y="0" width="2728" height="2048" preserveAspectRatio="xMidYMid slice"/>
+              <image href="route-bg.jpg" x="0" y="0" width="2361" height="1676" preserveAspectRatio="xMidYMid meet"/>
               <!-- 全程路线（暗棕虚线） -->
-              <path id="ov-route-base" d="" fill="none" stroke="#8b7355" stroke-width="8"
+              <path id="ov-route-base" d="" fill="none" stroke="#8b7355" stroke-width="7"
                     stroke-dasharray="26,16" stroke-linecap="round" opacity="0.55"/>
               <!-- 已走金线 -->
-              <path id="ov-route-traveled" d="" fill="none" stroke="#d4af37" stroke-width="10"
+              <path id="ov-route-traveled" d="" fill="none" stroke="#d4af37" stroke-width="9"
                     stroke-linecap="round" stroke-linejoin="round"
                     style="filter: drop-shadow(0 0 10px rgba(212,175,55,0.55));"/>
               <!-- 站点 -->
@@ -417,7 +413,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
               <div class="ov-clock">
                 <div class="ov-clock-ring">
                   <svg viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="53" fill="rgba(42,58,49,.85)"/>
+                    <circle cx="60" cy="60" r="53" fill="rgba(10,10,9,.9)"/>
                     <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(230,193,71,.18)" stroke-width="8"/>
                     <circle id="ov-ring" cx="60" cy="60" r="53" fill="none" stroke="#b8860b" stroke-width="8" stroke-linecap="round" stroke-dasharray="333" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
                   </svg>
@@ -567,6 +563,11 @@ const OV_LOCS = [
   { name: "天竺国",       x: 1218, y: 1780 },
   { name: "灵山大雷音寺", x: 705,  y: 1906, labelDx: 130, labelDy: 100 },
 ];
+// 坐标系归一化：原坐标基于 2728×2048 参考图，现底图原生 2361×1676，一次性缩放并缩径（等比 0.865/0.818，线宽同步）
+(function(){
+  const SX = 2361 / 2728, SY = 1676 / 2048;
+  OV_LOCS.forEach(l => { l.x = +(l.x * SX).toFixed(1); l.y = +(l.y * SY).toFixed(1); if(l.labelDx) l.labelDx *= SX; if(l.labelDy) l.labelDy *= SY; });
+})();
 // Catmull-Rom 样条转三次贝塞尔 + 各路段自然外扩，得到圆润蜿蜒的山路
 function ovBuildPath(points){
   if (points.length < 2) return "";
@@ -604,6 +605,8 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
   const g = document.getElementById('ov-locations');
   const NS = 'http://www.w3.org/2000/svg';
   const S = 1.65;   // 卡片视图缩放补偿（原全屏版尺寸×坐标系的等效放大）
+  const SX = 2361 / 2728, SY = 1676 / 2048;
+  const s = (v, k) => +(v * (k || 1)).toFixed(1);   // 外扩偏移同步缩放
   OV_LOCS.forEach((loc, i) => {
     const circle = document.createElementNS(NS, 'circle');
     circle.setAttribute('cx', loc.x); circle.setAttribute('cy', loc.y);
@@ -722,13 +725,50 @@ function ovDrawerHideShift(){
 }
 let ovDrawerInit = false;
 function ovDrawerSmallHide(){
-  if(!ovDrawerInit && window.innerWidth <= 960){
-    const d = document.getElementById('ov-drawer');
-    d.dataset.open = '0';
-    d.style.transform = 'translate(' + ovDrawerHideShift() + 'px, -50%)';
-    document.getElementById('ov-drawer-toggle').textContent = '▴ 考官操作';
+  // 抽屉默认收起（所有屏幕宽度）；拉手留在右缘可点开
+  const d = document.getElementById('ov-drawer');
+  d.dataset.open = '0';
+  d.style.transform = 'translate(' + ovDrawerHideShift() + 'px, -50%)';
+  document.getElementById('ov-drawer-toggle').textContent = '▴ 考官操作';
+}
+function ovFitMap(){
+  // 地图布局：底图原生 2361×1676，完整显示（meet）；仅桌面端（>960）启用，窄屏走媒体查询自然堆叠
+  if (window.innerWidth <= 960) {
+    const m0 = document.querySelector('.ov-map'), r0 = document.querySelector('.ov-right');
+    m0.style.width = ''; m0.style.height = ''; m0.style.flex = '';
+    r0.style.flex = ''; r0.style.minWidth = '';
+    return;
   }
-  ovDrawerInit = true;
+  const body = document.querySelector('.ov-body');
+  const map = document.querySelector('.ov-map');
+  const right = document.querySelector('.ov-right');
+  const AR = 2361 / 1676;
+  const bodyH = body.clientHeight;
+  const gap = 16;
+  // 右栏最小内容宽（码/环最大值+边距）
+  const rightMin = Math.max(
+    document.querySelector('.ov-clock-ring').offsetWidth,
+    document.querySelector('.ov-qrbox').offsetWidth
+  ) + 96;
+  // 先按右栏理想宽 520 试算地图宽
+  let rightW = Math.min(520, Math.max(rightMin, 260));
+  let mapW = body.clientWidth - rightW - gap;
+  let mapH = mapW / AR;
+  if (mapH > bodyH) {            // 高度不够：按高定宽，右栏吃剩余
+    mapH = bodyH;
+    mapW = mapH * AR;
+    rightW = body.clientWidth - mapW - gap;
+    if (rightW < rightMin) {      // 极窄：地图让宽
+      rightW = rightMin;
+      mapW = body.clientWidth - rightW - gap;
+      mapH = mapW / AR;
+    }
+  }
+  map.style.width = Math.round(mapW) + 'px';
+  map.style.height = Math.round(mapH) + 'px';
+  map.style.flex = '0 0 auto';
+  right.style.flex = '1 1 auto';
+  right.style.minWidth = '0';
 }
 function ovOpen(id){
   ovCur = OV_EXAMS.find(e => e.id === id);
@@ -742,6 +782,7 @@ function ovOpen(id){
   document.getElementById('ov-choose').style.display = 'none';
   document.getElementById('exam-overlay').style.display = 'none';
   document.getElementById('ov-screen').style.display = 'flex';
+  ovFitMap();
   ovDrawerSmallHide();   // 需在 ov-screen 可见后执行：display:none 下面板测量宽度为0
   ovPoll();
   ovTimer = setInterval(ovPoll, 30000);
@@ -867,6 +908,10 @@ function ovClose(){
   ovStopTimer();
 }
 document.getElementById('exam-overlay').addEventListener('click', e => { if(e.target.id === 'exam-overlay' && document.getElementById('ov-screen').style.display === 'none') ovClose(); });
+window.addEventListener('resize', () => {
+  const ov = document.getElementById('ov-screen');
+  if(ov && ov.style.display !== 'none' && window.innerWidth > 960) ovFitMap();
+});
 
 /* 登录记忆：已验证过的老师，打开即可一键进开考 */
 (function(){
