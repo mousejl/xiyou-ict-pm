@@ -218,9 +218,21 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
     </a>
   </div>
 
-  <div class="section-t"><h2>主讲老师登记</h2><div class="en">Instructor Registration</div></div>
+  <div class="section-t"><h2>主讲老师专区</h2><div class="en">Instructor Center</div></div>
   <div class="panel">
-    <p style="font-size:13.5px;color:var(--sub);margin-bottom:14px">登记主讲老师信息（姓名 / 单位 / 部门 / 手机 / 邮箱），登记后的<b>手机号将作为老师端成绩查询登录凭证</b>——凭它可在成绩查询页与成绩总表查看全班成绩并导出 CSV。同手机号重复登记将覆盖更新。</p>
+    <p style="font-size:13.5px;color:var(--sub);margin-bottom:14px">登记信息或进入开考控制台。登记后的<b>手机号将作为老师端统一凭证</b>——可用于开考、在成绩查询页与成绩总表查看全班成绩并导出 CSV。同手机号重复登记将覆盖更新。</p>
+
+    <!-- 开考控制台 -->
+    <div style="border:1.5px solid #e0d5b8;background:#fdf8ec;border-radius:12px;padding:16px 18px;margin-bottom:18px">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:180px"><b style="font-size:15px;color:#1a2436">🎯 开考控制台</b>
+          <span style="display:block;font-size:12.5px;color:var(--sub);margin-top:2px">登录后选择本场科目 → 投影开考大屏（唯一二维码 + 实时交卷数 + 分享链接）</span></div>
+        <input id="k-phone" type="tel" inputmode="numeric" maxlength="11" placeholder="主讲老师手机号" style="width:180px;padding:8px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
+        <button id="k-btn" style="background:#b8912f;color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:14px;font-weight:700;cursor:pointer">进入开考</button>
+      </div>
+      <div id="k-msg" style="font-size:12.5px;color:#E53935;margin-top:6px;min-height:16px"></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--sub);margin-bottom:8px"><b>主讲老师登记</b>（尚未登记的老师请先登记，登记口令向课程管理员获取）：</p>
     <div class="reg-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
       <input id="t-name" placeholder="姓名 *" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
       <input id="t-company" placeholder="单位 *（如：省公司）" style="padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;font-size:14px">
@@ -255,6 +267,41 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 </div>
 
 <div class="foot">取经计划 · 项目管理四级训练营 ｜ 基于对标研究全面升级 · 与《西游记·ICT项目管理》经典课程并存 ｜ 2026</div>
+
+<!-- ========== 开考控制台弹层（主讲老师专区内嵌功能） ========== -->
+<div id="exam-overlay" style="display:none;position:fixed;inset:0;background:rgba(15,20,32,.55);backdrop-filter:blur(2px);z-index:100;overflow:auto;padding:20px 14px">
+  <!-- 科目选择 -->
+  <div id="ov-choose" style="display:none;max-width:1040px;margin:2vh auto;color:var(--ink)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+      <b style="font-size:20px;color:#fff;letter-spacing:2px">选择本场考试科目</b>
+      <button onclick="ovClose()" style="border:none;border-radius:99px;padding:7px 20px;background:#37455e;color:#dce5f2;font-size:13px;font-weight:700;cursor:pointer">✕ 关闭</button>
+    </div>
+    <div id="ov-welcome" style="color:#d8c48a;font-size:13px;margin-bottom:20px"></div>
+    <div id="ov-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px"></div>
+  </div>
+  <!-- 开考大屏 -->
+  <div id="ov-screen" style="display:none;max-width:1000px;margin:2vh auto;text-align:center;color:var(--ink);padding:10px 0 30px">
+    <div id="ov-title" style="color:#fff;font-size:26px;font-weight:800;letter-spacing:3px;margin-bottom:4px"></div>
+    <div style="color:#f5c658;font-size:14px;letter-spacing:1px;margin-bottom:22px">结业考试进行中 · 建议全屏投影（F11）· 学生扫码即考</div>
+    <div id="ov-card" style="background:#fff;border-radius:20px;padding:30px 28px 24px;box-shadow:0 10px 40px rgba(0,0,0,.4);border-top:6px solid #0066CC;text-align:center">
+      <div style="width:min(44vh,400px);height:min(44vh,400px);margin:0 auto 16px;background:#fff;border:2px solid #e8e4d8;border-radius:16px;padding:16px">
+        <img id="ov-qr" alt="答题二维码" style="width:100%;height:100%;display:block">
+      </div>
+      <div style="font-size:16.5px;color:#1a2436;font-weight:700;margin-bottom:6px">学生用手机扫上方二维码 → 自动领取本人随机试卷</div>
+      <div style="font-size:13.5px;color:#7a8699;margin-top:4px">单选 <b>15题×2分</b> · 多选 <b>10题×3分</b> · 判断 <b>20题×2分</b> · 满分 <b>100分</b> · 建议限时60分钟</div>
+      <div style="font-size:13.5px;color:#7a8699;margin-top:4px">每人随机组卷（题序/选项双乱序）· 支持断点续答 · ≥95分自动发放《通关文牒》PDF</div>
+      <div style="display:inline-block;margin-top:12px;background:#f0f7ee;color:#1e7b34;font-size:14.5px;font-weight:700;border:1.5px solid #bfe3c6;border-radius:99px;padding:6px 20px">已交卷 <span id="ov-count">…</span> 人（30秒自动刷新）</div>
+      <div style="margin-top:14px;font-size:12.5px;color:#a08a4a;background:#faf6e8;border:1px dashed #e3d5a8;border-radius:10px;padding:9px 14px;line-height:1.9">考前提醒：手机静音、独立完成 · 中途断网或退出，重新扫码可续答 · 交卷即出分，可即时查看错题</div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+        <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;background:#f5c658;color:#5a4008">📋 分享考试链接</button>
+        <button onclick="ovBack()" style="border:none;border-radius:99px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2">← 更换考试科目</button>
+        <button onclick="ovClose()" style="border:none;border-radius:99px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;background:#8a97ad;color:#fff">结束收卷</button>
+      </div>
+    </div>
+    <div style="color:#8a99b5;font-size:12px;margin-top:18px;line-height:1.9">链接分享给学生后，学生点开等同扫码（每人独立随机卷）· 成绩总表：<a href="https://exam-report.mousejl.top" target="_blank" rel="noopener" style="color:#c9d84a">exam-report.mousejl.top</a><br>考试纪律与时间安排由主讲老师现场把控</div>
+  </div>
+</div>
+
 <script>
 document.getElementById('t-btn').addEventListener('click', function(){
   const v = id => document.getElementById(id).value.trim();
@@ -279,6 +326,110 @@ document.getElementById('t-btn').addEventListener('click', function(){
     }
   }).catch(() => { m.textContent = '网络异常，请稍后再试'; m.style.color = '#c62828'; });
 });
+
+/* ================= 开考控制台（弹层版，内嵌于统一入口） ================= */
+const OV_API = 'https://exam-report.mousejl.top';
+const OV_QR = 'https://mousejl.github.io/xiyou-ict-pm/curriculum/exams';
+const OV_EXAMS = [
+  {id:1, no:'试卷一', name:'通识全景课 L+', color:'#0066CC', target:'全员必修 · 项目定义/西游对照/十大知识域'},
+  {id:2, no:'试卷二', name:'认知篇 L1',     color:'#0066CC', target:'新入职员工 · 听懂语言/认识角色/找到位置'},
+  {id:3, no:'试卷三', name:'基础篇 L2',     color:'#00A87E', target:'项目助理/专员 · 会做纪要/会记台账/会跟催/会汇报'},
+  {id:4, no:'试卷四', name:'实战篇 L3',     color:'#E65C00', target:'项目经理 · 敢说不/会留缓冲/敢打回/管住蔓延'},
+  {id:5, no:'试卷五', name:'治理篇 L4',     color:'#D32F2F', target:'项目总监 · 会选人/会分赏/会搭体系/会自我批判'}
+];
+let ovToken = '', ovTeacher = '', ovCur = null, ovTimer = null;
+
+document.getElementById('k-btn').addEventListener('click', ovLogin);
+document.getElementById('k-phone').addEventListener('keydown', e => { if(e.key === 'Enter') ovLogin(); });
+
+function ovLogin(){
+  const p = document.getElementById('k-phone').value.trim();
+  const m = document.getElementById('k-msg');
+  if(!/^1\d{10}$/.test(p)){ m.textContent = '手机号格式不正确（11位）'; return; }
+  m.textContent = '验证中…'; m.style.color = 'var(--sub)';
+  fetch(OV_API + '/api/results?token=' + encodeURIComponent(p)).then(r => r.json()).then(j => {
+    if(!j.ok){ m.textContent = j.msg || '该手机号未登记为主讲老师，请先在下方登记'; m.style.color = '#E53935'; return; }
+    m.textContent = ''; m.style.color = '';
+    ovToken = p; ovTeacher = j.teacher;
+    try{ localStorage.setItem('ov-auth', p); }catch(e){}
+    ovShowChoose();
+  }).catch(() => { m.textContent = '网络异常，请重试'; m.style.color = '#E53935'; });
+}
+
+function ovShowChoose(){
+  if(ovTimer){ clearInterval(ovTimer); ovTimer = null; }
+  document.getElementById('ov-welcome').textContent = '主讲老师：' + ovTeacher + ' ｜ 点击本场要考的科目，进入开考大屏（一次只考一科，学生扫码直接进入该科考试）';
+  document.getElementById('ov-grid').innerHTML = OV_EXAMS.map(e => `
+    <div style="background:#fff;border-radius:14px;padding:22px 18px;text-align:center;box-shadow:0 6px 22px rgba(0,0,0,.3);border-top:5px solid ${e.color};cursor:pointer;transition:transform .15s" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform=''" onclick="ovOpen(${e.id})">
+      <span style="display:inline-block;font-size:11px;letter-spacing:.2em;font-weight:700;color:#fff;background:${e.color};padding:3px 12px;border-radius:20px;margin-bottom:10px">${e.no}</span>
+      <b style="display:block;font-size:17px;color:#1a2436">${e.name}</b>
+      <span style="display:block;font-size:12px;color:#7a8699;margin-top:6px">${e.target}</span>
+      <span style="display:block;margin-top:12px;font-size:13px;color:${e.color};font-weight:700">开始本场开考 →</span>
+    </div>`).join('');
+  const ov = document.getElementById('exam-overlay');
+  ov.style.display = 'block';
+  document.getElementById('ov-choose').style.display = 'block';
+  document.getElementById('ov-screen').style.display = 'none';
+  document.body.style.overflow = 'hidden';
+}
+
+function ovOpen(id){
+  ovCur = OV_EXAMS.find(e => e.id === id);
+  document.getElementById('ov-title').textContent = ovCur.no + ' · ' + ovCur.name + ' · 结业考试';
+  document.getElementById('ov-card').style.borderTopColor = ovCur.color;
+  document.getElementById('ov-qr').src = OV_QR + '/start-qr-' + id + '.svg';
+  ovShareReset();
+  document.getElementById('ov-choose').style.display = 'none';
+  document.getElementById('ov-screen').style.display = 'block';
+  ovPoll();
+  ovTimer = setInterval(ovPoll, 30000);
+}
+
+function ovPoll(){
+  if(!ovCur) return;
+  fetch(OV_API + '/api/results?token=' + encodeURIComponent(ovToken)).then(r => r.json()).then(j => {
+    if(!j.ok) return;
+    document.getElementById('ov-count').textContent = j.rows.filter(r => r.exam_id === ovCur.id).length;
+  }).catch(() => {});
+}
+
+function ovShare(){
+  const url = OV_QR + '/quiz.html?e=' + ovCur.id;
+  const btn = document.getElementById('ov-share');
+  const done = () => { btn.textContent = '✓ 链接已复制，可分享到微信群'; btn.style.background = '#63c76a'; btn.style.color = '#fff'; setTimeout(ovShareReset, 4000); };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done).catch(() => ovFallbackCopy(url, done)); }
+  else ovFallbackCopy(url, done);
+}
+function ovFallbackCopy(url, done){
+  const ta = document.createElement('textarea'); ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try{ document.execCommand('copy'); done(); }catch(e){ prompt('请手动复制考试链接：', url); }
+  document.body.removeChild(ta);
+}
+function ovShareReset(){ const b = document.getElementById('ov-share'); b.textContent = '📋 分享考试链接'; b.style.background = '#f5c658'; b.style.color = '#5a4008'; }
+function ovBack(){ ovShowChoose(); }
+function ovClose(){
+  const ov = document.getElementById('exam-overlay');
+  ov.style.display = 'none';
+  document.getElementById('ov-choose').style.display = 'none';
+  document.getElementById('ov-screen').style.display = 'none';
+  document.body.style.overflow = '';
+  if(ovTimer){ clearInterval(ovTimer); ovTimer = null; }
+}
+document.getElementById('exam-overlay').addEventListener('click', e => { if(e.target.id === 'exam-overlay' && document.getElementById('ov-screen').style.display === 'none') ovClose(); });
+
+/* 登录记忆：已验证过的老师，打开即可一键进开考 */
+(function(){
+  let t = '';
+  try{ t = localStorage.getItem('ov-auth') || ''; }catch(e){}
+  if(t && /^1\d{10}$/.test(t)){
+    document.getElementById('k-phone').value = t;
+    fetch(OV_API + '/api/results?token=' + encodeURIComponent(t)).then(r => r.json()).then(j => {
+      if(j.ok){ ovToken = t; ovTeacher = j.teacher; }
+      else { try{ localStorage.removeItem('ov-auth'); }catch(e){} }
+    }).catch(() => {});
+  }
+})();
 </script>
 </body>
 </html>
