@@ -33,17 +33,17 @@
 .ov-map{position:relative;flex:1 1 52%;min-width:0;min-height:0;margin:0;border:1.5px solid rgba(158,47,34,.8);background:#0a0a09;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(212,175,55,.14)}
 .ov-map>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
-.ov-right{flex:1 1 48%;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
+.ov-right{flex:1 1 40%;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
 .ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:13px 18px;flex:0 0 auto}
 .ov-clock{display:flex;align-items:center;gap:22px;justify-content:center}
-.ov-clock-ring{position:relative;width:clamp(140px,19vh,210px);height:clamp(140px,19vh,210px);flex:0 0 auto}
+.ov-clock-ring{position:relative;width:clamp(170px,26vh,290px);height:clamp(170px,26vh,290px);flex:0 0 auto}
 .ov-clock-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block}
 .ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
-#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(28px,4.4vh,46px);font-weight:800;color:var(--inkbrown);letter-spacing:.02em;line-height:1}
+#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(38px,6.2vh,68px);font-weight:800;color:var(--inkbrown);letter-spacing:.02em;line-height:1}
 .ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:16px 20px;flex:1;min-height:0}
-.ov-qrbox{position:relative;width:clamp(230px,32vh,350px);height:clamp(230px,32vh,350px);flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:10px;border-radius:2px}
+.ov-qrbox{position:relative;width:clamp(190px,22vh,260px);height:clamp(190px,22vh,260px);flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:10px;border-radius:2px}
 #ov-qr{width:100%;height:100%;display:block}
-#ov-sealbox{position:absolute;right:-24px;bottom:-20px;width:clamp(88px,13vh,150px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
+#ov-sealbox{position:absolute;right:-24px;bottom:-20px;width:clamp(72px,10vh,120px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
 #ov-seal{width:100%;display:block}
 .ov-foot{flex:0 0 auto;margin-top:15px;padding-top:11px;border-top:1.5px solid rgba(158,47,34,.4);text-align:center;font-family:'PingFang SC','Microsoft YaHei',sans-serif;font-size:13.5px;color:var(--paperdim);letter-spacing:.05em}
 @media(max-width:960px){
@@ -58,10 +58,10 @@
   .ov-mapcap{display:none}
   .ov-clock{flex-wrap:wrap;gap:12px}
   .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:14px 12px}
-  .ov-qrbox{width:212px !important;height:212px !important}
+  .ov-qrbox{width:190px !important;height:190px !important}
   #ov-sealbox{width:88px;right:-12px;bottom:-14px}
   .ov-foot{font-size:12px;line-height:1.9}
-  .ov-clock-ring{width:118px !important;height:118px !important}
+  .ov-clock-ring{width:150px !important;height:150px !important}
 }
 
 :root{
