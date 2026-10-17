@@ -34,13 +34,13 @@
 .ov-map>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
 .ov-right{flex:0 0 560px;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
-.ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:13px 18px;flex:0 0 auto}
+.ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#2a3a31,#20302a 60%,#1c2a25);padding:13px 18px;flex:0 0 auto;box-shadow:inset 0 0 22px rgba(0,0,0,.35)}
 .ov-clock{display:flex;align-items:center;gap:22px;justify-content:center}
 .ov-clock-ring{position:relative;width:clamp(170px,26vh,290px);height:clamp(170px,26vh,290px);flex:0 0 auto}
-.ov-clock-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block}
+.ov-clock-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,.35))}
 .ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
-#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(38px,6.2vh,68px);font-weight:800;color:var(--inkbrown);letter-spacing:.02em;line-height:1}
-.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:rgba(255,250,236,.55);padding:16px 20px;flex:1;min-height:0}
+#ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(38px,6.2vh,68px);font-weight:800;color:#f2e5bf;letter-spacing:.02em;line-height:1;text-shadow:0 0 18px rgba(230,193,71,.4)}
+.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#2a3a31,#20302a 60%,#1c2a25);padding:16px 20px;flex:1;min-height:0;box-shadow:inset 0 0 22px rgba(0,0,0,.35)}
 .ov-qrbox{position:relative;width:clamp(190px,22vh,260px);height:clamp(190px,22vh,260px);flex:0 0 auto;background:#16110a;border:2.5px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(158,47,34,.35),0 6px 20px rgba(0,0,0,.38);padding:10px;border-radius:2px}
 #ov-qr{width:100%;height:100%;display:block}
 #ov-sealbox{position:absolute;right:-24px;bottom:-20px;width:clamp(72px,10vh,120px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
@@ -417,8 +417,8 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
               <div class="ov-clock">
                 <div class="ov-clock-ring">
                   <svg viewBox="0 0 120 120">
-                    <circle cx="60" cy="60" r="53" fill="rgba(255,250,236,.75)"/>
-                    <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(158,47,34,.16)" stroke-width="8"/>
+                    <circle cx="60" cy="60" r="53" fill="rgba(42,58,49,.85)"/>
+                    <circle cx="60" cy="60" r="53" fill="none" stroke="rgba(230,193,71,.18)" stroke-width="8"/>
                     <circle id="ov-ring" cx="60" cy="60" r="53" fill="none" stroke="#b8860b" stroke-width="8" stroke-linecap="round" stroke-dasharray="333" stroke-dashoffset="0" style="transition:stroke-dashoffset 1s linear"/>
                   </svg>
                   <div class="ov-clock-num">
@@ -780,12 +780,12 @@ function ovRender(){
   const el = document.getElementById('ov-timer');
   const ring = document.getElementById('ov-ring');
   el.textContent = ovFmt(ovLeft);
-  // 进度环：333 = 2πr（r53）
+  // 进度环：333 = 2πr（r53）；黑板底上用亮金保证对比
   const pct = ovLeft / OV_TOTAL;
   ring.style.strokeDashoffset = String(333 * (1 - pct));
-  // 颜色分级（米黄宣纸底）：充足金棕 / 少于10分钟橙 / 少于5分钟朱红闪烁
-  ring.style.stroke = ovLeft <= 300 ? '#c0392b' : (ovLeft <= 600 ? '#d35400' : '#b8860b');
-  el.style.color = ovLeft <= 300 ? '#c0392b' : '#2e2a22';
+  // 颜色分级（防黑板深底）：充足亮金 / 少于10分钟橙 / 少于5分钟红闪
+  ring.style.stroke = ovLeft <= 300 ? '#ff5544' : (ovLeft <= 600 ? '#ff9e2c' : '#e6c147');
+  el.style.color = ovLeft <= 300 ? '#ff6b5a' : '#f2e5bf';
   el.style.animation = ovLeft <= 300 ? 'ovBlink 1s steps(2) infinite' : 'none';
 }
 function ovStartTimer(reset){
