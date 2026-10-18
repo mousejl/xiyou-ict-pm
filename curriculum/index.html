@@ -34,7 +34,7 @@
 .ov-map-side{position:absolute;top:0;bottom:0;left:0;width:44px;background:linear-gradient(180deg,rgba(158,47,34,.16),rgba(158,47,34,.05) 18%,rgba(158,47,34,.05) 82%,rgba(158,47,34,.16));border-right:1.5px solid rgba(158,47,34,.55);display:flex;align-items:center;justify-content:center;z-index:2}
 .ov-map-side span{writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:14px;font-weight:700;color:rgba(230,193,71,.92);letter-spacing:.42em;line-height:1.6;white-space:nowrap;text-shadow:0 0 8px rgba(230,193,71,.35)}
 .ov-map-side::after{content:"";position:absolute;left:50%;top:10px;bottom:10px;width:0;border-left:1px solid rgba(212,175,55,.22)}
-.ov-map>svg{position:absolute;top:0;bottom:0;left:44px;right:0;width:auto;height:100%;display:block}
+.ov-map>svg{position:absolute;top:0;left:44px;width:calc(100% - 44px);height:100%;display:block}
 .ov-map-sizer{display:none}
 .ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
 .ov-right{flex:1 1 auto;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
@@ -812,22 +812,26 @@ function ovFitMap(){
   const body = document.querySelector('.ov-body');
   const map = document.querySelector('.ov-map');
   const right = document.querySelector('.ov-right');
-  const AR = 2361 / 1676;
+  const AR = 2361 / 1676;      // 背景原生比例
+  const SIDE = 44;             // 左侧题字竖栏宽
   const bodyH = body.clientHeight;
   const gap = 16;
-  // 地图优先策略（用戶要求地图尽量大）：优先按高度撑满定宽，右栏压缩到最小内容宽；仅当右栏低于最小宽时才按宽反推
+  // 地图优先：SVG 绘图区在侧栏右侧，mapW = SIDE + 绘图宽；绘图宽/高按 AR 等比
   const rightMin = Math.max(
     document.querySelector('.ov-clock-ring').offsetWidth,
     document.querySelector('.ov-qrbox').offsetWidth
   ) + 76;
-  let mapH = bodyH;
-  let mapW = mapH * AR;
+  let drawH = bodyH;
+  let drawW = drawH * AR;
+  let mapW = SIDE + drawW;
   let rightW = body.clientWidth - mapW - gap;
-  if (rightW < rightMin - 12) {   // 高度撑满导致右栏过挤：让地图牺牲一点高，保右栏最小宽
+  if (rightW < rightMin - 12) {   // 高度撑满导致右栏过挤：按宽反推
     rightW = rightMin;
     mapW = body.clientWidth - rightW - gap;
-    mapH = mapW / AR;
+    drawW = mapW - SIDE;
+    drawH = drawW / AR;
   }
+  const mapH = drawH;
   map.style.width = Math.round(mapW) + 'px';
   map.style.height = Math.round(mapH) + 'px';
   map.style.flex = '0 0 auto';
