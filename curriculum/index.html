@@ -39,35 +39,26 @@
 .ov-map-sizer{display:none}
 .ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
 .ov-right{flex:1 1 auto;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
-/* 右上卡：复古翻页时钟（flex:1 与码卡等分右栏，各自铺满） */
-.ov-clockcard{border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#16130e,#0f0d09 60%,#0a0a09);padding:10px 16px;flex:1 1 0;min-height:0;box-shadow:inset 0 0 22px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
-.ov-flip-clock{--fc-w:110px;display:flex;align-items:center;justify-content:center;gap:calc(var(--fc-w)*.14);height:100%;max-height:calc(var(--fc-w)*1.5)}
-.fc-card{position:relative;width:var(--fc-w);aspect-ratio:.72;flex:none;perspective:calc(var(--fc-w)*6)}
-.fc-half{position:absolute;left:0;width:100%;height:50%;overflow:hidden;border-radius:7px}
-.fc-top{top:0;background:linear-gradient(#332c22,#241f17 82%);border-bottom:2.5px solid #070605;box-shadow:inset 0 -7px 16px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.06)}
-.fc-bottom{bottom:0;background:linear-gradient(#161310,#0d0b08);border-top:1px solid rgba(232,199,102,.22);box-shadow:0 6px 14px rgba(0,0,0,.5)}
-.fc-half span,.fc-flap span{position:absolute;left:0;top:0;width:100%;height:200%;display:flex;align-items:center;justify-content:center;font-family:'Palatino Linotype','Palatino','Book Antiqua','Georgia','Times New Roman','Noto Serif SC','Songti SC',serif;font-weight:700;font-size:calc(var(--fc-w)*.8);line-height:1;color:#e8c766;text-shadow:0 2px 0 rgba(0,0,0,.9),0 0 14px rgba(232,199,102,.22);font-variant-numeric:tabular-nums;letter-spacing:0}
-.fc-bottom span{top:auto;bottom:0;filter:brightness(.62)}   /* 下半在阴影里：真实翻页钟暗面 */
-/* 翻页片：3D双面（正面旧数、背面新数，cubic-bezier模拟重力下落） */
-.fc-flap{position:absolute;left:0;top:0;width:100%;height:50%;z-index:3;transform-origin:center bottom;transform-style:preserve-3d}
-.fc-flap span{backface-visibility:hidden;background:linear-gradient(#332c22,#241f17 82%);border-radius:7px 7px 0 0;border-bottom:2.5px solid #070605;overflow:hidden}
-/* 两端金属轴点铆钉：翻页钟标志部件 */
-.fc-card::before,.fc-card::after{content:'';position:absolute;top:50%;width:calc(var(--fc-w)*.13);aspect-ratio:1;border-radius:50%;transform:translateY(-50%);background:radial-gradient(circle at 35% 32%,#7a6a50,#2a2318 62%,#14100a);box-shadow:0 1px 3px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.22),0 0 5px rgba(232,199,102,.28);z-index:4}
-.fc-card::before{left:calc(var(--fc-w)*-.064)}
-.fc-card::after{right:calc(var(--fc-w)*-.064)}
-.fc-fb{transform:rotateX(180deg)}
-.fc-card.flip .fc-flap{animation:fcFlip .5s cubic-bezier(.5,.05,.6,.95) forwards}
-@keyframes fcFlip{from{transform:rotateX(0)}to{transform:rotateX(-180deg)}}
-/* 冒号：双点呼吸 */
-.fc-colon{display:flex;flex-direction:column;justify-content:center;gap:calc(var(--fc-w)*.46);flex:none}
-.fc-colon i{width:calc(var(--fc-w)*.17);aspect-ratio:1;border-radius:50%;background:#e8c766;box-shadow:0 0 9px rgba(232,199,102,.55);animation:fcPulse 2s ease-in-out infinite}
-@keyframes fcPulse{0%,100%{opacity:.9}50%{opacity:.25}}
+/* 右上区：一炷香计时（开放式纸面排版：题字小笺 + 金石大字 + 燃香，无卡面） */
+.ov-incense{flex:1 1 0;min-height:0;display:flex;flex-direction:column;align-items:center;padding:clamp(26px,6.2vh,76px) 10px 4px;text-align:center}
+.in-label{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:clamp(15px,2.2vh,22px);font-weight:700;color:var(--zsilk);letter-spacing:.62em;text-indent:.62em;line-height:1;flex:none}
+.in-num{font-family:'Palatino Linotype','Book Antiqua','Songti SC','Noto Serif SC','Palatino','Georgia','Times New Roman',serif;font-weight:700;font-size:var(--in-fs,clamp(58px,9vw,150px));line-height:1.04;color:#3a3125;letter-spacing:.01em;font-variant-numeric:tabular-nums;margin-top:.14em;flex:none;text-shadow:0 1px 0 rgba(255,248,230,.55)}
+/* 香区：原长余痕 + 燃香（高度=剩余时间）+ 香头火光 + 青烟 + 铜炉 */
+.in-zone{position:relative;flex:1 1 auto;min-height:40px;width:130px;margin-top:1.2vh}
+.in-ghost{position:absolute;left:50%;top:0;bottom:29px;width:5px;transform:translateX(-50%);border-radius:3px;background:repeating-linear-gradient(to top,rgba(74,63,46,.27) 0 7px,rgba(74,63,46,0) 7px 12px)}   /* 残灰虚线：原香长余痕 */
+.in-stick{position:absolute;left:50%;bottom:29px;width:6px;transform:translateX(-50%);height:100%;max-height:calc(100% - 29px);border-radius:3px;background:linear-gradient(#8a6a45 0%,#6d4f33 55%,#5b3f27 100%);box-shadow:inset 0 0 2px rgba(0,0,0,.25)}
+.in-tip{position:absolute;top:-3.5px;left:50%;width:13px;height:13px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 42% 38%,#ffd9a0,#ff9a3d 45%,#d94f1e 75%,#8c2f12);box-shadow:0 0 12px 3px rgba(255,138,64,.5);animation:inGlow 1.6s ease-in-out infinite}
+@keyframes inGlow{0%,100%{box-shadow:0 0 10px 2px rgba(255,138,64,.4)}50%{box-shadow:0 0 17px 5px rgba(255,120,50,.68)}}
+.in-smoke{position:absolute;top:-20px;left:50%;width:9px;height:23px;border-radius:50%;background:rgba(84,76,62,.4);filter:blur(2.6px);animation:inSmoke 4.6s linear infinite}
+.in-smoke.s2{animation-duration:5.8s;animation-delay:1.5s;width:7px;height:17px;background:rgba(84,76,62,.32)}
+.in-smoke.s3{animation-duration:6.6s;animation-delay:3.2s;width:12px;height:28px;background:rgba(84,76,62,.28)}
+@keyframes inSmoke{0%{opacity:0;transform:translate(-50%,4px) scale(.55)}14%{opacity:.82}60%{opacity:.5;transform:translate(calc(-50% + 8px),-58px) scale(1.25)}100%{opacity:0;transform:translate(calc(-50% - 11px),-118px) scale(.75)}}
+.in-burner{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:96px;height:44px;flex:none}
 /* 临近结束变色：≤10分钟琥珀 / ≤5分钟红闪 */
-.ov-clockcard.fc-warn .fc-half span,.ov-clockcard.fc-warn .fc-flap span{color:#ffb057}
-.ov-clockcard.fc-warn .fc-colon i{background:#ffb057}
-.ov-clockcard.fc-low .fc-half span,.ov-clockcard.fc-low .fc-flap span{color:#ff6b5a}
-.ov-clockcard.fc-low .fc-colon i{background:#ff6b5a}
-.ov-clockcard.fc-low .fc-card{animation:ovBlink 1s steps(2) infinite}
+.ov-incense.in-warn .in-num{color:#9a5d16}
+.ov-incense.in-warn .in-tip{background:radial-gradient(circle at 42% 38%,#ffe9c0,#ffb347 45%,#e06a1c 75%,#8c2f12)}
+.ov-incense.in-low .in-num{color:#a8271c;animation:ovBlink 1s steps(2) infinite}
+.ov-incense.in-low .in-tip{background:radial-gradient(circle at 42% 38%,#ffd0b8,#ff5c3d 45%,#b32410 75%,#6f1a0a);animation:inGlow .9s ease-in-out infinite}
 .ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:none;background:transparent;padding:0;flex:1;min-height:0}
 .ov-qrbox{position:relative;width:100%;height:100%;flex:1 1 auto;min-width:0;min-height:0;background:#16110a;border:2px solid var(--zsilk);box-shadow:0 6px 20px rgba(0,0,0,.38);border-radius:2px}
 #ov-qr{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -85,12 +76,12 @@
   .ov-map-side{display:none}
   .ov-map-side span{font-size:12px;letter-spacing:.32em}
   .ov-map>svg{left:0 !important;right:0 !important}
-  .ov-flip-clock{--fc-w:min(62px,17vw);height:auto}
+  .ov-incense{--in-fs:64px;padding-top:26px}
   .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:0}
   .ov-qrbox{flex:none !important;width:76vw !important;height:76vw !important;max-width:280px !important;max-height:280px !important}
   .ov-head-seal{width:88px}
   .ov-foot{font-size:12px;line-height:1.9}
-  .ov-clockcard{padding:8px 6px}
+  .ov-incense .in-zone{width:110px}
 }
 
 :root{
@@ -440,10 +431,32 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
           <!-- 右折 -->
           <div class="ov-right">
-            <!-- 右上：一炷香计时 -->
-            <!-- 右上：复古翻页时钟 · 与下方码卡等分铺满 -->
-            <section class="ov-clockcard" id="ov-clockcard">
-              <div class="ov-flip-clock" id="ov-flipclock"></div>
+            <!-- 右上：一炷香计时 · 开放式纸面排版（无卡面，与码卡等分右栏） -->
+            <section class="ov-incense" id="ov-incense">
+              <div class="in-label">尚余 · 一炷香</div>
+              <div class="in-num" id="ov-timer">60:00</div>
+              <div class="in-zone">
+                <i class="in-ghost"></i>
+                <div class="in-stick" id="ov-stick">
+                  <i class="in-smoke s1"></i><i class="in-smoke s2"></i><i class="in-smoke s3"></i>
+                  <i class="in-tip"></i>
+                </div>
+                <svg class="in-burner" viewBox="0 0 96 44">
+                  <defs>
+                    <linearGradient id="inbrz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c663f"/><stop offset=".5" stop-color="#55432a"/><stop offset="1" stop-color="#332818"/></linearGradient>
+                    <linearGradient id="inrim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3a24"/><stop offset=".5" stop-color="#93794c"/><stop offset="1" stop-color="#4a3a24"/></linearGradient>
+                  </defs>
+                  <path d="M12.5 13 q-7 -1 -8.5 4 q-1 5 6 7" fill="none" stroke="#55432a" stroke-width="2.6" stroke-linecap="round"/>
+                  <path d="M83.5 13 q7 -1 8.5 4 q1 5 -6 7" fill="none" stroke="#55432a" stroke-width="2.6" stroke-linecap="round"/>
+                  <path d="M17 15 Q48 23 79 15 L71 34 Q48 41.5 25 34 Z" fill="url(#inbrz)"/>
+                  <ellipse cx="48" cy="15" rx="31" ry="5" fill="url(#inrim)"/>
+                  <ellipse cx="48" cy="15" rx="22.5" ry="3" fill="#1d1610"/>
+                  <path d="M30 21 Q48 27 60 22" stroke="rgba(200,170,110,.3)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+                  <rect x="26.5" y="35" width="5" height="7" rx="1.4" fill="#3a2d1c"/>
+                  <rect x="45" y="36.5" width="6" height="7" rx="1.4" fill="#3a2d1c"/>
+                  <rect x="64.5" y="35" width="5" height="7" rx="1.4" fill="#3a2d1c"/>
+                </svg>
+              </div>
             </section>
 
             <!-- 右下：金色二维码 · 官印 -->
@@ -835,10 +848,10 @@ function ovFitMap(){
   // 地图布局：底图原生 2361×1676（AR），完整显示；仅桌面端（>960）；目标：地图尽可能大且右栏与地图同高、底边对齐
   if (window.innerWidth <= 960) {
     const m0 = document.querySelector('.ov-map'), r0 = document.querySelector('.ov-right');
-    const f0 = document.querySelector('.ov-flip-clock');
+    const i0 = document.querySelector('.ov-incense');
     m0.style.width = ''; m0.style.height = ''; m0.style.flex = '';
     r0.style.flex = ''; r0.style.minWidth = ''; r0.style.height = '';
-    if (f0) f0.style.removeProperty('--fc-w');   // 清内联牌宽，窄屏回落媒体查询尺寸
+    if (i0) i0.style.removeProperty('--in-fs');   // 清内联字号，窄屏回落媒体查询尺寸
     return;
   }
   const body = document.querySelector('.ov-body');
@@ -849,8 +862,8 @@ function ovFitMap(){
   const gap = 14;
   const bodyW = body.clientWidth;
   const bodyH = body.clientHeight;
-  // 右栏需求：计时环实际宽 + 余量（码卡可弹性，不受码内容约束）
-  const rightWant = Math.max(320, Math.min(360, Math.round(bodyW * 0.24)));   // 四张翻页牌+冒号可读下限 / 不抢码卡上限
+  // 右栏需求：计时数字可读下限 / 不抢码卡上限（开放排版无硬约束，上限放宽令码卡更方）
+  const rightWant = Math.max(300, Math.min(340, Math.round(bodyW * 0.24)));
   // 方案A：高度撑满（地图最大）
   let drawH = bodyH, drawW = drawH * AR, mapW = SIDE + drawW;
   let rightW = bodyW - mapW - gap;
@@ -869,9 +882,9 @@ function ovFitMap(){
   right.style.flex = '0 0 ' + Math.round(rightW) + 'px';
   right.style.minWidth = '0';
   right.style.height = Math.round(mapH) + 'px';   // 右栏与地图等高 → 码卡底边不再超出地图
-  // 翻页时钟牌宽：四牌+冒号+间隙共约 4.84w，随右栏实际宽度取 18.2%
-  const flipWrap = document.querySelector('.ov-flip-clock');
-  if (flipWrap) flipWrap.style.setProperty('--fc-w', Math.round(rightW * 0.182) + 'px');
+  // 香计时数字字号：随右栏宽取 23.5%，同时不超高限制（右栏半区高度的约 42%）
+  const inc = document.querySelector('.ov-incense');
+  if (inc) inc.style.setProperty('--in-fs', Math.max(54, Math.round(Math.min(rightW * 0.235, mapH * 0.21))) + 'px');
 }
 function ovOpen(id){
   ovCur = OV_EXAMS.find(e => e.id === id);
@@ -927,62 +940,16 @@ function ovFmt(sec){
   const m = Math.floor(sec / 60), s = sec % 60;
   return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
 }
-/* 翻页时钟构建：四张牌（分十/个位 · 秒十/个位）+ 居中冒号 */
-(function(){
-  const wrap = document.getElementById('ov-flipclock');
-  if(!wrap) return;
-  let html = '';
-  for(let i = 0; i < 4; i++){
-    html += '<div class="fc-card">'
-      + '<div class="fc-half fc-top"><span>-</span></div>'
-      + '<div class="fc-half fc-bottom"><span>-</span></div>'
-      + '<div class="fc-flap"><span class="fc-ff">-</span><span class="fc-fb">-</span></div>'
-      + '</div>';
-    if(i === 1) html += '<div class="fc-colon"><i></i><i></i></div>';
-  }
-  wrap.innerHTML = html;
-})();
-function ovFlipSet(sec, instant){
-  const cards = document.querySelectorAll('#ov-flipclock .fc-card');
-  if(!cards.length) return;
-  const str = ovFmt(sec).replace(':', '');
-  cards.forEach((card, i) => {
-    const d = str[i] || '0';
-    if(!card.dataset.d){                                    // 首次：无动画直接落位
-      card.dataset.d = d;
-      card.querySelector('.fc-top span').textContent = d;
-      card.querySelector('.fc-bottom span').textContent = d;
-      card.querySelector('.fc-ff').textContent = d;
-      card.querySelector('.fc-fb').textContent = d;
-      return;
-    }
-    const old = card.dataset.d;
-    if(old === d) return;
-    card.dataset.d = d;
-    card.querySelector('.fc-bottom span').textContent = d;  // 下半先备好新数字
-    const ff = card.querySelector('.fc-ff'), fb = card.querySelector('.fc-fb');
-    ff.textContent = old; fb.textContent = d;               // 翻页片：正面旧、背面新
-    if(instant){
-      card.querySelector('.fc-top span').textContent = d;
-      return;
-    }
-    card.classList.remove('flip');
-    void card.offsetWidth;                                  // 重启动画
-    card.classList.add('flip');
-    setTimeout(() => {
-      card.querySelector('.fc-top span').textContent = d;
-      ff.textContent = d;                                   // 复位后正反面同字，避免闪烁
-      card.classList.remove('flip');
-    }, 500);
-  });
-}
 function ovRender(){
-  ovFlipSet(ovLeft);
-  const card = document.getElementById('ov-clockcard');
-  if(card){
-    card.classList.toggle('fc-low', ovLeft <= 300);                 // ≤5分钟红闪
-    card.classList.toggle('fc-warn', ovLeft > 300 && ovLeft <= 600); // ≤10分钟琥珀
+  const num = document.getElementById('ov-timer');
+  if(num) num.textContent = ovFmt(ovLeft);
+  const inc = document.getElementById('ov-incense');
+  if(inc){
+    inc.classList.toggle('in-low', ovLeft <= 300);                 // ≤5分钟红闪
+    inc.classList.toggle('in-warn', ovLeft > 300 && ovLeft <= 600); // ≤10分钟琥珀
   }
+  const stick = document.getElementById('ov-stick');
+  if(stick) stick.style.height = Math.max(0, Math.round(ovLeft / OV_TOTAL * 100)) + '%';   // 香长 = 剩余时间
 }
 function ovStartTimer(reset){
   ovStopTimer();
