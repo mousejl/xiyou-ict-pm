@@ -44,8 +44,9 @@
 .ov-clock-ring svg{width:100%;height:100%;transform:rotate(-90deg);display:block;filter:drop-shadow(0 0 8px rgba(212,175,55,.35))}
 .ov-clock-num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none}
 #ov-timer{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:clamp(32px,5.2vh,56px);font-weight:800;color:#f2e5bf;letter-spacing:.02em;line-height:1;text-shadow:0 0 18px rgba(230,193,71,.4)}
-.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#16130e,#0f0d09 60%,#0a0a09);padding:16px 20px;flex:1;min-height:0;box-shadow:inset 0 0 22px rgba(0,0,0,.5)}
-.ov-qrbox{position:relative;width:clamp(150px,17.2vh,196px);height:clamp(150px,17.2vh,196px);flex:0 0 auto;background:#16110a;border:2px solid var(--zsilk);box-shadow:0 6px 20px rgba(0,0,0,.38);border-radius:2px}
+.ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:none;background:transparent;padding:0;flex:1;min-height:0}
+.ov-qrbox{position:relative;width:100%;height:100%;flex:1 1 auto;min-width:0;min-height:0;background:#16110a;border:2px solid var(--zsilk);box-shadow:0 6px 20px rgba(0,0,0,.38);border-radius:2px}
+#ov-qr{position:absolute;inset:0;width:100%;height:100%;display:block}
 #ov-qr{width:100%;height:100%;display:block}
 #ov-sealbox{position:absolute;right:-14px;bottom:-12px;width:clamp(58px,8vh,92px);transform:rotate(8deg);filter:drop-shadow(0 5px 12px rgba(0,0,0,.45))}
 #ov-seal{width:100%;display:block}
@@ -61,8 +62,8 @@
   .ov-map-side span{font-size:12px;letter-spacing:.32em}
   .ov-map>svg{left:0 !important;right:0 !important}
   .ov-clock{flex-wrap:wrap;gap:12px}
-  .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:14px 12px}
-  .ov-qrbox{width:190px !important;height:190px !important}
+  .ov-qrcard{flex-direction:column;text-align:center;gap:13px;padding:0}
+  .ov-qrbox{flex:none !important;width:76vw !important;height:76vw !important;max-width:280px !important;max-height:280px !important}
   #ov-sealbox{width:88px;right:-12px;bottom:-14px}
   .ov-foot{font-size:12px;line-height:1.9}
   .ov-clock-ring{width:150px !important;height:150px !important}
@@ -432,7 +433,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
             </section>
 
             <!-- 右下：金色二维码 · 官印 -->
-            <section class="ov-qrcard" style="justify-content:center">
+            <section class="ov-qrcard">
               <div class="ov-qrbox">
                 <img id="ov-qr" alt="答题二维码">
                 <div id="ov-sealbox"><img id="ov-seal" alt="本关通关印"></div>
