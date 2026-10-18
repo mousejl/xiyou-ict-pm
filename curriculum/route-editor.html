@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>取经路线 · 编辑器</title>
+<style>
+:root{--zsilk:#9e2f22;--zsilk2:#a04330;--inkbrown:#2e2a22;--paperdim:#6b5636;--gold:#e6c147}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#0d0b09;color:#e8dcc0;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+header{flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:10px 18px;background:linear-gradient(163deg,#1a1610,#12100c);border-bottom:2px solid var(--zsilk)}
+header h1{font-family:"KaiTi","STKaiti","Noto Serif SC",serif;font-size:20px;color:#f2e5bf;letter-spacing:.14em}
+header .tag{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#c9a64a;letter-spacing:.2em;border:1px solid rgba(201,166,74,.5);border-radius:99px;padding:3px 12px}
+header .sp{flex:1}
+.btn{border:1.5px solid rgba(201,166,74,.55);background:rgba(201,166,74,.08);color:#e8cd7d;border-radius:99px;padding:7px 18px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit}
+.btn:hover{background:rgba(201,166,74,.2)}
+.btn.primary{background:#9e2f22;border-color:#9e2f22;color:#f7ecd8}
+.btn.primary:hover{background:#b23a2b}
+.btn.on{background:#e6c147;border-color:#e6c147;color:#2b2105}
+main{flex:1;display:flex;min-height:0}
+#stage{flex:1;position:relative;min-width:0;background:#0a0a09;overflow:hidden}
+#stage svg{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab}
+#stage.dragging svg{cursor:grabbing}
+aside{flex:0 0 330px;display:flex;flex-direction:column;background:#141109;border-left:2px solid var(--zsilk);min-height:0}
+aside .sect{flex:0 0 auto;padding:14px 16px;border-bottom:1px solid rgba(158,47,34,.3)}
+aside .sect h3{font-size:13px;letter-spacing:.2em;color:#c9a64a;margin-bottom:9px;font-weight:800}
+aside .sect .hint{font-size:11.5px;color:#8a7a5e;line-height:1.8}
+#props .row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px dashed rgba(158,47,34,.25);font-size:13px}
+#props .row b{color:#f2e5bf;font-weight:700}
+#props .row span{color:#bfa878;font-size:12px}
+#props input[type="number"]{width:76px;background:#1e1910;border:1px solid rgba(201,166,74,.4);color:#f2e5bf;border-radius:6px;padding:4px 8px;font-family:ui-monospace,Menlo,monospace;font-size:13px}
+label.chk{display:flex;align-items:center;gap:7px;font-size:13px;padding:5px 0;cursor:pointer;color:#d8c79a}
+label.chk input{accent-color:#9e2f22;width:15px;height:15px}
+#curveRows{overflow-y:auto}
+.curverow{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:12.5px;border-bottom:1px dashed rgba(158,47,34,.2)}
+.curverow .nm{flex:0 0 118px;color:#d8c79a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.curverow input[type="range"]{flex:1;accent-color:#e6c147;height:4px}
+.curverow .val{flex:0 0 34px;text-align:right;font-family:ui-monospace,Menlo,monospace;color:#e6c147;font-size:12px}
+#outputSect{flex:1;display:flex;flex-direction:column;min-height:120px}
+#output{flex:1;width:100%;resize:none;background:#0c0a07;border:1px solid rgba(201,166,74,.35);border-radius:8px;color:#cbe6a8;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.6;padding:10px;margin-top:6px}
+aside .sect .actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:#9e2f22;color:#fff;font-size:13px;padding:9px 26px;border-radius:99px;opacity:0;transition:opacity .3s;z-index:99;pointer-events:none;font-weight:700}
+.toast.show{opacity:1}
+#editing-note{position:absolute;left:14px;bottom:12px;font-size:11.5px;color:rgba(230,193,71,.75);font-family:ui-monospace,Menlo,monospace;letter-spacing:.06em;pointer-events:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>取经路线 · 编辑器</h1>
+  <span class="tag">ROUTE EDITOR</span>
+  <span class="sp"></span>
+  <button class="btn" id="btn-g">拖站点</button>
+  <button class="btn" id="btn-l">拖地名</button>
+  <button class="btn" id="btn-c">调弧度</button>
+  <span class="sp"></span>
+  <button class="btn primary" id="btn-export">生成代码</button>
+  <button class="btn" id="btn-copy">复制</button>
+</header>
+<main>
+  <div id="stage">
+    <svg id="svg" viewBox="0 0 2361 1676">
+      <image href="route-bg.jpg" x="0" y="0" width="2361" height="1676" preserveAspectRatio="xMidYMid meet"/>
+      <path id="route-base" d="" fill="none" stroke="#8b7355" stroke-width="7" stroke-dasharray="26,16" stroke-linecap="round" opacity="0.55"/>
+      <path id="route-main" d="" fill="none" stroke="#d4af37" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 8px rgba(212,175,55,.55))"/>
+      <g id="handles-dots"></g>
+      <g id="handles-labels"></g>
+      <g id="handles-curves"></g>
+    </svg>
+    <div id="editing-note">G=拖站点 · L=拖地名 · C=调弧度（拖金色弧线上的控制柄）</div>
+  </div>
+  <aside>
+    <div class="sect" id="props">
+      <h3>选中节点</h3>
+      <div class="row"><b id="p-name">（未选中）</b><span id="p-idx"></span></div>
+      <div class="row"><span>站点 x,y</span><span><input type="number" id="p-x" step="1"> , <input type="number" id="p-y" step="1"></span></div>
+      <div class="row"><span>地名偏移 dx,dy</span><span><input type="number" id="p-dx" step="1"> , <input type="number" id="p-dy" step="1"></span></div>
+      <div class="row"><span>本段弧度</span><span><input type="number" id="p-curve" step="5">（±400）</span></div>
+      <div class="actions">
+        <button class="btn" id="btn-apply">应用到图</button>
+        <label class="chk"><input type="checkbox" id="show-labels" checked>显示地名</label>
+      </div>
+    </div>
+    <div class="sect">
+      <h3>操作说明</h3>
+      <div class="hint">
+        · <b>G 拖站点</b>：抓住金点移动，会带动路径（相邻弧段随之弯折）<br>
+        · <b>L 拖地名</b>：直接拖文字本身重新定位<br>
+        · <b>C 调弧度</b>：出现各段中点控制柄（空心金圈），拖动改变该段弯度，路径实时重算<br>
+        · 数值可直接键盘输入；调完点「生成代码」→「复制」→ 替换 index.html 中 OV_LOCS 至 ovBuildPath 结尾的对应片段
+      </div>
+    </div>
+    <div class="sect" id="outputSect">
+      <h3>导出（替换 OV_LOCS + 弧度外扩表）</h3>
+      <textarea id="output" spellcheck="false" readonly>点击「生成代码」查看</textarea>
+      <div class="actions">
+        <button class="btn primary" id="btn-copy2">一键复制</button>
+      </div>
+    </div>
+  </aside>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+/* ============================================================
+   数据源：与 index.html 完全一致的 OV_LOCS + 归一化 + 外扩表
+   （复制自开考大屏，编辑器独享数据副本，导出后人工/助手回贴）
+   ============================================================ */
+const OV_LOCS = [
+  { name: "长安",         x: 2220, y: 1750, labelDx: -90, labelDy: 60 },
+  { name: "五行山",       x: 2320, y: 1440, labelDx: -100, labelDy: 52.6 },
+  { name: "鹰愁涧",       x: 2632, y: 1500, labelDy: 127.4 },
+  { name: "高老庄",       x: 2550.9, y: 1342, labelDx: 22 },
+  { name: "流沙河",       x: 2173, y: 896  },
+  { name: "五庄观",       x: 1958, y: 886  },
+  { name: "白虎岭",       x: 1848, y: 808  },
+  { name: "碗子山波月洞", x: 1840, y: 585  },
+  { name: "平顶山莲花洞", x: 1730, y: 724  },
+  { name: "乌鸡国",       x: 1603, y: 751  },
+  { name: "号山火云洞",   x: 1589, y: 485,  labelDx: 92, labelDy: 0 },
+  { name: "黑水河",       x: 1335, y: 756,  labelDx: -61, labelDy: 77.8 },
+  { name: "车迟国",       x: 1270, y: 996  },
+  { name: "通天河",       x: 943,  y: 1099, labelDx: 35, labelDy: 37 },
+  { name: "金兜山金兜洞", x: 1028, y: 658,  labelDx: 85, labelDy: 83 },
+  { name: "西梁女国",     x: 766,  y: 736  },
+  { name: "火焰山",       x: 483,  y: 422  },
+  { name: "小雷音寺",     x: 161,  y: 570,  labelDx: 70 },
+  { name: "七绝山驼罗庄", x: 415,  y: 661  },
+  { name: "朱紫国",       x: 286,  y: 783,  labelDx: 21, labelDy: 22.2 },
+  { name: "盘丝洞",       x: 276,  y: 930,  labelDx: 21, labelDy: 22.2 },
+  { name: "黄花观",       x: 278,  y: 1097, labelDx: 21 },
+  { name: "狮驼岭",       x: 415,  y: 1210 },
+  { name: "比丘国",       x: 451,  y: 1305, labelDx: -35, labelDy: 37 },
+  { name: "陷空山无底洞", x: 740,  y: 1296 },
+  { name: "灭法国",       x: 1085, y: 1349 },
+  { name: "隐雾山",       x: 1043, y: 1498, labelDx: -35, labelDy: 37 },
+  { name: "凤仙郡",       x: 1278, y: 1551 },
+  { name: "玉华州",       x: 1454, y: 1654, labelDx: -28, labelDy: 29.6 },
+  { name: "金平府",       x: 1344, y: 1740 },
+  { name: "天竺国",       x: 1218, y: 1780 },
+  { name: "灵山大雷音寺", x: 705,  y: 1906, labelDx: 130, labelDy: 63 },
+];
+/* 坐标归一化（同 index.html：2728×2048 → 2361×1676） */
+(function(){
+  const SX = 2361 / 2728, SY = 1676 / 2048;
+  OV_LOCS.forEach(l => { l.x = +(l.x * SX).toFixed(1); l.y = +(l.y * SY).toFixed(1); if(l.labelDx) l.labelDx = +(l.labelDx * SX).toFixed(1); if(l.labelDy) l.labelDy = +(l.labelDy * SY).toFixed(1); });
+})();
+/* 各段弧度外扩表（可编辑：段 i = 站点i-1 → 站点i 的曲线弯曲度；0=自然Catmull-Rom，正值顺时针外扩视觉） */
+let OV_CURVES = {};
+function defaultCurve(i){
+  const map = {
+    7:[160,0.4,0.8,0.3], 2:[30,80,40,-60], 3:[-28,84,-78,176], 4:[60,0,60,0],
+    12:[50,60,40,50], 13:[-30,50,30,40], 14:[50,-20,60,-10], 15:[60,-40,50,-50],
+    19:[-50,-30,-60,-20], 24:[20,50,-20,40], 31:[-30,60,20,50], 30:[30,-50,-20,-40],
+    6:[70,90,-50,70], 9:[60,70,-40,60]
+  };
+  return map[i] || null;
+}
+(function(){ for(let i=1;i<OV_LOCS.length;i++){ const d=defaultCurve(i); if(d) OV_CURVES[i]=d.slice(); } })();
+
+/* ============ 渲染 ============ */
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('svg');
+const S_LABEL = 1.65;   // 名字偏移缩放（同 index.html）
+let mode = 'g';
+let selIdx = -1;
+
+function buildPathD(){
+  const points = OV_LOCS;
+  const pts = [points[0], ...points, points[points.length - 1]];
+  let d = "M " + points[0].x + " " + points[0].y;
+  for (let i = 1; i < points.length; i++) {
+    const p0 = pts[i - 1], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2];
+    const tension = 0.4;
+    let cp1x = p1.x + (p2.x - p0.x) * tension, cp1y = p1.y + (p2.y - p0.y) * tension;
+    let cp2x = p2.x - (p3.x - p1.x) * tension, cp2y = p2.y - (p3.y - p1.y) * tension;
+    const c = OV_CURVES[i];
+    if (c) { cp1x += c[0]; cp1y += c[1]; cp2x += c[2]; cp2y += c[3]; }
+    curveCache[i] = {cp1x, cp1y, cp2x, cp2y, p1, p2};
+    d += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + p2.x + " " + p2.y;
+  }
+  return d;
+}
+const curveCache = {};
+
+function render(){
+  const d = buildPathD();
+  document.getElementById('route-base').setAttribute('d', d);
+  document.getElementById('route-main').setAttribute('d', d);
+  renderDots(); renderLabels(); renderCurveHandles();
+}
+function renderDots(){
+  const g = document.getElementById('handles-dots');
+  g.innerHTML = '';
+  OV_LOCS.forEach((loc, i) => {
+    const gr = document.createElementNS(NS, 'g');
+    gr.setAttribute('class', 'hdot');
+    gr.dataset.idx = i;
+    const c = document.createElementNS(NS, 'circle');
+    c.setAttribute('cx', loc.x); c.setAttribute('cy', loc.y);
+    c.setAttribute('r', i === selIdx ? 20 : 14);
+    c.setAttribute('fill', i === selIdx ? '#ffd700' : '#d4af37');
+    c.setAttribute('stroke', '#fff8dc'); c.setAttribute('stroke-width', i === selIdx ? 3 : 1.5);
+    gr.appendChild(c);
+    g.appendChild(gr);
+  });
+}
+function renderLabels(){
+  const g = document.getElementById('handles-labels');
+  g.innerHTML = '';
+  g.style.pointerEvents = mode === 'l' ? 'auto' : 'none';   // 非L模式时文字层不挡拖点
+  if(!document.getElementById('show-labels').checked) return;
+  OV_LOCS.forEach((loc, i) => {
+    const t = document.createElementNS(NS, 'text');
+    t.setAttribute('x', loc.x + (loc.labelDx || 0) * S_LABEL);
+    t.setAttribute('y', loc.y - 40 + (loc.labelDy || 0) * S_LABEL);
+    t.setAttribute('text-anchor', 'middle'); t.setAttribute('font-size', '38');
+    t.setAttribute('font-family', 'KaiTi, STKaiti, Noto Serif SC, Songti SC, serif');
+    t.setAttribute('fill', '#e6c147');
+    t.setAttribute('class', 'hlabel'); t.setAttribute('data-idx', i);
+    t.setAttribute('style', 'cursor:' + (mode === 'l' ? 'move' : 'default') + ';text-shadow:0 0 10px rgba(230,193,71,.5)');
+    t.textContent = loc.name;
+    g.appendChild(t);
+  });
+}
+function renderCurveHandles(){
+  const g = document.getElementById('handles-curves');
+  g.innerHTML = '';
+  if(mode !== 'c') return;
+  for(let i = 1; i <= OV_LOCS.length - 1; i++){
+    const cc = curveCache[i];
+    if(!cc) continue;
+    // 每段一个控制柄：置于cp1点（辅助线到两端）
+    const hx = cc.cp1x, hy = cc.cp1y;
+    const line = document.createElementNS(NS, 'line');
+    line.setAttribute('x1', cc.p1.x); line.setAttribute('y1', cc.p1.y);
+    line.setAttribute('x2', hx); line.setAttribute('y2', hy);
+    line.setAttribute('stroke', 'rgba(255,233,168,.4)'); line.setAttribute('stroke-width', '2');
+    line.setAttribute('stroke-dasharray', '6,6');
+    g.appendChild(line);
+    const h = document.createElementNS(NS, 'circle');
+    h.setAttribute('cx', hx); h.setAttribute('cy', hy);
+    h.setAttribute('r', 16); h.setAttribute('fill', 'rgba(255,233,168,.15)');
+    h.setAttribute('stroke', '#ffe9a8'); h.setAttribute('stroke-width', '2.5');
+    h.setAttribute('class', 'chandle'); h.setAttribute('data-seg', i);
+    h.setAttribute('style', 'cursor:move');
+    g.appendChild(h);
+  }
+}
+
+/* ============ 拖拽 ============ */
+let drag = null;   // {type:'dot'|'label'|'curve', idx|seg}
+function svgPoint(evt){
+  const pt = svg.createSVGPoint();
+  pt.x = evt.clientX; pt.y = evt.clientY;
+  return pt.matrixTransform(svg.getScreenCTM().inverse());
+}
+svg.addEventListener('pointerdown', evt => {
+  const target = evt.target;
+  if(mode === 'g' && target.closest('.hdot')){
+    drag = {type:'dot', idx: +target.closest('.hdot').dataset.idx};
+    select(drag.idx);
+  } else if(mode === 'l' && target.classList.contains('hlabel')){
+    drag = {type:'label', idx: +target.getAttribute('data-idx')};
+    select(drag.idx);
+  } else if(mode === 'c' && target.classList.contains('chandle')){
+    drag = {type:'curve', seg: +target.getAttribute('data-seg')};
+    select(drag.seg - 1, true);
+  }
+  if(drag){ svg.setPointerCapture(evt.pointerId); document.getElementById('stage').classList.add('dragging'); evt.preventDefault(); }
+});
+svg.addEventListener('pointermove', evt => {
+  if(!drag) return;
+  const p = svgPoint(evt);
+  if(drag.type === 'dot'){
+    const l = OV_LOCS[drag.idx];
+    l.x = +Math.max(0, Math.min(2361, p.x)).toFixed(1);
+    l.y = +Math.max(0, Math.min(1676, p.y)).toFixed(1);
+    render();
+  } else if(drag.type === 'label'){
+    const l = OV_LOCS[drag.idx];
+    l.labelDx = +((p.x - l.x) / S_LABEL).toFixed(1);
+    l.labelDy = +((p.y - l.y + 40) / S_LABEL).toFixed(1);
+    render();
+  } else if(drag.type === 'curve'){
+    // 拖动控制柄 → 把差量同时作用于该段 cp1 与 cp2（保持段形弯曲平移语义）
+    const i = drag.seg;
+    const cc = curveCache[i];
+    const base = OV_CURVES[i] || [0,0,0,0];
+    const dx = p.x - cc.cp1x, dy = p.y - cc.cp1y;
+    OV_CURVES[i] = [base[0] + dx, base[1] + dy, base[2] + dx, base[3] + dy];
+    render();
+    if(selIdx === i - 1 || document.getElementById('p-curve').offsetParent !== null) fillProps();
+  }
+});
+svg.addEventListener('pointerup', () => { drag = null; document.getElementById('stage').classList.remove('dragging'); });
+
+function select(idx, isSegment){
+  selIdx = idx;
+  renderDots();
+  fillProps(isSegment);
+}
+function fillProps(isSegment){
+  const p = document.getElementById('props');
+  if(selIdx < 0 || (isSegment === undefined && selIdx < 0)){ document.getElementById('p-name').textContent = '（未选中）'; return; }
+  const l = OV_LOCS[selIdx];
+  document.getElementById('p-name').textContent = isSegment ? ('段 ' + selIdx + '→' + (selIdx+1) + '（' + OV_LOCS[selIdx].name + '）') : l.name;
+  document.getElementById('p-idx').textContent = '#' + selIdx;
+  document.getElementById('p-x').value = l.x;
+  document.getElementById('p-y').value = l.y;
+  document.getElementById('p-dx').value = l.labelDx || 0;
+  document.getElementById('p-dy').value = l.labelDy || 0;
+  const cv = OV_CURVES[selIdx + 1];
+  document.getElementById('p-curve').value = cv ? Math.round((cv[0] + cv[2]) / 2) : 0;
+}
+document.getElementById('btn-apply').addEventListener('click', () => {
+  if(selIdx < 0) return toast('请先选中站点');
+  const l = OV_LOCS[selIdx];
+  l.x = +document.getElementById('p-x').value || 0;
+  l.y = +document.getElementById('p-y').value || 0;
+  l.labelDx = +document.getElementById('p-dx').value || 0;
+  l.labelDy = +document.getElementById('p-dy').value || 0;
+  const v = +document.getElementById('p-curve').value || 0;
+  const half = v / 2;
+  OV_CURVES[selIdx + 1] = v === 0 ? null : [half, 0, half, 0];
+  if(v === 0) delete OV_CURVES[selIdx + 1];
+  render(); toast('已应用');
+});
+document.getElementById('show-labels').addEventListener('change', renderLabels);
+
+/* ============ 模式切换 ============ */
+['g','l','c'].forEach(m => {
+  const btn = document.getElementById('btn-' + m);
+  btn.addEventListener('click', () => {
+    mode = m;
+    ['g','l','c'].forEach(k => document.getElementById('btn-' + k).classList.toggle('on', k === m));
+    document.getElementById('handles-curves').style.display = m === 'c' ? '' : 'none';
+    document.getElementById('handles-dots').style.pointerEvents = m === 'g' ? 'auto' : 'none';   // 非G模式时圆点层不挡拖字/柄
+    renderLabels();
+    renderCurveHandles();   // C 模式需要重建控制柄（renderCurveHandles 内部按 mode 判定）
+  });
+});
+document.getElementById('btn-g').classList.add('on');
+document.getElementById('handles-dots').style.pointerEvents = 'auto';
+
+/* ============ 导出 ============ */
+function exportCode(){
+  // 反归一化到源坐标系（2728×2048），与 index.html 手写源码格式完全一致
+  const SX = 2728 / 2361, SY = 2048 / 1676;
+  const fmt = v => (Math.round(v * 10) / 10);
+  const lines = OV_LOCS.map(l => {
+    const dx = l.labelDx !== undefined ? ', labelDx: ' + fmt(l.labelDx * SX) : '';
+    const dy = l.labelDy !== undefined ? ', labelDy: ' + fmt(l.labelDy * SY) : '';
+    return '  { name: "' + l.name + '", x: ' + fmt(l.x * SX) + ', y: ' + fmt(l.y * SY) + dx + dy + ' },';
+  }).join('\n');
+  let curveLines = '';
+  const idxs = Object.keys(OV_CURVES).map(Number).sort((a,b)=>a-b);
+  idxs.forEach(i => {
+    const c = OV_CURVES[i];
+    if(c && (c[0]||c[1]||c[2]||c[3])){
+      curveLines += '    if (i === ' + i + ')  { cp1x += ' + fmt(c[0]) + '; cp1y += ' + fmt(c[1]) + '; cp2x += ' + fmt(c[2]) + '; cp2y += ' + fmt(c[3]) + '; }\n';
+    }
+  });
+  return '/* ===== 替换 index.html 中 const OV_LOCS = [...] 整段 ===== */\n'
+    + 'const OV_LOCS = [\n' + lines + '\n];\n\n'
+    + '/* ===== 替换 ovBuildPath() 中 for 循环内的全部 if (i === N) 外扩行 ===== */\n'
+    + (curveLines || '/*（无外扩段：全部为自然弧线）*/\n');
+}
+document.getElementById('btn-export').addEventListener('click', () => {
+  document.getElementById('output').value = exportCode();
+  toast('已生成，检查后复制');
+});
+function copyOut(){
+  const v = document.getElementById('output').value;
+  if(!v || v.startsWith('点击')) return toast('请先生成代码');
+  navigator.clipboard.writeText(v).then(() => toast('已复制到剪贴板')).catch(() => {
+    const ta = document.getElementById('output'); ta.select();
+    try{ document.execCommand('copy'); toast('已复制'); }catch(e){ toast('复制失败，请手动选择'); }
+  });
+}
+document.getElementById('btn-copy').addEventListener('click', copyOut);
+document.getElementById('btn-copy2').addEventListener('click', copyOut);
+
+let toastTimer = null;
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+/* 快捷键：G / L / C / Ctrl+E 导出 */
+window.addEventListener('keydown', e => {
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if(e.key === 'g' || e.key === 'G') document.getElementById('btn-g').click();
+  else if(e.key === 'l' || e.key === 'L') document.getElementById('btn-l').click();
+  else if(e.key === 'c' || e.key === 'C'){ if(!e.metaKey && !e.ctrlKey) document.getElementById('btn-c').click(); }
+  else if((e.metaKey || e.ctrlKey) && e.key === 'e'){ e.preventDefault(); document.getElementById('btn-export').click(); }
+});
+
+render();
+</script>
+</body>
+</html>
