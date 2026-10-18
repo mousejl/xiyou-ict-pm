@@ -30,7 +30,7 @@
 .ov-kicker{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12.5px;letter-spacing:.3em;color:var(--zsilk2);margin-bottom:6px}
 .ov-title{font-family:'KaiTi','STKaiti','Noto Serif SC','Songti SC',serif;font-weight:900;font-size:clamp(30px,4.8vh,46px);color:var(--inkbrown);margin:0;letter-spacing:.05em;line-height:1.2}
 .ov-sub{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:14px;color:var(--zsilk2);letter-spacing:.16em;margin-top:5px}
-.ov-body{display:flex;gap:14px;margin-top:10px;align-items:stretch;flex:1 1 auto;min-height:0}
+.ov-body{display:flex;gap:14px;margin-top:10px;align-items:flex-start;flex:1 1 auto;min-height:0}
 .ov-map{position:relative;flex:1 1 calc(100% - 520px);min-width:0;min-height:0;margin:0;border:1.5px solid rgba(158,47,34,.8);background:#0a0a09;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(212,175,55,.14)}
 .ov-map-side{position:absolute;top:0;bottom:0;left:0;width:44px;background:linear-gradient(180deg,rgba(158,47,34,.16),rgba(158,47,34,.05) 18%,rgba(158,47,34,.05) 82%,rgba(158,47,34,.16));border-right:1.5px solid rgba(158,47,34,.55);display:flex;align-items:center;justify-content:center;z-index:2}
 .ov-map-side span{writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:14px;font-weight:700;color:rgba(230,193,71,.92);letter-spacing:.42em;line-height:1.6;white-space:nowrap;text-shadow:0 0 8px rgba(230,193,71,.35)}
@@ -825,41 +825,44 @@ function ovDrawerSmallHide(){
   document.getElementById('ov-drawer-toggle').textContent = '▴ 考官操作';
 }
 function ovFitMap(){
-  // 地图布局：底图原生 2361×1676，完整显示（meet）；仅桌面端（>960）启用，窄屏走媒体查询自然堆叠
+  // 地图布局：底图原生 2361×1676（AR），完整显示；仅桌面端（>960）；目标：地图尽可能大且右栏与地图同高、底边对齐
   if (window.innerWidth <= 960) {
     const m0 = document.querySelector('.ov-map'), r0 = document.querySelector('.ov-right');
     m0.style.width = ''; m0.style.height = ''; m0.style.flex = '';
-    r0.style.flex = ''; r0.style.minWidth = '';
+    r0.style.flex = ''; r0.style.minWidth = ''; r0.style.height = '';
     return;
   }
   const body = document.querySelector('.ov-body');
   const map = document.querySelector('.ov-map');
   const right = document.querySelector('.ov-right');
-  const AR = 2361 / 1676;      // 背景原生比例
-  const SIDE = 44;             // 左侧题字竖栏宽
+  const AR = 2361 / 1676;
+  const SIDE = 44;
+  const gap = 14;
+  const bodyW = body.clientWidth;
   const bodyH = body.clientHeight;
-  const gap = 16;
-  // 地图优先：SVG 绘图区在侧栏右侧，mapW = SIDE + 绘图宽；绘图宽/高按 AR 等比
-  const rightMin = Math.max(
-    document.querySelector('.ov-clock-ring').offsetWidth,
-    document.querySelector('.ov-qrbox').offsetWidth
-  ) + 76;
-  let drawH = bodyH;
-  let drawW = drawH * AR;
-  let mapW = SIDE + drawW;
-  let rightW = body.clientWidth - mapW - gap;
-  if (rightW < rightMin - 12) {   // 高度撑满导致右栏过挤：按宽反推
-    rightW = rightMin;
-    mapW = body.clientWidth - rightW - gap;
+  // 右栏需求：计时环实际宽 + 余量（码卡可弹性，不受码内容约束）
+  const ringW = document.querySelector('.ov-clock-ring').offsetWidth || 180;
+  const rightMin = ringW + 64;
+  // 期望右栏宽：让码卡接近方形更好看，但不能小于 rightMin
+  const rightWant = Math.max(rightMin, Math.min(300, Math.round(bodyW * 0.24)));
+  // 方案A：高度撑满（地图最大）
+  let drawH = bodyH, drawW = drawH * AR, mapW = SIDE + drawW;
+  let rightW = bodyW - mapW - gap;
+  // 若右栏被挤到低于期望宽，则改按右栏=rightWant 反推地图（地图按宽定高）
+  if (rightW < rightWant) {
+    rightW = rightWant;
+    mapW = bodyW - rightW - gap;
     drawW = mapW - SIDE;
     drawH = drawW / AR;
   }
+  // 地图占满高度还是以地图为中心：右栏与地图同高（底边对齐的关键）
   const mapH = drawH;
   map.style.width = Math.round(mapW) + 'px';
   map.style.height = Math.round(mapH) + 'px';
   map.style.flex = '0 0 auto';
-  right.style.flex = '1 1 auto';
+  right.style.flex = '0 0 ' + Math.round(rightW) + 'px';
   right.style.minWidth = '0';
+  right.style.height = Math.round(mapH) + 'px';   // 右栏与地图等高 → 码卡底边不再超出地图
 }
 function ovOpen(id){
   ovCur = OV_EXAMS.find(e => e.id === id);
@@ -1008,7 +1011,8 @@ function ovClose(){
 document.getElementById('exam-overlay').addEventListener('click', e => { if(e.target.id === 'exam-overlay' && document.getElementById('ov-screen').style.display === 'none') ovClose(); });
 window.addEventListener('resize', () => {
   const ov = document.getElementById('ov-screen');
-  if(ov && ov.style.display !== 'none' && window.innerWidth > 960) ovFitMap();
+  // 无论宽窄都调用：宽屏重算布局，窄屏（≤960）清除内联样式，防止跨断点缩放残留桌面档尺寸
+  if(ov && ov.style.display !== 'none') ovFitMap();
 });
 
 /* 登录记忆：已验证过的老师，打开即可一键进开考 */
