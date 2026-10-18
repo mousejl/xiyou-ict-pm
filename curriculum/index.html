@@ -41,26 +41,25 @@
 .ov-right{flex:1 1 auto;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
 /* 右上区：一炷香计时（开放式纸面排版：题字小笺 + 金石大字 + 燃香，无卡面） */
 .ov-incense{flex:1 1 0;min-height:0;display:flex;flex-direction:column;align-items:center;padding:clamp(26px,6.2vh,76px) 10px 4px;text-align:center}
-.in-label{font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:clamp(15px,2.2vh,22px);font-weight:700;color:var(--zsilk);letter-spacing:.62em;text-indent:.62em;line-height:1;flex:none}
-.in-num{font-family:'Palatino Linotype','Book Antiqua','Songti SC','Noto Serif SC','Palatino','Georgia','Times New Roman',serif;font-weight:700;font-size:var(--in-fs,clamp(58px,9vw,150px));line-height:1.04;color:#3a3125;letter-spacing:.01em;font-variant-numeric:tabular-nums;margin-top:.14em;flex:none;text-shadow:0 1px 0 rgba(255,248,230,.55)}
-/* 香区：原长余痕 + 燃香（高度=剩余时间）+ 香头火光 + 青烟 + 铜炉 */
+.in-label{position:relative;z-index:2;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:clamp(15px,2.2vh,22px);font-weight:700;color:var(--zsilk);letter-spacing:.62em;text-indent:.62em;line-height:1;flex:none}
+.in-num{position:relative;z-index:2;font-family:'Palatino Linotype','Book Antiqua','Songti SC','Noto Serif SC','Palatino','Georgia','Times New Roman',serif;font-weight:700;font-size:var(--in-fs,clamp(58px,9vw,150px));line-height:1.04;color:#3a3125;letter-spacing:.01em;font-variant-numeric:tabular-nums;margin-top:.14em;flex:none;text-shadow:0 1px 0 rgba(255,248,230,.55)}
+/* 香区：残灰余痕 + 燃香 + 粒子青烟（移植『上香祈福』zen-blessing 效果）+ 铜炉 */
 .in-zone{position:relative;flex:1 1 auto;min-height:40px;width:130px;margin-top:1.2vh}
-.in-ghost{position:absolute;left:50%;top:0;bottom:29px;width:5px;transform:translateX(-50%);border-radius:3px;background:repeating-linear-gradient(to top,rgba(74,63,46,.27) 0 7px,rgba(74,63,46,0) 7px 12px)}   /* 残灰虚线：原香长余痕 */
-.in-stick{position:absolute;left:50%;bottom:29px;width:6px;transform:translateX(-50%);height:100%;max-height:calc(100% - 29px);border-radius:3px;background:linear-gradient(#8a6a45 0%,#6d4f33 55%,#5b3f27 100%);box-shadow:inset 0 0 2px rgba(0,0,0,.25)}
-.in-tip{position:absolute;top:-3.5px;left:50%;width:13px;height:13px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 42% 38%,#ffd9a0,#ff9a3d 45%,#d94f1e 75%,#8c2f12);box-shadow:0 0 12px 3px rgba(255,138,64,.5);animation:inGlow 1.6s ease-in-out infinite}
-@keyframes inGlow{0%,100%{box-shadow:0 0 10px 2px rgba(255,138,64,.4)}50%{box-shadow:0 0 17px 5px rgba(255,120,50,.68)}}
-.in-smoke{position:absolute;top:-20px;left:50%;width:9px;height:23px;border-radius:50%;background:rgba(84,76,62,.4);filter:blur(2.6px);animation:inSmoke 4.6s linear infinite}
-.in-smoke.s2{animation-duration:5.8s;animation-delay:1.5s;width:7px;height:17px;background:rgba(84,76,62,.32)}
-.in-smoke.s3{animation-duration:6.6s;animation-delay:3.2s;width:12px;height:28px;background:rgba(84,76,62,.28)}
-@keyframes inSmoke{0%{opacity:0;transform:translate(-50%,4px) scale(.55)}14%{opacity:.82}60%{opacity:.5;transform:translate(calc(-50% + 8px),-58px) scale(1.25)}100%{opacity:0;transform:translate(calc(-50% - 11px),-118px) scale(.75)}}
-.in-burner{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:96px;height:44px;flex:none}
+.in-ghost{position:absolute;left:50%;top:0;bottom:22px;width:3px;transform:translateX(-50%);border-radius:2px;background:repeating-linear-gradient(to top,rgba(74,63,46,.3) 0 5px,transparent 5px 10px)}   /* 残灰虚线：原香长余痕 */
+.in-stick{position:absolute;left:50%;bottom:22px;width:3px;transform:translateX(-50%);height:100%;max-height:calc(100% - 22px);border-radius:2px;background:linear-gradient(to bottom,#E8A040 0%,#A07840 40%,#6B5030 100%)}
+.in-ember{position:absolute;top:-1.5px;left:50%;width:8px;height:5px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,#FF6020 0%,rgba(255,96,32,.3) 60%,transparent 100%);animation:inEmberF .4s ease-in-out infinite alternate}
+@keyframes inEmberF{0%{opacity:.6;transform:translateX(-50%) scaleX(.8) scaleY(.9)}100%{opacity:1;transform:translateX(-50%) scaleX(1.2) scaleY(1.1)}}
+#ov-smokeCanvas{position:absolute;top:-70px;right:-30px;bottom:0;left:-30px;width:calc(100% + 60px);height:calc(100% + 70px);pointer-events:none;z-index:1}
+.in-burner{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:64px;height:28px;border-radius:4px 4px 12px 12px;background:linear-gradient(180deg,#5A4030,#3A2520);box-shadow:0 4px 12px rgba(0,0,0,.45)}
+.in-burner::before{content:'';position:absolute;top:-3px;left:6px;right:6px;height:5px;background:linear-gradient(180deg,#7A5A40,#5A4030);border-radius:3px}
+.in-burner-char{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'KaiTi','STKaiti',serif;font-size:13px;color:#b8912f;opacity:.65;letter-spacing:0}
 /* 临近结束变色：≤10分钟琥珀 / ≤5分钟红闪 */
 .ov-incense.in-warn .in-num{color:#9a5d16}
-.ov-incense.in-warn .in-tip{background:radial-gradient(circle at 42% 38%,#ffe9c0,#ffb347 45%,#e06a1c 75%,#8c2f12)}
+.ov-incense.in-warn .in-ember{background:radial-gradient(ellipse,#FFB040 0%,rgba(255,176,64,.35) 60%,transparent 100%)}
 .ov-incense.in-low .in-num{color:#a8271c;animation:ovBlink 1s steps(2) infinite}
-.ov-incense.in-low .in-tip{background:radial-gradient(circle at 42% 38%,#ffd0b8,#ff5c3d 45%,#b32410 75%,#6f1a0a);animation:inGlow .9s ease-in-out infinite}
+.ov-incense.in-low .in-ember{background:radial-gradient(ellipse,#FF3820 0%,rgba(255,56,32,.4) 60%,transparent 100%);animation-duration:.25s}
 .ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:none;background:transparent;padding:0;flex:1;min-height:0}
-.ov-qrbox{position:relative;width:100%;height:100%;flex:1 1 auto;min-width:0;min-height:0;background:#16110a;border:2px solid var(--zsilk);box-shadow:0 6px 20px rgba(0,0,0,.38);border-radius:2px}
+.ov-qrbox{position:relative;width:100%;height:100%;flex:1 1 auto;min-width:0;min-height:0;background:repeating-linear-gradient(93deg,rgba(139,115,68,.05) 0 2px,transparent 2px 6px),linear-gradient(160deg,#f6eeda,#eee1c6);border:2px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(184,145,47,.4),inset 0 0 18px rgba(139,115,68,.14),0 4px 14px rgba(94,72,48,.2);border-radius:2px}   /* 纸面墨码：与文牒同色系，黑卡退役 */
 #ov-qr{position:absolute;inset:0;width:100%;height:100%;display:block}
 #ov-qr{width:100%;height:100%;display:block}
 #ov-sealbox{pointer-events:none}
@@ -437,25 +436,9 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
               <div class="in-num" id="ov-timer">60:00</div>
               <div class="in-zone">
                 <i class="in-ghost"></i>
-                <div class="in-stick" id="ov-stick">
-                  <i class="in-smoke s1"></i><i class="in-smoke s2"></i><i class="in-smoke s3"></i>
-                  <i class="in-tip"></i>
-                </div>
-                <svg class="in-burner" viewBox="0 0 96 44">
-                  <defs>
-                    <linearGradient id="inbrz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7c663f"/><stop offset=".5" stop-color="#55432a"/><stop offset="1" stop-color="#332818"/></linearGradient>
-                    <linearGradient id="inrim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3a24"/><stop offset=".5" stop-color="#93794c"/><stop offset="1" stop-color="#4a3a24"/></linearGradient>
-                  </defs>
-                  <path d="M12.5 13 q-7 -1 -8.5 4 q-1 5 6 7" fill="none" stroke="#55432a" stroke-width="2.6" stroke-linecap="round"/>
-                  <path d="M83.5 13 q7 -1 8.5 4 q1 5 -6 7" fill="none" stroke="#55432a" stroke-width="2.6" stroke-linecap="round"/>
-                  <path d="M17 15 Q48 23 79 15 L71 34 Q48 41.5 25 34 Z" fill="url(#inbrz)"/>
-                  <ellipse cx="48" cy="15" rx="31" ry="5" fill="url(#inrim)"/>
-                  <ellipse cx="48" cy="15" rx="22.5" ry="3" fill="#1d1610"/>
-                  <path d="M30 21 Q48 27 60 22" stroke="rgba(200,170,110,.3)" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-                  <rect x="26.5" y="35" width="5" height="7" rx="1.4" fill="#3a2d1c"/>
-                  <rect x="45" y="36.5" width="6" height="7" rx="1.4" fill="#3a2d1c"/>
-                  <rect x="64.5" y="35" width="5" height="7" rx="1.4" fill="#3a2d1c"/>
-                </svg>
+                <canvas id="ov-smokeCanvas"></canvas>
+                <div class="in-stick" id="ov-stick"><i class="in-ember"></i></div>
+                <div class="in-burner"><span class="in-burner-char">文</span></div>
               </div>
             </section>
 
@@ -822,7 +805,7 @@ function ovLoadQR(id){
   const url = OV_QR + '/start-qr-' + id + '.svg';
   const img = document.getElementById('ov-qr');
   fetch(url).then(r => { if(!r.ok) throw 0; return r.text(); }).then(t => {
-    t = t.replace(/#1a1a24/g, '#e8c766').replace(/#ffffff/g, '#16110a');
+    t = t.replace(/#1a1a24/g, '#2e2015').replace(/#ffffff/g, 'rgba(246,238,218,0)');   // 纸面墨码：码体染墨、底透纸纹
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(t);
   }).catch(() => { img.src = url; });
 }
@@ -940,6 +923,56 @@ function ovFmt(sec){
   const m = Math.floor(sec / 60), s = sec % 60;
   return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
 }
+/* 粒子青烟：移植自『上香祈福』(zen-blessing) 粒子系统——随机漂移上升、半径渐增、透明度衰减 */
+(function(){
+  const cvs = document.getElementById('ov-smokeCanvas');
+  if(!cvs) return;
+  const ctx = cvs.getContext('2d');
+  let ps = [], raf = null;
+  const P = function(x, y){
+    this.x = x + (Math.random() - .5) * 12;
+    this.y = y;
+    this.vx = (Math.random() - .5) * .2;
+    this.vy = -(Math.random() * .5 + .15);
+    this.r = Math.random() * 2.5 + 1;
+    this.a = .2 + Math.random() * .14;
+    this.life = 1;
+    this.dk = .0016 + Math.random() * .0022;
+  };
+  P.prototype.up = function(){
+    this.x += this.vx; this.y += this.vy;
+    this.vx += (Math.random() - .5) * .03;
+    this.r += .02;
+    this.life -= this.dk;
+    this.a *= .998;
+  };
+  P.prototype.draw = function(c){
+    c.beginPath();
+    c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    c.fillStyle = 'rgba(112,100,78,' + (this.a * this.life).toFixed(3) + ')';
+    c.fill();
+  };
+  function tick(){
+    raf = null;
+    const ov = document.getElementById('ov-screen');
+    if(!ov || ov.style.display === 'none' || ovLeft <= 0){ ps = []; if(cvs.width) ctx.clearRect(0, 0, cvs.width, cvs.height); return; }   // 大屏关闭或香尽：烟散即停，不留残帧
+    const w = cvs.clientWidth, h = cvs.clientHeight;
+    if(cvs.width !== w) cvs.width = w;
+    if(cvs.height !== h) cvs.height = h;
+    ctx.clearRect(0, 0, w, h);
+    const ember = document.querySelector('.in-ember');
+    if(ember){
+      const er = ember.getBoundingClientRect(), cr = cvs.getBoundingClientRect();
+      const px = er.left + er.width / 2 - cr.left;
+      const py = er.top + er.height / 2 - cr.top;
+      if(Math.random() < .18) ps.push(new P(px, py));   // 与『上香祈福』同款生成率
+    }
+    ps = ps.filter(function(p){ return p.life > 0; });
+    ps.forEach(function(p){ p.up(); p.draw(ctx); });
+    raf = requestAnimationFrame(tick);
+  }
+  window.ovSmokeStart = function(){ if(!raf) raf = requestAnimationFrame(tick); };
+})();
 function ovRender(){
   const num = document.getElementById('ov-timer');
   if(num) num.textContent = ovFmt(ovLeft);
@@ -956,6 +989,7 @@ function ovStartTimer(reset){
   if(reset){ ovLeft = OV_TOTAL; ovWarned10 = false; }
   if(ovLeft <= 0){ ovLeft = OV_TOTAL; ovWarned10 = false; }
   ovRender();
+  if(window.ovSmokeStart) ovSmokeStart();   // 粒子青烟随计时器启动
   ovClock = setInterval(() => {
     ovLeft--;
     if(ovLeft < 0) ovLeft = 0;
