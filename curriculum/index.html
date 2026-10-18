@@ -550,38 +550,38 @@ function ovShowChoose(){
 
 /* ================= 背景路线图（黑金山水 · 32站点 · 平滑贝塞尔金线 · 行进光点） ================= */
 const OV_LOCS = [
-  { name: "长安",         x: 2220, y: 1750, labelDx: -90, labelDy: 60 },
-  { name: "五行山",       x: 2320, y: 1440, labelDx: -100, labelDy: 52.6 },
-  { name: "鹰愁涧",       x: 2632, y: 1500, labelDy: 127.4 },
-  { name: "高老庄",       x: 2550.9, y: 1342, labelDx: 22 },
-  { name: "流沙河",       x: 2173, y: 896  },
-  { name: "五庄观",       x: 1958, y: 886  },
-  { name: "白虎岭",       x: 1848, y: 808  },
-  { name: "碗子山波月洞", x: 1840, y: 585  },
-  { name: "平顶山莲花洞", x: 1730, y: 724  },
-  { name: "乌鸡国",       x: 1603, y: 751  },
-  { name: "号山火云洞",   x: 1589, y: 485,  labelDx: 92, labelDy: 0 },
-  { name: "黑水河",       x: 1335, y: 756,  labelDx: -61, labelDy: 77.8 },
-  { name: "车迟国",       x: 1270, y: 996  },
-  { name: "通天河",       x: 943,  y: 1099, labelDx: 35, labelDy: 37 },
-  { name: "金兜山金兜洞", x: 1028, y: 658,  labelDx: 85, labelDy: 83 },
-  { name: "西梁女国",     x: 766,  y: 736  },
-  { name: "火焰山",       x: 483,  y: 422  },
-  { name: "小雷音寺",     x: 161,  y: 570,  labelDx: 70 },
-  { name: "七绝山驼罗庄", x: 415,  y: 661  },
-  { name: "朱紫国",       x: 286,  y: 783,  labelDx: 21, labelDy: 22.2 },
-  { name: "盘丝洞",       x: 276,  y: 930,  labelDx: 21, labelDy: 22.2 },
-  { name: "黄花观",       x: 278,  y: 1097, labelDx: 21 },
-  { name: "狮驼岭",       x: 415,  y: 1210 },
-  { name: "比丘国",       x: 451,  y: 1305, labelDx: -35, labelDy: 37 },
-  { name: "陷空山无底洞", x: 740,  y: 1296 },
-  { name: "灭法国",       x: 1085, y: 1349 },
-  { name: "隐雾山",       x: 1043, y: 1498, labelDx: -35, labelDy: 37 },
-  { name: "凤仙郡",       x: 1278, y: 1551 },
-  { name: "玉华州",       x: 1454, y: 1654, labelDx: -28, labelDy: 29.6 },
-  { name: "金平府",       x: 1344, y: 1740 },
-  { name: "天竺国",       x: 1218, y: 1780 },
-  { name: "灵山大雷音寺", x: 705,  y: 1906, labelDx: 130, labelDy: 63 },
+  { name: "长安",         x: 2114.3, y: 1784.1, labelDx: -67.6, labelDy: 26.9 },
+  { name: "五行山",       x: 2320, y: 1440, labelDx: -80, labelDy: 33.8 },
+  { name: "鹰愁涧",       x: 2602.3, y: 1566.5, labelDx: -8.9, labelDy: 83.6 },
+  { name: "高老庄",       x: 2497.5, y: 1342.2, labelDx: -61.5, labelDy: 50.8 },
+  { name: "流沙河",       x: 2078.5, y: 1006.8, labelDx: 108.3, labelDy: 44.7 },
+  { name: "五庄观",       x: 2460.6, y: 933.7,  labelDx: 63.1, labelDy: 37 },
+  { name: "白虎岭",       x: 2316.9, y: 605.7,  labelDx: -12.2, labelDy: 93.7 },
+  { name: "碗子山波月洞", x: 1872.3, y: 553.8,  labelDx: 82.3, labelDy: 2.6 },
+  { name: "平顶山莲花洞", x: 1746.2, y: 856.2,  labelDx: 100.5, labelDy: 25.8 },
+  { name: "乌鸡国",       x: 1602.9, y: 751,  labelDx: 33.6, labelDy: 77.1 },
+  { name: "号山火云洞",   x: 1589, y: 485,  labelDx: 68.6, labelDy: 4.4 },
+  { name: "黑水河",       x: 1344.4, y: 745.4,  labelDx: -65.5, labelDy: 51.9 },
+  { name: "车迟国",       x: 1270.9, y: 1032.2, labelDx: 64.2, labelDy: 47.7 },
+  { name: "通天河",       x: 834.3,  y: 1011.9, labelDx: -51.2, labelDy: -3.3 },
+  { name: "金兜山金兜洞", x: 1017.7, y: 699.6,  labelDx: 101.9, labelDy: 23.3 },
+  { name: "西梁女国",     x: 765.9,  y: 736,  labelDx: -70.5, labelDy: 60.2 },
+  { name: "火焰山",       x: 483,  y: 421.9 },
+  { name: "小雷音寺",     x: 161,  y: 570,  labelDx: -21.7, labelDy: -7.8 },
+  { name: "七绝山驼罗庄", x: 415,  y: 661,  labelDx: -2.5, labelDy: -1.2 },
+  { name: "朱紫国",       x: 286,  y: 783,  labelDx: 71.8, labelDy: 68.9 },
+  { name: "盘丝洞",       x: 303.3, y: 941,  labelDx: 81.3, labelDy: 34.7 },
+  { name: "黄花观",       x: 278,  y: 1097, labelDx: 68.2, labelDy: 45.7 },
+  { name: "狮驼岭",       x: 430.6, y: 1233.1, labelDx: -54.8, labelDy: 63.2 },
+  { name: "比丘国",       x: 432.8, y: 1414.7, labelDx: -45.2, labelDy: 87.5 },
+  { name: "陷空山无底洞", x: 785.4, y: 1334.7 },
+  { name: "灭法国",       x: 1085, y: 1349, labelDx: 45.6, labelDy: 2.9 },
+  { name: "隐雾山",       x: 1043, y: 1498, labelDx: -53, labelDy: 67 },
+  { name: "凤仙郡",       x: 1294.1, y: 1484.4, labelDx: 24.8, labelDy: -2.7 },
+  { name: "玉华州",       x: 1461.5, y: 1604.6, labelDx: 47.5, labelDy: 69.8 },
+  { name: "金平府",       x: 1278.6, y: 1739.6, labelDx: -75.6, labelDy: 22.4 },
+  { name: "天竺国",       x: 1208.2, y: 1919.5, labelDx: 77.4, labelDy: 33.1 },
+  { name: "灵山大雷音寺", x: 705.1, y: 1906, labelDx: 147.6, labelDy: 42.5 },
 ];
 // 坐标系归一化：原坐标基于 2728×2048 参考图，现底图原生 2361×1676，一次性缩放并缩径（等比 0.865/0.818，线宽同步）
 (function(){
@@ -598,20 +598,32 @@ function ovBuildPath(points){
     const tension = 0.4;
     let cp1x = p1.x + (p2.x - p0.x) * tension, cp1y = p1.y + (p2.y - p0.y) * tension;
     let cp2x = p2.x - (p3.x - p1.x) * tension, cp2y = p2.y - (p3.y - p1.y) * tension;
-    if (i === 7)  { const o = 160; cp1x += o; cp1y += o * .4; cp2x += o * .8; cp2y += o * .3; }   // 碗子山弧线外扩
-    if (i === 2)  { cp1x += 30; cp1y += 80; cp2x += 40; cp2y -= 60; }                              // 五行山→鹰愁涧
-    if (i === 3)  { cp1x -= 28; cp1y += 84; cp2x -= 78; cp2y += 176; }                             // 鹰愁涧→高老庄
-    if (i === 4)  { cp1x += 60; cp2x += 60; }                                                      // 高老庄→流沙河
-    if (i === 12) { cp1x += 50; cp1y += 60; cp2x += 40; cp2y += 50; }                              // 黑水河→车迟国
-    if (i === 13) { cp1x -= 30; cp1y += 50; cp2x += 30; cp2y += 40; }                              // 车迟国→通天河
-    if (i === 14) { cp1x += 50; cp1y -= 20; cp2x += 60; cp2y -= 10; }                              // 通天河→金兜山
-    if (i === 15) { cp1x += 60; cp1y -= 40; cp2x += 50; cp2y -= 50; }                              // 金兜山→西梁女国
-    if (i === 19) { cp1x -= 50; cp1y -= 30; cp2x -= 60; cp2y -= 20; }                              // 七绝山→朱紫国
-    if (i === 24) { cp1x += 20; cp1y += 50; cp2x -= 20; cp2y += 40; }                              // 比丘国→陷空山
-    if (i === 31) { cp1x -= 30; cp1y += 60; cp2x += 20; cp2y += 50; }                              // 天竺国→灵山
-    if (i === 30) { cp1x += 30; cp1y -= 50; cp2x -= 20; cp2y -= 40; }                              // 金平府→天竺国
-    if (i === 6)  { cp1x += 70; cp1y += 90; cp2x -= 50; cp2y += 70; }                              // 五庄观→白虎岭
-    if (i === 9)  { cp1x += 60; cp1y += 70; cp2x -= 40; cp2y += 60; }                              // 平顶山→乌鸡国
+    if (i === 1)  { cp1x += 67.1; cp1y += 26.4; cp2x += 67.1; cp2y += 26.4; }
+    if (i === 2)  { cp1x += -6.3; cp1y += 145; cp2x += 3.7; cp2y += 5; }
+    if (i === 3)  { cp1x += -68.3; cp1y += -209.9; cp2x += -118.3; cp2y += -117.9; }
+    if (i === 4)  { cp1x += 175.4; cp1y += 40; cp2x += 175.4; cp2y += 40; }
+    if (i === 5)  { cp1x += 52.1; cp1y += -86.1; cp2x += 52.1; cp2y += -86.1; }
+    if (i === 6)  { cp1x += 161.8; cp1y += -74.1; cp2x += 41.8; cp2y += -94.1; }
+    if (i === 7)  { cp1x += 12.2; cp1y += 226.2; cp2x += -147; cp2y += 226.1; }
+    if (i === 8)  { cp1x += -63.8; cp1y += 18.1; cp2x += -63.8; cp2y += 18.1; }
+    if (i === 9)  { cp1x += 4; cp1y += 74.5; cp2x += -96; cp2y += 64.5; }
+    if (i === 10)  { cp1x += 27.8; cp1y += 147.1; cp2x += 27.8; cp2y += 147.1; }
+    if (i === 11)  { cp1x += -56.3; cp1y += -26; cp2x += -56.3; cp2y += -26; }
+    if (i === 12)  { cp1x += 37.6; cp1y += -9.6; cp2x += 27.6; cp2y += -19.6; }
+    if (i === 13)  { cp1x += -30; cp1y += 50; cp2x += 30; cp2y += 40; }
+    if (i === 14)  { cp1x += 50; cp1y += -20; cp2x += 60; cp2y += -10; }
+    if (i === 15)  { cp1x += -85; cp1y += 26.8; cp2x += -95; cp2y += 16.8; }
+    if (i === 16)  { cp1x += 107.8; cp1y += 33.5; cp2x += 107.8; cp2y += 33.5; }
+    if (i === 17)  { cp1x += 60.9; cp1y += 74.1; cp2x += 60.9; cp2y += 74.1; }
+    if (i === 18)  { cp1x += -194.4; cp1y += 108; cp2x += -194.4; cp2y += 108; }
+    if (i === 19)  { cp1x += 44.5; cp1y += 33.6; cp2x += 34.5; cp2y += 43.6; }
+    if (i === 20)  { cp1x += -19.8; cp1y += -6.2; cp2x += -19.8; cp2y += -6.2; }
+    if (i === 21)  { cp1x += 2.5; cp1y += -30.3; cp2x += 2.5; cp2y += -30.3; }
+    if (i === 22)  { cp1x += -9.3; cp1y += 35.1; cp2x += -9.3; cp2y += 35.1; }
+    if (i === 23)  { cp1x += 71.8; cp1y += -33.6; cp2x += 71.8; cp2y += -33.6; }
+    if (i === 24)  { cp1x += 20; cp1y += 50; cp2x += -20; cp2y += 40; }
+    if (i === 30)  { cp1x += 30; cp1y += -50; cp2x += -20; cp2y += -40; }
+    if (i === 31)  { cp1x += -30; cp1y += 60; cp2x += 20; cp2y += 50; }
     d += " C " + cp1x + " " + cp1y + ", " + cp2x + " " + cp2y + ", " + p2.x + " " + p2.y;
   }
   return d;
