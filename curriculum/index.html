@@ -450,7 +450,26 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
         <button id="ov-share" onclick="ovShare()" style="border:none;border-radius:99px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#e4c96f,#c9a64a);color:#3d2f0e;box-shadow:0 4px 14px rgba(201,166,74,.3);font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">📣 敕发考卷链接</button>
         <button onclick="ovResetTimer()" style="border:1.5px solid rgba(201,166,74,.5);border-radius:99px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;background:transparent;color:#e8cd7d;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">↺ 重计一炷香</button>
         <button onclick="ovBack()" style="border:1.5px solid rgba(201,166,74,.5);border-radius:99px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;background:transparent;color:#e8cd7d;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">← 另择一关</button>
+        <button onclick="ovLabelPanel()" style="border:1.5px solid rgba(201,166,74,.5);border-radius:99px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;background:transparent;color:#e8cd7d;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">🏷 地名显隐</button>
         <button onclick="ovClose()" style="border:none;border-radius:99px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;background:#37455e;color:#dce5f2;font-family:'PingFang SC','Microsoft YaHei',sans-serif;white-space:nowrap">鸣金收卷</button>
+      </div>
+    </div>
+
+    <!-- ============ 地名显隐设置弹窗 ============ -->
+    <div id="ov-labelpanel" onclick="if(event.target.id==='ov-labelpanel')this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:150;background:rgba(8,6,4,.62);overflow:auto;padding:36px 16px;font-family:'PingFang SC','Microsoft YaHei',sans-serif">
+      <div style="max-width:720px;margin:0 auto;background:linear-gradient(163deg,#eee0bd,#e4d3aa 55%,#d9c698);border:3px solid #9e2f22;border-radius:3px;box-shadow:0 26px 70px rgba(0,0,0,.6);padding:7px">
+        <div style="border:1px solid rgba(158,47,34,.55);padding:16px 18px">
+          <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1.5px solid rgba(158,47,34,.4);padding-bottom:10px;margin-bottom:12px">
+            <b style="font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:21px;color:#2e2a22;letter-spacing:.14em">地名显隐</b>
+            <button onclick="document.getElementById('ov-labelpanel').style.display='none'" style="border:1.5px solid rgba(158,47,34,.55);background:transparent;color:#a04330;border-radius:99px;padding:6px 18px;font-size:13px;font-weight:700;cursor:pointer">完成</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <button onclick="ovLabelSetAll(true)" style="border:none;border-radius:99px;padding:6px 16px;font-size:12.5px;font-weight:700;cursor:pointer;background:#9e2f22;color:#f7ecd8">全部显示</button>
+            <button onclick="ovLabelSetAll(false)" style="border:1.5px solid rgba(158,47,34,.55);border-radius:99px;padding:6px 16px;font-size:12.5px;font-weight:700;cursor:pointer;background:transparent;color:#a04330">全部隐藏</button>
+            <span style="font-size:11.5px;color:#6b5636">勾选即显示 · 即时生效 · 本机自动记忆</span>
+          </div>
+          <div id="ov-labelgrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -531,37 +550,37 @@ function ovShowChoose(){
 /* ================= 背景路线图（黑金山水 · 32站点 · 平滑贝塞尔金线 · 行进光点） ================= */
 const OV_LOCS = [
   { name: "长安",         x: 2220, y: 1750, labelDx: -90, labelDy: 60 },
-  { name: "五行山",       x: 2320, y: 1440, labelDx: -100, labelDy: 60 },
+  { name: "五行山",       x: 2320, y: 1440, labelDx: -100, labelDy: 52.6 },
   { name: "鹰愁涧",       x: 2632, y: 1500, labelDy: 127.4 },
-  { name: "高老庄",       x: 2584, y: 1342 },
+  { name: "高老庄",       x: 2572.4, y: 1342, labelDx: 7 },
   { name: "流沙河",       x: 2173, y: 896  },
   { name: "五庄观",       x: 1958, y: 886  },
   { name: "白虎岭",       x: 1848, y: 808  },
   { name: "碗子山波月洞", x: 1840, y: 585  },
   { name: "平顶山莲花洞", x: 1730, y: 724  },
   { name: "乌鸡国",       x: 1603, y: 751  },
-  { name: "号山火云洞",   x: 1589, y: 485,  labelDx: 120, labelDy: 0 },
-  { name: "黑水河",       x: 1335, y: 756,  labelDx: -40, labelDy: 100 },
+  { name: "号山火云洞",   x: 1589, y: 485,  labelDx: 113, labelDy: 0 },
+  { name: "黑水河",       x: 1335, y: 756,  labelDx: -61, labelDy: 77.8 },
   { name: "车迟国",       x: 1270, y: 996  },
   { name: "通天河",       x: 943,  y: 1099 },
-  { name: "金兜山金兜洞", x: 1028, y: 658,  labelDx: 120, labelDy: 120 },
-  { name: "西梁女国",     x: 766,  y: 545  },
+  { name: "金兜山金兜洞", x: 1028, y: 658,  labelDx: 85, labelDy: 83 },
+  { name: "西梁女国",     x: 766,  y: 655  },
   { name: "火焰山",       x: 483,  y: 422  },
-  { name: "小雷音寺",     x: 161,  y: 570  },
+  { name: "小雷音寺",     x: 161,  y: 570,  labelDx: 21 },
   { name: "七绝山驼罗庄", x: 415,  y: 661  },
-  { name: "朱紫国",       x: 286,  y: 783  },
-  { name: "盘丝洞",       x: 276,  y: 930  },
-  { name: "黄花观",       x: 278,  y: 1097 },
+  { name: "朱紫国",       x: 286,  y: 783,  labelDx: 21, labelDy: 22.2 },
+  { name: "盘丝洞",       x: 276,  y: 930,  labelDx: 21, labelDy: 22.2 },
+  { name: "黄花观",       x: 278,  y: 1097, labelDx: 21 },
   { name: "狮驼岭",       x: 415,  y: 1210 },
-  { name: "比丘国",       x: 451,  y: 1305 },
+  { name: "比丘国",       x: 451,  y: 1305, labelDx: -35, labelDy: 37 },
   { name: "陷空山无底洞", x: 740,  y: 1296 },
   { name: "灭法国",       x: 1085, y: 1349 },
-  { name: "隐雾山",       x: 1043, y: 1498 },
+  { name: "隐雾山",       x: 1043, y: 1498, labelDx: -35, labelDy: 37 },
   { name: "凤仙郡",       x: 1278, y: 1551 },
-  { name: "玉华州",       x: 1454, y: 1654 },
+  { name: "玉华州",       x: 1454, y: 1654, labelDx: -28, labelDy: 29.6 },
   { name: "金平府",       x: 1344, y: 1740 },
   { name: "天竺国",       x: 1218, y: 1780 },
-  { name: "灵山大雷音寺", x: 705,  y: 1906, labelDx: 130, labelDy: 100 },
+  { name: "灵山大雷音寺", x: 705,  y: 1906, labelDx: 130, labelDy: 70.4 },
 ];
 // 坐标系归一化：原坐标基于 2728×2048 参考图，现底图原生 2361×1676，一次性缩放并缩径（等比 0.865/0.818，线宽同步）
 (function(){
@@ -623,6 +642,7 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
     text.setAttribute('x', loc.x + (loc.labelDx || 0) * S);
     text.setAttribute('y', loc.y - 40 + (loc.labelDy || 0) * S);
     text.setAttribute('text-anchor', 'middle'); text.setAttribute('font-size', '38');
+    text.setAttribute('data-idx', i);
     text.setAttribute('font-family', 'KaiTi, STKaiti, Noto Serif SC, Songti SC, serif');
     text.setAttribute('fill', '#e6c147');
     text.setAttribute('style', 'text-shadow: 0 0 16px rgba(230,193,71,0.5);');
@@ -665,6 +685,7 @@ let ovGateIdx = null;   // 当前关站点索引（免被循环动画覆盖样�
     requestAnimationFrame(ovAnimate);
   }
   requestAnimationFrame(ovAnimate);
+  ovLabelApply();   // 应用本机保存的地名显隐设置
 })();
 function ovLightNode(id){
   // 节点序映射（黑金山水路线32站：1五行山（两界山）2鹰愁涧 3流沙河 4火焰山 5盘丝洞）
@@ -697,6 +718,41 @@ function ovLightNode(id){
   flag.setAttribute('x', loc.x + (loc.labelDx || 0) * 1.65);
   flag.setAttribute('y', loc.y - 130 + (loc.labelDy || 0) * 1.65);
   flag.style.display = '';
+}
+
+/* ================= 地名显隐设置（右侧抽屉入口 · 弹窗多选 · 本机记忆） ================= */
+function ovLabelOff(){
+  try{ return JSON.parse(localStorage.getItem('ov-labels-off') || '[]'); }catch(e){ return []; }
+}
+function ovLabelSave(off){
+  try{ localStorage.setItem('ov-labels-off', JSON.stringify(off)); }catch(e){}
+}
+function ovLabelApply(){
+  const off = ovLabelOff();
+  document.querySelectorAll('#ov-locations text').forEach(t => {
+    t.style.display = off.includes(+t.getAttribute('data-idx')) ? 'none' : '';
+  });
+}
+function ovLabelToggle(i, on){
+  let off = ovLabelOff();
+  if(!on){ if(!off.includes(i)) off.push(i); }
+  else { off = off.filter(x => x !== i); }
+  ovLabelSave(off);
+  ovLabelApply();
+}
+function ovLabelSetAll(on){
+  ovLabelSave(on ? [] : OV_LOCS.map((_, i) => i));
+  ovLabelApply();
+  document.querySelectorAll('#ov-labelgrid input[type="checkbox"]').forEach(c => { c.checked = on; });
+}
+function ovLabelPanel(){
+  const p = document.getElementById('ov-labelpanel');
+  if(p.style.display === 'block'){ p.style.display = 'none'; return; }
+  const off = ovLabelOff();
+  document.getElementById('ov-labelgrid').innerHTML = OV_LOCS.map((l, i) =>
+    '<label style="display:flex;align-items:center;gap:7px;border:1.5px solid rgba(158,47,34,.4);border-radius:4px;padding:6px 9px;background:rgba(255,250,236,.65);cursor:pointer;font-size:13px;color:#2e2a22;white-space:nowrap"><input type="checkbox" ' + (off.includes(i) ? '' : 'checked ') + 'onchange="ovLabelToggle(' + i + ', this.checked)" style="accent-color:#9e2f22;width:15px;height:15px;flex:0 0 auto"><span>' + l.name + '</span></label>'
+  ).join('');
+  p.style.display = 'block';
 }
 /* 金色二维码：拉取 SVG → 深底染金（金色码对比度需保证可扫，暖金 #e8c766 / 墨底 #16110a） */
 function ovLoadQR(id){
@@ -776,6 +832,7 @@ function ovOpen(id){
   document.getElementById('ov-choose').style.display = 'none';
   document.getElementById('exam-overlay').style.display = 'none';
   document.getElementById('ov-screen').style.display = 'flex';
+  document.getElementById('ov-labelpanel').style.display = 'none';
   ovFitMap();
   ovDrawerSmallHide();   // 需在 ov-screen 可见后执行：display:none 下面板测量宽度为0
   ovPoll();
