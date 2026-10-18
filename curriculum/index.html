@@ -39,27 +39,25 @@
 .ov-map-sizer{display:none}
 .ov-mapcap{position:absolute;left:9px;top:12px;writing-mode:vertical-rl;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:12.5px;color:rgba(230,193,71,.8);letter-spacing:.3em;pointer-events:none}
 .ov-right{flex:1 1 auto;display:flex;flex-direction:column;gap:12px;min-width:0;min-height:0}
-/* 右上区：一炷香计时（开放式纸面排版：题字小笺 + 金石大字 + 燃香，无卡面） */
-.ov-incense{flex:1 1 0;min-height:0;display:flex;flex-direction:column;align-items:center;padding:clamp(26px,6.2vh,76px) 10px 4px;text-align:center}
-.in-label{position:relative;z-index:2;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:clamp(15px,2.2vh,22px);font-weight:700;color:var(--zsilk);letter-spacing:.62em;text-indent:.62em;line-height:1;flex:none}
-.in-num{position:relative;z-index:2;font-family:'Palatino Linotype','Book Antiqua','Songti SC','Noto Serif SC','Palatino','Georgia','Times New Roman',serif;font-weight:700;font-size:var(--in-fs,clamp(58px,9vw,150px));line-height:1.04;color:#3a3125;letter-spacing:.01em;font-variant-numeric:tabular-nums;margin-top:.14em;flex:none;text-shadow:0 1px 0 rgba(255,248,230,.55)}
-/* 香区：残灰余痕 + 燃香 + 粒子青烟（移植『上香祈福』zen-blessing 效果）+ 铜炉 */
-.in-zone{position:relative;flex:1 1 auto;min-height:40px;width:130px;margin-top:1.2vh}
-.in-ghost{position:absolute;left:50%;top:0;bottom:22px;width:3px;transform:translateX(-50%);border-radius:2px;background:repeating-linear-gradient(to top,rgba(74,63,46,.3) 0 5px,transparent 5px 10px)}   /* 残灰虚线：原香长余痕 */
-.in-stick{position:absolute;left:50%;bottom:22px;width:3px;transform:translateX(-50%);height:100%;max-height:calc(100% - 22px);border-radius:2px;background:linear-gradient(to bottom,#E8A040 0%,#A07840 40%,#6B5030 100%)}
-.in-ember{position:absolute;top:-1.5px;left:50%;width:8px;height:5px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,#FF6020 0%,rgba(255,96,32,.3) 60%,transparent 100%);animation:inEmberF .4s ease-in-out infinite alternate}
+/* 右上区：一炷香计时（黑底金字卡面：与码卡/黑金地图同色系，古庙沉香氛围） */
+.ov-incense{flex:1 1 0;min-height:0;display:flex;flex-direction:column;align-items:center;padding:clamp(24px,5.8vh,70px) 10px 6px;text-align:center;border:1.5px solid rgba(158,47,34,.75);background:linear-gradient(160deg,#16130e,#0f0d09 60%,#0a0a09);box-shadow:inset 0 0 22px rgba(0,0,0,.5)}
+.in-label{position:relative;z-index:2;font-family:'KaiTi','STKaiti','Noto Serif SC',serif;font-size:clamp(15px,2.2vh,22px);font-weight:700;color:#c9a64a;letter-spacing:.62em;text-indent:.62em;line-height:1;flex:none;text-shadow:0 0 8px rgba(201,166,74,.3)}
+.in-num{position:relative;z-index:2;font-family:'Palatino Linotype','Book Antiqua','Songti SC','Noto Serif SC','Palatino','Georgia','Times New Roman',serif;font-weight:700;font-size:var(--in-fs,clamp(58px,9vw,150px));line-height:1.04;color:#e8c766;letter-spacing:.01em;font-variant-numeric:tabular-nums;margin-top:.14em;flex:none;text-shadow:0 0 18px rgba(232,199,102,.35),0 2px 0 rgba(0,0,0,.9)}
+/* 香区：残灰余痕 + 粗燃香 + 粒子青烟（『上香祈福』粒子系统）+ 大气三足鼎炉 */
+.in-zone{position:relative;flex:1 1 auto;min-height:40px;width:150px;margin-top:1.2vh}
+.in-ghost{position:absolute;left:50%;top:0;bottom:58px;width:4px;transform:translateX(-50%);border-radius:2px;background:repeating-linear-gradient(to top,rgba(232,199,102,.2) 0 5px,transparent 5px 10px)}   /* 残灰虚线（金色）：原香长余痕 */
+.in-stick{position:absolute;left:50%;bottom:52px;width:8px;transform:translateX(-50%);height:100%;max-height:calc(100% - 52px);border-radius:4px;background:linear-gradient(to bottom,#E8A040 0%,#A07840 40%,#6B5030 100%);box-shadow:0 0 6px rgba(232,160,64,.28)}
+.in-ember{position:absolute;top:-3px;left:50%;width:18px;height:11px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(ellipse,#FFD9A0 0%,#FF6020 30%,rgba(255,96,32,.3) 65%,transparent 100%);animation:inEmberF .4s ease-in-out infinite alternate;box-shadow:0 0 12px 2px rgba(255,120,50,.45)}
 @keyframes inEmberF{0%{opacity:.6;transform:translateX(-50%) scaleX(.8) scaleY(.9)}100%{opacity:1;transform:translateX(-50%) scaleX(1.2) scaleY(1.1)}}
 #ov-smokeCanvas{position:absolute;top:-70px;right:-30px;bottom:0;left:-30px;width:calc(100% + 60px);height:calc(100% + 70px);pointer-events:none;z-index:1}
-.in-burner{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:64px;height:28px;border-radius:4px 4px 12px 12px;background:linear-gradient(180deg,#5A4030,#3A2520);box-shadow:0 4px 12px rgba(0,0,0,.45)}
-.in-burner::before{content:'';position:absolute;top:-3px;left:6px;right:6px;height:5px;background:linear-gradient(180deg,#7A5A40,#5A4030);border-radius:3px}
-.in-burner-char{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'KaiTi','STKaiti',serif;font-size:13px;color:#b8912f;opacity:.65;letter-spacing:0}
+.in-burner{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:120px;height:66px;flex:none}
 /* 临近结束变色：≤10分钟琥珀 / ≤5分钟红闪 */
-.ov-incense.in-warn .in-num{color:#9a5d16}
-.ov-incense.in-warn .in-ember{background:radial-gradient(ellipse,#FFB040 0%,rgba(255,176,64,.35) 60%,transparent 100%)}
-.ov-incense.in-low .in-num{color:#a8271c;animation:ovBlink 1s steps(2) infinite}
-.ov-incense.in-low .in-ember{background:radial-gradient(ellipse,#FF3820 0%,rgba(255,56,32,.4) 60%,transparent 100%);animation-duration:.25s}
+.ov-incense.in-warn .in-num{color:#ffb057}
+.ov-incense.in-warn .in-ember{background:radial-gradient(ellipse,#FFE9C0 0%,#FFB040 30%,rgba(255,176,64,.35) 65%,transparent 100%)}
+.ov-incense.in-low .in-num{color:#ff6b5a;animation:ovBlink 1s steps(2) infinite}
+.ov-incense.in-low .in-ember{background:radial-gradient(ellipse,#FFD0B8 0%,#FF3820 30%,rgba(255,56,32,.4) 65%,transparent 100%);animation-duration:.25s}
 .ov-qrcard{display:flex;gap:20px;align-items:center;justify-content:center;border:none;background:transparent;padding:0;flex:1;min-height:0}
-.ov-qrbox{position:relative;width:100%;height:100%;flex:1 1 auto;min-width:0;min-height:0;background:repeating-linear-gradient(93deg,rgba(139,115,68,.05) 0 2px,transparent 2px 6px),linear-gradient(160deg,#f6eeda,#eee1c6);border:2px solid var(--zsilk);box-shadow:inset 0 0 0 1px rgba(184,145,47,.4),inset 0 0 18px rgba(139,115,68,.14),0 4px 14px rgba(94,72,48,.2);border-radius:2px}   /* 纸面墨码：与文牒同色系，黑卡退役 */
+.ov-qrbox{position:relative;width:100%;height:100%;flex:1 1 auto;min-width:0;min-height:0;background:#16110a;border:2px solid var(--zsilk);box-shadow:0 6px 20px rgba(0,0,0,.38),inset 0 0 18px rgba(0,0,0,.5);border-radius:2px}   /* 黑底黄码：与计时卡/地图黑金一体 */
 #ov-qr{position:absolute;inset:0;width:100%;height:100%;display:block}
 #ov-qr{width:100%;height:100%;display:block}
 #ov-sealbox{pointer-events:none}
@@ -430,7 +428,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
           <!-- 右折 -->
           <div class="ov-right">
-            <!-- 右上：一炷香计时 · 开放式纸面排版（无卡面，与码卡等分右栏） -->
+            <!-- 右上：一炷香计时 · 黑底金字卡面 -->
             <section class="ov-incense" id="ov-incense">
               <div class="in-label">尚余 · 一炷香</div>
               <div class="in-num" id="ov-timer">60:00</div>
@@ -438,7 +436,31 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
                 <i class="in-ghost"></i>
                 <canvas id="ov-smokeCanvas"></canvas>
                 <div class="in-stick" id="ov-stick"><i class="in-ember"></i></div>
-                <div class="in-burner"><span class="in-burner-char">文</span></div>
+                <svg class="in-burner" viewBox="0 0 120 66">
+                  <defs>
+                    <linearGradient id="dingbody" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#6e5637"/><stop offset=".45" stop-color="#4a3823"/><stop offset="1" stop-color="#241a10"/>
+                    </linearGradient>
+                    <linearGradient id="dingrim" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#55432a"/><stop offset=".5" stop-color="#a8874f"/><stop offset="1" stop-color="#55432a"/>
+                    </linearGradient>
+                    <linearGradient id="dingear" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#8a6d3e"/><stop offset=".6" stop-color="#5a4527"/><stop offset="1" stop-color="#3a2c17"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M22 8 q4 -5 9 0 q3 4 0 8 h-9 q-3 -4 0 -8 Z" fill="url(#dingear)" stroke="#c9a64a" stroke-width="1"/>
+                  <path d="M89 8 q4 -5 9 0 q3 4 0 8 h-9 q-3 -4 0 -8 Z" fill="url(#dingear)" stroke="#c9a64a" stroke-width="1" transform="translate(-10,0)"/>
+                  <rect x="19" y="12" width="82" height="5" rx="2.5" fill="url(#dingrim)"/>
+                  <ellipse cx="55" cy="17" rx="36" ry="3.4" fill="#1d150c"/>
+                  <path d="M19 17 Q17 34 26 44 Q40 53 55 53 Q70 53 84 44 Q93 34 91 17 Z" fill="url(#dingbody)" stroke="#8a6d3e" stroke-width="1.3"/>
+                  <path d="M24 24 Q34 29 55 29 Q76 29 86 24" fill="none" stroke="rgba(201,166,74,.55)" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M27 33 Q38 38 55 38 Q72 38 83 33" fill="none" stroke="rgba(201,166,74,.4)" stroke-width="1.3" stroke-linecap="round"/>
+                  <circle cx="55" cy="43.5" r="3.2" fill="rgba(201,166,74,.5)"/>
+                  <path d="M55 43.5 l2.2 1.6 -2.2 1.6 -2.2 -1.6 Z" fill="#16110a"/>
+                  <path d="M33 52 l-3.5 12 q-.6 2 1.2 2.4 q1.6.3 2.4-1.4 l4-11" fill="#4a3823" stroke="#8a6d3e" stroke-width="1"/>
+                  <path d="M77 52 l3.5 12 q.6 2 -1.2 2.4 q-1.6.3 -2.4-1.4 l-4-11" fill="#4a3823" stroke="#8a6d3e" stroke-width="1"/>
+                  <path d="M55 53 l0 12 q0 2 2 2 q2 0 2-2 l0-10" fill="#4a3823" stroke="#8a6d3e" stroke-width="1"/>
+                </svg>
               </div>
             </section>
 
@@ -805,7 +827,7 @@ function ovLoadQR(id){
   const url = OV_QR + '/start-qr-' + id + '.svg';
   const img = document.getElementById('ov-qr');
   fetch(url).then(r => { if(!r.ok) throw 0; return r.text(); }).then(t => {
-    t = t.replace(/#1a1a24/g, '#2e2015').replace(/#ffffff/g, 'rgba(246,238,218,0)');   // 纸面墨码：码体染墨、底透纸纹
+    t = t.replace(/#1a1a24/g, '#e8c766').replace(/#ffffff/g, '#16110a');   /* 黑底黄码 */
     img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(t);
   }).catch(() => { img.src = url; });
 }
@@ -949,7 +971,7 @@ function ovFmt(sec){
   P.prototype.draw = function(c){
     c.beginPath();
     c.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-    c.fillStyle = 'rgba(112,100,78,' + (this.a * this.life).toFixed(3) + ')';
+    c.fillStyle = 'rgba(196,176,140,' + (this.a * this.life).toFixed(3) + ')';   /* 檀色烟：黑底上可见 */
     c.fill();
   };
   function tick(){
