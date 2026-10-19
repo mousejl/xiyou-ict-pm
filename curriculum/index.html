@@ -93,14 +93,14 @@
 body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;}
 .hero{background:linear-gradient(135deg,#1a2436 0%,#2c3e5c 55%,#3d5a80 100%);color:#fff;padding:52px 24px 58px;position:relative;overflow:clip;}
 .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--l1) 0%,var(--l1) 25%,var(--l2) 25%,var(--l2) 50%,var(--l3) 50%,var(--l3) 75%,var(--l4) 75%,var(--l4) 100%);}
-.hero .inner{max-width:1060px;margin:0 auto;position:relative;width:100%;min-width:0;}
+.hero .inner{max-width:1060px;margin:0 auto;position:relative;width:100%;min-width:0;padding-right:150px;}
 .hero .kicker{font-size:13px;letter-spacing:.35em;opacity:.65;text-transform:uppercase;margin-bottom:14px;word-break:break-word;overflow-wrap:anywhere;}
 .hero h1{font-size:34px;font-weight:800;letter-spacing:2px;margin-bottom:10px;word-break:break-word;overflow-wrap:anywhere;min-width:0;}
 .hero h1 .accent{color:#f5c658;}
 .hero .sub{font-size:15px;opacity:.85;max-width:720px;min-width:0;} @media(max-width:860px){.hero .sub{font-size:12.5px;}}
 .hero .meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:20px;font-size:12.5px;opacity:.75;min-width:0;max-width:100%;}
 .hero .meta span{display:inline-flex;align-items:center;gap:6px;}
-.hero>.stamp{position:absolute;right:24px;top:14px;width:126px;height:126px;max-width:calc(100vw - 48px);transform:rotate(2deg);filter:drop-shadow(0 5px 14px rgba(0,0,0,.38));z-index:2;}
+.hero>.stamp{position:absolute;right:24px;top:50%;width:126px;height:126px;max-width:calc(100vw - 48px);transform:translateY(-50%) rotate(2deg);filter:drop-shadow(0 5px 14px rgba(0,0,0,.38));z-index:2;}
 .hero .stamp img{width:100%;height:100%;display:block;}
 .container{max-width:1060px;margin:0 auto;padding:34px 20px 50px;}
 .section-t{border-left:5px solid var(--gold);padding-left:14px;margin:30px 0 16px;}
@@ -141,6 +141,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
 .extra b{font-size:14.5px;display:block;color:#1a2436;}
 .extra span{font-size:12px;color:var(--sub);}
+.extra .tiny{display:block;margin-top:8px;font-size:11px;color:#9a9384;}
 .foot{text-align:center;font-size:12px;color:var(--sub);padding:30px 16px 40px;border-top:1px solid var(--line);margin-top:26px;}
 @media(max-width:960px){
   /* 抽屉收合由 JS 按面板实测宽度内联控制（ovDrawerSmallHide/ovDrawerToggle），此处仅管拉手尺寸 */
@@ -283,18 +284,16 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 
   <div class="section-t"><h2>配套资源</h2><div class="en">Companion Tools</div></div>
   <div class="extra">
-    <a href="test.html" class="role-card" style="display:flex;align-items:center;gap:24px;padding:22px 26px;grid-column:1 / -1">
-      <span style="flex:0 0 132px;height:132px;background:#fff;border-radius:14px;padding:10px;box-shadow:0 3px 14px rgba(26,36,54,.16)"><img src="images-qr-test.svg" style="width:100%;display:block" alt="角色自测二维码"></span>
-      <span style="flex:1;min-width:0">
-        <b style="text-align:left">角色自测 H5</b>
-        <span style="display:block;text-align:left;margin:7px 0 0;font-size:13.5px;color:#4a4a55;line-height:1.9">手机扫码直达 · 10 道情境题 · 约 5 分钟<br>测你是师徒五人中的谁<br>唐僧 · 悟空 · 八戒 · 沙僧 · 白龙马</span>
-        <span style="display:block;text-align:left;margin-top:6px;font-size:11.5px;color:#9a9384">培训现场投影 · 学员扫码即测 ｜ 点击进入网页版</span>
-      </span>
+    <a href="test.html">
+      <span style="display:block;margin:0 auto 12px;width:112px;height:112px;background:#fff;border-radius:12px;padding:8px;box-shadow:0 3px 12px rgba(26,36,54,.14)"><img src="images-qr-test.svg" style="width:100%;display:block" alt="角色自测二维码"></span>
+      <b>角色自测 H5</b>
+      <span>手机扫码直达 · 10 道情境题 · 约 5 分钟<br>测你是师徒五人中的谁<br>唐僧 · 悟空 · 八戒 · 沙僧 · 白龙马</span>
+      <span class="tiny">培训现场投影 · 学员扫码即测｜点击进入网页版</span>
     </a>
-    <a href="score.html"><b>成绩查询</b><span>学员凭手机号查本人成绩与文牒 ｜ 老师凭登记手机号查全班成绩、导出CSV</span></a>
+    <a href="score.html"><b>成绩查询</b><span>学员凭手机号查本人成绩与文牒<br>老师凭登记手机号查全班成绩、导出 CSV</span></a>
     <a href="templates.html">
       <b>模板教具包</b>
-      <span>八份随堂教具 · 通关文牒 / 登记册 / 纪要 / 三栏清单 / 变更批复 / 打回清单 / 复盘框架 / 封赏方案 ｜ 支持打印</span>
+      <span>八份随堂教具 · 通关文牒 / 登记册 / 纪要 / 三栏清单 / 变更批复 / 打回清单 / 复盘框架 / 封赏方案｜支持打印</span>
     </a>
   </div>
 
