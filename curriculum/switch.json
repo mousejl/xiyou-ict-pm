@@ -1,13 +1,13 @@
 {
-  "g0": false,
-  "c1": false,
-  "c2": false,
-  "c3": false,
-  "c4": false,
-  "pmo": false,
+  "g0": true,
+  "c1": true,
+  "c2": true,
+  "c3": true,
+  "c4": true,
+  "pmo": true,
   "index": true,
   "test": true,
   "score": true,
   "templates": true,
-  "updated": "2026-10-20T21:35 开放配套工具（index/test/score/templates），六门课保持关闭"
+  "updated": "2026-10-20T21:40 开课·六门课全部开放（配套工具此前已开放）"
 }
