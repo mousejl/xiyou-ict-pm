@@ -21,19 +21,20 @@ body{font-family:"Songti SC","STSong","SimSun",serif;}
 .stack .seal{width:8.4vh;height:8.4vh;display:block;}
 .stack .qr{width:8.4vh;height:8.4vh;background:#fff;padding:2px;display:block;}
 
-/* 左区右半：榜字深黄方块 */
+/* 左区右半：榜字（无背景，竖长榜书） */
 .bang-block{
-  position:absolute;left:16%;top:23%;width:24%;height:54%;
-  background:#f7e0a3;display:flex;align-items:center;justify-content:center;
+  position:absolute;left:15%;top:14%;width:26%;height:72%;
+  display:flex;align-items:center;justify-content:center;
 }
-.bang{font-size:32vh;font-weight:900;line-height:.9;color:#222;letter-spacing:0;}
+.bang{font-size:52vh;font-weight:900;line-height:1;color:#222;letter-spacing:0;
+  transform:scaleX(.62);transform-origin:center;white-space:nowrap;}
 
 /* 右区：六个竖签 */
 .tags{position:absolute;left:40%;top:0;width:60%;height:100%;
   display:flex;align-items:center;justify-content:center;gap:2.8vw;}
 .tag{
   width:5.6vw;height:70%;background:#f7e0a3;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;
   transition:transform .15s, box-shadow .15s;
 }
 .tag:hover{transform:translateY(-6px);box-shadow:0 10px 24px rgba(0,0,0,.22);}
