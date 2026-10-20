@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>番外专项 · PMO总监课（观音课）｜取经计划</title>
+<style>
+:root{
+  --ink:#0c0e11; --ink2:#14171c; --paper:#efece3; --paper2:#e3dfd2;
+  --gold:#c9a64a; --gold2:#e4c96f; --line:rgba(201,166,74,.35);
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  --lv:#d8b45f;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+#deck{display:flex;height:100vh;width:100000vw;transition:transform .55s cubic-bezier(.65,0,.25,1);}
+.slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:8vh 5.5vw 10vh;overflow:hidden;display:flex;flex-direction:column;}
+.slide.dark{background:radial-gradient(120% 120% at 20% 10%,#171a20 0%,#0b0e11 58%);color:var(--paper);}
+.slide.light{background:linear-gradient(160deg,#efece3,#e4e0d3);color:#20222a;}
+.slide.dark .chrome{color:rgba(255,255,255,.5);}
+.slide.light .chrome{color:rgba(0,0,0,.5);}
+.chrome{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:2.6vh 5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55;padding-top:2vh;}
+.foot .t{font-family:var(--serif);letter-spacing:.04em;text-transform:none;font-size:12px;opacity:.8;}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;opacity:.62;margin-bottom:2.2vh;}
+.kicker.gold{color:var(--lv);opacity:1;}
+.hero-zh{font-family:var(--serif);font-weight:700;font-size:min(7.6vw,13.5vh);line-height:1.05;letter-spacing:-.005em;}
+.h1-zh{font-family:var(--serif);font-weight:700;font-size:min(4.2vw,7.4vh);line-height:1.12;letter-spacing:-.005em;}
+.h2-zh{font-family:var(--serif);font-weight:600;font-size:min(2.6vw,4.6vh);line-height:1.2;}
+.lead{font-family:var(--serif);font-size:max(15px,min(1.5vw,2.6vh));line-height:1.7;opacity:.82;}
+.body-zh{font-family:var(--sans);font-size:max(14px,1.15vw);line-height:1.75;opacity:.85;}
+.frame{display:flex;gap:3.4vw;align-items:stretch;flex:1;min-height:0;}
+.text{flex:1.35;display:flex;flex-direction:column;justify-content:center;min-width:0;}
+.art{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;}
+.art svg{width:min(38vw,52vh);height:auto;filter:drop-shadow(0 6px 24px rgba(0,0,0,.45));}
+.art .cap{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-top:1.6vh;}
+.slide.light .art svg{filter:none;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;margin-top:2.6vh;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1.8vw;margin-top:2.6vh;}
+.gcard{border:1px solid rgba(127,127,127,.32);padding:2.2vh 1.5vw;display:flex;flex-direction:column;gap:1.2vh;}
+.gcard .n{font-family:var(--serif);font-weight:700;font-size:min(3.4vw,6vh);color:var(--lv);line-height:1;}
+.gcard h4{font-family:var(--serif);font-weight:600;font-size:min(1.7vw,3vh);}
+.gcard p{font-family:var(--sans);font-size:max(12px,1vw);opacity:.75;line-height:1.6;}
+.slide.light .gcard{border-color:rgba(0,0,0,.22);}
+.callout{border-left:3px solid var(--lv);padding:2.2vh 2vw;margin-top:2.4vh;background:rgba(201,166,74,.06);font-family:var(--serif);font-size:max(14px,1.1vw);line-height:1.65;}
+.slide.light .callout{background:rgba(0,0,0,.05);}
+.callout .src{display:block;margin-top:1.2vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.55;}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:20px;padding:3px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin:0 8px 10px 0;color:var(--lv);}
+.statline{display:flex;gap:3vw;margin-top:3vh;}
+.statline .n{font-family:var(--serif);font-weight:700;font-size:min(6vw,11vh);line-height:.9;color:var(--lv);font-feature-settings:"tnum";}
+.statline .l{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-top:1vh;}
+.nav{position:fixed;bottom:0;left:0;right:0;height:8vh;display:flex;align-items:center;justify-content:center;gap:14px;background:var(--ink);border-top:1px solid rgba(255,255,255,.1);z-index:50;}
+.nav button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:transparent;color:var(--paper);font-size:17px;cursor:pointer;}
+.nav button:hover{background:var(--gold);color:#101;border-color:var(--gold);}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:66vw;}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;}
+.dot.on{background:var(--gold);transform:scale(1.35);}
+.pgnum{position:absolute;bottom:9vh;right:5.5vw;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:rgba(255,255,255,.4);}
+.qr-fab{position:fixed;bottom:9.5vh;left:1.1vw;width:46px;background:#fff;border-radius:7px;padding:4px;box-shadow:0 3px 14px rgba(0,0,0,.4);z-index:60;opacity:.9;transition:opacity .2s}
+.qr-fab:hover{opacity:1}
+.qr-fab img{width:100%;display:block}
+.qr-fab::after{content:"扫码同步";display:block;text-align:center;font-size:8px;color:#555;letter-spacing:.06em;padding-top:2px}
+.qr-fab{cursor:pointer}
+.qr-fab.big{width:150px;z-index:70}
+.qr-fab.big::after{content:"点我收起";font-size:10px}
+@media print{.qr-fab{display:none}}
+.anim{opacity:0;transform:translateY(22px);transition:all .7s ease .2s;}
+.slide.on .anim{opacity:1;transform:none;}
+.slide.on .anim.d1{transition-delay:.4s;} .slide.on .anim.d2{transition-delay:.6s;} .slide.on .anim.d3{transition-delay:.8s;}
+.art svg .fill-gold{fill:var(--gold);}
+</style>
+</head>
+<body>
+<div id="deck">
+
+<section class="slide dark">
+  <div class="chrome"><span>取经计划 · 番外专项 · PMO总监课</span><span>P1 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">番外专项 · 观音课 · PMO 总监</div>
+      <h1 class="hero-zh anim d1">观音课<br>取经项目办</h1>
+      <p class="lead anim d2" style="margin-top:2.4vh">取经项目办十讲——从观音菩萨的项目治理术，到本单位主流程优化。这是一堂给 PMO 的课：不出场打妖，但决定取经成败。</p>
+      <div class="callout anim d3">课程公约：听讲、研讨、交一份 <span style="color:var(--gold)">《本单位主流程优化方案》</span>，优秀方案直通 PMO 立项池。<div class="src">结业凭证 · 观音令（番外专项徽章，不占五印体系）</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M120 22 q-14 22-14 44 a14 14 0 0 0 28 0 q0-22-14-44 Z" stroke-opacity=".9"/>
+<path d="M104 70 q-22 34-18 74 q0 26 16 32 h36 q16-6 16-32 q4-40-18-74" stroke-opacity=".8"/>
+<path d="M120 92 q-10 26-8 58 q2 20 8 24 q6-4 8-24 q2-32-8-58 Z" stroke-opacity=".35"/>
+<path d="M96 152 q24 14 48 0" stroke-opacity=".5"/>
+<path d="M108 50 l-8-14 M132 50 l8-14" stroke-opacity=".55"/>
+<circle cx="100" cy="42" r="2" stroke-opacity=".6"/>
+<circle cx="140" cy="42" r="2" stroke-opacity=".6"/>
+<path d="M66 108 q-26 8-30 30 q6 6 14 2 q-2-18 16-22 Z" stroke-opacity=".5"/>
+<path d="M174 108 q26 8 30 30 q-6 6-14 2 q2-18-16-22 Z" stroke-opacity=".5"/>
+<path d="M120 18 v-6 M114 12 h12" stroke-opacity=".7"/>
+<path d="M20 186 q50 8 100 0 q50 8 100 0" stroke-opacity=".3"/></g></svg>
+      <div class="cap">杨柳玉净瓶 · 掌全局而不临一线</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">PMO专项课 · 观音令</span><span>COVER / 16</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>课程地图 · 观音六次出手</span><span>P2 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker anim">为什么 PMO 要学观音</div>
+      <h1 class="h1-zh anim d1">不出场打妖，<br>却决定项目成败</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">观音不取经、不打妖、不挑担，却是取经项目的 <b style="color:var(--gold)">PMO 总监</b>——立项、点将、配资源、定制度、管验收、最后发证，全在观音手里。</p>
+      <div class="callout anim d3">本课十讲，走一遍观音的项目治理全流程。<div class="src">第1讲 项目办 → 第2讲 点将 → 第3讲 紧箍咒 → 第4讲 锦囊 → 第5讲 关文 → 第6讲 难簿 → 第7讲 查户口 → 第8讲 打回 → 第9讲 验收 → 第10讲 封赏</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 170 Q120 40 220 170" stroke-opacity=".85"/>
+<path d="M40 170 Q120 70 200 170" stroke-opacity=".45"/>
+<circle cx="70" cy="120" r="4"/>
+<circle cx="100" cy="96" r="4"/>
+<circle cx="132" cy="72" r="4"/>
+<circle cx="164" cy="96" r="4"/>
+<circle cx="190" cy="120" r="4"/>
+<path d="M120 56 l4-10 M120 46 l-3-4 M124 46 l3-4" stroke-opacity=".7"/>
+<path d="M120 44 l0-10" stroke-opacity=".8"/>
+<circle cx="120" cy="28" r="3.5"/>
+<path d="M20 168 Q120 176 220 168" stroke-opacity=".3"/>
+<path d="M60 150 q-6 10 0 18 q6-8 0-18 M180 150 q-6 10 0 18 q6-8 0-18" stroke-opacity=".5"/></g></svg>
+      <div class="cap">取经全景 · 观音十次出手</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">PMO = 治理型中枢</span><span>MAP / 16</span></div>
+</section>
+
+<section class="slide light">
+  <div class="chrome"><span>第一讲 · 取经项目办</span><span>P3 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第一讲 · PMO 定位</div>
+      <h1 class="h1-zh anim d1">取经项目办</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">如来发起"传经东土"战略，观音主动领命：<b style="color:#10122a">定项目经理、点将、配资源、全程督导</b>——一个治理型 PMO 的标准动作。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>支持型</h4><p>提供模板工具，不干预</p></div>
+        <div class="gcard anim d2"><h4>控制型</h4><p>统一流程标准，强监管</p></div>
+        <div class="gcard anim d3"><h4>治理型</h4><p>定战略 · 配资源 · 设红线 · 管验收</p></div>
+      </div>
+      <div class="callout anim d3">取经办 = <b style="color:#10122a">治理型 PMO 样本</b>：观音定的是"要不要办、谁来办、办成什么样"，而不是替悟空打每一只妖。<div class="src">随堂考 ×2</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="30" y="40" width="60" height="70" rx="3"/>
+<rect x="34" y="48" width="52" height="14"/>
+<path d="M38 70 h12 M38 82 h12 M38 94 h12" stroke-opacity=".5"/>
+<rect x="150" y="40" width="60" height="54" rx="3"/>
+<path d="M154 50 h20 M154 60 h20 M154 70 h20" stroke-opacity=".5"/>
+<path d="M120 40 q8 20 8 40 v36 h-16 v-36 q0-20 8-40 Z" stroke-opacity=".7"/>
+<path d="M120 120 h-4 v20 h8 v-20" stroke-opacity=".55"/>
+<path d="M70 124 q10-6 20 0 M150 124 q10 6 20 0" stroke-opacity=".35"/>
+<path d="M100 120 v22 M140 120 v22" stroke-opacity=".45"/>
+<path d="M60 162 q60 14 120 0" stroke-opacity=".3"/></g></svg>
+      <div class="cap">战略 → PMO → 项目经理</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">取经项目办 · 治理型 PMO</span><span>L1 · 01 / 02</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>第一讲 · 边界感</span><span>P4 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker anim">PMO 的边界感</div>
+      <h1 class="h1-zh anim d1">观音的"不是"</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">观音不替悟空打妖、不替唐僧念经——这是 PMO 最值钱的本事：<b style="color:var(--gold)">管项目的边界，不越界替项目经理干活。</b></p>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>PMO 职责清单</h4><p>立项把关 · 资源配置 · 制度红线 · 里程碑验收 · 风险督导 · 考核激励</p></div>
+        <div class="gcard anim d1"><h4>PMO 禁止清单</h4><p>不顶替项目经理决策 · 不替一线干具体活 · 不越级干预 · 不当背锅侠</p></div>
+      </div>
+      <div class="callout anim d3">一句话分工：<b style="color:var(--gold)">PM 管"怎么把这个项目做成"，PMO 管"这家公司怎么把项目做成体系"。</b><div class="src">PM 与 PMO · 分工矩阵</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="120" cy="100" r="52"/>
+<circle cx="120" cy="100" r="42" stroke-opacity=".3"/>
+<circle cx="120" cy="100" r="18" stroke-opacity=".5"/>
+<path d="M120 48 v-14 M120 152 v14 M68 100 h-14 M166 100 h14" stroke-opacity=".6"/>
+<path d="M120 100 l30-34 M120 100 l-30 34" stroke-dasharray="4 4" stroke-opacity=".4"/>
+<circle cx="120" cy="100" r="2.5"/>
+<path d="M82 66 q6 6 0 12 q-6-6 0-12 M158 122 q6 6 0 12 q-6-6 0-12" stroke-opacity=".45"/></g></svg>
+      <div class="cap">边界 · 该管的管到，不该管的别碰</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">边界感 = 专业分工</span><span>LECT · 01 / 02</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>第二讲 · 点将的艺术</span><span>P5 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第二讲 · 团队组建</div>
+      <h1 class="h1-zh anim d1">点将的艺术</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">观音点将，不是凑人，是搭一支能互补的班子。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>唐僧 · 信念型 PM</h4><p>目标坚定 · 守得住原则</p></div>
+        <div class="gcard anim d1"><h4>悟空 · 能力封顶</h4><p>战力强但有前科 → 紧箍约束</p></div>
+        <div class="gcard anim d2"><h4>八戒 · 人脉烟火</h4><p>会来事 · 能协调请援</p></div>
+        <div class="gcard anim d2"><h4>沙僧 · 稳定交付</h4><p>挑担传话 · 托底</p></div>
+        <div class="gcard anim d3"><h4>白龙马 · 成本变资产</h4><p>载具即战力 · 沉默托底</p></div>
+      </div>
+      <div class="callout anim d3">立项五要素 · 角色互补（德尼摩定律）· 人岗匹配与风险预案——<b style="color:var(--gold)">全能不等于全能上阵，互补才扛得住全程。</b><div class="src">小组研讨</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="52" cy="76" r="9"/>
+<path d="M52 85 v32 M52 117 l-8 18 M52 117 l8 18" stroke-opacity=".85"/>
+<path d="M52 88 q-12 10-10 40 h20 q2-30-10-40 Z"/>
+<circle cx="108" cy="72" r="9"/>
+<path d="M100 66 l-8-5 M116 66 l8-5" stroke-opacity=".75"/>
+<path d="M108 81 v32 M108 113 l-8 18 M108 113 l8 18" stroke-opacity=".85"/>
+<path d="M108 85 q-12 8-10 36 h20 q2-28-10-36 Z"/>
+<circle cx="168" cy="74" r="9"/>
+<path d="M160 83 q-8 12-8 32 h32 q0-20-8-32 Z" stroke-opacity=".85"/>
+<path d="M160 102 l-6 10 M176 102 l6 10" stroke-opacity=".6"/>
+<circle cx="208" cy="78" r="9"/>
+<path d="M200 87 q-8 12-8 30 h32 q0-18-8-30 Z" stroke-opacity=".85"/>
+<path d="M196 106 h24 M200 118 h16" stroke-opacity=".5"/>
+<path d="M30 150 l60-40 M210 150 l-60-40" stroke-opacity=".4"/>
+<circle cx="120" cy="52" r="7"/>
+<path d="M120 59 v-6 M120 45 v-8 M120 37 l-5 6 M120 37 l5 6" stroke-opacity=".6"/>
+<path d="M28 168 h184" stroke-opacity=".3"/></g></svg>
+      <div class="cap">一将点齐 · 五角色</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第二讲 · 点将</span><span>LECT · 02 / 02</span></div>
+</section>
+
+<section class="slide light">
+  <div class="chrome"><span>第二讲 · 沉没成本</span><span>P6 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">选人的一条硬规则</div>
+      <h1 class="h1-zh anim d1">五行山下的封条</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">悟空在五行山下压了五百年，封条贴了六百年——<b style="color:#10122a">过去的战绩不决定现在的岗位，沉没成本不参与决策。</b></p>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>人才盘点四象限</h4><p>能力 × 可控性 × 岗位匹配——看的是"这次这个岗位他能干成什么"</p></div>
+        <div class="gcard anim d2"><h4>关键岗位继任者思维</h4><p>每个关键角色都要有人能补位，不被一个人的"过去"绑架</p></div>
+      </div>
+      <div class="callout anim d3">呼应单位人才数据库：认证 / 荣誉画像不是"历史账本"，是 <b style="color:#10122a">盘点当下能力、安排下一步</b>的坐标。<div class="src">选人 = 能力 × 可控性 × 岗位匹配</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="64" y="40" width="112" height="112" rx="8"/>
+<rect x="70" y="46" width="100" height="100" rx="6" stroke-opacity=".4"/>
+<path d="M78 66 h88 M78 84 h88 M78 102 h64 M78 120 h52" stroke-opacity=".6"/>
+<path d="M120 40 v-16 h-8 v16" stroke-opacity=".8"/>
+<circle cx="120" cy="22" r="4" stroke-opacity=".7"/>
+<path d="M60 162 q60 18 120 0" stroke-opacity=".45"/>
+<path d="M100 152 q4-6 8 0 q-4 2-8 0 M132 152 q4-6 8 0 q-4 2-8 0" stroke-opacity=".5"/></g></svg>
+      <div class="cap">封条 · 沉没成本不是包袱</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第二讲 · 点将 / 用人</span><span>LECT · 02 / 02</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>第三讲 · 紧箍咒管理法</span><span>P7 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第三讲 · 制度约束</div>
+      <h1 class="h1-zh anim d1">紧箍咒管理法</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">紧箍咒是<b style="color:var(--gold)">刚性制度落地</b>——三打白骨精时误念咒，是信息不对称下的错误处罚；六耳猕猴冒充悟空，紧箍咒又成了<b style="color:var(--gold)">验真工具</b>。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>制度三件套</h4><p>流程 · 权限 · 考核</p></div>
+        <div class="gcard anim d2"><h4>制度的刚与柔</h4><p>红线刚性 · 执行留温度</p></div>
+        <div class="gcard anim d3"><h4>处罚前事实核三问</h4><p>真凶是谁 · 证据在吗 · 有没有误伤</p></div>
+      </div>
+      <div class="callout anim d3">制度不是"念咒工具"，是<b style="color:var(--gold)">让人知道底线在哪、也让人敢放手干</b>的保障。<div class="src">随堂考 ×2 · 案例判断题</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="120" cy="72" r="26"/>
+<circle cx="120" cy="72" r="24" stroke-dasharray="4 3" stroke-opacity=".6"/>
+<circle cx="120" cy="72" r="18" stroke-dasharray="3 3" stroke-opacity=".4"/>
+<path d="M120 46 v-18 M120 98 v18 M94 72 h-18 M146 72 h18" stroke-opacity=".8"/>
+<path d="M96 44 q10 10 0 20 q-10-10 0-20 M144 44 q10 10 0 20 q-10-10 0-20 M96 100 q10 10 0 20 q-10-10 0-20 M144 100 q10 10 0 20 q-10-10 0-20" stroke-opacity=".55"/>
+<path d="M120 72 l0 0" stroke-opacity=".9"/>
+<circle cx="120" cy="72" r="3"/>
+<path d="M120 30 v-8" stroke-opacity=".7"/></g></svg>
+      <div class="cap">紧箍 = 可执行 · 可鉴真 · 可容错</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第三讲 · 制度约束</span><span>LECT · 03 / 16</span></div>
+</section>
+
+<section class="slide light">
+  <div class="chrome"><span>第四讲 · 三个锦囊</span><span>P8 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第四讲 · 分级授权</div>
+      <h1 class="h1-zh anim d1">三个锦囊</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">观音留锦囊、托塔天王借照妖镜——<b style="color:#10122a">不同层级，给不同的工具</b>；悟空搞不定，就上天搬救兵。</p>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>RACI 责任矩阵</h4><p>谁负责 R · 谁批准 A · 谁执行 C · 谁知情 I——一个角色一张表，权责写清</p></div>
+        <div class="gcard anim d2"><h4>例外升级通道</h4><p>常规 → 升级 → 直达：小事不越级，大事有直通道</p></div>
+      </div>
+      <div class="callout anim d3">授权不是撒手，是<b style="color:#10122a">给工具 + 给升级通道</b>：该悟空扛的自己扛，扛不动的有观音兜底。</div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M40 60 q-6-14 8-14 q4 6 4 12 q0-6 4-12 q14 0 8 14" stroke-opacity=".85"/>
+<path d="M104 60 q-6-14 8-14 q4 6 4 12 q0-6 8-12 q14 0 8 14" stroke-opacity=".85"/>
+<path d="M168 60 q-6-14 8-14 q4 6 4 12 q0-6 8-12 q14 0 8 14" stroke-opacity=".85"/>
+<path d="M40 60 v78 M112 60 v78 M184 60 v78" stroke-opacity=".7"/>
+<path d="M32 60 h16 M104 60 h16 M176 60 h16" stroke-opacity=".4"/>
+<path d="M24 168 q72 12 144 0" stroke-opacity=".35"/>
+<path d="M120 148 q4-5 8 0 q-4 2-8 0" stroke-opacity=".5"/></g></svg>
+      <div class="cap">三锦囊 · 分级工具</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第四讲 · 授权 / 升级</span><span>LECT · 04 / 16</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>第五讲 · 倒换关文</span><span>P9 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第五讲 · 里程碑验收</div>
+      <h1 class="h1-zh anim d1">倒换关文</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">唐王的通关文牒 = <b style="color:var(--gold)">项目章程</b>。宝象国、乌鸡国、车迟国……每到一国倒换关文 = <b style="color:var(--gold)">阶段交付物签字</b>。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>里程碑三原则</h4><p>可验收 · 有交付物 · 有签字人</p></div>
+        <div class="gcard anim d2"><h4>过程资产沉淀</h4><p>每国一印，留下一段"走过了"的证据</p></div>
+        <div class="gcard anim d3"><h4>签字即责任</h4><p>章落之前，责任在办方</p></div>
+      </div>
+      <div class="callout anim d3">里程碑不是给进度拍照，是<b style="color:var(--gold)">在关键节点确认"这一段真的做完了"</b>。教具②通关文牒 · 教具⑤验收三栏清单。</div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="40" y="30" width="150" height="130" rx="6"/>
+<rect x="48" y="38" width="134" height="114" rx="4" stroke-opacity=".35"/>
+<path d="M56 60 h44 M56 76 h44 M56 92 h36" stroke-opacity=".7"/>
+<circle cx="160" cy="118" r="20" stroke-opacity=".75"/>
+<circle cx="160" cy="118" r="26" stroke-dasharray="3 3" stroke-opacity=".4"/>
+<path d="M152 122 l5 5 9-10" stroke-width="1.6" stroke-opacity=".8"/>
+<path d="M44 168 h160" stroke-opacity=".3"/>
+<path d="M160 84 v-8 M160 76 v-6 M160 70 l-5 5 M160 70 l5 5" stroke-opacity=".5"/></g></svg>
+      <div class="cap">一印一里程碑</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第五讲 · 关文 / 验收</span><span>LECT · 05 / 02</span></div>
+</section>
+
+<section class="slide light">
+  <div class="chrome"><span>第五讲 · 国玺即闭环</span><span>P10 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第五讲 · 阶段验收</div>
+      <h1 class="h1-zh anim d1">朱紫国 · 国玺一落</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">朱紫国倒换关文盖印特写——<b style="color:#10122a">"国玺一落，此段即闭环"</b>。</p>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>阶段验收三栏法</h4><p>计划 / 实际 / 偏差——逐条对齐，缺项写"待整改"</p></div>
+        <div class="gcard anim d2"><h4>跨阶段交接单</h4><p>责任清晰传导，上一段没闭环，下一段不接</p></div>
+      </div>
+      <div class="callout anim d3">签字 = 责任转移。验收不签字的项目，就像没盖印的关文——<b style="color:#10122a">一路走一路欠账，账到最后总爆发。</b></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="120" y="30" width="80" height="80" rx="6"/>
+<path d="M124 42 h72 M124 58 h72 M124 74 h52" stroke-opacity=".55"/>
+<path d="M120 110 h80 v-30" stroke-opacity=".6"/>
+<rect x="34" y="52" width="56" height="56" rx="4" stroke-opacity=".8"/>
+<circle cx="62" cy="80" r="10" stroke-opacity=".7"/>
+<path d="M56 82 l4 4 7-9" stroke-width="1.5" stroke-opacity=".8"/>
+<path d="M34 110 h56 v-56" stroke-opacity=".45"/>
+<path d="M90 66 q-4-6 8 0 q-4 2-8 0 M90 100 q-4-6 8 0 q-4 2-8 0" stroke-opacity=".45"/></g></svg>
+      <div class="cap">阶段闭环 · 签字交接</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第五讲 · 三栏验收 / 交接</span><span>LECT · 05 / 02</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>第六讲 · 难簿</span><span>P11 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第六讲 · 风险登记</div>
+      <h1 class="h1-zh anim d1">难簿</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">观音的难簿，提前记满八十一难 = <b style="color:var(--gold)">项目风险登记册原型</b>。最后一难通天河老龟翻船补记——唐僧忘了问佛祖寿数，是<b style="color:var(--gold)">需求确认遗漏的经典案例</b>。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>风险五步</h4><p>识别 → 评估 → 应对 → 登记 → 闭环</p></div>
+        <div class="gcard anim d2"><h4>台账定期复盘</h4><p>册在，才叫"下一步安排"</p></div>
+        <div class="gcard anim d3"><h4>难未到 · 册先记</h4><p>风险写在发生之前</p></div>
+      </div>
+      <div class="callout anim d3">干系人托付的事=隐性需求，<b style="color:var(--gold)">当场登记入册、闭环前逐项勾销</b>。<div class="src">教具③ 风险登记册 · 随堂考 ×2</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="54" y="40" width="120" height="132" rx="6"/>
+<rect x="60" y="48" width="108" height="116" rx="4" stroke-opacity=".4"/>
+<path d="M70 62 q14-4 28 0 M70 82 q14-4 28 0 M70 102 q14-4 28 0" stroke-opacity=".7"/>
+<path d="M64 140 h36 M64 156 h28" stroke-opacity=".5"/>
+<path d="M118 66 v16 M110 74 h16" stroke-opacity=".8"/>
+<circle cx="122" cy="108" r="16" stroke-opacity=".7"/>
+<path d="M116 110 l4 4 7-9" stroke-width="1.6" stroke-opacity=".8"/>
+<path d="M180 60 q-6 12 0 22 q6-10 0-22 M188 96 q-6 12 0 22 q6-10 0-22" stroke-opacity=".5"/></g></svg>
+      <div class="cap">八十一难 · 条条在册</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第六讲 · 风险登记</span><span>LECT · 06 / 16</span></div>
+</section>
+
+<section class="slide light">
+  <div class="chrome"><span>第七讲 · 查户口降妖</span><span>P12 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第七讲 · 资源协调</div>
+      <h1 class="h1-zh anim d1">查户口，再降妖</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">青牛精是太上老君的坐骑、金毛犼是观音的坐骑、狮驼岭三魔是佛道两界的背景——每次降妖，先查<b style="color:#10122a">"这妖是谁家的"</b>。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>① 找对 Owner</h4><p>先识别资源池归属谁</p></div>
+        <div class="gcard anim d2"><h4>② 正式借调</h4><p>有手续、有账目，不顺手牵羊</p></div>
+        <div class="gcard anim d3"><h4>③ 用后归还</h4><p>人/资产用毕归位，账目勾销</p></div>
+      </div>
+      <div class="callout anim d3">资源协调三步：<b style="color:#10122a">找对 Owner → 正式借调 → 用后归还</b>。借调不清账，就是下次借不出来的根因。</div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="70" cy="76" r="16"/>
+<path d="M70 92 v18 M70 110 l-6 16 M70 110 l6 16" stroke-opacity=".8"/>
+<path d="M70 94 q-10 8-8 28 h16 q2-20-8-28 Z"/>
+<circle cx="120" cy="96" r="3.5"/>
+<path d="M70 92 q50 6 94 4 M70 88 q50 6 94 6" stroke-opacity=".4"/>
+<circle cx="170" cy="70" r="14"/>
+<path d="M170 84 v16 M170 100 l-12 18 M170 100 l12 18" stroke-opacity=".8"/>
+<path d="M170 86 q-10 10-8 34 h8 q2-24-8-34 Z"/>
+<path d="M96 58 q4-5 8 0 q-4 2-8 0 M140 56 q4-5 8 0 q-4 2-8 0" stroke-opacity=".45"/>
+<path d="M30 160 q90 14 180 0" stroke-opacity=".3"/></g></svg>
+      <div class="cap">先查后台 · 再动手</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第七讲 · 资源协调</span><span>LECT · 07 / 16</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>第八讲 · 打回与改道</span><span>P13 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第八讲 · 变更管理</div>
+      <h1 class="h1-zh anim d1">打回与改道</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">女儿国招亲（范围蔓延诱惑）、四圣试禅心（验收方测团队定力）、悟空被贬回花果山（PM 被撤换后项目震荡与回调）。</p>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>变更控制四步</h4><p>申请 → 评估 → 批复 → 执行——先过流程，再动目标</p></div>
+        <div class="gcard anim d2"><h4>范围蔓延防御</h4><p>每句"顺手加个/算了先这样"都在放血</p></div>
+      </div>
+      <div class="callout anim d3">人员替换必配 <b style="color:var(--gold)">交接清单</b>，项目才能在被换将之后"回调"不崩。<div class="src">教具⑥ 变更批复单 · 教具⑦ 打回清单</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 60 q90-70 180 0" stroke-opacity=".8"/>
+<path d="M30 60 v100 q90-70 180 0" stroke-opacity=".35"/>
+<path d="M210 60 l14-4-6 14" stroke-opacity=".9"/>
+<path d="M120 100 q-6-12 0-22 q6 10 0 22" stroke-opacity=".85"/>
+<path d="M120 78 v-12 M120 66 l-4 4 M120 66 l4 4" stroke-opacity=".7"/>
+<circle cx="120" cy="104" r="4" stroke-opacity=".7"/>
+<path d="M120 108 v8 M120 116 l-4 6 M120 116 l4 6" stroke-opacity=".6"/>
+<path d="M30 150 h180" stroke-opacity=".3"/></g></svg>
+      <div class="cap">变更 · 先评估再改道</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第八讲 · 变更管理</span><span>LECT · 08 / 16</span></div>
+</section>
+
+<!-- 第九讲 -->
+<section class="slide light">
+  <div class="chrome"><span>第九讲 · 无字真经</span><span>P14 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第九讲 · 结项验收</div>
+      <h1 class="h1-zh anim d1">无字真经</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">阿傩伽叶先传<b style="color:#10122a">无字经</b>（验收标准缺失→返工）、索要<b style="color:#10122a">紫金钵盂</b>（质保金 / 遗留问题）、通天河<b style="color:#10122a">湿经晒经</b>（交付后缺陷修补）。</p>
+      <div class="grid-2">
+        <div class="gcard anim d1"><h4>验收流程</h4><p>验收标准前置 · 书面化 · 有签字人</p></div>
+        <div class="gcard anim d2"><h4>质保与遗留</h4><p>质保金/遗留问题清单，交付不是终点</p></div>
+      </div>
+      <div class="callout anim d3">无字真经的本质：<b style="color:#10122a">双方对"交付合格"的定义没对齐</b>。口说无凭，关文有印。<div class="src">教具⑤ · 随堂考 ×2</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#10122a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M120 30 q-34-12-68 6 v108 q34-14 68 8 q34-22 68-8 v-108 q-34-18-68-6 Z" stroke-opacity=".85"/>
+<path d="M120 30 v122" stroke-opacity=".5"/>
+<path d="M84 60 h24 M84 80 h24 M84 100 h24" stroke-opacity=".6"/>
+<path d="M140 62 h30 M140 82 h30" stroke-opacity=".4"/>
+<path d="M120 170 v-8 M120 174 l-5 5 M120 174 l5 5" stroke-opacity=".7"/>
+<path d="M96 176 q24 12 48 0" stroke-opacity=".4"/></g></svg>
+      <div class="cap">版本有号 · 内容为空</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第九讲 · 结项验收</span><span>LECT · 09 / 16</span></div>
+</section>
+
+<!-- 第十讲 -->
+<section class="slide dark">
+  <div class="chrome"><span>第十讲 · 正果封赏会</span><span>P15 / 16</span></div>
+  <div class="frame">
+    <div class="text">
+      <div class="kicker gold anim">第十讲 · 考核激励</div>
+      <h1 class="h2-zh anim d1">正果封赏会</h1>
+      <p class="body-zh anim d2" style="margin-top:1.6vh">如来封赏：旃檀功德佛 / 斗战胜佛 / 净坛使者 / 金身罗汉 / 八部天龙。八戒不服，如来面谈："因汝口壮身慵，食肠宽大"——<b style="color:var(--gold)">教科书级绩效面谈</b>。</p>
+      <div class="grid-3">
+        <div class="gcard anim d1"><h4>定级留痕</h4><p>考核定级有依据，写进档案</p></div>
+        <div class="gcard anim d2"><h4>面谈四步</h4><p>当场回应 → 给事实 → 讲匹配 → 给台阶</p></div>
+        <div class="gcard anim d3"><h4>长期激励</h4><p>正果=编制，激励绑定长远</p></div>
+      </div>
+      <div class="callout anim d3">考核不怕有人不服，怕的是<b style="color:var(--gold)">没有说服他的记录</b>。复盘沉淀，入组织资产。<div class="src">教具⑧ 复盘框架 · 教具⑨ 封赏与改进</div></div>
+    </div>
+    <div class="art anim d1">
+      <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="88" y="30" width="64" height="64" rx="8"/>
+<circle cx="120" cy="52" r="7" stroke-opacity=".8"/>
+<path d="M120 59 v-8 M120 59 l-7 7 M120 59 l7 7" stroke-opacity=".7"/>
+<rect x="74" y="24" width="92" height="80" rx="10" stroke-opacity=".25"/>
+<path d="M88 30 l-3 14 M152 30 l3 14" stroke-opacity=".7"/>
+<path d="M120 94 v-12 M120 96 l-6 6 M120 96 l6 6" stroke-opacity=".55"/>
+<circle cx="54" cy="138" r="6"/>
+<circle cx="120" cy="140" r="6"/>
+<circle cx="186" cy="138" r="6"/>
+<path d="M54 144 v16 M120 146 v16 M186 144 v16" stroke-opacity=".75"/>
+<path d="M54 160 h-8 M120 162 h-8 M186 160 h-8" stroke-opacity=".5"/>
+<path d="M40 180 q160 16 160 0" stroke-opacity=".3"/></g></svg>
+      <div class="cap">封赏 · 一印一位</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">第十讲 · 考核激励</span><span>LECT · 10 / 16</span></div>
+</section>
+
+<!-- 结业页 -->
+<section class="slide dark">
+  <div class="chrome"><span>结业 · 观音令</span><span>P16 / 16</span></div>
+  <div class="frame" style="align-items:center">
+    <div class="text" style="text-align:center">
+      <div class="kicker gold anim">取经计划 · 番外圆满</div>
+      <h1 class="hero-zh anim d1" style="font-size:min(9vw,16vh)">凌云渡<br>脱胎换骨</h1>
+      <p class="lead anim d2" style="margin-top:1.6vh">"过了这道河，你就是取经办的人了。"</p>
+      <div class="callout anim d3" style="max-width:58vw;margin-left:auto;margin-right:auto">结业作业：<b>《本单位主流程优化方案》</b>——选一条真实流程（立项/交付/结算任选），按「现状痛点→目标流程→过渡方案→风险预案」四段式编写，≤3 页。优秀作业直通 PMO 组立项池。</div>
+      <div class="callout anim d3" style="max-width:58vw;margin-left:auto;margin-right:auto">考核：开考系统随机卷 60 分钟 20 题，<b style="color:var(--gold)">95 分以上授予观音令</b>（番外专项徽章，不占五印体系）。</div>
+    </div>
+    <div class="art anim d2">
+      <div style="background:#fff;border-radius:14px;padding:14px;width:min(28vw,38vh);box-shadow:0 8px 28px rgba(0,0,0,.5)">
+        <svg viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="#b8912f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="60" y="36" width="120" height="120" rx="12"/>
+<rect x="66" y="42" width="108" height="108" rx="8" stroke-opacity=".35"/>
+<path d="M88 68 q8-12 16 0 q8-12 16 0 M88 96 q8-12 16 0 M88 124 q8-12 16 0" stroke-opacity=".8"/>
+<path d="M96 132 q8-8 16 0 q8-8 16 0" stroke-opacity=".6"/>
+<path d="M66 42 l-8 12 M174 42 l8 12" stroke-opacity=".7"/></g></svg>
+      </div>
+      <div class="cap">观音令 · 番外专项<br>达 95 分自动授令</div>
+    </div>
+  </div>
+  <div class="foot"><span class="t">PMO专项课 · 观音令</span><span>END / 16</span></div>
+</section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">‹</button>
+  <div class="dots" id="dots"></div>
+  <button id="next">›</button>
+</div>
+<div class="pgnum" id="pgnum"></div>
+<div class="qr-fab" title="点击放大 · 学员扫码同步课件"><img src="images-qr-pmo.svg" alt="本课件二维码"></div>
+<script>(function(){var f=document.querySelector('.qr-fab');if(f)f.addEventListener('click',function(){this.classList.toggle('big')});})();</script>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var deck=document.getElementById('deck');
+  var dotsBox=document.getElementById('dots');
+  var cur=0;
+  deck.style.width=(slides.length*100)+'vw';
+  slides.forEach(function(s,i){var d=document.createElement('div');d.className='dot';d.onclick=function(){go(i)};dotsBox.appendChild(d);});
+  var dots=[].slice.call(dotsBox.children);
+  function go(i){
+    if(i<0||i>=slides.length)return;
+    slides[cur].classList.remove('on');
+    cur=i;
+    deck.style.transform='translateX(-'+cur*100+'vw)';
+    slides[cur].classList.add('on');
+    dots.forEach(function(d,j){d.classList.toggle('on',j===cur)});
+    document.getElementById('pgnum').textContent=(cur+1)+' / '+slides.length;
+  }
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();go(cur+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(cur-1);}
+    else if(e.key==='Home'){go(0);} else if(e.key==='End'){go(slides.length-1);}
+  });
+  var sx=0;
+  document.addEventListener('touchstart',function(e){sx=e.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60){ if(dx<0)go(cur+1); else go(cur-1); }
+  },{passive:true});
+  go(0);
+})();
+</script>
+</body>
+</html>
