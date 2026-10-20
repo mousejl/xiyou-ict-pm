@@ -5,9 +5,9 @@
   "c3": false,
   "c4": false,
   "pmo": false,
-  "index": false,
-  "test": false,
-  "score": false,
-  "templates": false,
-  "updated": "2026-10-20T21:30 全部关闭（课前管控）"
+  "index": true,
+  "test": true,
+  "score": true,
+  "templates": true,
+  "updated": "2026-10-20T21:35 开放配套工具（index/test/score/templates），六门课保持关闭"
 }
