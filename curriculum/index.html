@@ -93,7 +93,7 @@
 body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;}
 .hero{background:linear-gradient(135deg,#1a2436 0%,#2c3e5c 55%,#3d5a80 100%);color:#fff;padding:52px 24px 58px;position:relative;overflow:clip;}
 .hero::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--l1) 0%,var(--l1) 25%,var(--l2) 25%,var(--l2) 50%,var(--l3) 50%,var(--l3) 75%,var(--l4) 75%,var(--l4) 100%);}
-.hero .inner{max-width:1060px;margin:0 auto;position:relative;width:100%;min-width:0;padding-right:150px;}
+.hero .inner{max-width:1200px;margin:0 auto;position:relative;width:100%;min-width:0;padding-right:150px;}
 .hero .kicker{font-size:13px;letter-spacing:.35em;opacity:.65;text-transform:uppercase;margin-bottom:14px;word-break:break-word;overflow-wrap:anywhere;}
 .hero h1{font-size:34px;font-weight:800;letter-spacing:2px;margin-bottom:10px;word-break:break-word;overflow-wrap:anywhere;min-width:0;}
 .hero h1 .accent{color:#f5c658;}
@@ -102,7 +102,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 .hero .meta span{display:inline-flex;align-items:center;gap:6px;}
 .hero>.stamp{position:absolute;right:56px;top:50%;width:126px;height:126px;max-width:calc(100vw - 48px);transform:translateY(-50%) rotate(2deg);filter:drop-shadow(0 5px 14px rgba(0,0,0,.38));z-index:2;}
 .hero .stamp img{width:100%;height:100%;display:block;}
-.container{max-width:1060px;margin:0 auto;padding:34px 20px 50px;}
+.container{max-width:1200px;margin:0 auto;padding:34px 20px 50px;}
 .section-t{border-left:5px solid var(--gold);padding-left:14px;margin:30px 0 16px;}
 .section-t h2{font-size:21px;color:#1a2436;}
 .section-t .en{font-size:11px;color:var(--sub);letter-spacing:2px;text-transform:uppercase;}
@@ -122,7 +122,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
 .cc-body li{font-size:12.8px;color:var(--sub);padding-left:16px;position:relative;margin-bottom:3px;}
 .cc-body li::before{content:"✦";position:absolute;left:0;font-size:10px;color:var(--gold);}
 .cc-links{padding:0 18px 16px;display:flex;gap:8px;flex-wrap:wrap;}
-.cc-links a{flex:1;text-align:center;text-decoration:none;font-size:12.5px;padding:8px 0;border-radius:8px;font-weight:700;transition:transform .15s;}
+.cc-links a{flex:1 0 auto;white-space:nowrap;text-align:center;text-decoration:none;font-size:12.5px;padding:8px 14px;border-radius:8px;font-weight:700;transition:transform .15s;}
 .cc-links a:hover{transform:translateY(-2px);}
 .cc-links .deck{color:#fff;} .cc-links .sp{border:1.5px solid;background:#fff;}
 .l1 .deck{background:var(--l1);} .l1 .sp{border-color:var(--l1);color:var(--l1);}
@@ -147,6 +147,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--bg)
   /* 抽屉收合由 JS 按面板实测宽度内联控制（ovDrawerSmallHide/ovDrawerToggle），此处仅管拉手尺寸 */
   #ov-drawer-toggle{width:34px !important;font-size:13px !important}
 }
+@media(max-width:1100px){.container{max-width:1060px}}
 @media(max-width:860px){.ladder{grid-template-columns:1fr 1fr;gap:12px;}.extra{grid-template-columns:1fr;}.hero>.stamp{display:none;}.role-card{flex-direction:column;text-align:center;gap:14px;}.role-card span,.role-card b{text-align:center!important;}
 .hero .kicker{font-size:9px;letter-spacing:.08em;word-break:break-all;margin-bottom:10px;}
 .hero h1{font-size:22px;letter-spacing:.5px;line-height:1.5;text-wrap:balance;}
