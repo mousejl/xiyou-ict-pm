@@ -24,6 +24,7 @@
   #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden}
   .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
   .page.active{display:block;opacity:1}
+  .page.reading .script{border-left-color:var(--accent-orange);box-shadow:0 2px 10px rgba(138,100,0,.15)}
   .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
   .pagemeta .tag.g{background:var(--accent-green)}
@@ -220,7 +221,7 @@
     </select>
   </div>
   <div class="reader-info">
-    <span><span class="dot"></span><span id="rbVoice">云希 · 男声（音频待合成）</span></span>
+    <span><span class="dot"></span><span id="rbVoice">云希 · 男声</span></span>
     <span id="rbPos">13 段</span>
   </div>
   <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 13 段</div>
@@ -267,21 +268,32 @@
     if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur+1); else go(cur-1); }
   }, {passive:true});
   var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
+  window.SEGS = {"segs": [{"start": 0.0,"end": 55.75},{"start": 58.15,"end": 106.32},{"start": 108.72,"end": 198.74},{"start": 201.14,"end": 292.39},{"start": 294.79,"end": 365.02},{"start": 367.42,"end": 427.44},{"start": 429.84,"end": 492.77},{"start": 495.17,"end": 563.81},{"start": 566.21,"end": 620.64},{"start": 623.04,"end": 686.95},{"start": 689.35,"end": 746.04},{"start": 748.44,"end": 823.94},{"start": 826.34,"end": 889.18}],"total": 891.58};
   var audio=null, reading=false, paused=false, ridx=0;
+  function segIndex(t){ var s = window.SEGS.segs; for(var i = s.length - 1; i >= 0; i--){ if(t >= s[i].start) return i; } return 0; }
+  function rHl(i){ pages.forEach(function(p, k){ p.classList.toggle('reading', k === i); }); }
   function rSet(){
+    var s = window.SEGS;
     rPlay.disabled = reading && !paused;
     rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
     rPause.disabled = !reading || paused;
     rStop.disabled = !reading;
+    var pct = audio && s.total ? Math.min(100, Math.round(audio.currentTime / s.total * 100)) : 0;
+    rPos.textContent = reading ? (ridx + 1) + ' / ' + s.segs.length + ' 段 · ' + pct + '%' : s.segs.length + ' 段（连贯播放）';
     var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
   }
   function ensureAudio(){
     if(!audio){
       audio = new Audio('audio/pmo/full.mp3');
       audio.preload = 'auto';
-      audio.onerror = function(){ rVoice.textContent = '朗读音频待合成（音频将在TTS合成后可用）'; };
-      audio.ontimeupdate = function(){ if(!reading || paused) return; rSet(); };
-      audio.onended = function(){ audio.pause(); reading=false; paused=false; ridx=0; rSet(); };
+      audio.onerror = function(){ rVoice.textContent = '音频加载失败，请检查网络后刷新'; };
+      audio.ontimeupdate = function(){
+        if(!reading || paused) return;
+        var k = segIndex(audio.currentTime);
+        if(k !== ridx){ ridx = k; rHl(k); go(k); }
+        rSet();
+      };
+      audio.onended = function(){ audio.pause(); reading=false; paused=false; ridx=0; rHl(-1); rSet(); };
     }
     audio.playbackRate = parseFloat(rRate.value);
     return audio;
@@ -289,11 +301,11 @@
   function rStart(){
     if(paused && audio){ paused=false; audio.play(); rSet(); return; }
     if(reading) return;
-    var a=ensureAudio(); reading=true; paused=false; a.play().catch(function(){ reading=false; rSet(); });
+    var a=ensureAudio(); reading=true; paused=false; ridx=segIndex(a.currentTime||0); rHl(ridx); a.play().catch(function(){ reading=false; rSet(); });
     rSet();
   }
   function rPauseFunc(){ if(!reading||paused) return; paused=true; if(audio) audio.pause(); rSet(); }
-  function rStop(){ if(audio){ audio.pause(); audio.currentTime=0; } reading=false; paused=false; ridx=0; rSet(); }
+  function rStop(){ if(audio){ audio.pause(); audio.currentTime=0; } reading=false; paused=false; ridx=0; rHl(-1); rSet(); }
   rPlay.addEventListener('click', rStart);
   rPause.addEventListener('click', rPauseFunc);
   rStop.addEventListener('click', rStop);
