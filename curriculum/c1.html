@@ -480,5 +480,33 @@ body{background:var(--ink);color:var(--paper);font-family:var(--sans);-webkit-fo
   go(0);
 })();
 </script>
+<script id="qrsw" data-key="c1">
+(function(){
+  if(window.__QRSW__)return; window.__QRSW__=1;
+  var KEY='c1';
+  var hold=document.createElement('style');
+  hold.textContent='html{visibility:hidden !important}';
+  document.head.appendChild(hold);
+  var done=function(){ if(hold.parentNode)hold.parentNode.removeChild(hold); };
+  fetch('switch.json?v='+Date.now(),{cache:'no-store'})
+    .then(function(r){ if(!r.ok)throw 0; return r.json(); })
+    .then(function(s){
+      if(s && s[KEY]===false){
+        var d=document.createElement('div');
+        d.setAttribute('style','position:fixed;inset:0;z-index:99999;background:#f5efdf;display:flex;align-items:center;justify-content:center;font-family:"PingFang SC","Microsoft YaHei",sans-serif;');
+        d.innerHTML='<div style="text-align:center;padding:0 40px;max-width:520px">'
+          +'<div style="width:88px;height:88px;margin:0 auto 22px;border:3px solid #b8912f;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:40px;background:#fff">🔒</div>'
+          +'<div style="font-size:12px;letter-spacing:.45em;color:#9a905c;margin-bottom:14px">取经计划 · 项目管理训练营</div>'
+          +'<div style="font-size:26px;font-weight:800;color:#1a2436;letter-spacing:2px">本课程暂未开放</div>'
+          +'<div style="margin-top:14px;font-size:14.5px;color:#8a6400;line-height:1.8">请听从讲师现场安排<br>开课后再扫码进入</div>'
+          +'<div style="margin-top:28px;font-size:11px;color:#b3a87f;letter-spacing:.2em">— 授课讲师现场开启 —</div></div>';
+        document.body.appendChild(d);
+        document.body.style.overflow='hidden';
+      }
+      done();
+    })
+    .catch(done);
+})();
+</script>
 </body>
 </html>

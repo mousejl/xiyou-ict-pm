@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>二维码开放开关 · 总览｜取经计划</title>
+<style>
+:root{
+  --ink:#1a1d24; --paper:#fbf9f4; --card:#fff; --sub:#6a6a76; --line:#ddd5c4;
+  --gold:#b8912f; --gold-d:#8a6400;
+  --l0:#b8912f; --l1:#0066CC; --l2:#00a97f; --l3:#e65c00; --l4:#c62828; --lx:#8a6400; --ln:#1a2436;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;}
+.hero{background:linear-gradient(135deg,#1a2436,#2c3e5c);color:#fff;padding:34px 24px 30px;}
+.hero::after{content:"";display:block;height:6px;margin-top:0;background:linear-gradient(90deg,var(--l0) 0%,var(--l0) 17%,var(--l1) 17%,var(--l1) 34%,var(--l2) 34%,var(--l2) 51%,var(--l3) 51%,var(--l3) 68%,var(--l4) 68%,var(--l4) 85%,var(--lx) 85%,var(--lx) 100%);}
+.hero .inner{max-width:900px;margin:0 auto;}
+.hero .kicker{font-size:12px;letter-spacing:.35em;opacity:.6;margin-bottom:8px;}
+.hero h1{font-size:24px;font-weight:800;letter-spacing:2px;}
+.hero h1 .accent{color:#e4c96f;}
+.hero p{margin-top:8px;font-size:13px;opacity:.85;max-width:660px;}
+.wrap{max-width:900px;margin:0 auto;padding:28px 18px 56px;}
+.tip{background:#fff6dd;border:1px solid #ecd9a8;border-radius:12px;padding:14px 18px;font-size:13px;color:#6d5312;margin-bottom:22px;}
+.tip b{color:#8a6400;}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.sw{background:var(--card);border-radius:12px;border-left:6px solid;box-shadow:0 2px 10px rgba(26,36,54,.08);padding:16px 18px;display:flex;align-items:center;gap:14px;}
+.sw .st{flex:0 0 auto;width:58px;height:58px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:2px solid;}
+.sw .st.on{border-color:#00a97f;color:#00705a;background:#effaf6;}
+.sw .st.off{border-color:#c62828;color:#8e1b1b;background:#fdeeee;}
+.sw .st b{font-size:16px;line-height:1.2;}
+.sw .st i{font-style:normal;font-size:10px;letter-spacing:1px;}
+.sw .info{flex:1;min-width:0;}
+.sw .info .nm{font-size:15.5px;font-weight:700;color:var(--ink);}
+.sw .info .tg{font-size:11.5px;color:var(--sub);margin-top:2px;}
+.sw .info a{font-size:12px;color:var(--l1);text-decoration:none;border-bottom:1px dashed;}
+.btn{display:block;margin:26px auto 0;background:var(--ln);color:#fff;border:0;border-radius:10px;padding:11px 34px;font-size:14px;font-weight:700;letter-spacing:2px;cursor:pointer;}
+.foot{text-align:center;font-size:12px;color:var(--sub);padding:22px 16px 36px;border-top:1px solid var(--line);margin-top:30px;}
+@media(max-width:640px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="inner">
+    <div class="kicker">XIYOU · QR ACCESS CONTROL</div>
+    <h1>二维码开放<span class="accent">开关总览</span></h1>
+    <p>每门课程与配套工具的扫码入口开放状态。关闭后，扫码进入将显示"暂未开放"提示页；开放即正常进入。</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="tip">
+    🔧 <b>使用方法：</b>开关状态由 <b>switch.json</b> 统一控制——需要开/关时告知助手（如"关闭 c1 扫码""全部开放"），修改推送后约 <b>1~2 分钟</b>全球生效；加载失败时默认<b>保持开放</b>（不影响教学）。本页实时读取，可下拉刷新或点下方按钮。
+  </div>
+  <div class="grid" id="grid"></div>
+  <button class="btn" onclick="location.reload()">↻ 刷新状态</button>
+</div>
+
+<script>
+(function(){
+  var MAP = [
+    {k:'g0',       nm:'L+ 通识全景课',      tg:'唐僧执印 · 全员科普',       c:'var(--l0)', u:'g0.html'},
+    {k:'c1',       nm:'L1 认知篇',          tg:'白龙马执印 · 新入职员工',   c:'var(--l1)', u:'c1.html'},
+    {k:'c2',       nm:'L2 基础篇',          tg:'沙僧执印 · 项目助理专员',   c:'var(--l2)', u:'c2.html'},
+    {k:'c3',       nm:'L3 实战篇',          tg:'悟空执印 · 项目经理',       c:'var(--l3)', u:'c3.html'},
+    {k:'c4',       nm:'L4 治理篇',          tg:'八戒执印 · 项目总监',       c:'var(--l4)', u:'c4.html'},
+    {k:'pmo',      nm:'番外 · PMO 总监课',  tg:'观音执印 · PMO组/L3结业',   c:'var(--lx)', u:'pmo.html'},
+    {k:'index',    nm:'课程总入口',         tg:'选课大厅 · 全课程导航',     c:'var(--ln)', u:'index.html'},
+    {k:'test',     nm:'角色自测 H5',        tg:'测测你是取经团队里的谁',    c:'var(--ln)', u:'test.html'},
+    {k:'score',    nm:'成绩查询',           tg:'学员查成绩 / 老师看总表',   c:'var(--ln)', u:'score.html'},
+    {k:'templates',nm:'模板教具包',         tg:'九份随堂教具 · 可打印',     c:'var(--ln)', u:'templates.html'}
+  ];
+  fetch('switch.json?v='+Date.now(),{cache:'no-store'})
+    .then(function(r){return r.json()})
+    .then(function(s){
+      document.getElementById('grid').innerHTML = MAP.map(function(m){
+        var on = s[m.k] !== false;
+        return '<div class="sw" style="border-left-color:'+m.c+'">'
+          + (on ? '<div class="st on"><b>开</b><i>OPEN</i></div>' : '<div class="st off"><b>锁</b><i>LOCK</i></div>')
+          + '<div class="info"><div class="nm" style="color:'+m.c+'">'+m.nm+'</div>'
+          + '<div class="tg">'+m.tg+'</div>'
+          + (on ? '<a href="'+m.u+'">进入页面 →</a>' : '<span style="font-size:11.5px;color:#8e1b1b">扫码显示"暂未开放"</span>')
+          + '</div></div>';
+      }).join('');
+    })
+    .catch(function(){
+      document.getElementById('grid').innerHTML = '<div class="sw" style="border-left-color:#c62828"><div class="info"><div class="nm">switch.json 加载失败</div><div class="tg">请检查网络后刷新（此时全部页面默认保持开放）</div></div></div>';
+    });
+})();
+</script>
+
+<div class="foot">取经计划 · 二维码开放开关总览 ｜ 状态文件 switch.json ｜ 2026</div>
+</body>
+</html>
