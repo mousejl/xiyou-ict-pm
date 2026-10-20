@@ -29,7 +29,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:var(--pap
 .tpl-head h2{font-size:18px;font-weight:800;letter-spacing:1px;}
 .tpl-head .lv{margin-left:auto;display:flex;gap:6px;}
 .tpl-head .lv span{font-size:11px;font-weight:700;padding:3px 12px;border-radius:14px;}
-.lv .l1{background:var(--l1);} .lv .l2{background:var(--l2);} .lv .l3{background:var(--l3);} .lv .l4{background:var(--l4);}
+.lv .l1{background:var(--l1);} .lv .l2{background:var(--l2);} .lv .l3{background:var(--l3);} .lv .l4{background:var(--l4);} .lv .l0{background:var(--gold);}
 .tpl-note{padding:12px 20px 0;font-size:12.5px;color:var(--sub);}
 .tpl-body{padding:16px 20px 20px;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
@@ -78,14 +78,14 @@ textarea{display:none;}
   <div class="inner">
     <div class="kicker">XIYOU · TRAINING TOOLKIT</div>
     <h1>模板<span class="accent">教具包</span></h1>
-    <p>取经计划四级训练营随堂教具，共八份——通关文牒、风险登记册、会议纪要、验收三栏清单、变更批复单、打回清单、复盘主持框架、封赏与改进方案。对应各级课程作业与演练，可在线查看、直接打印。</p>
+    <p>取经计划四级训练营随堂教具，共九份——通关文牒、风险登记册、会议纪要、验收三栏清单、变更批复单、打回清单、复盘主持框架、封赏与改进方案，外加一份课程大纲。对应各级课程作业与演练，可在线查看、直接打印。</p>
   </div>
 </div>
 
 <div class="wrap">
 
 <div class="usage">
-  🖨️ <b>打印说明：</b>浏览器"打印"即可，每份模板自动分页（Ctrl/Cmd + P）。灰色斜体行為<b>示范行</b>，照着格式填；空白行供现场手写。<b>线上版按此链接分发，纸质版随堂发放</b>——建议每期培训按人数打印 7、8 两份（人人一份），其余按组打印。
+  🖨️ <b>打印说明：</b>浏览器"打印"即可，每份模板自动分页（Ctrl/Cmd + P）。灰色斜体行為<b>示范行</b>，照着格式填；空白行供现场手写。<b>线上版按此链接分发，纸质版随堂发放</b>——建议每期培训按人数打印 7、8 两份（人人一份），第 9 份课程大纲开班时人手一份，其余按组打印。
 </div>
 
 <!-- 1 通关文牒 -->
@@ -311,8 +311,53 @@ textarea{display:none;}
   </div>
 </div>
 
+<!-- 9 课程大纲 -->
+<div class="tpl">
+  <div class="tpl-head"><span class="ico">🗺️</span><h2>⑨ 取经计划 · 课程大纲</h2><div class="lv"><span class="l0">L+</span><span class="l1">L1</span><span class="l2">L2</span><span class="l3">L3</span><span class="l4">L4</span></div></div>
+  <div class="tpl-note">用途：一页纵览取经计划全部课程——五门课各教谁、学什么、交什么作业、盖哪枚印。老师据此排课备课，学员据此对号入座逐级进阶。（开班时建议人手一份）</div>
+  <div class="tpl-body">
+    <table>
+      <tr><th style="width:21%">课程 · 执印 · 关卡</th><th style="width:13%">培训对象</th><th style="width:40%">核心模块（西游对照）</th><th style="width:26%">结业作业 · 对应教具</th></tr>
+      <tr>
+        <td><b style="color:#8a6400">L+ 通识全景课</b><br><span style="font-size:11px;color:#9a905c">唐僧执印 · 20页 · 第一关</span></td>
+        <td>全员适用，管理层与协作部门优先</td>
+        <td>项目章程一张纸 → 什么是项目 → 西游对照表 → 十大知识域·一难一课 → 五过程组闭环 → 收尾启示</td>
+        <td>无硬性作业；结业达标线上盖<b>通识印</b>，可再逐级进阶</td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--l1)">L1 认知篇 · 入个门</b><br><span style="font-size:11px;color:#9a905c">白龙马执印 · 11页 · 第二关</span></td>
+        <td>新入职员工（入职 0–1 年）</td>
+        <td>破除"项目管理＝催进度"误解 → 项目定义（高考·婚礼·取经） → 西游对照与师徒五角色 → 新人起步（沙僧白龙马不丢人） → 角色自测互动</td>
+        <td>作业：绘制西游对照图 → 盖<b>认知印</b>（教具①）</td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--l2)">L2 基础篇 · 上工具</b><br><span style="font-size:11px;color:#9a905c">沙僧执印 · 11页 · 第三关</span></td>
+        <td>项目经理助理 / 项目专员</td>
+        <td>章程摘要一纸三问 → SMART 验目标 → 估时黑话翻译 → 八十一难记台账 → 纪要三要素（三打白骨精） → 验收三栏清单 → 四大件一日循环</td>
+        <td>作业：《风险登记册》≥3条 ＋《会议纪要》三要素 → 盖<b>工具印</b>（教具②③④）</td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--l3)">L3 实战篇 · 扛大旗</b><br><span style="font-size:11px;color:#9a905c">悟空执印 · 12页 · 第四关</span></td>
+        <td>项目经理 / 交付骨干</td>
+        <td>规划谬误（三年变十四年） → 关键路径（狮驼岭绕不过） → 铁锚之问管住蔓延 → 女儿国变更批复 → 无字真经打回三步 → 风险四象限（影响×概率）</td>
+        <td>双演练：《变更批复单》＋《打回清单》→ 盖<b>实战印</b>（教具④⑤⑥）</td>
+      </tr>
+      <tr>
+        <td><b style="color:var(--l4)">L4 治理篇 · 搭体系</b><br><span style="font-size:11px;color:#9a905c">八戒执印 · 12页 · 第五关</span></td>
+        <td>项目总监 / 交付负责人</td>
+        <td>体系与能人之辨 → 选人三笔账（红孩儿） → PIP用人观（戴罪立功） → 授权文书（悟空为何不当PM） → 相关方治理 → 灵山封赏 → 唐僧之辩 → 黑神话启示</td>
+        <td>结业作业：主持收尾复盘会 ＋《封赏与改进方案》答辩 → 盖<b>治理印</b>（教具⑦⑧）</td>
+      </tr>
+    </table>
+    <div style="margin-top:12px;border:1.5px dashed var(--line);border-radius:10px;padding:12px 16px;background:#fdfbf5;font-size:12.5px;color:#4a4a55;line-height:1.8">
+      <b>📜 结业考试与通关文牒：</b>每级一套在线结业卷——100分制（单选15×2＋多选10×3＋判断20×2），限时60分钟，每人随机组卷（题序/选项双乱序）。达到 <b>95分</b> 系统自动在《通关文牒》加盖对应等级通关印，生成干支纪年文牒编号（如"丙午年 第五千零一号"）；<b>五印俱全，授予"取经人"结业认证</b>，纳入人才画像标签，优先进入下一角色培养池。
+    </div>
+    <div class="hl">🗺️ 进阶路径：全员先上 L+ 建立全景，再按岗位逐级精修（L1→L2→L3→L4）。一套IP四层复用——八十一难在四级分别讲里程碑、台账、分级应对、容错治理；成长路径即招生路径，L1 的学员知道 L3 在等他。</div>
+  </div>
 </div>
 
-<div class="foot">取经计划 · 模板教具包 ｜ 八份随堂教具 ｜ 对应 L1—L4 作业与通关文牒体系 ｜ 2026</div>
+</div>
+
+<div class="foot">取经计划 · 模板教具包 ｜ 九份随堂教具 ｜ 课程大纲 ＋ L1—L4 作业与通关文牒体系 ｜ 2026</div>
 </body>
 </html>
