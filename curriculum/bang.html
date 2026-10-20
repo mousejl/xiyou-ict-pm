@@ -15,10 +15,9 @@ body{
   font-family:"KaiTi","STKaiti","BiauKai",serif;
   /* 明黄哑光绫纸：旧化渐变 + 斑驳 */
   background:
-    radial-gradient(900px 420px at 22% 8%, rgba(255,248,214,.55), transparent 60%),
-    radial-gradient(700px 360px at 78% 92%, rgba(122,86,20,.14), transparent 65%),
-    radial-gradient(420px 260px at 55% 46%, rgba(255,250,220,.22), transparent 70%),
-    linear-gradient(102deg,#edd48b 0%,#f5e2ab 16%,#ebcf83 34%,#f6e6b4 52%,#eacd80 70%,#f3dfa4 86%,#e9cc7d 100%);
+    radial-gradient(900px 480px at 26% 6%, rgba(255,252,240,.9), transparent 65%),
+    radial-gradient(820px 420px at 76% 96%, rgba(210,190,150,.35), transparent 70%),
+    linear-gradient(115deg,#faf6ea 0%,#f6efdd 45%,#f2e9d2 100%);
   color:var(--ink);
 }
 /* 纸面暗角（自然边缘） */
@@ -32,7 +31,7 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;
 .top b{color:#8a6400;font-weight:700;}
 
 /* ===== 三栏 ===== */
-.cols{flex:1;display:flex;align-items:center;min-height:0;}
+.cols{flex:1;display:flex;align-items:stretch;min-height:0;padding:10px 0;}
 
 /* 名单栏：竖排名录，列间等距 */
 .namelist{flex:1;display:flex;justify-content:center;align-items:center;gap:30px;min-width:0;}
@@ -44,15 +43,13 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;
 .nmcol .ro{writing-mode:vertical-rl;text-orientation:upright;font-size:12.5px;letter-spacing:4px;color:var(--ink-soft);line-height:1;}
 
 /* 中栏：榜 */
-.mid{flex:0 0 300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;}
-.mid .logo{width:92px;height:92px;}
-.mid .bang{font-size:250px;font-weight:900;line-height:.92;color:#1a1610;letter-spacing:0;}
-.mid .qr{width:126px;height:126px;background:#fff;padding:5px;border-radius:4px;box-shadow:0 3px 10px rgba(90,60,10,.22);}
+.mid{flex:0 0 296px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  background:#22231d;border-radius:30px;padding:26px 0;box-shadow:0 16px 40px rgba(20,20,14,.35), inset 0 0 0 1px rgba(240,226,186,.14);}
+.mid .logo{width:104px;height:104px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));}
+.mid .bang{font-size:236px;font-weight:900;line-height:.92;color:#eee0b8;letter-spacing:0;text-shadow:0 2px 10px rgba(0,0,0,.35);}
+.mid .qr{width:126px;height:126px;background:#fff;padding:6px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.35);}
 
 /* 朱红方印（点缀，原图直接放置） */
-.zhu-seal{position:absolute;z-index:5;pointer-events:none;}
-.zhu-seal.s1{left:-58px;top:56%;width:84px;height:84px;transform:rotate(-2deg);}
-.zhu-seal.s2{right:-58px;top:30%;width:84px;height:84px;transform:rotate(1.5deg);}
 
 /* 底部 */
 .foot{flex:0 0 auto;text-align:center;font-size:11.5px;letter-spacing:.3em;color:#6b5424;padding-top:2px;}
@@ -121,8 +118,6 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;
       <img class="logo" src="seal/logo-qj.svg" alt="取经计划">
       <div class="bang">榜</div>
       <img class="qr" src="images-qr-test.svg" alt="扫码自测">
-      <img class="zhu-seal s1" src="seal/official-seal.svg" alt="">
-      <img class="zhu-seal s2" src="seal/official-seal.svg" alt="">
     </div>
 
     <!-- 右栏：二甲 -->
