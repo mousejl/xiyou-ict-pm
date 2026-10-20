@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>番外专项 · PMO总监课（观音课）口播稿｜取经计划</title>
+<style>
+  :root{
+    --primary:#8a6400; --primary-dark:#5e4300; --accent-orange:#FF6600;
+    --accent-green:#00CC99; --accent-red:#E53935; --bg:#f0f1f4; --card:#ffffff;
+    --text:#333; --text-light:#888;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",sans-serif;overflow:hidden;-webkit-tap-highlight-color:transparent}
+  .header{background:linear-gradient(135deg,#5e4300,#8a6400);color:#fff;padding:16px 16px 14px;text-align:center;position:relative;z-index:10}
+  .header h1{font-size:16px;font-weight:700;letter-spacing:2px}
+  .header .sub{font-size:11px;opacity:.8;margin-top:3px;letter-spacing:1px}
+  .qrchip{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#fff;border-radius:8px;padding:4px;width:56px;box-shadow:0 3px 12px rgba(0,0,0,.25);text-align:center}
+  .qrchip img{width:100%;display:block}
+  .qrchip div{font-size:8px;color:#666;letter-spacing:.05em;padding-top:3px}
+  .colorbar{display:flex;height:4px}
+  .colorbar div{flex:1}
+  #pages{position:fixed;inset:0;padding:76px 16px 150px;z-index:5;overflow:hidden}
+  .page{position:absolute;inset:76px 0 150px;padding:0 22px;overflow-y:auto;display:none;opacity:0;transition:opacity .25s ease}
+  .page.active{display:block;opacity:1}
+  .pagemeta{font-size:11px;color:var(--text-light);letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .pagemeta .tag{display:inline-block;background:var(--primary);color:#fff;border-radius:3px;padding:1px 8px;font-size:10px}
+  .pagemeta .tag.g{background:var(--accent-green)}
+  .pagemeta .tag.o{background:var(--accent-orange)}
+  .page .title{font-size:19px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;line-height:1.4}
+  .page .script{background:var(--card);border-radius:10px;padding:18px 18px 20px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid var(--primary)}
+  .page .script p{font-size:15px;line-height:1.95;margin-bottom:11px}
+  .page .script p:last-child{margin-bottom:0}
+  .page .script .stage{display:inline-block;background:var(--accent-green);color:#fff;font-size:11px;padding:1px 8px;border-radius:3px;margin-right:5px;vertical-align:middle}
+  .page .script .stage.o{background:var(--accent-orange)}
+  .page .script .key{color:var(--primary);font-weight:700}
+  .page .script .joke{color:#9a3b0e;font-weight:600}
+  #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:1px solid #e2e4e8;padding:8px 12px calc(10px + env(safe-area-inset-bottom))}
+  .nav-row{display:flex;align-items:center;justify-content:space-between;gap:8px;max-width:760px;margin:0 auto}
+  .nav-btn{flex:0 0 auto;width:56px;height:44px;border-radius:10px;border:1px solid #dde0e6;background:#fff;font-size:18px;color:var(--primary);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none}
+  .nav-btn:active{background:var(--primary);color:#fff}
+  .nav-btn.disabled{opacity:.3;pointer-events:none}
+  .pager{flex:1;display:flex;gap:3px;overflow-x:auto;justify-content:flex-start;padding:2px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .pager::-webkit-scrollbar{display:none}
+  .pnum{flex:0 0 auto;min-width:26px;height:34px;padding:0 4px;border-radius:8px;border:none;background:#eef0f4;font-size:12px;color:#667;cursor:pointer}
+  .pnum.on{background:var(--primary);color:#fff;font-weight:700}
+  .hint{text-align:center;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader{display:flex;align-items:center;justify-content:center;gap:6px;max-width:760px;margin:7px auto 0;flex-wrap:wrap}
+  .rb-btn{flex:0 0 auto;height:32px;padding:0 14px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;font-size:13px;color:var(--primary-dark);cursor:pointer;font-weight:600}
+  .rb-btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+  .rb-btn:disabled{opacity:.4;pointer-events:none}
+  .rb-rate{flex:0 0 auto;height:32px;border-radius:16px;border:1px solid #d4d8e0;background:#fff;padding:0 6px;font-size:12px;color:var(--primary-dark)}
+  .reader-info{display:flex;justify-content:center;align-items:center;gap:8px;font-size:10px;color:#bbb;margin-top:5px;letter-spacing:1px}
+  .reader-info .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#ccc;vertical-align:middle}
+  .reader-info .dot.on{background:var(--accent-green)}
+  @media(max-width:480px){.nav-btn{width:40px}.pnum{min-width:22px !important;padding:0 3px}.pager{gap:2px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>口播稿 · 番外专项 PMO总监课（观音课）</h1>
+  <div class="sub">取经计划 · 番外专项 ｜ 对应课件 pmo.html · 16 页 · 13 段 ｜ 两次课各 90 分钟</div>
+<div class="qrchip"><img src="images-qr-pmo.svg" alt="本课课件二维码"><div>学员扫码看课件</div></div>
+</div>
+<div class="colorbar"><div style="background:#5e4300"></div><div style="background:#FF6600"></div><div style="background:#00CC99"></div><div style="background:#E53935"></div></div>
+
+<div id="pages">
+
+<div class="page" data-p="1">
+  <div class="pagemeta"><span class="tag">开场</span><span>第 01 段 / 13 · 课件第1页 · 约 2 分钟</span></div>
+  <div class="title">开场｜观音持瓶 · 取经项目办开课</div>
+  <div class="script">
+    <p>各位同事，欢迎大家来到取经计划的"番外专项"——<span class="key">PMO总监课，观音课。</span>咱们这五门课把唐僧师徒讲了个遍，但有一尊始终缺席的大神，今天必须请出来——<span class="stage">停顿</span>观音菩萨。她不取经、不打妖、不挑担，但取经这个项目能不能成，全在她手里。今天这堂课，就是学她怎么当这个<span class="key">PMO总监</span>的。</p>
+    <p>先讲课程公约。这堂课不要求你背任何标准条文，你只要跟着观音的十次出手走一遍，然后带走一份属于自己的成果——<span class="key">《本单位主流程优化方案》</span>。方案写得好，优秀作业直通 PMO 组立项池——<span class="joke">也就是说，这堂课不交作业，可能就错过一次进立项池的机会。</span></p>
+    <p>结业凭证，是本课专属的<span class="key">观音令</span>——番外徽章，不占五印取经人体系；考法是开考系统随机卷，60 分钟 20 题，95 分以上授令。规矩记好，咱们上路。</p>
+  </div>
+</div>
+
+<div class="page" data-p="2">
+  <div class="pagemeta"><span class="tag g">地图</span><span>第 02 段 / 13 · 课件第2页 · 约 3 分钟</span></div>
+  <div class="title">为什么 PMO 要学观音</div>
+  <div class="script">
+    <p>先看课程地图。观音在取经项目里，有过六次关键出手：立项领命、点将、授紧箍、留锦囊、记难簿、最后发证——<span class="stage">停顿</span>注意，<b>这六次，没有一次是她亲自动手去打妖怪的。</b></p>
+    <p>这就是 PMO 的真相：<span class="key">不出场打妖，却决定项目成败。</span>孙悟空再厉害，得有人给他戴紧箍；唐僧再坚定，得有人给他发通关文牒。<span class="joke">打赢妖怪的是悟空，但让整支队伍能走上灵山的，是观音。</span></p>
+    <p>这堂课十讲，就是观音的项目治理全流程：项目办怎么设、点将怎么点、制度怎么立、授权怎么放、里程碑怎么验、风险怎么记、资源怎么要、变更怎么管、验收怎么把、最后怎么分果。一环扣一环。现在进第一讲。</p>
+  </div>
+</div>
+
+<div class="page" data-p="3">
+  <div class="pagemeta"><span class="tag">第一讲</span><span>第 03 段 / 13 · 课件第3-4页 · 约 6 分钟</span></div>
+  <div class="title">第一讲 · 取经项目办：PMO 的三种形态与边界感</div>
+  <div class="script">
+    <p><span class="key">第一讲，取经项目办。</span>这件事的起点是：如来发起了一个战略——"传经东土"；观音主动领命，干了四件事：<span class="key">定项目经理、点将、配资源、全程督导。</span>一个治理型 PMO 的标准动作，齐了。</p>
+    <p>PMO 有三种形态，你对照一下你们单位是哪种。第一种，<span class="key">支持型</span>：给模板、给工具，不干预——像后勤，大家用不用随缘。第二种，<span class="key">控制型</span>：统一流程、统一标准、强监管——像监军，逼着你按规矩走。第三种，<span class="key">治理型</span>：定战略、配资源、设红线、管验收——像观音，管的是"要不要办、谁来办、办成什么样"，而不是替悟空打每一只妖。<span class="stage">停顿</span>取经办，就是一个治理型 PMO 的样本。</p>
+    <p>接着讲一个更重要的东西——<span class="key">边界感。</span>观音最值钱的本事，是她清楚地知道自己"不是什么"：她不替悟空打妖、不替唐僧念经。翻译过来：<span class="key">PMO 管项目的边界，绝不越界替项目经理干活。</span></p>
+    <p>记住这张分工矩阵。PMO 的职责清单：立项把关、资源配置、制度红线、里程碑验收、风险督导、考核激励。PMO 的禁止清单：不顶替项目经理决策、不替一线干具体活、不越级干预、不当背锅侠。<span class="stage">停顿</span>一句话总结：<span class="key">PM 管"怎么把这个项目做成"，PMO 管"这家公司怎么把项目做成体系"。</span>这条线不划清，PMO 就退化成给项目经理打杂的部门。<span class="stage">互动</span>（随堂考×2）</p>
+  </div>
+</div>
+
+<div class="page" data-p="4">
+  <div class="pagemeta"><span class="tag g">第二讲 · 点将</span><span>第 04 段 / 13 · 课件第5-6页 · 约 7 分钟</span></div>
+  <div class="title">第二讲 · 点将的艺术：五角色互补与沉没成本</div>
+  <div class="script">
+    <p><span class="key">第二讲，点将的艺术。</span>项目班子好不好，从点将那天就定了。我们看观音怎么点将。选唐僧——信念型 PM，目标坚定、守得住原则，但全程需要别人帮衬。收悟空——能力封顶，但有过前科，所以必须配紧箍咒这个<b>风险预案</b>。收八戒——人脉和烟火气，团队的气氛与外交担当。收沙僧——稳定交付、可靠托底。还有白龙马——<span class="key">成本变资产</span>：一匹要被杀的龙马，变成驮着整个项目跑的交通工具，把沉没成本盘活了。</p>
+    <p>这里有个选人的核心公式，请记牢：<span class="key">立项五要素 + 角色互补（德尼摩定律）+ 人岗匹配与风险预案。</span>什么叫德尼摩？放到你要把合适的人放到合适的岗位，团队不是五个全能，而是五块能拼成整图的拼图。<span class="joke">全是悟空会内耗，全是唐僧会原地打转，全是八戒——半路散伙。</span></p>
+    <p>再讲一个点将时的冷规则，落在第6页——<span class="key">五行山下的封条。</span>悟空压了五百年、封条贴了六百年，过去的战绩不决定现在的岗位。<span class="key">沉没成本，不参与决策。</span>落到咱们单位，就是人才盘点四象限：看的是能力、可控性、岗位匹配，不是"他以前怎么样"。还要有<b>继任者思维</b>：每个关键岗位，都要能换人补位，不被某个人的历史绑架。<span class="stage">停顿</span>这正好呼应咱们的人才数据库——认证和荣誉画像不是历史账本，是盘点当下、安排下一步的坐标。<span class="stage">互动</span>（小组研讨：给一个真实项目点一次将）</p>
+  </div>
+</div>
+
+<div class="page" data-p="5">
+  <div class="pagemeta"><span class="tag o">第三讲 · 制度</span><span>第 05 段 / 13 · 课件第7页 · 约 5 分钟</span></div>
+  <div class="title">第三讲 · 紧箍咒管理法：制度的刚与柔</div>
+  <div class="script">
+    <p><span class="key">第三讲，紧箍咒管理法。</span>紧箍咒是什么？是<span class="key">刚性制度落地</span>。它存在的意义，不是观音想管人，而是这支队伍里有一个能力封顶的悟空，制度得让"能打的人"也服管。</p>
+    <p>但观音这套制度管理法，有三个关键动作，一个比一个值钱。第一，<b>戴箍</b>：制度落地，边界划清，从入队那天就有约束。第二，<b>误念咒的代价</b>——三打白骨精那回，悟空是冤枉的，唐僧在信息不对称下念了紧箍、赶走了核心成员，代价是差点全团覆没。这说明：<span class="key">制度执行的前提，是信息保真；处罚之前，要过"事实核三问"。</span>第三，<b>六耳猕猴</b>——真假悟空照不出，最后靠紧箍咒验了真身。制度不仅能罚，还能当<b>验真工具</b>，用来鉴别人和事。</p>
+    <p>落到 PMO，就是制度体系三件套：<span class="key">流程、权限、考核。</span>还有一条管理哲学：制度要<b>刚柔并济</b>——红线刚，执行有温度；处罚不搞一刀切。记牢一句：<span class="key">制度不是"念咒工具"，是让人知道底线在哪、也敢放手干的保障。</span><span class="stage">随堂考</span>（案例判断题：给一个"该不该罚"的情景判一判）</p>
+  </div>
+</div>
+
+<div class="page" data-p="6">
+  <div class="pagemeta"><span class="tag">第四讲 · 授权</span><span>第 06 段 / 13 · 课件第8页 · 约 5 分钟</span></div>
+  <div class="title">第四讲 · 三个锦囊：分级授权与升级通道</div>
+  <div class="script">
+    <p><span class="key">第四讲，三个锦囊。</span>观音走之前，给唐僧留了三个锦囊、给悟空留了底气，还把托塔天王的照妖镜借了出来。<span class="key">不同层级，给不同的工具。</span>锦囊、照妖镜、紧箍咒——这三样东西对应的权责层级是不一样的。</p>
+    <p>这就引出一个 PMO 的核心工具：<span class="key">RACI 责任矩阵。</span>四个字母，四种角色——R 负责干（Responsible）、A 批准拍板（Accountable）、C 被咨询（Consulted）、I 被告知（Informed）。一个任务一张表，把"谁负责、谁拍板、谁知道"写得明明白白。<span class="stage">停顿</span>授权不是撒手，是<b>给工具 + 给升级通道</b>。</p>
+    <p>升级通道怎么设计？<span class="key">常规 → 升级 → 直达。</span>小事不越级，常规通道自己扛；中事升级，走业务负责人；大事有直达通道，直接到 PMO 总监。像悟空搞不定的，就直接上天搬救兵。<span class="joke">这叫"地上解决不了的，天上有一根直达电话线"。</span><span class="stage">互动</span>（发一张 RACI 空表，让大家现场填一笔）</p>
+  </div>
+</div>
+
+<div class="page" data-p="7">
+  <div class="pagemeta"><span class="tag g">第五讲 · 里程碑</span><span>第 07 段 / 13 · 课件第9-10页 · 约 6 分钟</span></div>
+  <div class="title">第五讲 · 倒换关文：里程碑验收与三栏法</div>
+  <div class="script">
+    <p><span class="key">第五讲，倒换关文。</span>唐僧每到一个国家，第一件事不是化缘，是<span class="key">掏通关文牒倒换关文、盖印。</span>那本唐王发的文牒，就是<span class="key">项目章程</span>；每到一国倒换一印，就是<span class="key">阶段交付物签字。</span></p>
+    <p>里程碑怎么设？三个原则：<span class="key">可验收、有交付物、有签字人。</span>缺一个，里程碑就是墙上画的一条线。宝象国、乌鸡国、车迟国，一国一印，这就是过程资产沉淀——每过一段，留下"走过了"的证据，不是留一个进度数字。</p>
+    <p>第10页，朱紫国盖印特写——<span class="key">"国玺一落，此段即闭环。"</span>落到验收动作，用<span class="key">三栏法</span>：计划、实际、偏差，逐条对齐；缺项写"待整改"。签字即责任转移，上一段没闭环，下一段不接，要有<span class="key">跨阶段交接单</span>。<span class="stage">停顿</span>验收不签字，就像一路走一路欠账，账欠到最后，一起爆发。这要用到教具②通关文牒、教具⑤验收三栏清单。</p>
+  </div>
+</div>
+
+<div class="page" data-p="8">
+  <div class="pagemeta"><span class="tag">第六讲 · 风险</span><span>第 08 段 / 13 · 课件第11页 · 约 6 分钟</span></div>
+  <div class="title">第六讲 · 难簿：风险登记与需求确认遗漏</div>
+  <div class="script">
+    <p><span class="key">第六讲，难簿。</span>观音有一本簿子，提前把八十一难都记满了。这就是<span class="key">项目风险登记册的原型</span>——风险不是等出了事才想起来，是<b>难未到、册先记。</b></p>
+    <p>风险怎么管？五步闭环：<span class="key">识别 → 评估 → 应对 → 登记 → 闭环。</span>然后<b>台账要定期复盘</b>，册在，风险才叫"下一步安排"；册里没写的，叫"到时候再说"——<span class="joke">"到时候再说"的人，最后都去通天河游了一趟泳。</span></p>
+    <p>讲本书里最扎心的一难——<span class="key">通天河老龟翻船。</span>老龟驮唐僧渡河，托付了一句话："帮我问问佛祖，我还能活多久。"唐僧满口答应，见了佛祖——忘了问。返程老龟一问，唐僧答不出，老龟一怒掀翻船，经书掉进河里，晒经石上留下永远的疤。<span class="stage">停顿</span>这是什么？<span class="key">一个没被登记的隐性需求。</span>干系人托付的事，看起来是闲聊，其实是需求，必须当场登记入册、进备忘、闭环前逐项勾销。没记录的一句话，会在交付当天变成事故。<span class="stage">随堂考</span>：老龟翻船，该怨谁？（答：怨没把它记进难簿的唐僧）</p>
+  </div>
+</div>
+
+<div class="page" data-p="9">
+  <div class="pagemeta"><span class="tag g">第七讲 · 资源</span><span>第 09 段 / 13 · 课件第12页 · 约 5 分钟</span></div>
+  <div class="title">第七讲 · 查户口降妖：跨部门资源协调</div>
+  <div class="script">
+    <p><span class="key">第七讲，查户口降妖。</span>取经路上碰见的妖怪，好多都来历不简单：青牛精是太上老君的坐骑、金毛犼是观音的坐骑、狮驼岭三魔佛道两界都有背景。<span class="stage">停顿</span>观音每查一只妖，第一件事不是派兵，是<span class="key">先查户口——"这妖是谁家的"。</span></p>
+    <p>翻译成 PMO 的话，这就是<span class="key">跨部门资源池的归属识别。</span>要协调一个资源，别上来就动手抢，先问：这是谁的？归谁管？在哪个池子里？</p>
+    <p>然后走规范的<span class="key">借调流程：找对 Owner → 正式借调 → 用后归还。</span>借，要有手续、有账目登记，用完了要归位、账目要勾销。<span class="joke">借调不清账，下次就借不出来——这不是玄学，是资源管理的因果律。</span>这一讲给大家留了一个情景演练：怎么跟隔壁组"借"一位资深专家，把流程走对、把账记清。</p>
+  </div>
+</div>
+
+<div class="page" data-p="10">
+  <div class="pagemeta"><span class="tag o">第八讲 · 变更</span><span>第 10 段 / 13 · 课件第13页 · 约 6 分钟</span></div>
+  <div class="title">第八讲 · 打回与改道：变更管理</div>
+  <div class="script">
+    <p><span class="key">第八讲，打回与改道。</span>项目不可能不变，但怎么变、要不要变，是门学问。取经路上，女儿国招亲是<span class="key">范围蔓延的诱惑</span>——只要你想，荣华富贵一步到位；四圣试禅心，是验收方在测团队定力；悟空被贬回花果山，是项目经理被撤换之后的项目震荡与回调。<span class="stage">停顿</span>这三件事，全是变更管理的真实考题。</p>
+    <p>应对的抓手，是<span class="key">变更控制四步：申请 → 评估 → 批复 → 执行。</span>先过流程，再动目标。这是记两条死规矩：第一，<span class="key">范围蔓延防御</span>——每一句"顺手加个""算了先这样""差不多得了"，都在给目标放血；第二，<span class="key">人员替换交接清单</span>——把人换掉之前，交接必须清，项目才能在被换将之后"回调"不崩。</p>
+    <p>打回不是掀桌子，打回是"一起把活往合格上推"。用教具⑥变更批复单、教具⑦打回清单。记一句话：<span class="key">该打回就打回，兜里没底只有一句"不行"，那不叫打回，叫空手耍流氓。</span></p>
+  </div>
+</div>
+
+<div class="page" data-p="11">
+  <div class="pagemeta"><span class="tag">第九讲 · 结项</span><span>第 11 段 / 13 · 课件第14页 · 约 6 分钟</span></div>
+  <div class="title">第九讲 · 无字真经：结项验收</div>
+  <div class="script">
+    <p><span class="key">第九讲，无字真经。</span>师徒历尽千辛到了灵山，领到的第一批经书——<span class="key">无字经。</span>封面写着版本号，正文全是空白。<span class="joke">版本1.0，内容为负。像不像你熬三个月上线、用户说"我没看到啥变化"？</span></p>
+    <p>无字真经的本质，是<b>双方对"交付合格"的定义没对齐</b>——验收标准没有前置、没有书面化。所以第九讲的核心是：<span class="key">结项验收，标准必须前置、书面、有签字人。</span>验收流程要清清楚楚，别让"合格"成为一个心照不宣的黑洞。</p>
+    <p>这一讲还有另外两笔账：阿难伽叶索要<b>紫金钵盂</b>——那是质保金，留下的都是待解决的遗留问题；通天河<b>湿经晒经</b>——那是交付后要修补的缺陷。合起来就是一个完整交付观：<span class="key">交付不是终点，质保、遗留、修补，都是结项的一部分。</span>用教具⑤验收三栏清单。</p>
+  </div>
+</div>
+
+<div class="page" data-p="12">
+  <div class="pagemeta"><span class="tag g">第十讲 · 考核</span><span>第 12 段 / 13 · 课件第15页 · 约 6 分钟</span></div>
+  <div class="title">第十讲 · 正果封赏会：考核激励与绩效面谈</div>
+  <div class="script">
+    <p><span class="key">第十讲，正果封赏会。</span>取经收尾，如来封赏：唐僧成了旃檀功德佛、悟空斗战胜佛、沙僧金身罗汉、白龙马八部天龙——到八戒，净坛使者。<span class="stage">停顿</span>八戒当场就不服了，当着众神开口：<span class="key">"他们都成佛，怎么把我做个净坛使者？"</span></p>
+    <p>如来不恼不避，回了一句话，这是整本《西游记》里最顶级的一次绩效面谈："因汝口壮身慵，食肠宽大，净坛使者是个有受用的品级。"翻译一下他的四步法：<span class="key">① 当场回应不拖延；② 给事实依据（口壮身慵=考核记录）；③ 讲岗位匹配而非能力否定；④ 给台阶（岗位价值重述）。</span>四步，一步不少。<span class="joke">这一场面谈，够咱们 HR 反复观摩好几年。</span></p>
+    <p>落到考核激励，三件事：<span class="key">定级留痕</span>——考核定级有依据，写进档案；<span class="key">长期激励</span>——八戒没散成，不是因为觉悟，是因为<span class="key">成佛=期权</span>，长期绑定；最后<span class="key">复盘沉淀</span>——封赏完，把经验沉淀进组织资产。用教具⑧复盘主持框架、教具⑨封赏与改进方案。记住收尾这句：<span class="key">考核不怕有人不服，怕的是没有说服他的记录。</span></p>
+  </div>
+</div>
+
+<div class="page" data-p="13">
+  <div class="pagemeta"><span class="tag o">结业</span><span>第 13 段 / 13 · 课件第16页 · 约 5 分钟</span></div>
+  <div class="title">结业 · 凌云渡脱胎 · 观音令</div>
+  <div class="script">
+    <p>最后，咱们在<span class="key">凌云渡</span>结课。师徒过凌云渡，脱下肉身、脱胎换骨——观音在渡口等你一句话：<span class="key">"过了这道河，你就是取经办的人了。"</span></p>
+    <p>现在宣布结业作业，也是这堂课唯一的真作业：<span class="key">《本单位主流程优化方案》。</span>选你单位一条真实流程——立项、交付、结算，随便选一条——按四段式写：<span class="key">现状痛点 → 目标流程 → 过渡方案 → 风险预案。</span>≤3 页。优秀作业，直通 PMO 组立项池。<span class="joke">这不是模拟题，这是可以直接拿去立项的东西。</span></p>
+    <p>考核规则再说一遍：开考系统随机卷、双乱序、60 分钟、满分 100、20 题，<span class="key">95 分以上授予观音令。</span>观音令是番外徽章，不占五印，但它代表你"会管项目、也会搭体系的第六种角色"。</p>
+    <p>取经十讲，到此收官。以后你看到"沉没成本""范围蔓延""验收标准没对齐"，别慌——把它们翻译成西游，你就是观音门下的人了。下课，谢谢大家。</p>
+  </div>
+</div>
+
+</div>
+
+<div id="nav">
+  <div class="nav-row">
+    <div class="nav-btn" id="btnPrev">‹</div>
+    <div class="pager" id="pager"></div>
+    <div class="nav-btn" id="btnNext">›</div>
+  </div>
+  <div class="reader">
+    <button id="rbPlay" class="rb-btn primary">▶ 朗读</button>
+    <button id="rbPause" class="rb-btn" disabled>⏸ 暂停</button>
+    <button id="rbStop" class="rb-btn" disabled>⏹ 停止</button>
+    <select id="rbRate" class="rb-rate" title="语速">
+      <option value="0.85">0.85×</option>
+      <option value="1">1.0×</option>
+      <option value="1.1" selected>1.1×</option>
+      <option value="1.3">1.3×</option>
+    </select>
+  </div>
+  <div class="reader-info">
+    <span><span class="dot"></span><span id="rbVoice">云希 · 男声（音频待合成）</span></span>
+    <span id="rbPos">13 段</span>
+  </div>
+  <div class="hint" id="hint" style="text-align:center;font-size:10px;color:#bbb;margin-top:5px">‹ › 翻页 ｜ 点页码跳转 ｜ 第 1 段 / 共 13 段</div>
+</div>
+
+<script>
+(function(){
+  var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+  var pager = document.getElementById('pager');
+  var btnPrev = document.getElementById('btnPrev');
+  var btnNext = document.getElementById('btnNext');
+  var cur = 0;
+  var total = pages.length;
+  pages.forEach(function(p, i){
+    var b = document.createElement('button');
+    b.className = 'pnum'; b.textContent = i + 1;
+    b.addEventListener('click', function(){ go(i); });
+    pager.appendChild(b);
+  });
+  var nums = pager.querySelectorAll('.pnum');
+  function go(i){
+    if(i < 0 || i >= total) return;
+    pages[cur].classList.remove('active'); pages[i].classList.add('active'); cur = i;
+    nums.forEach(function(n, j){ n.classList.toggle('on', j === i); });
+    btnPrev.classList.toggle('disabled', cur === 0); btnNext.classList.toggle('disabled', cur === total - 1);
+    var t = nums[cur]; if(t && t.scrollIntoView){ t.scrollIntoView({block: 'nearest', inline: 'center'}); }
+    pages[cur].scrollTop = 0;
+    var hint = document.getElementById('hint');
+    if(hint){ hint.textContent = '‹ › 翻页 ｜ 点页码跳转 ｜ 第 ' + (cur + 1) + ' 段 / 共 ' + total + ' 段'; }
+  }
+  btnPrev.addEventListener('click', function(){ go(cur - 1); });
+  btnNext.addEventListener('click', function(){ go(cur + 1); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(cur + 1); }
+    else if(e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if(e.key === 'Home') { go(0); }
+    else if(e.key === 'End') { go(total - 1); }
+  });
+  var sx = 0, sy = 0, sw = false;
+  document.addEventListener('touchstart', function(e){ var t=e.changedTouches[0]; sx=t.clientX; sy=t.clientY; sw=true; }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!sw) return; sw=false;
+    var t=e.changedTouches[0]; var dx=t.clientX-sx, dy=t.clientY-sy;
+    if(Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5){ if(dx < 0) go(cur+1); else go(cur-1); }
+  }, {passive:true});
+  var rPlay=document.getElementById('rbPlay'), rPause=document.getElementById('rbPause'), rStop=document.getElementById('rbStop'), rRate=document.getElementById('rbRate'), rVoice=document.getElementById('rbVoice'), rPos=document.getElementById('rbPos');
+  var audio=null, reading=false, paused=false, ridx=0;
+  function rSet(){
+    rPlay.disabled = reading && !paused;
+    rPlay.textContent = (reading && paused) ? '▶ 继续' : '▶ 朗读';
+    rPause.disabled = !reading || paused;
+    rStop.disabled = !reading;
+    var dot = document.querySelector('#nav .reader-info .dot'); if(dot) dot.classList.toggle('on', reading);
+  }
+  function ensureAudio(){
+    if(!audio){
+      audio = new Audio('audio/pmo/full.mp3');
+      audio.preload = 'auto';
+      audio.onerror = function(){ rVoice.textContent = '朗读音频待合成（音频将在TTS合成后可用）'; };
+      audio.ontimeupdate = function(){ if(!reading || paused) return; rSet(); };
+      audio.onended = function(){ audio.pause(); reading=false; paused=false; ridx=0; rSet(); };
+    }
+    audio.playbackRate = parseFloat(rRate.value);
+    return audio;
+  }
+  function rStart(){
+    if(paused && audio){ paused=false; audio.play(); rSet(); return; }
+    if(reading) return;
+    var a=ensureAudio(); reading=true; paused=false; a.play().catch(function(){ reading=false; rSet(); });
+    rSet();
+  }
+  function rPauseFunc(){ if(!reading||paused) return; paused=true; if(audio) audio.pause(); rSet(); }
+  function rStop(){ if(audio){ audio.pause(); audio.currentTime=0; } reading=false; paused=false; ridx=0; rSet(); }
+  rPlay.addEventListener('click', rStart);
+  rPause.addEventListener('click', rPauseFunc);
+  rStop.addEventListener('click', rStop);
+  rRate.addEventListener('change', function(){ if(audio) audio.playbackRate = parseFloat(rRate.value); });
+  window.addEventListener('beforeunload', function(){ if(audio) audio.pause(); });
+  rSet();
+  go(0);
+})();
+</script>
+</body>
+</html>
