@@ -1,13 +1,13 @@
 {
-  "g0": true,
-  "c1": true,
-  "c2": true,
-  "c3": true,
-  "c4": true,
-  "pmo": true,
-  "index": true,
-  "test": true,
-  "score": true,
-  "templates": true,
-  "updated": "2026-10-20"
+  "g0": false,
+  "c1": false,
+  "c2": false,
+  "c3": false,
+  "c4": false,
+  "pmo": false,
+  "index": false,
+  "test": false,
+  "score": false,
+  "templates": false,
+  "updated": "2026-10-20T21:30 全部关闭（课前管控）"
 }
