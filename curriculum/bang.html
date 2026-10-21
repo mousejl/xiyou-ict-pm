@@ -26,36 +26,36 @@ body::after{content:"";position:fixed;inset:0;pointer-events:none;
 .sheet{position:fixed;inset:16px 24px;display:flex;flex-direction:column;}
 
 /* ===== 顶部：榜字 + 标题 + logo/二维码 ===== */
-.header{flex:0 0 auto;display:flex;align-items:center;gap:22px;padding:6px 8px 14px;
+.header{flex:0 0 auto;display:flex;align-items:center;gap:18px;padding:2px 8px 10px;
   border-bottom:1.5px solid var(--dash);}
-.bang{font-size:64px;font-weight:900;line-height:.95;color:var(--ink);letter-spacing:0;
+.bang{font-size:50px;font-weight:900;line-height:.95;color:var(--ink);letter-spacing:0;
   writing-mode:vertical-rl;text-orientation:upright;flex:0 0 auto;}
 .title{flex:1;min-width:0;}
-.title h1{font-size:24px;font-weight:900;letter-spacing:6px;color:var(--ink);}
-.title p{font-size:12.5px;letter-spacing:.3em;color:var(--sub);margin-top:6px;}
+.title h1{font-size:20px;font-weight:900;letter-spacing:6px;color:var(--ink);}
+.title p{font-size:11.5px;letter-spacing:.28em;color:var(--sub);margin-top:4px;}
 .title p b{color:var(--gold-d);}
 .brand{flex:0 0 auto;display:flex;align-items:center;gap:14px;}
-.brand .lg{width:64px;height:64px;}
-.brand .qr{width:72px;height:72px;background:#fff;padding:3px;border-radius:4px;box-shadow:0 2px 8px rgba(90,60,10,.18);}
+.brand .lg{width:52px;height:52px;}
+.brand .qr{width:60px;height:60px;background:#fff;padding:3px;border-radius:4px;box-shadow:0 2px 8px rgba(90,60,10,.18);}
 
 /* ===== 主体：六角色印格（通关文牒 stampboxs 样式，3列×2行） ===== */
-.stampboxs{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:14px;padding:18px 4px 10px;min-height:0;}
+.stampboxs{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:12px;padding:12px 4px 8px;min-height:0;}
 .stamp{
-  border:2px dashed var(--dash);border-radius:14px;padding:12px 10px;
-  background:#fffdf8;text-align:center;cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  border:2px dashed var(--dash);border-radius:12px;padding:8px 8px;
+  background:#fffdf8;text-align:center;cursor:pointer;min-height:0;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
   transition:transform .15s, box-shadow .15s, border-color .15s;
 }
 .stamp:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 8px 18px rgba(138,100,0,.16);}
-.stamp .rk{font-size:12px;letter-spacing:.2em;color:var(--gold-d);font-weight:700;}
-.stamp .seal{width:74px;height:74px;margin:2px auto 2px;display:block;transform:rotate(-6deg);}
-.stamp .nm{font-family:"KaiTi","STKaiti",serif;font-size:30px;font-weight:900;letter-spacing:6px;color:var(--ink);line-height:1.1;}
-.stamp .ro{font-size:12px;letter-spacing:.08em;color:var(--sub);}
+.stamp .rk{font-size:11.5px;letter-spacing:.2em;color:var(--gold-d);font-weight:700;}
+.stamp .seal{width:auto;height:auto;max-width:64px;max-height:64px;margin:1px auto;display:block;transform:rotate(-6deg);}
+.stamp .nm{font-family:"KaiTi","STKaiti",serif;font-size:28px;font-weight:900;letter-spacing:6px;color:var(--ink);line-height:1.05;}
+.stamp .ro{font-size:11.5px;letter-spacing:.06em;color:var(--sub);}
 
 /* ===== 底部：认证框（crownbox 样式） ===== */
-.crownbox{flex:0 0 auto;margin-top:4px;border:2px solid var(--gold);border-radius:12px;padding:10px 16px;text-align:center;
+.crownbox{flex:0 0 auto;margin-top:2px;border:2px solid var(--gold);border-radius:10px;padding:7px 16px;text-align:center;
   background:linear-gradient(135deg,#fdf8ec,#fffdf7);}
-.crownbox b{color:var(--gold-d);font-size:15px;letter-spacing:2px;}
+.crownbox b{color:var(--gold-d);font-size:13.5px;letter-spacing:2px;}
 .crownbox p{font-size:12px;color:var(--sub);margin-top:2px;letter-spacing:.08em;}
 
 /* ===== 单人详情 ===== */
